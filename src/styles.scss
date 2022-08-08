@@ -1,4 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; 
+    // font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: MuliRegular, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    
+ }
+
+.header-div {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+    position: fixed;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 7;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem !important;
+}
+
+.header-logo-txt {
+    font-size: 20px;
+    color: #529d3f;
+    font-weight: 800;
+}
+
+.header-logo {
+    border-radius: 50%;
+    width: auto !important;
+    background: #529d3f;
+    color: white;
+}
+
+.header-login {
+    color: #529d3f;
+    font-weight: 600;
+    text-align: end;
+}
+
+.home-gallery-footer {
+    background: #529d3f;
+    text-align: center;
+    font-size: 18px;
+    padding: 0.3rem;
+    color: white;
+    font-weight: 500;
+}
+
+.home-subtitle {
+    text-align: center;
+    color: #529d3f;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 4rem 1rem 1rem;
+}
+
+.home-txt {
+    color: #529d3f;
+    font-size: 1rem;
+    width: 40%;
+    line-height: 1.35;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.to-center {
+    display: flex;
+    justify-content: center;
+}

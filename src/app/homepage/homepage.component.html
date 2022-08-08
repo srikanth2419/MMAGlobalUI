@@ -1,0 +1,27 @@
+<div class="col-12 md:col-12 lg:col-12 no-padding">
+    <p-galleria [showIndicators]="true" [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true"
+        [containerStyle]="{'height': '500px'}" [circular]="true" [showThumbnailNavigators]="false" [circular]="true"
+        [autoPlay]="true" [value]="images" [transitionInterval]="2000">
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.previewImageSrc" style="width: 100%; display: flex; height: 520px;" />
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <div class="home-gallery-footer">
+                Now you can manage production process under one umbrella!!
+            </div>
+        </ng-template>
+    </p-galleria>
+</div>
+<div class="col-12 md:col-12 lg:col-12">
+    <div class="home-subtitle">
+        <span>WORK SMARTER, ACHIEVE GREATER!</span>
+    </div>
+    <div class="col-12 md:col-12 lg:col-12 to-center">
+        <div class="home-txt">
+            From Production planning to Marketing, MMAGlobal provides entire production management support on a single window, in a cloud based digital platform.
+        </div>
+        <div class="home-txt">
+            MMAGlobal avails production management services that aids you in achieving smart work with enhanced data security,  quick accessibility, easy tracking and better productivity.
+        </div>
+    </div>
+</div>

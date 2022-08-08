@@ -32,7 +32,10 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "./node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
           },
@@ -101,7 +104,10 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "./node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
           }
@@ -109,5 +115,8 @@
       }
     }
   },
-  "defaultProject": "MediaManage"
+  "defaultProject": "MediaManage",
+  "cli": {
+    "analytics": "49fe355a-4afa-4913-80a5-05b328028ed2"
+  }
 }
