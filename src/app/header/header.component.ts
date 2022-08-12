@@ -12,4 +12,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggle() {
+    this.display = !this.display;
+    console.log('disp', this.display)
+  }
+
 }

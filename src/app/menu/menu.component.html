@@ -1,0 +1,20 @@
+<div class="col-12 md:col-2 lg:col-2 menu-sidebar">
+    <div style="margin-top: 1.2rem;">
+        <div>
+            <span class="menu-item-subtitle">
+                <i class="pi pi-fw pi-home"></i>
+                 Dashboard </span>
+            </div>
+        <div *ngFor="let i of titles" class="col-12 md:col-12 lg:col-12">
+            <div>
+               <span class="menu-item-title"> {{i.title}} </span>
+            <div class="menu-item-subtitle" *ngFor="let j of items">
+                <div *ngIf="(i.id == j.id)">    
+                <i class="{{j.icon}}"></i>
+                <span>{{j.label}}</span>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

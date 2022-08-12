@@ -5,7 +5,8 @@ body { margin: 0;
     // font-family: Roboto, "Helvetica Neue", sans-serif;
     font-family: MuliRegular, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
-    
+    position: absolute;
+    background: linear-gradient(99deg, #F6F9FE 0%, #E8F1F8 100%);
  }
 
 .header-div {
@@ -58,6 +59,33 @@ body { margin: 0;
     font-size: 1rem;
     width: 40%;
     line-height: 1.35;
+}
+
+.menu-sidebar {
+    margin-top: 3.5rem;
+    position: fixed;
+    overflow-y: auto;
+    background-color: #3C4962;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 6%);
+    padding: 0 !important;
+    overflow-x: hidden;
+    height: -webkit-fill-available !important;
+}
+
+.menu-item-title {
+    color: #CDD2DB;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+}
+
+.menu-item-subtitle {
+    color: #CDD2DB;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 10px;
 }
 
 .no-padding {
