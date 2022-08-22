@@ -146,4 +146,6 @@ body { margin: 0;
 .p-inputtext {
     width: -webkit-fill-available;
 }
-.p-dropdown{ width: 100% } 
+.p-float-label label {
+    font-size: 13px !important;
+}
