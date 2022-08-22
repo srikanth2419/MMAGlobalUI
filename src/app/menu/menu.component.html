@@ -1,10 +1,15 @@
-<div class="col-12 md:col-2 lg:col-2 menu-sidebar">
-    <div style="margin-top: 1.2rem;">
-        <div>
+<div *ngIf="!hide" class="col-8 md:col-3 lg:col-2 menu-sidebar">
+    <div style="margin-top: 2rem;">
+        <div style="margin-bottom: 0.5rem;" [routerLink]="['/home']">
             <span class="menu-item-subtitle">
                 <i class="pi pi-fw pi-home"></i>
-                 Dashboard </span>
+                 Home </span>
             </div>
+            <div style="margin-bottom: 0.5rem;" [routerLink]="['/registration']">
+                <span class="menu-item-subtitle">
+                    <i class="pi pi-fw pi-pencil"></i>
+                     Registration </span>
+                </div>
         <div *ngFor="let i of titles" class="col-12 md:col-12 lg:col-12">
             <div>
                <span class="menu-item-title"> {{i.title}} </span>

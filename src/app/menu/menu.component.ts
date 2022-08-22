@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -9,6 +9,8 @@ import { MenuItem } from 'primeng/api';
 export class MenuComponent implements OnInit {
   items: MenuItem[] = [];
   titles: any[] = [];
+  @Input() hide: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

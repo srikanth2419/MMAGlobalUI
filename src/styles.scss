@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import url("../node_modules/primeicons/primeicons.css");
+@import url("../node_modules/primeng/resources/themes/saga-orange/theme.css");
+@import url("../node_modules/primeng/resources/primeng.min.css");
 html, body { height: 100%; }
 body { margin: 0; 
     // font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -7,6 +9,7 @@ body { margin: 0;
     overflow-x: hidden;
     position: absolute;
     background: linear-gradient(99deg, #F6F9FE 0%, #E8F1F8 100%);
+    width: 100% !important;
  }
 
 .header-div {
@@ -56,9 +59,9 @@ body { margin: 0;
 
 .home-txt {
     color: #529d3f;
-    font-size: 1rem;
+    font-size: 17px;
     width: 40%;
-    line-height: 1.35;
+    line-height: 1.5;
 }
 
 .menu-sidebar {
@@ -70,6 +73,8 @@ body { margin: 0;
     padding: 0 !important;
     overflow-x: hidden;
     height: -webkit-fill-available !important;
+    transition: transform 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+    z-index: 5;
 }
 
 .menu-item-title {
@@ -88,6 +93,16 @@ body { margin: 0;
     margin: 10px;
 }
 
+.menu-bars {
+    border-radius: 50%;
+    background: #f3f9e7;
+    width: 35px !important;
+    height: 35px !important;
+    display: flex;
+    justify-content: center;
+    color: #3c4962;
+}
+
 .no-padding {
     padding: 0 !important;
 }
@@ -96,3 +111,39 @@ body { margin: 0;
     display: flex;
     justify-content: center;
 }
+
+.gradient-custom {
+    /* fallback for old browsers */
+    height: 655px !important;
+    background: #529d3f;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgb(15, 223, 95), rgb(117, 247, 100));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgb(15, 223, 95), rgb(117, 247, 100));
+    }
+
+.card {
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+    border-radius: 3px;
+}
+
+.login-bg-img {
+    position:absolute;
+    width: 100%;
+    height: -webkit-fill-available;
+    opacity: .7;
+}
+
+.login-content {
+    padding-top: 5% !important;
+    color: #c3baba !important;
+    position:relative;
+}
+
+
+.p-inputtext {
+    width: -webkit-fill-available;
+}
+.p-dropdown{ width: 100% } 
