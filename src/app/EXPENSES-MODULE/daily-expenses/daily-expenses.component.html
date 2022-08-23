@@ -1,0 +1,74 @@
+<div class="col-12 md:col-12 lg:col-12">
+    <p-panel header="Daily Expenses">
+        <div class="col-12 md:col-12 lg:col-12">
+            <div>Project Selection</div>
+        <p-card>
+        
+                <div #row1 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-calendar [(ngModel)]="date" name="_date" [showIcon]="true" inputId="datevalue">
+                                </p-calendar>
+                                <label for="_date">Date</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <span class="p-float-label">
+                                <input type="text" id="projectname" name="_pname" pInputText [(ngModel)]="projectName"
+                                    required />
+                                <label for="_pname">Project Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="budgetamnt" name="_amount" pInputText [(ngModel)]="budgetAmount"
+                                     required />
+                                <label for="_amount">Budget Amount</label>
+                            </span>
+                        </div>
+                    </div>
+                       
+                    </div>
+                    </p-card>
+        <div class="col-12 md:col-12 lg:col-12"></div>
+        <div>Invoice Entry</div>
+                 <p-card>       
+                <div #row2 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="incoiceno" name="_invoiceno" pInputText [(ngModel)]="invoiceNumber" required />
+                                <label for="_invoiceno">Invoice Number</label>
+                            </span>
+                        </div>
+                        
+                         
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="expensesOptions" [(ngModel)]="expensesCategory" name="_expensecategory">
+                                </p-dropdown>
+                                <label for="_expensecategory">Expenses Category</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="amnt" name="_amnt" pInputText [(ngModel)]="amount"
+                                     required />
+                                <label for="_amnt"> Amount</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-1">
+
+                        <button pButton type="button" label="Add +"></button>
+                        </div>
+                        
+                    </div>
+                </div>
+                 </p-card>
+                <!-- <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                        <button pButton type="button" label="Register"></button>
+                </div> -->
+        </div>
+    </p-panel>
+</div>
