@@ -1,0 +1,105 @@
+<div class="col-12 md:col-12 lg:col-12">
+    <p-panel header="Location Info">
+        <div class="col-12 md:col-12 lg:col-12">
+            <form #rf="ngForm">
+                <div #row1 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="locationname" name="_Lname" pInputText [(ngModel)]="locationName"
+                                    required />
+                                <label for="_Lname">Location Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="locationOptions" [(ngModel)]="locationManager" name="_lmanager">
+                                </p-dropdown>
+                                <label for="_lmanager">Location Manager</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="locationEPOptions" [(ngModel)]="locationEP" name="_locationep">
+                                </p-dropdown>
+                                <label for="_locationep">Location EP</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="countryOptions" [(ngModel)]="country" name="_country">
+                                </p-dropdown>
+                                <label for="_country">Country</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="stateOptions" [(ngModel)]="state" name="_state"></p-dropdown>
+                                <label for="_state">State</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div #row2 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="cityOptions" [(ngModel)]="city" name="_city">
+                                </p-dropdown>
+                                <label for="_city">City</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="addr1" name="_addr1" pInputText [(ngModel)]="addressLine1"
+                                    required />
+                                <label for="_addr1">Address Line 1</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="addr2" name="_addr2" pInputText [(ngModel)]="addressLine2"
+                                    required />
+                                <label for="_addr2">Address Line 2</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="pcode" name="_pincode" pInputText [(ngModel)]="pincode"
+                                    maxlength="6" required />
+                                <label for="_pincode">Pincode</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="mobno" name="_mobno" pInputText [(ngModel)]="mobileNo"
+                                    maxlength="10" required />
+                                <label for="_mobno">Mobile No</label>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div #row3 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <label>Parking Facility</label>
+                            <div>
+                                <p-radioButton name="Flag" label="Yes" value=1 [(ngModel)]="selectedType" required>
+                                </p-radioButton>
+                                <p-radioButton name="Flag" label="No" value=0 [(ngModel)]="selectedType" required>
+                                </p-radioButton>
+                            </div>
+                        </div>
+                        <!-- <div class="field col-12 md:col-3 lg:col-1">
+                            <button pButton type="button" label="Save"></button>
+                        </div> -->
+                    </div>
+                </div>
+                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton type="button" label="Save"></button>
+                </div>
+            </form>
+        </div>
+    </p-panel>
+</div>

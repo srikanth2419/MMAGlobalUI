@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DailyExpensesComponent } from './EXPENSES-MODULE/daily-expenses/daily-expenses.component';
 import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-list.component';
+import { LocationInfoComponent } from './FORMS-MODULE/location-info/location-info.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { MaincategoryMasterComponent } from './master/maincategory-master/maincategory-master.component';
@@ -24,6 +26,13 @@ const routes: Routes = [
   { path: 'state-master', component: StateMasterComponent},
   { path: 'contacts-list', component: ContactsListComponent },
 
+
+  //FORMS
+  { path: 'contacts-list', component: ContactsListComponent },
+  { path: 'location-info', component: LocationInfoComponent },
+
+  //Expenses
+  { path: 'daily-expenses', component: DailyExpensesComponent },
 ];
 
 @NgModule({
