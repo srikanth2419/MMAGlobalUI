@@ -28,6 +28,8 @@ import { MaincategoryMasterComponent } from './master/maincategory-master/mainca
 import { SubcategoryMasterComponent } from './master/subcategory-master/subcategory-master.component';
 import { StateMasterComponent } from './master/state-master/state-master.component';
 import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-list.component';
+import { CountryMasterComponent } from './master/country-master/country-master.component';
+import { CityMasterComponent } from './master/city-master/city-master.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-lis
     MaincategoryMasterComponent,
     SubcategoryMasterComponent,
     StateMasterComponent,
-    ContactsListComponent
+    ContactsListComponent,
+    CountryMasterComponent,
+    CityMasterComponent
   ],
   imports: [
     BrowserModule,
