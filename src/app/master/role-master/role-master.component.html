@@ -1,0 +1,30 @@
+<div class="col-12 md:col-12 lg:col-12">
+    <p-panel header="Role Master">
+        <div class="col-12 md:col-12 lg:col-12">
+            <form #rf="ngForm">
+                <div #row1 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <span class="p-float-label">
+                                <input type="text" id="roleName" name="_rolename" pInputText
+                                    [(ngModel)]="roleName" required />
+                                <label for="_rolename">Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">                         
+                            <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType"
+                                required>
+                            </p-radioButton>&nbsp;
+                            <p-radioButton name="Flag" label="INACTIVE" value=0 [(ngModel)]="selectedType"
+                                required>
+                            </p-radioButton>                        
+                        </div>
+                     </div>
+                </div>
+                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton type="button" label="Submit"></button>
+            </div>
+            </form>
+        </div>
+    </p-panel>
+</div>

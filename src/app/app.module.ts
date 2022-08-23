@@ -18,6 +18,13 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { MenuComponent } from './menu/menu.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
+import { RoleMasterComponent } from './master/role-master/role-master.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { MenuMasterComponent } from './master/menu-master/menu-master.component';
+import { UnionMasterComponent } from './master/union-master/union-master.component';
+import { MaincategoryMasterComponent } from './master/maincategory-master/maincategory-master.component';
+import { SubcategoryMasterComponent } from './master/subcategory-master/subcategory-master.component';
+import { StateMasterComponent } from './master/state-master/state-master.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +33,13 @@ import { LoginComponent } from './login/login.component';
     HomepageComponent,
     MenuComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    RoleMasterComponent,
+    MenuMasterComponent,
+    UnionMasterComponent,
+    MaincategoryMasterComponent,
+    SubcategoryMasterComponent,
+    StateMasterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +53,8 @@ import { LoginComponent } from './login/login.component';
     CardModule,
     ButtonModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    RadioButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
