@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,7 @@ import { UnionMasterComponent } from './master/union-master/union-master.compone
 import { MaincategoryMasterComponent } from './master/maincategory-master/maincategory-master.component';
 import { SubcategoryMasterComponent } from './master/subcategory-master/subcategory-master.component';
 import { StateMasterComponent } from './master/state-master/state-master.component';
+import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { StateMasterComponent } from './master/state-master/state-master.compone
     UnionMasterComponent,
     MaincategoryMasterComponent,
     SubcategoryMasterComponent,
-    StateMasterComponent
+    StateMasterComponent,
+    ContactsListComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,8 @@ import { StateMasterComponent } from './master/state-master/state-master.compone
     ButtonModule,
     CalendarModule,
     DropdownModule,
-    RadioButtonModule
+    RadioButtonModule,
+    CheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -137,7 +137,7 @@ body { margin: 0;
 }
 
 .login-content {
-    padding-top: 5% !important;
+    padding-top: 10% !important;
     color: #c3baba !important;
     position:relative;
 }
@@ -146,4 +146,6 @@ body { margin: 0;
 .p-inputtext {
     width: -webkit-fill-available;
 }
-.p-dropdown{ width: 100% } 
+.p-float-label label {
+    font-size: 13px !important;
+}

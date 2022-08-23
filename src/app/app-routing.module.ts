@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-list.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { MaincategoryMasterComponent } from './master/maincategory-master/maincategory-master.component';
@@ -20,7 +21,9 @@ const routes: Routes = [
   { path: 'union-master', component:UnionMasterComponent},
   { path: 'maincategory-master', component: MaincategoryMasterComponent},
   { path: 'subcategory-master', component: SubcategoryMasterComponent},
-  { path: 'state-master', component: StateMasterComponent}
+  { path: 'state-master', component: StateMasterComponent},
+  { path: 'contacts-list', component: ContactsListComponent },
+
 ];
 
 @NgModule({
