@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { MenuComponent } from './menu/menu.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
+import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { LoginComponent } from './login/login.component';
     HomepageComponent,
     MenuComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    ContactsListComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ import { LoginComponent } from './login/login.component';
     CardModule,
     ButtonModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    CheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
