@@ -1,0 +1,103 @@
+<div class="col-12 md:col-12 lg:col-12">
+    <p-panel header="Shooting Schedule">
+        <div class="col-12 md:col-12 lg:col-12">
+            <form #shootingForm="ngForm">
+                <div #row1 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
+                                    name="_projectname">
+                                </p-dropdown>
+                                <label for="_projectname">Project Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" name="_scheduleDay" pInputText [(ngModel)]="scheduleDay"
+                                    required />
+                                <label for="_scheduleDay">Schedule Day</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-calendar [(ngModel)]="scheduleDate" name="_scheduleDate" [showIcon]="true">
+                                </p-calendar>
+                                <label for="_scheduleDate">Schedule Date</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="dayNightOptions" [(ngModel)]="dayNight"
+                                    name="_dayNight">
+                                </p-dropdown>
+                                <label for="_dayNight">Day/Night</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="designOptions" [(ngModel)]="design"
+                                    name="_design">
+                                </p-dropdown>
+                                <label for="_design">Interior/Exterior</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" name="_scene" pInputText [(ngModel)]="scene"
+                                    required />
+                                <label for="_scene">Scene</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" name="_characters" pInputText [(ngModel)]="characters"
+                                    required />
+                                <label for="_characters">Characters</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="statusOptions" [(ngModel)]="status"
+                                    name="_status">
+                                </p-dropdown>
+                                <label for="_status">Status</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div #row2 class="col-12 md:col-12 lg:col-12">
+                    <p-table [columns]="shootingScheduleCols" [value]="shootingScheduleDetails" 
+                    [(selection)]="selectedPerson" dataKey="name" styleClass="p-datatable-gridlines" 
+                     responsiveLayout="scroll">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th style="width: 3rem">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th>S.No.</th>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                            <tr>
+                                <td>
+                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                </td>
+                                <td>{{rowIndex+1}}</td>
+                                <td *ngFor="let col of columns">
+                                    {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <div #row3 class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton type="button" label="Save"></button>
+                </div>
+            </form>
+        </div>
+    </p-panel>
+</div>
