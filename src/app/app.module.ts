@@ -10,6 +10,8 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TableModule } from 'primeng/table';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +32,7 @@ import { UnionMasterComponent } from './MASTERS-MODULE/union-master/union-master
 import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-master/maincategory-master.component';
 import { SubcategoryMasterComponent } from './MASTERS-MODULE/subcategory-master/subcategory-master.component';
 import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master.component';
+import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-category-master/expenses-category-master.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master
     StateMasterComponent,
     ContactsListComponent,
     LocationInfoComponent,
-    DailyExpensesComponent
+    DailyExpensesComponent,
+    ExpensesCategoryMasterComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,7 @@ import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master
     DropdownModule,
     RadioButtonModule,
     CheckboxModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

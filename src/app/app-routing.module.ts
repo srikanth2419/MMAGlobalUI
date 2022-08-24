@@ -5,6 +5,7 @@ import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-lis
 import { LocationInfoComponent } from './FORMS-MODULE/location-info/location-info.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
+import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-category-master/expenses-category-master.component';
 import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-master/maincategory-master.component';
 import { MenuMasterComponent } from './MASTERS-MODULE/menu-master/menu-master.component';
 import { RoleMasterComponent } from './MASTERS-MODULE/role-master/role-master.component';
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: 'home', component: HomepageComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
+
+  //Master-Entry
   { path: 'role-master', component: RoleMasterComponent },
   { path: 'menu-master', component: MenuMasterComponent},
   { path: 'union-master', component:UnionMasterComponent},
@@ -25,7 +28,7 @@ const routes: Routes = [
   { path: 'subcategory-master', component: SubcategoryMasterComponent},
   { path: 'state-master', component: StateMasterComponent},
   { path: 'contacts-list', component: ContactsListComponent },
-
+  { path: 'expenses-category', component: ExpensesCategoryMasterComponent },
 
   //FORMS
   { path: 'contacts-list', component: ContactsListComponent },

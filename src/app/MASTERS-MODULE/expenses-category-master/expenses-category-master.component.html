@@ -1,0 +1,37 @@
+<div class="col-12 md:col-12 lg:col-12">
+    <p-panel header="Expenses Category Master">
+        <div class="col-12 md:col-12 lg:col-12">
+            <form #rf="ngForm">
+                <div #row1 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="expensename" name="_expense" pInputText [(ngModel)]="expenseName"
+                                    required />
+                                <label for="_expense">Expense Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="remark" name="_remarks" pInputText [(ngModel)]="remarks"
+                                    required />
+                                <label for="_remarks">Remarks</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <div>
+                                <p-radioButton name="Flag" label="Active" value=1 [(ngModel)]="selectedType" required>
+                                </p-radioButton>
+                                <p-radioButton name="Flag" label="Inactive" value=0 [(ngModel)]="selectedType" required>
+                                </p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton type="button" label="Save"></button>
+                </div>
+            </form>
+        </div>
+    </p-panel>
+</div>
