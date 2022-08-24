@@ -1,0 +1,93 @@
+<div class="col-12 md:col-12 lg:col-12">
+    <p-panel header="Fund Utilization">
+        <div class="col-12 md:col-12 lg:col-12">
+            <form #fundForm="ngForm">
+                <div #row1 class="col-12 md:col-12 lg:col-12 no-pad-top">
+                    <div class="p-fluid grid">
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
+                                    name="_projectname">
+                                </p-dropdown>
+                                <label for="_projectname">Project Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount" readonly="true"
+                                    required />
+                                <label for="_budget">Budget</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div #row2 class="col-12 md:col-12 lg:col-12 no-pad-top">
+                    <p-card>
+                        <div class="p-fluid grid to-center">
+                            <div class="field col-12 md:col-3 lg:col-2">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="personNameOptions" [(ngModel)]="personName"
+                                        name="_personName">
+                                    </p-dropdown>
+                                    <label for="_personName">Person Name</label>
+                                </span>
+                            </div>
+                            <div class="field col-12 md:col-3 lg:col-2">
+                                <span class="p-float-label">
+                                    <p-dropdown [options]="paymentByOptions" [(ngModel)]="paymentBy" name="_paymentBy">
+                                    </p-dropdown>
+                                    <label for="_paymentBy">Payment By</label>
+                                </span>
+                            </div>
+                            <div class="field col-12 md:col-3 lg:col-2">
+                                <span class="p-float-label">
+                                    <input type="text" name="_amount" pInputText [(ngModel)]="amount" required />
+                                    <label for="_amount">Amount</label>
+                                </span>
+                            </div>
+                            <div class="field col-12 md:col-3 lg:col-2">
+                                <span class="p-float-label">
+                                    <input type="text" name="_daycall" pInputText [(ngModel)]="dayCall" required />
+                                    <label for="_daycall">Day Or Call</label>
+                                </span>
+                            </div>
+                            <div class="field col-12 md:col-3 lg:col-2">
+                                <span class="p-float-label">
+                                    <input type="text" name="_totalAmount" pInputText [(ngModel)]="totalAmount"
+                                        readonly="true" required />
+                                    <label for="_totalAmount">Total Amount</label>
+                                </span>
+                            </div>&nbsp;&nbsp;
+                            <div class="col-4 md:col-2 lg:col-1">
+                                <button pButton type="button" label="Enter"></button>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+                <div #row3 class="col-12 md:col-12 lg:col-12">
+                    <p-table [columns]="fundCols" [value]="fundDetails" styleClass="p-datatable-gridlines"  responsiveLayout="scroll">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th>S.No.</th>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                            <tr>
+                                <td>{{rowIndex+1}}</td>
+                                <td *ngFor="let col of columns">
+                                    {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton type="button" label="Save"></button>
+                </div>
+            </form>
+        </div>
+    </p-panel>
+</div>

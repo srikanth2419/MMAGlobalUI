@@ -11,8 +11,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
-
-
+import { TabViewModule } from 'primeng/tabview';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,21 +22,10 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { MenuComponent } from './menu/menu.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
-import { RoleMasterComponent } from './MASTERS-MODULE/role-master/role-master.component';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-list.component';
-import { CountryMasterComponent } from './master/country-master/country-master.component';
-import { CityMasterComponent } from './master/city-master/city-master.component';
-import { LocationInfoComponent } from './FORMS-MODULE/location-info/location-info.component';
-import { DailyExpensesComponent } from './EXPENSES-MODULE/daily-expenses/daily-expenses.component';
-import { MenuMasterComponent } from './MASTERS-MODULE/menu-master/menu-master.component';
-import { UnionMasterComponent } from './MASTERS-MODULE/union-master/union-master.component';
-import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-master/maincategory-master.component';
-import { SubcategoryMasterComponent } from './MASTERS-MODULE/subcategory-master/subcategory-master.component';
-import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master.component';
-import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-category-master/expenses-category-master.component';
-import { NewprojectcreationMasterComponent } from './master/newprojectcreation-master/newprojectcreation-master.component';
-
+import { FundUtilizationComponent } from './FORMS-MODULE/fund-utilization/fund-utilization.component';
+import { CallSheetComponent } from './FORMS-MODULE/call-sheet/call-sheet.component';
+import { ShootingScheduleComponent } from './FORMS-MODULE/shooting-schedule/shooting-schedule.component';
 
 @NgModule({
   declarations: [
@@ -46,19 +35,10 @@ import { NewprojectcreationMasterComponent } from './master/newprojectcreation-m
     MenuComponent,
     RegistrationComponent,
     LoginComponent,
-    RoleMasterComponent,
-    MenuMasterComponent,
-    UnionMasterComponent,
-    MaincategoryMasterComponent,
-    SubcategoryMasterComponent,
-    StateMasterComponent,
     ContactsListComponent,
-    CountryMasterComponent,
-    CityMasterComponent,
-    LocationInfoComponent,
-    DailyExpensesComponent,
-    NewprojectcreationMasterComponent,
-    ExpensesCategoryMasterComponent
+    FundUtilizationComponent,
+    CallSheetComponent,
+    ShootingScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -73,9 +53,10 @@ import { NewprojectcreationMasterComponent } from './master/newprojectcreation-m
     ButtonModule,
     CalendarModule,
     DropdownModule,
-    RadioButtonModule,
     CheckboxModule,
-    TableModule
+    TableModule,
+    TabViewModule,
+    RadioButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

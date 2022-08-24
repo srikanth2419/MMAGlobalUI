@@ -16,11 +16,11 @@ export class RegistrationComponent implements OnInit {
   password: string = '';
   confirmPwd: string = '';
   countryOptions: SelectItem[] = [];
-  country: string = '';
+  country: any;
   stateOptions: SelectItem[] = [];
-  state: string = '';
+  state: any;
   cityOptions: SelectItem[] = [];
-  city: string = '';
+  city: any;
   addressLine1: string = '';
   addressLine2: string = '';
   pincode: any;

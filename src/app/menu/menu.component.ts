@@ -15,9 +15,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-            {label: 'Enterprise Hub', icon: 'pi pi-fw pi-database', id: '1'},
-            {label: 'Academy', icon: 'pi pi-fw pi-building', id: '1'},
-            {label: 'Support', icon: 'pi pi-fw pi-users', id: '1'},
+            {label: 'Call Sheet', icon: 'pi pi-fw pi-book', id: '1', routerLink: '/call-sheet'},
+            {label: 'Shooting Schedule', icon: 'pi pi-fw pi-clock', id: '1', routerLink: '/shooting-schedule'},
             {label: 'Production Management', icon: 'pi pi-fw pi-chart-bar', id: '2'},
             {label: 'Media Broadcast', icon: 'pi pi-fw pi-globe', id: '2'},
             {label: 'Staffing & Funds', icon: 'pi pi-fw pi-inbox', id: '2'},
@@ -25,12 +24,12 @@ export class MenuComponent implements OnInit {
             {label: 'Insight Solutions', icon: 'pi pi-fw pi-search', id: '3'},
             {label: 'News & Events', icon: 'pi pi-fw pi-telegram', id: '3'},
             {label: 'Payroll & Labor Insights', icon: 'pi pi-fw pi-money-bill', id: '3'},
+            {label: 'Fund Utilization', icon: 'pi pi-fw pi-briefcase', id: '4', routerLink: '/fund-utilization'},
             {label: 'Production Incentives', icon: 'pi pi-fw pi-envelope', id: '4'},
             {label: 'Payroll', icon: 'pi pi-fw pi-wallet', id: '4'},
-            {label: 'Production Finance', icon: 'pi pi-fw pi-briefcase', id: '4'},
     ];
     this.titles = [
-      { title: 'Industry', id: '1' },
+      { title: 'Shooting', id: '1' },
       { title: 'Production', id: '2' },
       { title: 'Insights', id: '3' },
       { title: 'Finance', id: '4' },
