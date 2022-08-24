@@ -12,10 +12,27 @@ export class CityMasterComponent implements OnInit {
   state: any;
   stateOptions: SelectItem [] = [];
   selectedType: any;
+  citymasterCols: any;
+  citymasterData: any [] = [];
+  spinner: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.citymasterCols = [
+      { field: 'cityname', header: 'City Name', align: 'left !important' },
+      { field: 'State', header: 'State', align: 'left !important' },     
+      { field: 'Status', header: 'Status', align: 'left !important'},      
+    ]
+  }
+
+  onSubmit() {
+    this.citymasterData.push({
+      'cityname': this.cityName,
+      'state': this.state,
+      'status': (this.selectedType * 1)      
+    })
+
   }
 
 }
