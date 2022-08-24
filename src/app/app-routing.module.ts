@@ -29,7 +29,6 @@ const routes: Routes = [
   { path: 'maincategory-master', component: MaincategoryMasterComponent},
   { path: 'subcategory-master', component: SubcategoryMasterComponent},
   { path: 'state-master', component: StateMasterComponent},
-  { path: 'contacts-list', component: ContactsListComponent },
   { path: 'expenses-category', component: ExpensesCategoryMasterComponent },
 
   { path: 'country-master', component: CountryMasterComponent},
