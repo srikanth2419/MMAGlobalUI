@@ -25,6 +25,8 @@ import { LoginComponent } from './login/login.component';
 import { RoleMasterComponent } from './MASTERS-MODULE/role-master/role-master.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-list.component';
+import { CountryMasterComponent } from './master/country-master/country-master.component';
+import { CityMasterComponent } from './master/city-master/city-master.component';
 import { LocationInfoComponent } from './FORMS-MODULE/location-info/location-info.component';
 import { DailyExpensesComponent } from './EXPENSES-MODULE/daily-expenses/daily-expenses.component';
 import { MenuMasterComponent } from './MASTERS-MODULE/menu-master/menu-master.component';
@@ -33,6 +35,7 @@ import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-maste
 import { SubcategoryMasterComponent } from './MASTERS-MODULE/subcategory-master/subcategory-master.component';
 import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master.component';
 import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-category-master/expenses-category-master.component';
+
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-categ
     SubcategoryMasterComponent,
     StateMasterComponent,
     ContactsListComponent,
+    CountryMasterComponent,
+    CityMasterComponent,
     LocationInfoComponent,
     DailyExpensesComponent,
     ExpensesCategoryMasterComponent

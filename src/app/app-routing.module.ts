@@ -6,6 +6,8 @@ import { LocationInfoComponent } from './FORMS-MODULE/location-info/location-inf
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-category-master/expenses-category-master.component';
+import { CityMasterComponent } from './master/city-master/city-master.component';
+import { CountryMasterComponent } from './master/country-master/country-master.component';
 import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-master/maincategory-master.component';
 import { MenuMasterComponent } from './MASTERS-MODULE/menu-master/menu-master.component';
 import { RoleMasterComponent } from './MASTERS-MODULE/role-master/role-master.component';
@@ -30,10 +32,11 @@ const routes: Routes = [
   { path: 'contacts-list', component: ContactsListComponent },
   { path: 'expenses-category', component: ExpensesCategoryMasterComponent },
 
+  { path: 'country-master', component: CountryMasterComponent},
+  { path: 'city-master', component: CityMasterComponent},
   //FORMS
   { path: 'contacts-list', component: ContactsListComponent },
   { path: 'location-info', component: LocationInfoComponent },
-
   //Expenses
   { path: 'daily-expenses', component: DailyExpensesComponent },
 ];
