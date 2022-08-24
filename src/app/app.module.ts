@@ -32,6 +32,7 @@ import { UnionMasterComponent } from './MASTERS-MODULE/union-master/union-master
 import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-master/maincategory-master.component';
 import { SubcategoryMasterComponent } from './MASTERS-MODULE/subcategory-master/subcategory-master.component';
 import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master.component';
+import { NewprojectcreationMasterComponent } from './master/newprojectcreation-master/newprojectcreation-master.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master
     CountryMasterComponent,
     CityMasterComponent,
     LocationInfoComponent,
-    DailyExpensesComponent
+    DailyExpensesComponent,
+    NewprojectcreationMasterComponent
   ],
   imports: [
     BrowserModule,
