@@ -26,6 +26,17 @@ import { ContactsListComponent } from './FORMS-MODULE/contacts-list/contacts-lis
 import { FundUtilizationComponent } from './FORMS-MODULE/fund-utilization/fund-utilization.component';
 import { CallSheetComponent } from './FORMS-MODULE/call-sheet/call-sheet.component';
 import { ShootingScheduleComponent } from './FORMS-MODULE/shooting-schedule/shooting-schedule.component';
+import { CityMasterComponent } from './master/city-master/city-master.component';
+import { LocationInfoComponent } from './FORMS-MODULE/location-info/location-info.component';
+import { NewprojectcreationMasterComponent } from './master/newprojectcreation-master/newprojectcreation-master.component';
+import { DailyExpensesComponent } from './EXPENSES-MODULE/daily-expenses/daily-expenses.component';
+import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-category-master/expenses-category-master.component';
+import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-master/maincategory-master.component';
+import { MenuMasterComponent } from './MASTERS-MODULE/menu-master/menu-master.component';
+import { RoleMasterComponent } from './MASTERS-MODULE/role-master/role-master.component';
+import { StateMasterComponent } from './MASTERS-MODULE/state-master/state-master.component';
+import { SubcategoryMasterComponent } from './MASTERS-MODULE/subcategory-master/subcategory-master.component';
+import { UnionMasterComponent } from './MASTERS-MODULE/union-master/union-master.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +50,17 @@ import { ShootingScheduleComponent } from './FORMS-MODULE/shooting-schedule/shoo
     FundUtilizationComponent,
     CallSheetComponent,
     ShootingScheduleComponent,
-    
+    CityMasterComponent,
+    LocationInfoComponent,
+    DailyExpensesComponent,
+    NewprojectcreationMasterComponent,
+    ExpensesCategoryMasterComponent,
+    MaincategoryMasterComponent,
+    MenuMasterComponent,
+    RoleMasterComponent,
+    StateMasterComponent,
+    SubcategoryMasterComponent,
+    UnionMasterComponent
   ],
   imports: [
     BrowserModule,
