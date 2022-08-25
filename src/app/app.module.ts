@@ -38,7 +38,8 @@ import { ShootingScheduleComponent } from './FORMS-MODULE/shooting-schedule/shoo
     ContactsListComponent,
     FundUtilizationComponent,
     CallSheetComponent,
-    ShootingScheduleComponent
+    ShootingScheduleComponent,
+    
   ],
   imports: [
     BrowserModule,
