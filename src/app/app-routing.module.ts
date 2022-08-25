@@ -8,9 +8,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ExpensesCategoryMasterComponent } from './MASTERS-MODULE/expenses-category-master/expenses-category-master.component';
-import { CityMasterComponent } from './master/city-master/city-master.component';
-import { CountryMasterComponent } from './master/country-master/country-master.component';
-import { NewprojectcreationMasterComponent } from './master/newprojectcreation-master/newprojectcreation-master.component';
 import { MaincategoryMasterComponent } from './MASTERS-MODULE/maincategory-master/maincategory-master.component';
 import { MenuMasterComponent } from './MASTERS-MODULE/menu-master/menu-master.component';
 import { RoleMasterComponent } from './MASTERS-MODULE/role-master/role-master.component';
@@ -19,6 +16,9 @@ import { SubcategoryMasterComponent } from './MASTERS-MODULE/subcategory-master/
 import { UnionMasterComponent } from './MASTERS-MODULE/union-master/union-master.component';
 import { LocationInfoComponent } from './FORMS-MODULE/location-info/location-info.component';
 import { DailyExpensesComponent } from './EXPENSES-MODULE/daily-expenses/daily-expenses.component';
+import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcreation-master/newprojectcreation-master.component';
+import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.component';
+import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
