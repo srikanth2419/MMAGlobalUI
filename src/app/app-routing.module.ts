@@ -19,10 +19,12 @@ import { DailyExpensesComponent } from './EXPENSES-MODULE/daily-expenses/daily-e
 import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcreation-master/newprojectcreation-master.component';
 import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.component';
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'contacts-list', component: ContactsListComponent },

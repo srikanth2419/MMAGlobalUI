@@ -13,6 +13,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { UnionMasterComponent } from './MASTERS-MODULE/union-master/union-master
 import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.component';
 import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcreation-master/newprojectcreation-master.component';
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-
     SubcategoryMasterComponent,
     UnionMasterComponent,
     CountryMasterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,8 @@ import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-
     CheckboxModule,
     TableModule,
     TabViewModule,
-    RadioButtonModule
+    RadioButtonModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
