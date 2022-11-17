@@ -16,7 +16,7 @@ export class CallSheetComponent implements OnInit {
   locationOptions: SelectItem[] = [];
   location: any;
   generalCallTime: any;
-  shootingCallTime: any;
+  scheduleCallTime: any;
   callSheetCols: any;
   callSheetDetails: any[] = [];
   selectedPerson: any[] = [];
