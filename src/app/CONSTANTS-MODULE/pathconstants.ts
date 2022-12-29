@@ -26,4 +26,6 @@ export class Pathconstants {
     public static readonly SubCategoryMasterController_Post='SubCategoryMaster/Savesub_category' 
     public static readonly SubCategoryMasterController_Get='SubCategoryMaster/Getsubcategorymaster'
     public static readonly MainCategoryMasterController_Post='MainCategoryMaster/Savemaincategory_master'
+    public static readonly expensescategorymaster_Post='ExpensesCategoryMaster/SaveExpensesCategoryMaster'
+    public static readonly expensescategorymaster_Get='ExpensesCategoryMaster/GetexpencesmasterDB'
 }

@@ -39,10 +39,9 @@ onSave(){
   }
   else{
     this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-    setTimeout(() => this.responseMsg = [], 3000)
+    setTimeout(() => this.responseMsg = [], 3000);
   }
  })
-
 }
 onView(){
   this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => {this.countrymasterData = res})

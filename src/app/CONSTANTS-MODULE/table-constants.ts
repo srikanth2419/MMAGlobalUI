@@ -69,6 +69,11 @@ export class TableConstants {
         { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
         { field: 'flag', header: 'Status'},
     ]
+    public static readonly ExpensescategoryMaster =[
+        {field: 'name', header: 'Name', align: 'left !important'},
+        {field: 'notes', header: 'Notes', align: 'left !important'},
+        { field: 'flag', header: 'Status'},
+    ]
 
 
 
