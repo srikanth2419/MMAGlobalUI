@@ -6,23 +6,23 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="menuid" name="_menuid" pInputText
-                                    [(ngModel)]="menuId" required />
-                                <label for="_menuid">Menu ID</label>
+                                <p-dropdown [options]="roleOptions" [(ngModel)]="roleId" name="_roleid">
+                                </p-dropdown>
+                                <label for="_roleid">Role ID</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="id" name="_id" pInputText
-                                    [(ngModel)]="Id" required />
-                                <label for="_id">ID</label>
+                                <p-dropdown [options]="parentIdOptions" [(ngModel)]="parentId" name="_parentid">
+                                </p-dropdown>
+                                <label for="_parentid">Parent ID</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="name" name="_name" pInputText
                                     [(ngModel)]="name" required />
-                                <label for="_name">Name</label>
+                                <label for="_name">Menu Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
@@ -34,13 +34,6 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="parentid" name="_parentid" pInputText
-                                    [(ngModel)]="parentId" required />
-                                <label for="_parentid">Parent ID</label>
-                            </span>
-                        </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
                                 <input type="text" id="icon" name="_icon" pInputText
                                     [(ngModel)]="icon" required />
                                 <label for="_icon">Icon</label>
@@ -48,11 +41,25 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="roleOptions" [(ngModel)]="roleId" name="_roleid">
+                                <p-dropdown [options]="prioritiesOptions" [(ngModel)]="priorities" name="_priorities">
                                 </p-dropdown>
-                                <label for="_roleid">Role ID</label>
+                                <label for="_priorities">Priorities</label>
                             </span>
                         </div>
+                        <!-- <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="menuid" name="_menuid" pInputText
+                                    [(ngModel)]="menuId" required />
+                                <label for="_menuid">Menu ID</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="id" name="_id" pInputText
+                                    [(ngModel)]="Id" required />
+                                <label for="_id">ID</label>
+                            </span>
+                        </div> -->
                         <div class="field col-12 md:col-3 lg:col-2">
                             <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType"
                             required>
@@ -61,19 +68,45 @@
                             required>
                         </p-radioButton> 
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
-                                <input type="text" id="Priorities" name="_priorities" pInputText
-                                    [(ngModel)]="priorities" required />
-                                <label for="_priorities">Priorities</label>
-                            </span>
-                        </div>
+                       
                     </div>
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Submit"></button>
+                    <button pButton type="button" label="Submit" (click)="onSubmit()"></button>
             </div>
             </form>
         </div>
     </p-panel>
+    <p-table styleClass="p-datatable-gridlines" [columns]="cols" [value]="data"  [paginator]="true" [rows]="10"
+     [rowsPerPageOptions]="[5,10,15,20]" 
+     responsiveLayout="scroll">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th style="width: 100px">S.No</th>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <!-- <th style="width: 120px">Edit</th> -->
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData let-columns="columns">
+        <tr class="tr-border">
+            <td class="td-border">
+                <span class="p-column-title">
+                    S.No :
+                </span>
+                <span style="text-align: end;">
+                    {{rowIndex+1}}
+                </span>
+            </td>
+            <td *ngFor="let col of columns" [style.text-align]="col.align" class="td-border">
+                <span class="p-column-title">
+                    {{col.header}} :
+                </span>
+                <span style="text-align: end;"> {{rowData[col.field]}}
+                </span>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
 </div>

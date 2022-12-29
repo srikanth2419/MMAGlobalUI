@@ -14,6 +14,7 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { RestapiService } from 'src/app/services/restapi.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,7 @@ import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.co
 import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcreation-master/newprojectcreation-master.component';
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -84,9 +86,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     TableModule,
     TabViewModule,
     RadioButtonModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RestapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
