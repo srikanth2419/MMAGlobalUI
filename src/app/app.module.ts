@@ -14,7 +14,11 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { RestapiService } from 'src/app/services/restapi.service';
 
+
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,8 +44,8 @@ import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.co
 import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcreation-master/newprojectcreation-master.component';
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RestapiService } from './services/restapi.service';
 import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -88,7 +92,12 @@ import { HttpClientModule } from '@angular/common/http';
     TabViewModule,
     RadioButtonModule,
     HighchartsChartModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpClientModule,
+    HighchartsChartModule, 
+    HttpClientModule,
+    MessageModule,
+    MessagesModule,
   ],
   providers: [RestapiService],
   bootstrap: [AppComponent]

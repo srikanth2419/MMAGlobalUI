@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Message } from 'primeng/api';
+import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
+import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
+import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
+import { RestapiService } from 'src/app/services/restapi.service';
 
 @Component({
   selector: 'app-role-master',
@@ -9,10 +14,43 @@ export class RoleMasterComponent implements OnInit {
 
   roleName: any;
   selectedType: any;
-
-  constructor() { }
+  rolemasterCols:any;
+  rolemasterData:any;
+  spinner: boolean = false;
+  responseMsg: Message[] = [];
+  RowId:any;
+  constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
+    this.rolemasterCols = TableConstants.RoleMasterColumns;
   }
-
+  onSave(){
+    const params={
+      'roleid':this.RowId,
+      'rolename':this.roleName,
+      'flag':(this.selectedType == 1) ? true : false
+    };
+   this.restapiservice.post(Pathconstants.rolemaster_Post, params).subscribe(res => {
+    if(res!=null && res!=undefined)
+    {
+      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+      setTimeout(() => this.responseMsg = [], 3000);
+      this.onView();
+      this.onClear();
+    }
+    else{
+      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+    setTimeout(() => this.responseMsg = [], 3000)
+    }
+    })
+  }
+onView(){
+  this.restapiservice.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res})
 }
+onClear(){
+  this.roleName = null;
+  this.selectedType = null;
+  this.RowId = 0;
+}
+}
+
