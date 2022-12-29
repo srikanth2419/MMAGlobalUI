@@ -22,4 +22,17 @@ export class TableConstants {
         { field: 'rolename', header: 'RoleName', align: 'left !important'},
         { field: 'flag', header: 'Status', align: 'left !important'},
     ]
+
+    public static readonly MainCategoryMaster = [
+        { field: 'categoryname', header: 'Category Name', align: 'left !important'},
+        { field: 'flag', header: 'Status'},    
+    ]
+
+    public static readonly SubCategoryMaster = [
+        { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
+        { field: 'flag', header: 'Status'},
+    ]
+
+
+
 }

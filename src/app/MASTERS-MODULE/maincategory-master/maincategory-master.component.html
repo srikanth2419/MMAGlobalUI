@@ -11,20 +11,47 @@
                                 <label for="_catname">Category Name</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2">                         
-                            <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType"
-                                required>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType" required>
                             </p-radioButton>&nbsp;
-                            <p-radioButton name="Flag" label="INACTIVE" value=0 [(ngModel)]="selectedType"
-                                required>
-                            </p-radioButton>                        
+                            <p-radioButton name="Flag" label="INACTIVE" value=0 [(ngModel)]="selectedType" required>
+                            </p-radioButton>
                         </div>
                     </div>
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Submit"></button>
-            </div>
+                    <button pButton type="button"  label="Submit" (click)="onSave()"></button>
+                   
+                </div>
             </form>
         </div>
+        <p-table #dt [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div class="grid" style="width: -webkit-fill-available;">
+                    <div class="lg:col-6 no-pad-top no-pad-btm"></div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>S.No:</th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th>Edit</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                <tr>
+                    <td>{{rowIndex+1}}</td>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </p-panel>
 </div>
