@@ -16,6 +16,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { RestapiService } from 'src/app/services/restapi.service';
 
+
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -87,7 +90,11 @@ import { HttpClientModule } from '@angular/common/http';
     TabViewModule,
     RadioButtonModule,
     HighchartsChartModule,
-    HttpClientModule
+    HttpClientModule,
+    HighchartsChartModule, 
+    HttpClientModule,
+    MessageModule,
+    MessagesModule,
   ],
   providers: [RestapiService],
   bootstrap: [AppComponent]

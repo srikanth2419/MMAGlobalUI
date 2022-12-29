@@ -15,6 +15,7 @@ export class TableConstants {
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
     ];
 
+
     public static readonly menuMasterColumns = [
         {field:'roleid',header:'RoleId'},
         {field:'parentid',header:'ParentId',align:'right !important'},
@@ -30,5 +31,27 @@ export class TableConstants {
         {field: 'unionname',header:'UnionName',align:'right !important'},
         {field:'registernumber',header:'RegisterNumber',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'},
+    ];
+    public static readonly CountryMasterColumns = [
+        { field: 'countryname', header: 'CountryName', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
+    ];
+    public static readonly RoleMasterColumns = [
+        { field: 'rolename', header: 'RoleName', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
+
     ]
+
+    public static readonly MainCategoryMaster = [
+        { field: 'categoryname', header: 'Category Name', align: 'left !important'},
+        { field: 'flag', header: 'Status'},    
+    ]
+
+    public static readonly SubCategoryMaster = [
+        { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
+        { field: 'flag', header: 'Status'},
+    ]
+
+
+
 }
