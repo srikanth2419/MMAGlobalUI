@@ -13,7 +13,7 @@
                         </div> 
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <p-dropdown [options]="stateOptions" [(ngModel)]="state" name="_state">
+                                <p-dropdown [options]="stateOptions" (click)="onSelect('C')" [(ngModel)]="state" name="_state">
                                 </p-dropdown>
                                 <label for="_state">State</label>
                             </span>
@@ -55,8 +55,6 @@
                     {{rowIndex+1}}
                 </span>
             </td>
-            <td style="width: 100px"></td>
-
             <td *ngFor="let col of columns" [style.text-align]="col.align" class="td-border">
                 <span class="p-column-title">
                     {{col.header}} :

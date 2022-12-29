@@ -40,6 +40,9 @@ import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.co
 import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcreation-master/newprojectcreation-master.component';
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RestapiService } from './services/restapi.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -84,9 +87,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     TableModule,
     TabViewModule,
     RadioButtonModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RestapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
