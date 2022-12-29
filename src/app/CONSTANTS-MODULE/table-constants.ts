@@ -14,4 +14,17 @@ export class TableConstants {
         { field: 'subCategory', header: 'Sub Category', align: 'left !important'},
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
     ]
+
+    public static readonly MainCategoryMaster = [
+        { field: 'categoryname', header: 'Category Name', align: 'left !important'},
+        { field: 'flag', header: 'Status'},    
+    ]
+
+    public static readonly SubCategoryMaster = [
+        { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
+        { field: 'flag', header: 'Status'},
+    ]
+
+
+
 }
