@@ -13,15 +13,16 @@ export class CountryMasterComponent implements OnInit {
 
   countryName: any;
   selectedType: any;
-  spinner: boolean = false;
   countrymasterCols:any;
   countrymasterData:any;
+  loading:boolean = false;
   RowId:any;
   data:any;
   responseMsg: Message[] = [];
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
+    this.onView();
     this.countrymasterCols = TableConstants.CountryMasterColumns;
   }
 onSave(){
@@ -50,5 +51,11 @@ onclear(){
   this.countryName = null;
   this.selectedType = null;
   this.RowId = 0;
+}
+onEdit(rowData:any){
+  this.RowId=rowData.countrycode;
+  this.countryName=rowData.countryname;
+  this.selectedType = (rowData.flag === true) ? 1 : 0;
+
 }
 }
