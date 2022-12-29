@@ -13,7 +13,9 @@ export class UnionMasterComponent implements OnInit {
   regNumber: any;
   selectedType: any;
   cols:any;
+  RowId:any;
   data: any[] = [];
+  loading:boolean = false;
 
   constructor(private restApiService: RestapiService) { }
 
@@ -22,13 +24,13 @@ export class UnionMasterComponent implements OnInit {
     this.cols = TableConstants.unionMasterColumns;
  
   }
-  onSubmit()
+  onSave()
   {
     const params = {
-'sino':0,
+'sino':this.RowId,
 'unionname': this.unionName,
  'registernumber': this.regNumber,
-'isactive': (this.selectedType == 1) ? true : false
+'flag': (this.selectedType == 1) ? true : false
   }
   this.restApiService.post(Pathconstants.UnionMaster_Post, params).subscribe(res => { })
   this.onClear();
@@ -37,6 +39,12 @@ export class UnionMasterComponent implements OnInit {
     this.restApiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => {
       this.data = res;
     })
+  }
+  onEdit(rowData:any){
+this.RowId=rowData.sino;
+this.unionName=rowData.unionname;
+this.regNumber=rowData.registernumber;
+this.selectedType = (rowData.flag === true) ? 1 : 0;
   }
   onClear() {
     this.unionName  = null;

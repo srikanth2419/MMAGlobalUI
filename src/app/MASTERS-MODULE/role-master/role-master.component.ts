@@ -16,12 +16,13 @@ export class RoleMasterComponent implements OnInit {
   selectedType: any;
   rolemasterCols:any;
   rolemasterData:any;
-  spinner: boolean = false;
   responseMsg: Message[] = [];
   RowId:any;
+  loading:boolean = false;
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
+    this.onView();
     this.rolemasterCols = TableConstants.RoleMasterColumns;
   }
   onSave(){
@@ -51,6 +52,11 @@ onClear(){
   this.roleName = null;
   this.selectedType = null;
   this.RowId = 0;
+}
+onEdit(rowData:any){
+this.RowId=rowData.roleid;
+this.roleName=rowData.rolename;
+this.selectedType = (rowData.flag === true) ? 1 : 0;
 }
 }
 

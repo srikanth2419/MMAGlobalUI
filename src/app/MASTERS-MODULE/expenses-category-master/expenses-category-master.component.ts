@@ -17,12 +17,13 @@ export class ExpensesCategoryMasterComponent implements OnInit {
   selectedType: any;
   expensescategorymasterCols:any;
   expensescategorymasterData:any;
-  spinner: boolean = false;
   RowId:any;
+  loading:boolean = false;
   responseMsg: Message[] = [];
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
+    this.onView();
   this.expensescategorymasterCols=TableConstants.ExpensescategoryMaster;
   }
 onSave()
@@ -47,6 +48,12 @@ this.restapiservice.post(Pathconstants.expensescategorymaster_Post, params).subs
 }
 onView(){
   this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {this.expensescategorymasterData = res})
+}
+onEdit(rowData:any){
+this.RowId=rowData.sino;
+this.name=rowData.name;
+this.notes=rowData.notes;
+this.selectedType = (rowData.flag === true) ? 1 : 0;
 }
 onClear(){
   this.name=null;
