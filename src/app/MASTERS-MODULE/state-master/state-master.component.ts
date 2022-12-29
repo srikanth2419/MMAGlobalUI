@@ -17,24 +17,25 @@ export class StateMasterComponent implements OnInit {
   selectedType: any;
   statemasterCols: any;
   statemasterData: any[] = [];
-  spinner: boolean = false;
   RowId: any;
   statecode: any;
   responseMsg: Message[] = [];
-  countrymasterData:any;
+  countrymasterData: any;
+  loading: boolean = false;
+
 
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
-   
-   this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => {this.countrymasterData = res})
+
+    this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
     this.onview();
     this.statemasterCols = TableConstants.statemasterCols;
   }
 
   onSelect(type: any) {
     let countrySelection: any = [];
-    
+
     switch (type) {
       case 'C':
         this.countrymasterData.forEach((c: any) => {
@@ -43,7 +44,8 @@ export class StateMasterComponent implements OnInit {
         this.countryOptions = countrySelection;
         this.countryOptions.unshift({ label: '-select', value: null });
         break;
-      }}
+    }
+  }
 
   onSave() {
     {
@@ -62,6 +64,11 @@ export class StateMasterComponent implements OnInit {
   onview() {
     this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => {
       this.statemasterData = res;
+      if (res) {
+        res.forEach((i: any) => {
+          i.flag = (i.flag == true) ? 'Active' : 'InActive'
+        })
+      }
     })
   }
 
@@ -72,11 +79,12 @@ export class StateMasterComponent implements OnInit {
     this.statecode = 0;
   }
 
-  onEdit(rowData: any){
+  onEdit(rowData: any) {
     this.statecode = rowData.countrycode;
     this.stateName = rowData.statename;
-    this.countryOptions=rowData.countrycode;
-    this.selectedType = (rowData.isactive === 'Active') ? 1 : 0;
+    this.country = rowData.statecode;
+    this.countryOptions = [{ label: rowData.statecode, value: rowData.statecode }];
+    this.selectedType = (rowData.isactive === true) ? 1 : 0;
 
   }
 }

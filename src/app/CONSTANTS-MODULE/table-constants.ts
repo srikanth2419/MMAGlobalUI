@@ -30,7 +30,7 @@ export class TableConstants {
     ];
     public static readonly citymasterCols = [
         { field: 'cityname', header: 'City Name', align: 'left !important' },
-        { field: 'statecode', header: 'State', align: 'left !important' },     
+        { field: 'statename', header: 'State', align: 'left !important' },     
         {field:'flag',header:'Status',align:'left !important'}
     ];
 
