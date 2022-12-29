@@ -13,5 +13,13 @@ export class TableConstants {
         { field: 'mainCategory', header: 'Main Category', align: 'left !important'},
         { field: 'subCategory', header: 'Sub Category', align: 'left !important'},
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
+    ];
+    public static readonly CountryMasterColumns = [
+        { field: 'countryname', header: 'CountryName', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
+    ];
+    public static readonly RoleMasterColumns = [
+        { field: 'rolename', header: 'RoleName', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
     ]
 }
