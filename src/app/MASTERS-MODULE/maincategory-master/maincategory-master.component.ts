@@ -4,8 +4,6 @@ import { RestapiService } from 'src/app/services/restapi.service';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 
 
-
-
 @Component({
   selector: 'app-maincategory-master',
   templateUrl: './maincategory-master.component.html',
@@ -17,18 +15,24 @@ export class MaincategoryMasterComponent implements OnInit {
   selectedType: any;
   cols: any[] = [];
   data: any[] = [];
-  sino:any;
+  sino: any;
+  RowId:any;
+
+
 
   constructor(private restApiService: RestapiService) { }
 
   ngOnInit(): void {
-
     this.cols = TableConstants.MainCategoryMaster;
     this.onView();
   }
 
   onEdit(rowData: any) {
+    this.RowId = rowData.sino;
+    this.categoryName = rowData.categoryname;
+    this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
   }
+
 
   onView() {
     this.restApiService.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => {
@@ -41,20 +45,23 @@ export class MaincategoryMasterComponent implements OnInit {
     })
   }
 
-  onSave(){
+
+  onSave() {
     const params = {
-      'sino': 0,
-      'categoryname':this.categoryName,
+      'sino': this.RowId,
+      'categoryname': this.categoryName,
       'flag': (this.selectedType == 1) ? true : false
     }
-    this.restApiService.post(Pathconstants.MainCategoryMasterController_Post, params).subscribe(res => { })  
+    this.restApiService.post(Pathconstants.MainCategoryMasterController_Post, params).subscribe(res => { })
     this.onClear();
+ 
   }
 
-  onClear(){
+
+  onClear() {
     this.categoryName = null;
     this.selectedType = null;
     this.sino = 0;
   }
-
 }
+
