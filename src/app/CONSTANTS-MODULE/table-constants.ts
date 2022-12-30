@@ -13,6 +13,51 @@ export class TableConstants {
         { field: 'mainCategory', header: 'Main Category', align: 'left !important'},
         { field: 'subCategory', header: 'Sub Category', align: 'left !important'},
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
+    ];
+
+    public static readonly ExpensesCategoryColumns = [
+        { field: 'name', header: 'Name', align: 'left !important'},
+        { field: 'notes', header: 'Notes', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
+       
+    ];
+    public static readonly statemasterCols = [
+        {field:'statename',header:'State Name',align:'left !important'},
+        {field:'countrycode',header:'Country Code',align:'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'}
+
+
+    ];
+    public static readonly citymasterCols = [
+        { field: 'cityname', header: 'City Name', align: 'left !important' },
+        { field: 'statename', header: 'State', align: 'left !important' },     
+        {field:'flag',header:'Status',align:'left !important'}
+    ];
+
+    public static readonly menuMasterColumns = [
+        {field:'roleid',header:'RoleId'},
+        {field:'parentid',header:'ParentId',align:'right !important'},
+        {field:'name',header:'Menu Name',align:'left !important'},
+        {field:'url',header:'URL',align:'left !important'},
+        {field:'icon',header:'Icon',align:'left !important'},
+        {field:'priorities',header:'Priorities'},
+        {field:'isactive',header:'IsActive'},
+        
+    ];
+
+    public static readonly unionMasterColumns = [
+        {field: 'unionname',header:'UnionName',align:'right !important'},
+        {field:'registernumber',header:'RegisterNumber',align:'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'},
+    ];
+    public static readonly CountryMasterColumns = [
+        { field: 'countryname', header: 'CountryName', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
+    ];
+    public static readonly RoleMasterColumns = [
+        { field: 'rolename', header: 'RoleName', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
+
     ]
 
     public static readonly MainCategoryMaster = [
@@ -22,6 +67,11 @@ export class TableConstants {
 
     public static readonly SubCategoryMaster = [
         { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
+        { field: 'flag', header: 'Status'},
+    ]
+    public static readonly ExpensescategoryMaster =[
+        {field: 'name', header: 'Name', align: 'left !important'},
+        {field: 'notes', header: 'Notes', align: 'left !important'},
         { field: 'flag', header: 'Status'},
     ]
 
