@@ -13,7 +13,9 @@ export class UnionMasterComponent implements OnInit {
   regNumber: any;
   selectedType: any;
   cols: any;
+  RowId:any;
   data: any[] = [];
+  loading:boolean = false;
 
   constructor(private restApiService: RestapiService) { }
 
@@ -22,6 +24,7 @@ export class UnionMasterComponent implements OnInit {
     this.cols = TableConstants.unionMasterColumns;
 
   }
+
   onSubmit() {
     const params = {
       'sino': 0,
@@ -36,6 +39,12 @@ export class UnionMasterComponent implements OnInit {
     this.restApiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => {
       this.data = res;
     })
+  }
+  onEdit(rowData:any){
+this.RowId=rowData.sino;
+this.unionName=rowData.unionname;
+this.regNumber=rowData.registernumber;
+this.selectedType = (rowData.flag === true) ? 1 : 0;
   }
   onClear() {
     this.unionName = null;
