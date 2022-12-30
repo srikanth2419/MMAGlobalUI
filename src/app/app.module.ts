@@ -46,6 +46,8 @@ import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,6 +92,7 @@ import { HttpClientModule } from '@angular/common/http';
     TabViewModule,
     RadioButtonModule,
     HighchartsChartModule,
+    HttpClientModule,
     HttpClientModule,
     HighchartsChartModule, 
     HttpClientModule,

@@ -15,6 +15,24 @@ export class TableConstants {
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
     ];
 
+    public static readonly ExpensesCategoryColumns = [
+        { field: 'name', header: 'Name', align: 'left !important'},
+        { field: 'notes', header: 'Notes', align: 'left !important'},
+        { field: 'flag', header: 'Status', align: 'left !important'},
+       
+    ];
+    public static readonly statemasterCols = [
+        {field:'statename',header:'State Name',align:'left !important'},
+        {field:'countrycode',header:'Country Code',align:'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'}
+
+
+    ];
+    public static readonly citymasterCols = [
+        { field: 'cityname', header: 'City Name', align: 'left !important' },
+        { field: 'statename', header: 'State', align: 'left !important' },     
+        {field:'flag',header:'Status',align:'left !important'}
+    ];
 
     public static readonly menuMasterColumns = [
         {field:'roleid',header:'RoleId'},
