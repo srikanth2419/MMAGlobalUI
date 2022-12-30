@@ -3,12 +3,12 @@
         <p-messages [(value)]="responseMsg" [enableService]="false"
         [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
-            <form #rf="ngForm">
+            <form #f="ngForm" name="expensesCategory">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="name" name="_name" pInputText [(ngModel)]="name"
+                                <input type="text" id="name" name="_name" pInputText (change)="onCheck()" [(ngModel)]="name"
                                     required />
                                 <label for="_expense">Expense Name</label>
                             </span>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Save" icon="pi pi-save"(click)="onSave()"></button>&nbsp;
+                    <button pButton type="button" label="Submit" icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
                     <button pButton type="button" label="Clear"icon="pi pi-trash"(click)="onClear()" ></button>
                 
                 </div>
@@ -56,7 +56,7 @@
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th>S.No:</th>
+                    <th>S.No</th>
                     <th *ngFor="let col of columns">
                         {{col.header}}
                     </th>
