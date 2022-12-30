@@ -17,7 +17,7 @@ export class TableConstants {
 
 
     public static readonly menuMasterColumns = [
-        {field:'roleid',header:'RoleId'},
+        {field:'rolename',header:'Role Name'},
         {field:'parentid',header:'ParentId',align:'right !important'},
         {field:'name',header:'Menu Name',align:'left !important'},
         {field:'url',header:'URL',align:'left !important'},
