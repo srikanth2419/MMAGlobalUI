@@ -21,19 +21,7 @@ export class TableConstants {
         { field: 'flag', header: 'Status', align: 'left !important'},
        
     ];
-    public static readonly statemasterCols = [
-        {field:'statename',header:'State Name',align:'left !important'},
-        {field:'countrycode',header:'Country Code',align:'left !important'},
-        {field:'flag',header:'Flag',align:'left !important'}
-
-
-    ];
-    public static readonly citymasterCols = [
-        { field: 'cityname', header: 'City Name', align: 'left !important' },
-        { field: 'statename', header: 'State', align: 'left !important' },     
-        {field:'flag',header:'Status',align:'left !important'}
-    ];
-
+    
     public static readonly menuMasterColumns = [
         {field:'roleid',header:'RoleId'},
         {field:'parentid',header:'ParentId',align:'right !important'},
@@ -74,7 +62,19 @@ export class TableConstants {
         {field: 'notes', header: 'Notes', align: 'left !important'},
         { field: 'flag', header: 'Status'},
     ]
+//#region  Vigneshwaran
 
+public static readonly citymasterCols = [
+    { field: 'cityname', header: 'City Name', align: 'left !important' },
+    { field: 'statename', header: 'State', align: 'left !important' },     
+    {field:'flag',header:'Status',align:'left !important'}
+];
 
+public static readonly statemasterCols = [
+    {field:'statename',header:'State Name',align:'left !important'},
+    {field:'countryname',header:'Country Code',align:'left !important'},
+    {field:'flag',header:'Flag',align:'left !important'}
+];
 
+//#endregion
 }

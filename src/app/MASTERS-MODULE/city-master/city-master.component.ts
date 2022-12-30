@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { Message, SelectItem } from 'primeng/api';
+import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
@@ -22,13 +23,15 @@ export class CityMasterComponent implements OnInit {
   citycode: number =0;
   loading: boolean = false;
   statecode: any;
+  responseMsg: Message[] = [];
+
 
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
     this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
     this.citycode=0;
-    this.onview();
+    this.onView();
     this.citymasterCols = TableConstants.citymasterCols;
   }
 //hhh
@@ -53,9 +56,21 @@ export class CityMasterComponent implements OnInit {
       'statecode': this.state.value,
       'isactive': (this.selectedType == 1) ? true : false
     };
-    this.restapiservice.post(Pathconstants.CityMaster_Post, params).subscribe(res => { })
-  }
-  onview() {
+    this.restapiservice.post(Pathconstants.CityMaster_Post, params).subscribe(res => { 
+      if(res!= null && res!= undefined){
+        this.onView();
+        this.onClear();
+        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
+      }
+      else{
+        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
+      }
+     })
+    }
+    
+  onView() {
     this.restapiservice.get(Pathconstants.CityMasterDB_GET).subscribe(res => {
       this.citymasterData = res;
       if (res) {
@@ -81,4 +96,13 @@ export class CityMasterComponent implements OnInit {
     this.citycode = 0;
 
   }
-}
+  onCheck(){
+    this.citymasterData.forEach( i => {
+      if(i.cityname  === this.cityName ) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'cityname name is already exist, Please input different name' }];
+          this.cityName = null;
+      }
+    })
+  }
+  }
+  

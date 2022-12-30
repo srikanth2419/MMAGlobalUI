@@ -10,6 +10,17 @@ export class Pathconstants {
 
      //#region  Vigneshwaran
 
+     public static readonly StateMaster_Post ='StateMasterDB/Savestatemaster' 
+
+     public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
+    
+     public static readonly countrymaster_Get='CountrymasterContoller/GetCountrymaster'
+
+     public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
+
+     public static readonly CityMasterDB_GET ='CityMaster/GetcitymasterDB' 
+
+
     //#endregion
 
      //#region  ananthan
@@ -23,16 +34,7 @@ export class Pathconstants {
 
   
    
-    public static readonly StateMaster_Post ='StateMasterDB/Savestatemaster' 
-
-    public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
     
-    public static readonly countrymaster_Get='Countrymaster/GetCountrymaster'
-
-    public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
-
-    public static readonly CityMasterDB_GET ='CityMaster/GetcitymasterDB' 
-
 
    
     public static readonly UnionMasterController_GET ='UnionMaster/GetUnionMaster' 
