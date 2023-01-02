@@ -152,3 +152,28 @@ body { margin: 0;
 .p-galleria-thumbnail-wrapper {
     display: none !important;
 }
+
+//Table style 
+//These style is used to change the width & Height of the Data table.
+//Font size ,colour ,background colour also declared here. 
+  
+.p-datatable.p-datatable-gridlines .p-datatable-header {
+    display: flex !important;
+    // justify-content: end !important;
+    padding: 0.25rem !important;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    color: #090a0a !important;
+    background: #ececec !important;
+    padding: 0.5rem 0.5rem !important;
+    font-size: 14px !important;
+}
+.p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
+    font-size: 14px !important;
+    color: #2a2a2a !important;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.25rem 0.5rem !important;
+}
+//table style end
