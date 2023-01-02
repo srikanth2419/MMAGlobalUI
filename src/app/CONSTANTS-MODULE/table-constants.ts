@@ -76,5 +76,14 @@ public static readonly statemasterCols = [
     {field:'flag',header:'Flag',align:'left !important'}
 ];
 
+
+
 //#endregion
+
+public static readonly UserMaster=[
+    {field:'username_emailid',header:'Username/Emailid',align:'left !important'},
+    {field:'rolename',header:'RoleName',align:'left !important'},
+    {field:'flag',header:'Flag',align:'left !important'}
+
+]
 }

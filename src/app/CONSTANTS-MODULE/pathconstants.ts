@@ -30,6 +30,8 @@ export class Pathconstants {
      public static readonly MainCategoryMasterController_Post='MainCategoryMaster/Savemaincategory_master'
      public static readonly SubCategoryMasterController_Post='SubCategoryMaster/Savesub_category' 
      public static readonly SubCategoryMasterController_Get='SubCategoryMaster/Getsubcategorymaster'
+     public static readonly UserMasterController_Get='UserMaster/GetUserMaster'
+     public static readonly UserMaster_Post='UserMaster/SaveUserMaster'
    
 
     //#endregion

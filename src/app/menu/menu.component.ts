@@ -31,6 +31,7 @@ export class MenuComponent implements OnInit {
             {label: 'State Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/state-master'},
             {label: 'City Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/city-master'},
             {label: 'Country Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/country-master'},
+            {label:'User Master',icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/user-master'},
             {label: 'New Project Creation Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/newprojectcreation-master'},
 
             // {label: 'Media Broadcast', icon: 'pi pi-fw pi-globe', id: '3'},
