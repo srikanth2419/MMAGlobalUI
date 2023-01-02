@@ -21,7 +21,7 @@ export class TableConstants {
         { field: 'flag', header: 'Status', align: 'left !important'},
        
     ];
-    
+    //sampathkumar
     public static readonly menuMasterColumns = [
         {field:'rolename',header:'Role Name'},
         {field:'parentid',header:'ParentId',align:'right !important'},
@@ -38,6 +38,7 @@ export class TableConstants {
         {field:'registernumber',header:'RegisterNumber',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'},
     ];
+    //sam-end
     public static readonly CountryMasterColumns = [
         { field: 'countryname', header: 'CountryName', align: 'left !important'},
         { field: 'flag', header: 'Status', align: 'left !important'},
