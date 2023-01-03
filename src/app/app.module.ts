@@ -46,6 +46,8 @@ import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
+import {KeyFilterModule} from 'primeng/keyfilter';
+
 
 
 
@@ -97,6 +99,8 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
     HttpClientModule,
     MessageModule,
     MessagesModule,
+    KeyFilterModule,
+    
   ],
   providers: [RestapiService],
   bootstrap: [AppComponent]

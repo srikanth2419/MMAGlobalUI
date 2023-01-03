@@ -49,15 +49,7 @@ export class TableConstants {
 
     ]
 
-    public static readonly MainCategoryMaster = [
-        { field: 'categoryname', header: 'Category Name', align: 'left !important'},
-        { field: 'flag', header: 'Status'},    
-    ]
-
-    public static readonly SubCategoryMaster = [
-        { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
-        { field: 'flag', header: 'Status'},
-    ]
+   
     public static readonly ExpensescategoryMaster =[
         {field: 'name', header: 'Name', align: 'left !important'},
         {field: 'notes', header: 'Notes', align: 'left !important'},
@@ -77,14 +69,22 @@ public static readonly statemasterCols = [
     {field:'flag',header:'Flag',align:'left !important'}
 ];
 
-
-
 //#endregion
 
+//#region  Ananth
 public static readonly UserMaster=[
     {field:'username_emailid',header:'Username/Emailid',align:'left !important'},
     {field:'rolename',header:'RoleName',align:'left !important'},
     {field:'flag',header:'Flag',align:'left !important'}
-
 ]
+public static readonly MainCategoryMaster = [
+    { field: 'categoryname', header: 'Category Name', align: 'left !important'},
+    { field: 'flag', header: 'Status'},    
+]
+
+public static readonly SubCategoryMaster = [
+    { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
+    { field: 'flag', header: 'Status'},
+]
+//#endregion
 }
