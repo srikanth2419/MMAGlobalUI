@@ -1,16 +1,24 @@
 <div class="col-12 md:col-12 lg:col-12">
-    <p-panel header="Sub Category Master">
+    <p-panel header="User Master">
         <p-messages [(value)]="responseMsg" [enableService]="false"
-        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
+            [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
-            <form #f="ngForm" name="Sub Category master">
+            <form #f="ngForm" name="User Master">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
-                        <div class="field col-12 md:col-3 lg:col-2">
+                        <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="categoryname" name="_catname" pInputText
-                                (change)="onCheck()"  [(ngModel)]="categoryName" required />
-                                <label for="_catname">Category Name</label>
+                                <input type="text" id="username_emailid" name="username_emailid" pInputText
+                                    [(ngModel)]="usernameEmailid" required />
+                                <label for="_statename"> Username/Emailid</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="rolenameOptions" (click)="onSelect('R')" [(ngModel)]="roleName"
+                                    name="_rolenamae">
+                                </p-dropdown>
+                                <label for="_country">Role Name</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
@@ -18,14 +26,13 @@
                             </p-radioButton>&nbsp;
                             <p-radioButton name="Flag" label="INACTIVE" value=0 [(ngModel)]="selectedType" required>
                             </p-radioButton>
-
                         </div>
                     </div>
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"[disabled]="!f.valid || !f.dirty"
-                        (click)="onSave()"></button>&nbsp;
-                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
+                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
+                        [disabled]="!f.valid || !f.dirty" (click)="onSubmit()"></button>&nbsp;
+
                 </div>
             </form>
         </div>
@@ -65,5 +72,3 @@
                 </tr>
             </ng-template>
         </p-table>
-    </div>
-</div>

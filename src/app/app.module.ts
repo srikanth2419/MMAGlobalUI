@@ -45,6 +45,7 @@ import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcr
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
 
 
 
@@ -72,7 +73,8 @@ import { HttpClientModule } from '@angular/common/http';
     SubcategoryMasterComponent,
     UnionMasterComponent,
     CountryMasterComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserMasterComponent
   ],
   imports: [
     BrowserModule,
@@ -91,9 +93,6 @@ import { HttpClientModule } from '@angular/common/http';
     TableModule,
     TabViewModule,
     RadioButtonModule,
-    HighchartsChartModule,
-    HttpClientModule,
-    HttpClientModule,
     HighchartsChartModule, 
     HttpClientModule,
     MessageModule,

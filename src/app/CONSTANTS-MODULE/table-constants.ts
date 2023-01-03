@@ -30,7 +30,7 @@ export class TableConstants {
     ];
 
     public static readonly menuMasterColumns = [
-        {field:'roleid',header:'RoleId'},
+        {field:'rolename',header:'Role Name'},
         {field:'parentid',header:'ParentId',align:'right !important'},
         {field:'name',header:'Menu Name',align:'left !important'},
         {field:'url',header:'URL',align:'left !important'},
@@ -46,7 +46,7 @@ export class TableConstants {
         {field:'flag',header:'Flag',align:'left !important'},
     ];
    
-
+    //sam-end
     public static readonly MainCategoryMaster = [
         { field: 'categoryname', header: 'Category Name', align: 'left !important'},
         { field: 'flag', header: 'Status'},    
@@ -75,4 +75,12 @@ public static readonly RoleMasterColumns = [
 ]
 //end region
 
+//#endregion
+
+public static readonly UserMaster=[
+    {field:'username_emailid',header:'Username/Emailid',align:'left !important'},
+    {field:'rolename',header:'RoleName',align:'left !important'},
+    {field:'flag',header:'Flag',align:'left !important'}
+
+]
 }

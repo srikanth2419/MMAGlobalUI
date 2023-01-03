@@ -18,10 +18,12 @@ export class StateMasterComponent implements OnInit {
   statemasterCols: any;
   statemasterData: any[] = [];
   RowId: any;
-  statecode: any;
+  statecode: number=0;
   responseMsg: Message[] = [];
   countrymasterData: any;
   loading: boolean = false;
+  
+
 
 
   constructor(private restapiservice: RestapiService) { }
@@ -29,7 +31,7 @@ export class StateMasterComponent implements OnInit {
   ngOnInit(): void {
 
     this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
-    this.onview();
+    this.onView();
     this.statemasterCols = TableConstants.statemasterCols;
   }
 
@@ -50,18 +52,28 @@ export class StateMasterComponent implements OnInit {
   onSave() {
     {
       const params = {
-        'citycode': 0,
+        'statecode': this.statecode,
         'statename': this.stateName,
-        'countrycode': this.countryOptions,
-        'isactive': (this.selectedType == 1) ? true : false
+        'countrycode': this.country,
+        'flag': (this.selectedType == 1) ? true : false
       };
-      this.restapiservice.post(Pathconstants.StateMaster_Post, params).subscribe(res => { })
-      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: 'SuccessMessage' }];
-      this.onClear();
-    }
-
-  }
-  onview() {
+      this.restapiservice.post(Pathconstants.StateMaster_Post, params).subscribe(res => { 
+        if(res!= null && res!= undefined){
+          this.onView();
+          this.onClear();
+          this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+          setTimeout(() => this.responseMsg = [], 3000);
+        }
+        else{
+          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+          setTimeout(() => this.responseMsg = [], 3000);
+        }
+       })
+      }
+      }
+     
+    
+  onView() {
     this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => {
       this.statemasterData = res;
       if (res) {
@@ -77,14 +89,25 @@ export class StateMasterComponent implements OnInit {
     this.selectedType = null;
     this.countryOptions = null;
     this.statecode = 0;
+    this.selectedType=null;
   }
 
   onEdit(rowData: any) {
-    this.statecode = rowData.countrycode;
+    this.statecode = rowData.statecode;
     this.stateName = rowData.statename;
     this.country = rowData.statecode;
-    this.countryOptions = [{ label: rowData.statecode, value: rowData.statecode }];
-    this.selectedType = (rowData.isactive === true) ? 1 : 0;
+    this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
+    this.selectedType = (rowData.isactive === 'Active') ? 1 : 0;
 
   }
-}
+
+  onCheck(){
+    this.statemasterData.forEach( i => {
+      if(i.statename  === this.stateName ) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'statename name is already exist, Please input different name' }];
+          this.stateName = null;
+      }
+    })
+  }
+  }
+  

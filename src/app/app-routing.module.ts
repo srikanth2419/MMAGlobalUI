@@ -20,6 +20,7 @@ import { NewprojectcreationMasterComponent } from './MASTERS-MODULE/newprojectcr
 import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.component';
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'subcategory-master', component: SubcategoryMasterComponent },
   { path: 'state-master', component: StateMasterComponent },
   { path: 'expenses-category', component: ExpensesCategoryMasterComponent },
+  {path: 'user-master',component:UserMasterComponent},
 
   { path: 'country-master', component: CountryMasterComponent },
   { path: 'city-master', component: CityMasterComponent },

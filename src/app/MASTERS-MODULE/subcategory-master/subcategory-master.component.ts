@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
+import { Message } from 'primeng/api';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-subcategory-master',
@@ -14,8 +18,13 @@ export class SubcategoryMasterComponent implements OnInit {
   selectedType: any;
   cols: any[] = [];
   data: any[] = [];
+  sino: any;
+  RowId:any;
+  responseMsg: Message[] = [];
 
-  constructor(private restApiService: RestapiService) { 
+  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+
+  constructor(private restApiService: RestapiService) {
   }
 
 
@@ -25,9 +34,12 @@ export class SubcategoryMasterComponent implements OnInit {
   }
 
   onEdit(rowData: any) {
+    this.RowId = rowData.sino;
+    this.categoryName = rowData.categoryname;
+    this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
   }
 
-  onView(){
+  onView() {
     this.restApiService.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => {
       this.data = res;
       if (res) {
@@ -39,15 +51,41 @@ export class SubcategoryMasterComponent implements OnInit {
   }
 
 
-  onSave(){
+  onSave() {
     const params = {
-      'sino': 0,
-      'categoryname':this.categoryName,
+      'sino': this.RowId,
+      'categoryname': this.categoryName,
       'flag': (this.selectedType == 1) ? true : false
     }
-    this.restApiService.post(Pathconstants.SubCategoryMasterController_Post, params).subscribe(res => { })  
-    
-   
+
+    this.restApiService.post(Pathconstants.SubCategoryMasterController_Post, params).subscribe(res => {  if(res!= null && res!= undefined){
+      this.onView();
+      this.onClear();
+      this._respondentForm.reset();
+      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+      setTimeout(() => this.responseMsg = [], 3000);
+    }
+    else{
+      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+      setTimeout(() => this.responseMsg = [], 3000);
+    }})
+
   }
+
+  onClear() {
+    this.categoryName = null;
+    this.selectedType = null;
+    this.sino = 0;
+  }
+  onCheck() {
+    this.data.forEach(i => {
+      if (i.categoryname === this.categoryName) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Category name is already exist, Please input different name' }];
+        setTimeout(() => this.responseMsg = [], 2000)
+        this.categoryName = null;
+      }
+    })
+  }
+
 
 }
