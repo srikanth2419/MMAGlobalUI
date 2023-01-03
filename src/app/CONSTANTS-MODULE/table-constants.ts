@@ -15,12 +15,7 @@ export class TableConstants {
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
     ];
 
-    public static readonly ExpensesCategoryColumns = [
-        { field: 'name', header: 'Name', align: 'left !important'},
-        { field: 'notes', header: 'Notes', align: 'left !important'},
-        { field: 'flag', header: 'Status', align: 'left !important'},
-       
-    ];
+   
     public static readonly statemasterCols = [
         {field:'statename',header:'State Name',align:'left !important'},
         {field:'countrycode',header:'Country Code',align:'left !important'},
@@ -50,15 +45,7 @@ export class TableConstants {
         {field:'registernumber',header:'RegisterNumber',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'},
     ];
-    public static readonly CountryMasterColumns = [
-        { field: 'countryname', header: 'CountryName', align: 'left !important'},
-        { field: 'flag', header: 'Status', align: 'left !important'},
-    ];
-    public static readonly RoleMasterColumns = [
-        { field: 'rolename', header: 'RoleName', align: 'left !important'},
-        { field: 'flag', header: 'Status', align: 'left !important'},
-
-    ]
+   
 
     public static readonly MainCategoryMaster = [
         { field: 'categoryname', header: 'Category Name', align: 'left !important'},
@@ -69,12 +56,23 @@ export class TableConstants {
         { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
         { field: 'flag', header: 'Status'},
     ]
-    public static readonly ExpensescategoryMaster =[
-        {field: 'name', header: 'Name', align: 'left !important'},
-        {field: 'notes', header: 'Notes', align: 'left !important'},
-        { field: 'flag', header: 'Status'},
-    ]
+    
 
+//#region  priyadharshani
+public static readonly ExpensescategoryMaster =[
+    {field: 'name', header: 'Name', align: 'left !important'},
+    {field: 'notes', header: 'Notes', align: 'left !important'},
+    { field: 'flag', header: 'Status'},
+]
+public static readonly CountryMasterColumns = [
+    { field: 'countryname', header: 'CountryName', align: 'left !important'},
+    { field: 'flag', header: 'Status', align: 'left !important'},
+];
+public static readonly RoleMasterColumns = [
+    { field: 'rolename', header: 'RoleName', align: 'left !important'},
+    { field: 'flag', header: 'Status', align: 'left !important'},
 
+]
+//end region
 
 }
