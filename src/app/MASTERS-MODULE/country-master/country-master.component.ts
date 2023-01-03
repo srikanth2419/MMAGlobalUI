@@ -63,8 +63,7 @@ onClear(){
 onEdit(rowData:any){
   this.RowId=rowData.countrycode;
   this.countryName=rowData.countryname;
-  this.selectedType = (rowData.flag === true) ? 1 : 0;
-
+  this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 }
 onCheck() {
   this.countrymasterData.forEach( i => {
