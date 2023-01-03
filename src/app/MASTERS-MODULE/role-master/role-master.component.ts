@@ -65,7 +65,7 @@ onClear(){
 onEdit(rowData:any){
 this.RowId=rowData.roleid;
 this.roleName=rowData.rolename;
-this.selectedType = (rowData.flag === true) ? 1 : 0;
+this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 }
 onCheck() {
   this.rolemasterData.forEach( i => {

@@ -49,6 +49,8 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +99,7 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
     HttpClientModule,
     MessageModule,
     MessagesModule,
-    KeyFilterModule
+    KeyFilterModule,
   ],
   providers: [RestapiService],
   bootstrap: [AppComponent]

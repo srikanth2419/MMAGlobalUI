@@ -15,13 +15,12 @@ export class TableConstants {
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
     ];
 
-    public static readonly ExpensesCategoryColumns = [
-        { field: 'name', header: 'Name', align: 'left !important'},
-        { field: 'notes', header: 'Notes', align: 'left !important'},
-        { field: 'flag', header: 'Status', align: 'left !important'},
-       
+    public static readonly citymasterCols = [
+        { field: 'cityname', header: 'City Name', align: 'left !important' },
+        { field: 'statename', header: 'State', align: 'left !important' },     
+        {field:'flag',header:'Status',align:'left !important'}
     ];
-    //sampathkumar
+
     public static readonly menuMasterColumns = [
         {field:'rolename',header:'Role Name'},
         {field:'parentid',header:'ParentId',align:'right !important'},
@@ -38,53 +37,46 @@ export class TableConstants {
         {field:'registernumber',header:'RegisterNumber',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'},
     ];
+   
     //sam-end
-    public static readonly CountryMasterColumns = [
-        { field: 'countryname', header: 'CountryName', align: 'left !important'},
-        { field: 'flag', header: 'Status', align: 'left !important'},
-    ];
-    public static readonly RoleMasterColumns = [
-        { field: 'rolename', header: 'RoleName', align: 'left !important'},
-        { field: 'flag', header: 'Status', align: 'left !important'},
+    
 
-    ]
-
-    public static readonly MainCategoryMaster = [
-        { field: 'categoryname', header: 'Category Name', align: 'left !important'},
-        { field: 'flag', header: 'Status'},    
-    ]
-
-    public static readonly SubCategoryMaster = [
-        { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
-        { field: 'flag', header: 'Status'},
-    ]
-    public static readonly ExpensescategoryMaster =[
-        {field: 'name', header: 'Name', align: 'left !important'},
-        {field: 'notes', header: 'Notes', align: 'left !important'},
-        { field: 'flag', header: 'Status'},
-    ]
-//#region  Vigneshwaran
-
-public static readonly citymasterCols = [
-    { field: 'cityname', header: 'City Name', align: 'left !important' },
-    { field: 'statename', header: 'State', align: 'left !important' },     
-    {field:'flag',header:'Status',align:'left !important'}
+//#region  priyadharshani
+public static readonly ExpensescategoryMaster =[
+    {field: 'name', header: 'Name', align: 'left !important'},
+    {field: 'notes', header: 'Notes', align: 'left !important'},
+    { field: 'flag', header: 'Status'},
+]
+public static readonly CountryMasterColumns = [
+    { field: 'countryname', header: 'CountryName', align: 'left !important'},
+    { field: 'flag', header: 'Status', align: 'left !important'},
 ];
-
+public static readonly RoleMasterColumns = [
+    { field: 'rolename', header: 'RoleName', align: 'left !important'},
+    { field: 'flag', header: 'Status', align: 'left !important'},
+];
 public static readonly statemasterCols = [
     {field:'statename',header:'State Name',align:'left !important'},
     {field:'countryname',header:'Country Code',align:'left !important'},
     {field:'flag',header:'Flag',align:'left !important'}
 ];
 
-
-
 //#endregion
 
+//#region  Ananth
 public static readonly UserMaster=[
     {field:'username_emailid',header:'Username/Emailid',align:'left !important'},
     {field:'rolename',header:'RoleName',align:'left !important'},
     {field:'flag',header:'Flag',align:'left !important'}
-
 ]
+public static readonly MainCategoryMaster = [
+    { field: 'categoryname', header: 'Category Name', align: 'left !important'},
+    { field: 'flag', header: 'Status'},    
+]
+
+public static readonly SubCategoryMaster = [
+    { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
+    { field: 'flag', header: 'Status'},
+]
+//#endregion
 }

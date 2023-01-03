@@ -63,7 +63,7 @@ onEdit(rowData:any){
 this.RowId=rowData.sino;
 this.name=rowData.name;
 this.notes=rowData.notes;
-this.selectedType = (rowData.flag === true) ? 1 : 0;
+this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 }
 onClear(){
   this.name=null;

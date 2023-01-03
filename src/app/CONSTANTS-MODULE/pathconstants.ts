@@ -16,7 +16,7 @@ export class Pathconstants {
 
      public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
     
-     public static readonly countrymaster_Get='CountrymasterContoller/GetCountrymaster'
+     //public static readonly countrymaster_Get='CountrymasterContoller/GetCountrymaster'
 
      public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
 
@@ -38,21 +38,15 @@ export class Pathconstants {
 
 
      //#region  priyadharshani
-
+     public static readonly countrymaster_Post='Countrymaster/SaveCountrymaster'//controller Name/Method Name
+     public static readonly countrymaster_Get='Countrymaster/GetCountrymaster'
+     public static readonly rolemaster_Post='Rolemaster/SaveRolemaster'
+     public static readonly rolemaster_Get='Rolemaster/GetRolemaster'
+     public static readonly expensescategorymaster_Post='ExpensesCategoryMaster/SaveExpensesCategoryMaster'
+     public static readonly expensescategorymaster_Get='ExpensesCategoryMaster/GetexpencesmasterDB'
     //#endregion
 
   
    
     
-
-   
-    
-     public static readonly countrymaster_Post='Countrymaster/SaveCountrymaster'
-   
-    public static readonly rolemaster_Post='Rolemaster/SaveRolemaster'
-    public static readonly rolemaster_Get='Rolemaster/GetRolemaster'
-   
-    public static readonly expensescategorymaster_Post='ExpensesCategoryMaster/SaveExpensesCategoryMaster'
-    public static readonly expensescategorymaster_Get='ExpensesCategoryMaster/GetexpencesmasterDB'
-
 }
