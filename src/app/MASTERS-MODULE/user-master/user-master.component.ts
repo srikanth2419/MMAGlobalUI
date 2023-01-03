@@ -34,10 +34,7 @@ export class UserMasterComponent implements OnInit {
     this.restApiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.roleIdData = res })
     this.cols = TableConstants.UserMaster;
     this.onView();
-
-
   }
-
 
   onSubmit() {
     const params = {
@@ -61,10 +58,7 @@ export class UserMasterComponent implements OnInit {
         this.onClear();
       }
     })
-
-
   }
-
 
   onView() {
     this.restApiService.get(Pathconstants.UserMasterController_Get).subscribe(res => {
@@ -76,10 +70,9 @@ export class UserMasterComponent implements OnInit {
       }
     })
   }
+
   onSelect(type: any) {
-
     let roleSelection: any = [];
-
     switch (type) {
       case 'R':
         this.roleIdData.forEach((c: any) => {
@@ -92,6 +85,10 @@ export class UserMasterComponent implements OnInit {
   }
 
   onClear() {
+    this.usernameEmailid = null;
+    this.selectedType = null;
+    this.rolenameOptions = null;
+    this.Id = 0;
 
   }
 
@@ -101,6 +98,16 @@ export class UserMasterComponent implements OnInit {
     this.rolenameOptions = [{ label: rowData.rolename, value: rowData.roleid }];
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
+  }
+
+  checkMenu() {
+    this.data.forEach(i => {
+      if (i.username_emailid === this.usernameEmailid) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'username is already exist, Please input different name' }];
+        setTimeout(() => this.responseMsg = [], 2000)
+        this.usernameEmailid = null;
+      }
+    })
   }
 
 
