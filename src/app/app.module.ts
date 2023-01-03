@@ -15,7 +15,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { RestapiService } from 'src/app/services/restapi.service';
-
+import {KeyFilterModule} from 'primeng/keyfilter';
 
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
@@ -97,6 +97,7 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
     HttpClientModule,
     MessageModule,
     MessagesModule,
+    KeyFilterModule
   ],
   providers: [RestapiService],
   bootstrap: [AppComponent]

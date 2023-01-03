@@ -24,7 +24,7 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="name" name="_name" pInputText (change)="checkMenuName()" [(ngModel)]="name" required />
+                                <input type="text" id="name" name="_name" pInputText (change)="checkMenuName()" [(ngModel)]="name" [pKeyFilter]="'alpha'"  required />
                                 <label for="_name">Menu Name</label>
                             </span>
                         </div>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="icon" name="_icon" pInputText [(ngModel)]="icon" required />
+                                <input type="text" id="icon" name="_icon" pInputText [(ngModel)]="icon" [pKeyFilter]="'alpha'"  required />
                                 <label for="_icon">Icon</label>
                             </span>
                         </div>

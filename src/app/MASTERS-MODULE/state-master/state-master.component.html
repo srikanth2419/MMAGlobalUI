@@ -8,7 +8,7 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="statename" name="_statename" pInputText [(ngModel)]="stateName"
+                                <input type="text" id="statename" name="_statename" pInputText [(ngModel)]="stateName" [pKeyFilter]="'alpha'"
                                 (change)="onCheck()"   required />
                                 <label for="_statename">State Name</label>
                             </span>

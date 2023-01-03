@@ -10,7 +10,7 @@
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="countryname" name="_countryname" pInputText
-                                (change)="onCheck()" [(ngModel)]="countryName" required />
+                                (change)="onCheck()" [(ngModel)]="countryName" [pKeyFilter]="'alpha'" required />
                                 <label for="_countryname">Country Name</label>
                             </span>
                         </div>                     
