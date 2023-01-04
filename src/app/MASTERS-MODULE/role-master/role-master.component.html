@@ -8,8 +8,8 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="roleName" name="_rolename" pInputText
-                                (change)="onCheck()"  [(ngModel)]="roleName" required />
+                                <input type="text" id="roleName" name="_rolename" 
+                                (change)="onCheck()" pInputText [(ngModel)]="roleName" [pKeyFilter]="'alpha'" required />
                                 <label for="_rolename">Name</label>
                             </span>
                         </div>
@@ -39,7 +39,7 @@
                     <div class="lg:col-10 no-pad-top no-pad-btm">
                         <span class="p-input-icon-left p-ml-auto">
                             <i class="pi pi-search"></i>
-                            <input #searchInput pInputText type="text"
+                            <input #searchInput pInputText type="text" [pKeyFilter]="'alpha'"
                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                         </span>
                     </div>
