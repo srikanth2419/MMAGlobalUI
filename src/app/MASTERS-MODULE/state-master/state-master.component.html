@@ -3,19 +3,19 @@
         <p-messages [(value)]="responseMsg" [enableService]="false"
         [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
-            <form #rf="ngForm">
+            <form #f="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="statename" name="_statename" pInputText [(ngModel)]="stateName" [pKeyFilter]="'alpha'"
+                                <input type="text" id="statename" name="_statename" pInputText [(ngModel)]="stateName" [pKeyFilter]="block"
                                 (change)="onCheck()"   required />
                                 <label for="_statename">State Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <p-dropdown [options]="countryOptions" (click)="onSelect('C')" [(ngModel)]="country" name="_country">
+                                <p-dropdown [options]="countryOptions" (click)="onSelect('C')" [(ngModel)]="country" name="_country"  [required]="true">
                                 </p-dropdown>
                                 <label for="_country">Country</label>
                             </span>
@@ -30,7 +30,7 @@
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
                     <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
-                      (click)="onSave()"></button>&nbsp;
+                    [disabled]="!f.valid || !f.dirty"  (click)="onSave()"></button>&nbsp;
                     <button pButton type="button" label="Clear" icon="pi pi-trash"
                         (click)="onClear()"></button>
                 </div>
@@ -39,7 +39,7 @@
     </p-panel>
     <div class="col-12 md:col-12 lg:col-12">
         <p-table #dt [columns]="statemasterCols" [value]="statemasterData" styleClass="p-datatable-gridlines"
-        [globalFilterFields]="['countryname']" [loading]="loading" [paginator]="true" [rows]="10"
+         [loading]="loading" [paginator]="true" [rows]="10"
             [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="grid" style="width: -webkit-fill-available;">

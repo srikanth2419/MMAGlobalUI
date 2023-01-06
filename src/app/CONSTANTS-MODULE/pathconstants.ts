@@ -15,9 +15,8 @@ export class Pathconstants {
     public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
     public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
     public static readonly CityMasterDB_GET ='CityMaster/GetcitymasterDB' 
-
-
     //#endregion
+
 
      //#region  ananthan
      public static readonly MainCategoryMasterController_Get ='MainCategoryMaster/GetMaincategorymaster'
@@ -37,8 +36,5 @@ export class Pathconstants {
      public static readonly expensescategorymaster_Post='ExpensesCategoryMaster/SaveExpensesCategoryMaster'
      public static readonly expensescategorymaster_Get='ExpensesCategoryMaster/GetexpencesmasterDB'
     //#endregion
-
-  
-   
     
 }
