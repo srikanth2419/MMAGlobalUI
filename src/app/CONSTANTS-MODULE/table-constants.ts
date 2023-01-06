@@ -14,13 +14,20 @@ export class TableConstants {
         { field: 'subCategory', header: 'Sub Category', align: 'left !important'},
         { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
     ];
-
+//region vigneshwaran
     public static readonly citymasterCols = [
         { field: 'cityname', header: 'City Name', align: 'left !important' },
         { field: 'statename', header: 'State', align: 'left !important' },     
         {field:'flag',header:'Status',align:'left !important'}
     ];
-
+    public static readonly statemasterCols = [
+        {field:'statename',header:'State Name',align:'left !important'},
+        {field:'countryname',header:'Country Code',align:'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'}
+    ];
+    
+    //vigneshwaran-end
+//region sampathkumar
     public static readonly menuMasterColumns = [
         {field:'rolename',header:'Role Name'},
         {field:'parentid',header:'ParentId',align:'right !important'},
@@ -38,7 +45,7 @@ export class TableConstants {
         {field:'flag',header:'Flag',align:'left !important'},
     ];
    
-    //sam-end
+    //sampathkumar-end
     
 
 //#region  priyadharshani
@@ -54,11 +61,6 @@ public static readonly CountryMasterColumns = [
 public static readonly RoleMasterColumns = [
     { field: 'rolename', header: 'RoleName', align: 'left !important'},
     { field: 'flag', header: 'Status', align: 'left !important'},
-];
-public static readonly statemasterCols = [
-    {field:'statename',header:'State Name',align:'left !important'},
-    {field:'countryname',header:'Country Code',align:'left !important'},
-    {field:'flag',header:'Flag',align:'left !important'}
 ];
 
 //#endregion

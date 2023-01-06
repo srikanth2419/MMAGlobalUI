@@ -11,16 +11,10 @@ export class Pathconstants {
     //#endregion
 
      //#region  Vigneshwaran
-
-     public static readonly StateMaster_Post ='StateMasterDB/Savestatemaster' 
-
-     public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
-    
-     //public static readonly countrymaster_Get='CountrymasterContoller/GetCountrymaster'
-
-     public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
-
-     public static readonly CityMasterDB_GET ='CityMaster/GetcitymasterDB' 
+    public static readonly StateMaster_Post ='StateMasterDB/Savestatemaster' 
+    public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
+    public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
+    public static readonly CityMasterDB_GET ='CityMaster/GetcitymasterDB' 
 
 
     //#endregion
@@ -32,9 +26,7 @@ export class Pathconstants {
      public static readonly SubCategoryMasterController_Get='SubCategoryMaster/Getsubcategorymaster'
      public static readonly UserMasterController_Get='UserMaster/GetUserMaster'
      public static readonly UserMaster_Post='UserMaster/SaveUserMaster'
-   
-
-    //#endregion
+   //#endregion
 
 
      //#region  priyadharshani
