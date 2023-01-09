@@ -10,7 +10,7 @@
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="countryname" name="_countryname" 
-                                 pInputText [(ngModel)]="countryName" [pKeyFilter]="'alpha'" (change)="onCheck()" required />
+                                 pInputText [(ngModel)]="countryName" [pKeyFilter]="block" (change)="onCheck()" required />
                                 <label for="_countryname">Country Name</label>
                             </span>
                         </div>                     
@@ -40,7 +40,7 @@
                         <div class="lg:col-10 no-pad-top no-pad-btm">
                             <span class="p-input-icon-left p-ml-auto">
                                 <i class="pi pi-search"></i>
-                                <input #searchInput pInputText type="text" [pKeyFilter]="'alpha'"
+                                <input #searchInput pInputText type="text" [pKeyFilter]="block"
                                     (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                             </span>
                         </div>
