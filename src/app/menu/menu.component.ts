@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
+            {label: 'Project Creation', icon: 'pi pi-fw pi-pencil', id: '1', routerLink: '/newprojectcreation-master'},
             {label: 'Call Sheet', icon: 'pi pi-fw pi-book', id: '1', routerLink: '/call-sheet'},
             {label: 'Shooting Schedule', icon: 'pi pi-fw pi-clock', id: '1', routerLink: '/shooting-schedule'},
             {label: 'Contact List', icon: 'pi pi-fw pi-user', id: '1', routerLink: '/contacts-list'},
@@ -32,7 +33,7 @@ export class MenuComponent implements OnInit {
             {label: 'City Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/city-master'},
             {label: 'Country Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/country-master'},
             {label:'User Master',icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/user-master'},
-            {label: 'New Project Creation Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/newprojectcreation-master'},
+           
 
             // {label: 'Media Broadcast', icon: 'pi pi-fw pi-globe', id: '3'},
             // {label: 'Staffing & Funds', icon: 'pi pi-fw pi-inbox', id: '3'},
