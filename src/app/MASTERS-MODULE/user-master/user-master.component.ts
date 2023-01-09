@@ -43,6 +43,7 @@ export class UserMasterComponent implements OnInit {
       'id': this.Id,
       'username_emailid': this.usernameEmailid,
       'roleid': this.roleName,
+      'password':this.Password,
       'flag': (this.selectedType == 1) ? true : false
     }
     this.restApiService.post(Pathconstants.UserMaster_Post, params).subscribe(res => {
@@ -90,6 +91,7 @@ export class UserMasterComponent implements OnInit {
     this.usernameEmailid = null;
     this.selectedType = null;
     this.rolenameOptions = null;
+    this.Password=null;
     this.Id = 0;
 
   }
@@ -98,6 +100,7 @@ export class UserMasterComponent implements OnInit {
     this.Id = rowData.id;
     this.usernameEmailid = rowData.username_emailid;
     this.rolenameOptions = [{ label: rowData.rolename, value: rowData.roleid }];
+    this.Password=rowData.password;
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
