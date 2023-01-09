@@ -51,7 +51,7 @@ export class TableConstants {
 //#region  priyadharshani
 public static readonly ExpensescategoryMaster =[
     {field: 'name', header: 'Name', align: 'left !important'},
-    {field: 'notes', header: 'Notes', align: 'left !important'},
+    {field: 'notes', header: 'Remarks', align: 'left !important'},
     { field: 'flag', header: 'Status'},
 ]
 public static readonly CountryMasterColumns = [
@@ -69,6 +69,7 @@ public static readonly RoleMasterColumns = [
 public static readonly UserMaster=[
     {field:'username_emailid',header:'Username/Emailid',align:'left !important'},
     {field:'rolename',header:'RoleName',align:'left !important'},
+    {field:'password',header:'Password',align:'left !important'},
     {field:'flag',header:'Flag',align:'left !important'}
 ]
 public static readonly MainCategoryMaster = [

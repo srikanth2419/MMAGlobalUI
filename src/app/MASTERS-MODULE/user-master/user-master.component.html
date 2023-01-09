@@ -9,7 +9,7 @@
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="username_emailid" name="username_emailid" pInputText
-                                    (change)="checkMenu()" [(ngModel)]="usernameEmailid"  [pKeyFilter]="'alpha'"required />
+                                    (change)="checkMenu()" [(ngModel)]="usernameEmailid"  required />
                                 <label for="_statename"> Username/Emailid</label>
                             </span>
                         </div>
@@ -19,6 +19,13 @@
                                     name="_rolenamae">
                                 </p-dropdown>
                                 <label for="_country">Role Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-3">
+                            <span class="p-float-label">
+                                <input type="text" id="password" name="password" pInputText
+                                    (change)="checkMenu()" [(ngModel)]="Password"  required />
+                                <label for="_Password"> Password</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
