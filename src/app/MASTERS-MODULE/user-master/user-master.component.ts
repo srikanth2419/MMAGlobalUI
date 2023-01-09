@@ -23,7 +23,9 @@ export class UserMasterComponent implements OnInit {
   Id: any;
   roleName: any;
   roleIdData: any;
+  Password:any;
   responseMsg: Message[] = [];
+  
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
 

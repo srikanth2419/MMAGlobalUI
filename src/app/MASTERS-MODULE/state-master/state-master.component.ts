@@ -22,10 +22,8 @@ export class StateMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   countrymasterData: any;
   loading: boolean = false;
+  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/; 
   
-
-
-
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
@@ -97,7 +95,7 @@ export class StateMasterComponent implements OnInit {
     this.stateName = rowData.statename;
     this.country = rowData.statecode;
     this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
-    this.selectedType = (rowData.isactive === 'Active') ? 1 : 0;
+    this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
 

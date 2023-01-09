@@ -69,6 +69,7 @@ public static readonly RoleMasterColumns = [
 public static readonly UserMaster=[
     {field:'username_emailid',header:'Username/Emailid',align:'left !important'},
     {field:'rolename',header:'RoleName',align:'left !important'},
+    {field:'password',header:'Password',align:'left !important'},
     {field:'flag',header:'Flag',align:'left !important'}
 ]
 public static readonly MainCategoryMaster = [
