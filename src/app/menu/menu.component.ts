@@ -17,10 +17,10 @@ export class MenuComponent implements OnInit {
     this.items = [
             {label: 'Call Sheet', icon: 'pi pi-fw pi-book', id: '1', routerLink: '/call-sheet'},
             {label: 'Shooting Schedule', icon: 'pi pi-fw pi-clock', id: '1', routerLink: '/shooting-schedule'},
-            {label: 'Daily Expenses', icon: 'pi pi-fw pi-chart-bar', id: '2', routerLink: '/daily-expenses'},
             {label: 'Contact List', icon: 'pi pi-fw pi-user', id: '1', routerLink: '/contacts-list'},
             {label: 'Location Info', icon: 'pi pi-fw pi-map-marker', id: '1', routerLink: '/location-info'},
-            {label: 'Fund Utilization', icon: 'pi pi-fw pi-briefcase', id: '4', routerLink: '/fund-utilization'},
+            {label: 'Fund Utilization', icon: 'pi pi-fw pi-briefcase', id: '2', routerLink: '/fund-utilization'},
+            {label: 'Daily Expenses', icon: 'pi pi-fw pi-chart-bar', id: '2', routerLink: '/daily-expenses'},
             //master
             {label: 'Menu Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/menu-master'},
             {label: 'Role Master', icon: 'pi pi-fw pi-pencil', id: '3', routerLink: '/role-master'},
@@ -48,7 +48,7 @@ export class MenuComponent implements OnInit {
       { title: 'Expenses', id: '2' },
       { title: 'Masters', id: '3' },
       // { title: 'Insights', id: '3' },
-      { title: 'Finance', id: '4' },
+     // { title: 'Finance', id: '4' },
       // { title: 'Contact', id: '5' },
     ]
   }
