@@ -25,6 +25,8 @@ export class Pathconstants {
      public static readonly SubCategoryMasterController_Get='SubCategoryMaster/Getsubcategorymaster'
      public static readonly UserMasterController_Get='UserMaster/GetUserMaster'
      public static readonly UserMaster_Post='UserMaster/SaveUserMaster'
+     public static readonly ContactListController_Post='ContactList/Savecontactlist'
+     public static readonly ContactListController_Get='ContactList/Getcontactlist'
    //#endregion
 
 

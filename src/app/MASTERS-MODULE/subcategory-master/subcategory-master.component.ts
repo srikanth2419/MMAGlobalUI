@@ -17,7 +17,7 @@ export class SubcategoryMasterComponent implements OnInit {
   categoryName: any;
   selectedType: any;
   cols: any[] = [];
-  data: any[] = [];
+  subCategoryData: any[] = [];
   sino: any;
   RowId:any;
   responseMsg: Message[] = [];
@@ -42,7 +42,7 @@ export class SubcategoryMasterComponent implements OnInit {
 
   onView() {
     this.restApiService.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => {
-      this.data = res;
+      this.subCategoryData = res;
       if (res) {
         res.forEach((i: any) => {
           i.flag = (i.flag == true) ? 'Active' : 'InActive'
@@ -79,7 +79,7 @@ export class SubcategoryMasterComponent implements OnInit {
     this.sino = 0;
   }
   onCheck() {
-    this.data.forEach(i => {
+    this.subCategoryData.forEach(i => {
       if (i.categoryname === this.categoryName) {
         this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Category name is already exist, Please input different name' }];
         setTimeout(() => this.responseMsg = [], 2000)
