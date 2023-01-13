@@ -62,7 +62,21 @@ public static readonly RoleMasterColumns = [
     { field: 'rolename', header: 'RoleName', align: 'left !important'},
     { field: 'flag', header: 'Status', align: 'left !important'},
 ];
-
+public static readonly RegistrationColumns =[
+      {field: 'production_house_name', header: 'ProductionHouseName', align: 'left !important'},
+      { field: 'first_name', header: 'FirstName', align: 'left !important'},
+      { field: 'last_name', header: 'LastName', align: 'left !important'},
+      { field: 'dob', header: 'Date', align: 'left !important'},
+      { field: 'mobile_number', header: 'Mobilenumber', align: 'left !important'},
+      { field: 'email_id', header: 'Emailid', align: 'left !important'},
+      { field: 'countryname', header: 'Country', align: 'left !important'},
+      { field: 'statename', header: 'State', align: 'left !important'},
+      { field: 'cityname', header: 'City', align: 'left !important'},
+      { field: 'address1', header: 'Address1', align: 'left !important'},
+      { field: 'address2', header: 'Address2', align: 'left !important'},
+      { field: 'pincode', header: 'Pincode', align: 'left !important'},
+      { field: 'flag', header: 'Status', align: 'left !important'},
+];
 //#endregion
 
 //#region  Ananth
