@@ -9,13 +9,13 @@
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="unionname" name="_unionname" pInputText [(ngModel)]="unionName"
-                                [pKeyFilter]="'alpha'"  required (change)="checkUnionName()"  />
+                                [pKeyFilter]="blockUnionname"  required (change)="checkUnionName()"  />
                                 <label for="_unionname">Union Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" name="_regnum"  [(ngModel)]="regNumber" [pKeyFilter]="'int'" (change)="checkRegno()" 
+                                <input type="text" name="_regnum"  [(ngModel)]="regNumber" [pKeyFilter]="blockRegno" (change)="checkRegno()" 
                                 pInputText  required />
                                 <label for="_regnum">Register Number</label>
                             </span>
