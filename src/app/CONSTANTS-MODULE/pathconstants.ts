@@ -37,6 +37,8 @@ export class Pathconstants {
      public static readonly rolemaster_Get='Rolemaster/GetRolemaster'
      public static readonly expensescategorymaster_Post='ExpensesCategoryMaster/SaveExpensesCategoryMaster'
      public static readonly expensescategorymaster_Get='ExpensesCategoryMaster/GetexpencesmasterDB'
+     public static readonly registration_Post='Registration/SaveRegistration'
+     public static readonly registration_GET='Registration/GetRegistration'
     //#endregion
     
 }
