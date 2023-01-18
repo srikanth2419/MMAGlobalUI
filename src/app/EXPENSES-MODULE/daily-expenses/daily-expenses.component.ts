@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { Message, SelectItem } from 'primeng/api';
+import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
+import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
+import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
+import { RestapiService } from 'src/app/services/restapi.service';
 
 @Component({
   selector: 'app-daily-expenses',
@@ -17,23 +21,76 @@ export class DailyExpensesComponent implements OnInit {
   amount: any;
   dailyexpensesCols: any;
   dailyexpensesData: any[] = [];
+  expensescategorymasterData :any[]=[];
   spinner: boolean = false;
   grandTotal: number = 0;
   Total: any;
-
-  constructor() { }
+  RowId:any;
+  responseMsg: Message[] = [];
+  loading: boolean = false;
+  constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
-    this.dailyexpensesCols = [
-      { field: 'BudgetAmount', header: 'Budget Amount', align: 'left !important' },
-      { field: 'Date', header: 'Date', align: 'left !important' },
-      { field: 'Project', header: 'Project', align: 'right !important' },
-      { field: 'InvoiceNo', header: 'Invoice No', align: 'left !important' },
-      { field: 'expenses', header: 'Expenses category', align: 'left !important' },
-      { field: 'amount', header: 'Amount', align: 'left !important' },
-    ]
+    this.onView();
+    this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {this.expensescategorymasterData = res})
+    this.dailyexpensesCols = TableConstants.DailyexpensesColumns;
+     
   }
+  onSelect(type: any) {
+    let dailyexpensesSelection: any = [];
+    switch (type) {
+      case 'D':
+        this.dailyexpensesData.forEach((c: any) => {
+          dailyexpensesSelection.push({ label: c.name, value: c.sino});
+        })
+        this.expensesOptions = dailyexpensesSelection;
+        this.expensesOptions.unshift({ label:'-select', value: null });
+        break;
+    }
+  }
+onSave(){
+  const params = {
+  'slno': this.RowId,
+  'project_name': this. projectName,
+  'budget_amount':this.budgetAmount,
+  'date':this.date,
+  'invoice_number':this.invoiceNumber,
+  'expenses_category':this.expensesCategory,
+  'amount':this.amount,
+  'created_date': new Date(),
+};
+this.restapiservice.post(Pathconstants.dailyexpenses_Post, params).subscribe(res => {
+  if (res != null && res != undefined) {
+    this.onView();
+    this.onClear();
+    this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+    setTimeout(() => this.responseMsg = [], 3000);
+  }
+  else {
+    this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+    setTimeout(() => this.responseMsg = [], 3000);
+  }
+})
 
+}
+onView(){
+  this.restapiservice.get(Pathconstants.dailyexpenses_GET).subscribe(res => {
+    this.dailyexpensesData = res;
+  })
+}
+onEdit(rowData:any){
+  this.RowId=rowData.slno;
+  this.projectName=rowData.project_name;
+  this.budgetAmount=rowData.budget_amount;
+  this.date=rowData.date;
+  this.invoiceNumber=rowData.invoice_number;
+  this.expensesCategory=rowData.expenses_category;
+  this.amount=rowData.amount;
+
+}
+onClear(){
+
+}
   checkBudgetAmount() {
     if (this.budgetAmount !== null && this.budgetAmount !== undefined && this.amount !== undefined && this.amount !== null) {
       if (this.amount > this.budgetAmount) {

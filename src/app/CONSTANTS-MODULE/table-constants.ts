@@ -77,6 +77,14 @@ public static readonly RegistrationColumns =[
       { field: 'pincode', header: 'Pincode', align: 'left !important'},
       { field: 'flag', header: 'Status', align: 'left !important'},
 ];
+public static readonly DailyexpensesColumns =[
+      { field: 'project_name', header: 'ProjectName', align: 'right !important' },
+      { field: 'budget_amount', header: 'Budget Amount', align: 'left !important' },
+      { field: 'date', header: 'Date', align: 'left !important' },
+      { field: 'invoice_number', header: 'Invoice No', align: 'left !important' },
+      { field: 'name', header: 'Expenses category', align: 'left !important' },
+      { field: 'amount', header: 'Amount', align: 'left !important' },
+]
 //#endregion
 
 //#region  Ananth
