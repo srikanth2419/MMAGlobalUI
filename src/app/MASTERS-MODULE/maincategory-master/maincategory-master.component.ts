@@ -17,7 +17,7 @@ export class MaincategoryMasterComponent implements OnInit {
   categoryName: any;
   selectedType: any;
   cols: any[] = [];
-  data: any[] = [];
+  mainCategoryData: any[] = [];
   sino: any;
   RowId:any;
   responseMsg: Message[] = [];
@@ -43,7 +43,7 @@ export class MaincategoryMasterComponent implements OnInit {
 
   onView() {
     this.restApiService.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => {
-      this.data = res;
+      this.mainCategoryData = res;
       if (res) {
         res.forEach((i: any) => {
           i.flag = (i.flag == true) ? 'Active' : 'InActive'
@@ -83,7 +83,7 @@ export class MaincategoryMasterComponent implements OnInit {
     this.sino = 0;
   }
   onCheck() {
-    this.data.forEach(i => {
+    this.mainCategoryData.forEach(i => {
       if (i.categoryname === this.categoryName) {
         this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Category name is already exist, Please input different name' }];
         setTimeout(() => this.responseMsg = [], 2000)
