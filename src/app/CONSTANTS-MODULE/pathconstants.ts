@@ -28,6 +28,8 @@ export class Pathconstants {
      public static readonly SubCategoryMasterController_Get='SubCategoryMaster/Getsubcategorymaster'
      public static readonly UserMasterController_Get='UserMaster/GetUserMaster'
      public static readonly UserMaster_Post='UserMaster/SaveUserMaster'
+     public static readonly ContactListController_Post='ContactList/Savecontactlist'
+     public static readonly ContactListController_Get='ContactList/Getcontactlist'
    //#endregion
 
 
@@ -38,6 +40,8 @@ export class Pathconstants {
      public static readonly rolemaster_Get='Rolemaster/GetRolemaster'
      public static readonly expensescategorymaster_Post='ExpensesCategoryMaster/SaveExpensesCategoryMaster'
      public static readonly expensescategorymaster_Get='ExpensesCategoryMaster/GetexpencesmasterDB'
+     public static readonly registration_Post='Registration/SaveRegistration'
+     public static readonly registration_GET='Registration/GetRegistration'
     //#endregion
     
 }

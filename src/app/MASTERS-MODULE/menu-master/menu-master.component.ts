@@ -31,6 +31,10 @@ export class MenuMasterComponent implements OnInit {
   data: any[] = [];
   roleIdData: any;
   responseMsg: Message[] = [];
+  disableInput: boolean = false;
+  blockIcon: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.:;^'"~`?/]/;
+  blockUrl: RegExp = /^[^=<>*%()|{}$@#_!+0-9&?,|.:;'`~"?^\s]/;
+  blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,~`|.:;'"?/]/;
 
   @ViewChild('f', { static: false }) _menumasterForm!: NgForm;
 
@@ -62,11 +66,10 @@ export class MenuMasterComponent implements OnInit {
   onSubmit() {
     const params = {
       'menuid': this.menuId,
-      'id': 1,
       'roleid': this.roleId,
       'parentid': this.parentId,
       'name': this.name,
-      'url': (this.url !== null && this.url !== undefined) ? this.url : ' ',
+      'url': (this.url !== null && this.url !== undefined) && this.url.length > 2 ? '/' + this.url : ' ',
       'icon': (this.icon !== null && this.icon !== undefined) ? this.icon : '',
       'priorities': this.priorities,
       'isactive': (this.selectedType == 1) ? true : false
@@ -101,6 +104,7 @@ export class MenuMasterComponent implements OnInit {
 
     let roleSelection: any = [];
     let parentSelection: any = [];
+    let prioritySelection: any = [];
     switch (type) {
       case 'R':
         this.roleIdData.forEach((c: any) => {
@@ -109,13 +113,20 @@ export class MenuMasterComponent implements OnInit {
         this.roleOptions = roleSelection;
         this.roleOptions.unshift({ label: '-Select', value: null });
         break;
-      case 'P':
+      case 'M':
         this.data.forEach((c: any) => {
-          parentSelection.push({ label: c.name, value: c.menuid });
+          parentSelection.push({ label: c.name, value: c.id });
         })
         this.parentIdOptions = parentSelection;
-        this.parentIdOptions.unshift({ label: '-Select', value: null });
+        this.parentIdOptions.unshift({ label: '-Select', value: 0 });
         break;
+      // case 'P':
+      //   this.prioritiesOptions.forEach((p: any) => {
+      //     prioritySelection.push({ label: p.label, value: p.value });
+      //   })
+      //   this.prioritiesOptions = prioritySelection;
+      //   this.prioritiesOptions.unshift({ label: '-Select', value: null });
+      //   break;
     }
   }
   onClear() {
@@ -126,18 +137,25 @@ export class MenuMasterComponent implements OnInit {
     this.url = null;
     this.priorities = null;
     this.selectedType = null;
+    this.roleOptions = [];
+    this.parentIdOptions = [];
     this.menuId = 0;
   }
 
   onEdit(row: any) {
+    // if(row.parentid === 0){
+    // }else{
+    //   this.disableInput = false;
+    // }
     this.menuId = row.menuid;
     this.roleOptions = [{ label: row.rolename, value: row.roleid }];
     this.parentIdOptions = [{ label: row.name, value: row.menuid }];
     this.name = row.name;
-    this.url = row.url;
+    this.url = row.url.replace('/', '');
     this.icon = row.icon;
-    this.priorities = row.priorities;
+    // this.prioritiesOptions =  [{ label: row.priorities, value: row.priorities }];
     this.selectedType = (row.isactive === 'Active') ? 1 : 0;
+    this.priorities = row.priorities;
 
   }
 

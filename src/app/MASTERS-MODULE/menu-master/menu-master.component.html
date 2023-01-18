@@ -3,64 +3,53 @@
         <p-messages [(value)]="responseMsg" [enableService]="false"
             [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
-            <form #f="ngForm">
+            <form #f="ngForm" name="menuMasterForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <p-dropdown [options]="roleOptions" (click)="onSelect('R')" [(ngModel)]="roleId"
-                                    name="_rolename">
+                                <p-dropdown name="_rolename" [options]="roleOptions" (click)="onSelect('R')"
+                                    [(ngModel)]="roleId">
                                 </p-dropdown>
                                 <label for="_rolename">Role Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <p-dropdown [options]="parentIdOptions" (click)="onSelect('P')" [(ngModel)]="parentId"
-                                    name="_parentid">
+                                <p-dropdown name="_parentid" [options]="parentIdOptions" (click)="onSelect('M')"
+                                    [(ngModel)]="parentId">
                                 </p-dropdown>
                                 <label for="_parentid">Parent ID</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="name" name="_name" pInputText (change)="checkMenuName()" [(ngModel)]="name" [pKeyFilter]="'alpha'"  required />
+                                <input type="text" name="_name" pInputText (change)="checkMenuName()" [(ngModel)]="name"
+                                    [pKeyFilter]="blockMenuName" required />
                                 <label for="_name">Menu Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="url" name="_url" pInputText (change)="checkUrl()"  [(ngModel)]="url" required />
+                                <input type="text" name="_url" pInputText (change)="checkUrl()" [(ngModel)]="url"
+                                    [pKeyFilter]="blockUrl" minlength="3" [disabled]="disableInput" />
                                 <label for="_url">URL</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" id="icon" name="_icon" pInputText [(ngModel)]="icon" [pKeyFilter]="'alpha'"  required />
+                                <input type="text" name="_icon" pInputText [(ngModel)]="icon"
+                                    [pKeyFilter]="blockIcon" [disabled]="disableInput" />
                                 <label for="_icon">Icon</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <p-dropdown [options]="prioritiesOptions" [(ngModel)]="priorities" name="_priorities">
+                                <p-dropdown name="_priorities" [options]="prioritiesOptions" [(ngModel)]="priorities">
                                 </p-dropdown>
                                 <label for="_priorities">Priorities</label>
                             </span>
                         </div>
-                        <!-- <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
-                                <input type="text" id="menuid" name="_menuid" pInputText
-                                    [(ngModel)]="menuId" required />
-                                <label for="_menuid">Menu ID</label>
-                            </span>
-                        </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
-                                <input type="text" id="id" name="_id" pInputText
-                                    [(ngModel)]="Id" required />
-                                <label for="_id">ID</label>
-                            </span>
-                        </div> -->
                         <div class="field col-12 md:col-3 lg:col-3" style="padding-top:15px;">
                             <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType" required>
                             </p-radioButton>&nbsp;
@@ -69,10 +58,10 @@
                         </div>
                     </div>
                 </div>
-                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Submit" [disabled]="!f.valid || !f.dirty"
+                <div class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton label="Submit" [disabled]="(!f.valid || !f.dirty)"
                         (click)="onSubmit()"></button>&nbsp;
-                        <button pButton type="button" label="Clear"icon="pi pi-trash"(click)="onClear()" ></button>
+                    <button pButton label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                 </div>
             </form>
         </div>

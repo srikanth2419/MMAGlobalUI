@@ -71,7 +71,21 @@ public static readonly RoleMasterColumns = [
     { field: 'rolename', header: 'RoleName', align: 'left !important'},
     { field: 'flag', header: 'Status', align: 'left !important'},
 ];
-
+public static readonly RegistrationColumns =[
+      {field: 'production_house_name', header: 'ProductionHouseName', align: 'left !important'},
+      { field: 'first_name', header: 'FirstName', align: 'left !important'},
+      { field: 'last_name', header: 'LastName', align: 'left !important'},
+      { field: 'dob', header: 'Date', align: 'left !important'},
+      { field: 'mobile_number', header: 'Mobilenumber', align: 'left !important'},
+      { field: 'email_id', header: 'Emailid', align: 'left !important'},
+      { field: 'countryname', header: 'Country', align: 'left !important'},
+      { field: 'statename', header: 'State', align: 'left !important'},
+      { field: 'cityname', header: 'City', align: 'left !important'},
+      { field: 'address1', header: 'Address1', align: 'left !important'},
+      { field: 'address2', header: 'Address2', align: 'left !important'},
+      { field: 'pincode', header: 'Pincode', align: 'left !important'},
+      { field: 'flag', header: 'Status', align: 'left !important'},
+];
 //#endregion
 
 //#region  Ananth
@@ -90,5 +104,28 @@ public static readonly SubCategoryMaster = [
     { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
     { field: 'flag', header: 'Status'},
 ]
+
+public static readonly ContactslistColumns=[
+    {field:'first_name',header:'firstName',align:'left !important'},
+    {field:'last_name',header:'lastName',align:'left !important'},
+    {field:'roleid',header:'RoleName',align:'left !important'},
+    {field:'maincategory_id',header:'Maincategory',align:'left !important'},
+    {field:'subcategory_id',header:'Subcategory',align:'left !important'},
+    {field:'dob',header:'DOB',align:'left !important'},
+    {field:'phonenumber',header:'phonenumber',align:'left !important'},
+    {field:'whatsappnumber',header:'whatsappnumber',align:'left !important'},
+    {field:'email_id',header:'email_id',align:'left !important'},
+    {field:'country_id',header:'country',align:'left !important'},
+    {field:'state_id',header:'state',align:'left !important'},
+    {field:'city_id',header:'city',align:'left !important'},
+    {field:'address1',header:'address1',align:'left !important'},
+    {field:'address2',header:'address2',align:'left !important'},
+    {field:'pincode',header:'pincode',align:'left !important'},
+    {field:'isunion',header:'isunion',align:'left !important'}, 
+    {field:'unionid',header:'union',align:'left !important'}, 
+    {field:'flag',header:'Flag',align:'left !important'}
+]
+
+
 //#endregion
 }

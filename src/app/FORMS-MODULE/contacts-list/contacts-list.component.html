@@ -20,20 +20,33 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="maincategoryOptions" [(ngModel)]="mainCategory"
-                                    name="_maincategory">
+                                <p-dropdown [options]="roleOptions" (click)="onSelect('G')" [(ngModel)]="role"
+                                    name="_role">
+                                </p-dropdown>
+                                <label for="_role">Role Name</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('E')"
+                                    [(ngModel)]="mainCategory" name="_maincategory">
                                 </p-dropdown>
                                 <label for="_maincategory">Main category</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="subcategoryOptions" [(ngModel)]="subCategory"
-                                    name="_subCategory">
+                                <p-dropdown [options]="subcategoryOptions" (click)="onSelect('F')"
+                                    [(ngModel)]="subCategory" name="_subCategory">
                                 </p-dropdown>
                                 <label for="_subCategory">Sub Category</label>
                             </span>
                         </div>
+
+                    </div>
+                </div>
+                <div #row2 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-calendar [(ngModel)]="dob" name="_dob" [showIcon]="true" inputId="dobvalue">
@@ -41,22 +54,18 @@
                                 <label for="_dob">D.O.B</label>
                             </span>
                         </div>
-                    </div>
-                </div>
-                <div #row2 class="col-12 md:col-12 lg:col-12">
-                    <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="mobno" name="_mobno" pInputText [(ngModel)]="mobileNo"
+                                <input type="text" id="phoneno" name="_phoneno" pInputText [(ngModel)]="phoneNumber"
                                     maxlength="10" required />
-                                <label for="_mobno">Mobile No</label>
+                                <label for="_mobno">phone Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="mobno" name="_mobno" pInputText [(ngModel)]="mobileNo"
-                                    maxlength="10" required />
-                                <label for="_mobno">Whats app Number</label>
+                                <input type="text" id="whatappno" name="_whatappno" pInputText
+                                    [(ngModel)]="whatappNumber" maxlength="10" required />
+                                <label for="_mobno">Whatsapp Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
@@ -67,15 +76,10 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="countryOptions" [(ngModel)]="country" name="_country">
+                                <p-dropdown [options]="countryOptions" (click)="onSelect('B')" [(ngModel)]="country"
+                                    name="_country">
                                 </p-dropdown>
                                 <label for="_country">Country</label>
-                            </span>
-                        </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
-                                <p-dropdown [options]="stateOptions" [(ngModel)]="state" name="_state"></p-dropdown>
-                                <label for="_state">State</label>
                             </span>
                         </div>
                     </div>
@@ -84,8 +88,17 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="cityOptions" [(ngModel)]="city" name="_city"
-                                    placeholder="-select-" [style]="{width: '-webkit-fill-available !important'}">
+                                <p-dropdown [options]="stateOptions" (click)="onSelect('C')" [(ngModel)]="state"
+                                    optionLabel="label" name="_state" [required]="true">
+                                </p-dropdown>
+                                <label for="_country">state</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="cityOptions" (click)="onSelect('D')" [(ngModel)]="city"
+                                    name="_city" placeholder="-select-"
+                                    [style]="{width: '-webkit-fill-available !important'}">
                                 </p-dropdown>
                                 <label for="_city">City</label>
                             </span>
@@ -111,24 +124,73 @@
                                 <label for="_pincode">Pincode</label>
                             </span>
                         </div>
+                    </div>
+                </div>
+                <div #row4 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-1">
-                            <p-checkbox name="groupname" label="Union" value="val1" [(ngModel)]="selectedType">
+                            <p-checkbox name="groupname" label="isunion" value="val1" [(ngModel)]="selected">
                             </p-checkbox>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="unionOptions" [(ngModel)]="unionSelection" name="_unionselection"
-                                    placeholder="-select-" [style]="{width: '-webkit-fill-available !important'}">
+                                <p-dropdown [options]="unionOptions" (click)="onSelect('H')" [(ngModel)]="unionMaster"
+                                    name="_unionselection" placeholder="-select-"
+                                    [style]="{width: '-webkit-fill-available !important'}">
                                 </p-dropdown>
                                 <label for="_unionselection">Union Selection</label>
                             </span>
                         </div>
+                        <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
+                            <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType" required>
+                            </p-radioButton>&nbsp;
+                            <p-radioButton name="Flag" label="INACTIVE" value=0 [(ngModel)]="selectedType" required>
+                            </p-radioButton>
+                        </div>
                     </div>
                 </div>
-                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Save"></button>
+                <div #row5 class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
+                        (click)="onSave()"></button>&nbsp;
+                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                 </div>
             </form>
         </div>
     </p-panel>
+    <div class="col-12 md:col-12 lg:col-12">
+        <p-table #dt [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="grid" style="width: -webkit-fill-available;">
+                <div class="lg:col-10 no-pad-top no-pad-btm">
+                    <span class="p-input-icon-left p-ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input #searchInput pInputText type="text"
+                            (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th>S.No:</th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+                <th>Edit</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+            <tr>
+                <td>{{rowIndex+1}}</td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+                <td>
+                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
 </div>
