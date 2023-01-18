@@ -16,14 +16,14 @@
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="durationday" name="_durationday" pInputText
-                                  [(ngModel)]="durationDay" [pKeyFilter]="'int'" required />
+                                    [(ngModel)]="durationDay" [pKeyFilter]="'int'" required />
                                 <label for="_durationday">Duration in days</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="budget" name="_budget" pInputText [(ngModel)]="budget"
-                                [pKeyFilter]="'int'"  required />
+                                    [pKeyFilter]="'int'" required />
                                 <label for="_budget">Budget</label>
                             </span>
                         </div>
@@ -54,48 +54,47 @@
                     <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
                         (click)="onSave()"></button>&nbsp;
                     <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
-        </div>
-        </form>
-</div>
-<div class="col-12 md:col-12 lg:col-12">
-    <p-table #dt [columns]="newprojectcreationCols" [value]="newprojectcreationData" styleClass="p-datatable-gridlines" [loading]="loading" [paginator]="true" [rows]="10"
-    [globalFilterFields]="['courtname']" [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex">
-                <span class="p-input-icon-left p-ml-auto">
-                    <i class="pi pi-search"></i>
-                    <input #searchInput pInputText type="text"  [pKeyFilter]="block" (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
-                </span>
-            </div>
-            <div class="grid" style="width: -webkit-fill-available;">
-                <div class="lg:col-6 no-pad-top no-pad-btm"></div>
-                <div class="lg:col-6 table-hdr-export">
-                    <button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()"
-                        class="mr-2" pTooltip="CSV" label="Export" tooltipPosition="bottom"></button>
                 </div>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th>S.No:</th>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-                <th>Edit</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-            <tr>
-                <td>{{rowIndex+1}}</td>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-                <td>
-                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
-</p-panel>
+            </form>
+        </div>
+        <div class="col-12 md:col-12 lg:col-12">
+            <p-table #dt [columns]="newprojectcreationCols" [value]="newprojectcreationData"
+                styleClass="p-datatable-gridlines" [loading]="loading" [paginator]="true" [rows]="10"
+                [globalFilterFields]="['courtname']" [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex">
+                        <span class="p-input-icon-left p-ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input #searchInput pInputText type="text" [pKeyFilter]="block"
+                                (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
+                        </span>
+                    </div>
+                    <div class="grid" style="width: -webkit-fill-available;">
+                        <div class="lg:col-6 no-pad-top no-pad-btm"></div>
+                        
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th>S.No:</th>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                        <th>Edit</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                    <tr>
+                        <td>{{rowIndex+1}}</td>
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                        <td>
+                            <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-panel>
 </div>

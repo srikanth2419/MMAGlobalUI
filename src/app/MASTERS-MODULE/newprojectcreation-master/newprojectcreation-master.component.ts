@@ -27,7 +27,6 @@ export class NewprojectcreationMasterComponent implements OnInit {
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
-    this.RowId=0;
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
     this.onView();
     this.newprojectcreationCols = TableConstants.newprojectcreationCols;
@@ -41,7 +40,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
         'duration_in_days': this.durationDay,
         'budget': this.budget,
         'project_start_date': this.projectstartDate,
-        'created_date':new Date(),
+        'created_date': new Date(),
         'flag': (this.selectedType == 1) ? true : false
       };
       this.restapiservice.post(Pathconstants.projectcreation_Post, params).subscribe(res => {
@@ -88,13 +87,13 @@ export class NewprojectcreationMasterComponent implements OnInit {
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
-   onCheck(){
-    this.newprojectcreationData.forEach( i => {
-       if(i.project_name  === this.projectName ) {
-         this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'project name is already exist, Please input different name' }];
-          this.projectName = null;
-       }
-  })
-   }
+  onCheck() {
+    this.newprojectcreationData.forEach(i => {
+      if (i.project_name === this.projectName) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'project name is already exist, Please input different name' }];
+        this.projectName = null;
+      }
+    })
   }
-  
+}
+

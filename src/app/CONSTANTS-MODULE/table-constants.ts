@@ -1,11 +1,5 @@
 export class TableConstants {
-    public static readonly FundColumns = [
-        { field: 'personName', header: 'Person Name', align: 'left !important'},
-        { field: 'paymentBy', header: 'Payment By', align: 'left !important'},
-        { field: 'amount', header: 'Amount', align: 'right !important'},
-        { field: 'dayCall', header: 'Day or Call', align: 'right !important'},
-        { field: 'totalAmount', header: 'Total Amount', align: 'right !important'},
-    ];
+    
 
     public static readonly ShootingScheduleColumns = [
         { field: 'name', header: 'Name', align: 'left !important'},
@@ -33,6 +27,14 @@ export class TableConstants {
         {field:'project_start_date',header:'Project Start Date',align:'left !important'},
         {field:'created_date',header:'Created Date',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'}
+    ];
+
+    public static readonly FundColumns = [
+        { field: 'personName', header: 'Person Name', align: 'left !important'},
+        { field: 'paymentBy', header: 'Payment By', align: 'left !important'},
+        { field: 'amount', header: 'Amount', align: 'right !important'},
+        { field: 'dayCall', header: 'Day or Call', align: 'right !important'},
+        { field: 'totalAmount', header: 'Total Amount', align: 'right !important'},
     ];
     
     //vigneshwaran-end
