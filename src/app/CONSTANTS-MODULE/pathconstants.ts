@@ -15,6 +15,9 @@ export class Pathconstants {
     public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
     public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
     public static readonly CityMasterDB_GET ='CityMaster/GetcitymasterDB' 
+    public static readonly projectcreation_Post ='ProjectCreation/Saveproject_creation' 
+    public static readonly projectcreation_Get ='ProjectCreation/GetprojectCreation' 
+
     //#endregion
 
 

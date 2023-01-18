@@ -25,6 +25,15 @@ export class TableConstants {
         {field:'countryname',header:'Country Code',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'}
     ];
+
+    public static readonly newprojectcreationCols = [
+        {field:'project_name',header:'Project Name',align:'left !important'},
+        {field: 'duration_in_days',header:'Duration Days',align:'left !important'},
+        {field:'budget',header:'Budget',align:'left !important'},
+        {field:'project_start_date',header:'Project Start Date',align:'left !important'},
+        {field:'created_date',header:'Created Date',align:'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'}
+    ];
     
     //vigneshwaran-end
 //region sampathkumar
