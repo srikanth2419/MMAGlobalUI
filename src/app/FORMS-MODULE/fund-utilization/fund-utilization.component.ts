@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashStyleValue } from 'highcharts';
 import { Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
@@ -17,7 +18,7 @@ export class FundUtilizationComponent implements OnInit {
   personNameOptions: SelectItem[] = [];
   personName: any;
   paymentByOptions: SelectItem[] = [];
-  paymentBy: any;
+  paymentBy:any;
   amount: any;
   dayCall: any;
   totalAmount: any;
@@ -30,9 +31,8 @@ export class FundUtilizationComponent implements OnInit {
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/;
 
 
-
-
-  constructor(private restapiservice: RestapiService) { }
+  constructor(private restapiservice: RestapiService) {
+   }
 
   ngOnInit(): void {
     this.fundCols = TableConstants.FundColumns;
