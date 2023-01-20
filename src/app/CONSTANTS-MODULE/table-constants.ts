@@ -95,6 +95,11 @@ public static readonly DailyexpensesColumns =[
       { field: 'invoice_number', header: 'Invoice No', align: 'left !important' },
       { field: 'name', header: 'Expenses category', align: 'left !important' },
       { field: 'amount', header: 'Amount', align: 'left !important' },
+];
+public static readonly lodginginfoColumns =[
+    { field: 'location', header: 'Location', align: 'right !important' },
+      { field: 'address', header: 'Address', align: 'left !important' },
+      { field: 'note', header: 'Note', align: 'left !important' },
 ]
 //#endregion
 
