@@ -7,7 +7,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="locationname" name="_Lname" pInputText [(ngModel)]="locationName"
-                                    required />
+                                [pKeyFilter]="'alpha'"  required />
                                 <label for="_Lname">Location Name</label>
                             </span>
                         </div>
@@ -65,14 +65,14 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="pcode" name="_pincode" pInputText [(ngModel)]="pincode"
+                                <input type="text" id="pcode" name="_pincode" pInputText [(ngModel)]="pincode" [pKeyFilter]="'int'"
                                     maxlength="6" required />
                                 <label for="_pincode">Pincode</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="mobno" name="_mobno" pInputText [(ngModel)]="mobileNo"
+                                <input type="text" id="mobno" name="_mobno" pInputText [(ngModel)]="mobileNo" [pKeyFilter]="'int'"
                                     maxlength="10" required />
                                 <label for="_mobno">Mobile No</label>
                             </span>
@@ -83,23 +83,75 @@
                 <div #row3 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="Parkingnote" name="_parkingnote" pInputText [(ngModel)]="parkingNote"
+                                    required />
+                                <label for="_addr1">Parking Note</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
                             <label>Parking Facility</label>
                             <div>
-                                <p-radioButton name="Flag" label="Yes" value=1 [(ngModel)]="selectedType" required>
+                                <p-radioButton name="parkingFacility" label="Yes" value=1 [(ngModel)]="parkingFacility" required>
                                 </p-radioButton>
-                                <p-radioButton name="Flag" label="No" value=0 [(ngModel)]="selectedType" required>
+                                <p-radioButton name="parkingFacility" label="No" value=0 [(ngModel)]="parkingFacility" required>
                                 </p-radioButton>
                             </div>
                         </div>
-                        <!-- <div class="field col-12 md:col-3 lg:col-1">
-                            <button pButton type="button" label="Save"></button>
-                        </div> -->
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <label>Flag</label>
+                            <div>
+                                <p-radioButton name="flag" label="Active" value=1 [(ngModel)]="flag" required>
+                                </p-radioButton>
+                                <p-radioButton name="flag" label="Inactive" value=0 [(ngModel)]="flag" required>
+                                </p-radioButton>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Save"></button>
+                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
+                    (click)="onSubmit()"></button>&nbsp;
+                <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                 </div>
             </form>
         </div>
     </p-panel>
+    <div class="col-12 md:col-12 lg:col-12">
+        <p-table #dt [columns]="cols" [value]="data"  styleClass="p-datatable-gridlines"
+            [paginator]="true" [rows]="10" 
+            [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div class="grid" style="width: -webkit-fill-available;">
+                    <div class="lg:col-10 no-pad-top no-pad-btm">
+                        <span class="p-input-icon-left p-ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input #searchInput pInputText type="text" [pKeyFilter]="'alpha'"
+                                (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
+                        </span>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>S.No</th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th>Edit</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                <tr>
+                    <td>{{rowIndex+1}}</td>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>

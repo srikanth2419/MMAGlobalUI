@@ -55,6 +55,22 @@ export class TableConstants {
         {field:'registernumber',header:'RegisterNumber',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'},
     ];
+
+    public static readonly locationInfoColumns = [
+        { field: 'location_name', header: 'Location Name', align: 'right !important' },
+        { field: 'location_managerid', header: 'Location Manager', align: 'right !important' },
+        { field: 'local_epid', header: 'Location EP', align: 'right !important' },
+        { field: 'country_id', header: 'Country', align: 'right !important' },
+        { field: 'state_id', header: 'State', align: 'right !important' },
+        { field: 'city_id', header: 'City', align: 'right !important' },
+        { field: 'address1', header: 'Address 1', align: 'right !important' },
+        { field: 'address2', header: 'Address 2', align: 'right !important' },
+        { field: 'phonenumber', header: 'Mobile Number', align: 'right !important' },
+        { field: 'pincode', header: 'Pincode', align: 'right !important' },
+        { field: 'parking_note', header: 'Parking Note', align: 'right !important' },
+        { field: 'parking_facility', header: 'Parking Facility', align: 'right !important' },
+        { field: 'flag', header: 'Flag', align: 'right !important' },
+    ];
    
     //sampathkumar-end
     
