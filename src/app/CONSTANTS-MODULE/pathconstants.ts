@@ -46,6 +46,10 @@ export class Pathconstants {
      public static readonly registration_GET='Registration/GetRegistration'
      public static readonly dailyexpenses_Post='Dailyexpenses/SaveDailyexpenses'
      public static readonly dailyexpenses_GET='Dailyexpenses/GetDailyexpenses'
+     public static readonly lodginginfo_Post='Lodginginfo/SaveLodginginfo'
+     public static readonly lodginginfo_GET='Lodginginfo/Getlodginginfo'
+     public static readonly transportinfo_Post='Transportinfo/Savetransportinfo'
+     public static readonly transportinfo_GET='Transportinfo/Gettransportinfo'
     //#endregion
     
 }

@@ -21,7 +21,7 @@ export class DailyExpensesComponent implements OnInit {
   amount: any;
   dailyexpensesCols: any;
   dailyexpensesData: any[] = [];
-  expensescategorymasterData :any[]=[];
+  expensescategorymasterData :any[] = [];
   spinner: boolean = false;
   grandTotal: number = 0;
   Total: any;
@@ -31,8 +31,8 @@ export class DailyExpensesComponent implements OnInit {
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
-    this.onView();
     this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {this.expensescategorymasterData = res})
+    this.onView();
     this.dailyexpensesCols = TableConstants.DailyexpensesColumns;
      
   }
@@ -40,8 +40,8 @@ export class DailyExpensesComponent implements OnInit {
     let dailyexpensesSelection: any = [];
     switch (type) {
       case 'D':
-        this.dailyexpensesData.forEach((c: any) => {
-          dailyexpensesSelection.push({ label: c.name, value: c.sino});
+        this. expensescategorymasterData.forEach((c: any) => {
+          dailyexpensesSelection.push({ label: c.name, value: c.sino });
         })
         this.expensesOptions = dailyexpensesSelection;
         this.expensesOptions.unshift({ label:'-select', value: null });
