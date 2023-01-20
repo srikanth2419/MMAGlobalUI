@@ -37,6 +37,7 @@
                                     <p-dropdown [options]="paymentByOptions" [(ngModel)]="paymentBy" name="_paymentBy">
                                     </p-dropdown>
                                     <label for="_paymentBy">Payment By</label>
+                                    
                                 </span>
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
@@ -65,7 +66,7 @@
                     </p-card>
                 </div>
                 <div #row3 class="col-12 md:col-12 lg:col-12">
-                    <p-table [columns]="fundCols" [value]="fundDetails" styleClass="p-datatable-gridlines"  responsiveLayout="scroll">
+                    <p-table [columns]="fundCols" [value]="FundUtilizationData"styleClass="p-datatable-gridlines"  responsiveLayout="scroll">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th>S.No.</th>

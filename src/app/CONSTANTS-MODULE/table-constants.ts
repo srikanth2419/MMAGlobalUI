@@ -1,11 +1,5 @@
 export class TableConstants {
-    public static readonly FundColumns = [
-        { field: 'personName', header: 'Person Name', align: 'left !important'},
-        { field: 'paymentBy', header: 'Payment By', align: 'left !important'},
-        { field: 'amount', header: 'Amount', align: 'right !important'},
-        { field: 'dayCall', header: 'Day or Call', align: 'right !important'},
-        { field: 'totalAmount', header: 'Total Amount', align: 'right !important'},
-    ];
+    
 
     public static readonly ShootingScheduleColumns = [
         { field: 'name', header: 'Name', align: 'left !important'},
@@ -25,6 +19,23 @@ export class TableConstants {
         {field:'countryname',header:'Country Code',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'}
     ];
+
+    public static readonly newprojectcreationCols = [
+        {field:'project_name',header:'Project Name',align:'left !important'},
+        {field: 'duration_in_days',header:'Duration Days',align:'left !important'},
+        {field:'budget',header:'Budget',align:'left !important'},
+        {field:'project_start_date',header:'Project Start Date',align:'left !important'},
+        {field:'created_date',header:'Created Date',align:'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'}
+    ];
+
+    public static readonly FundColumns = [
+        { field: 'personName', header: 'Person Name', align: 'left !important'},
+        { field: 'paymentBy', header: 'Payment By', align: 'left !important'},
+        { field: 'amount', header: 'Amount', align: 'right !important'},
+        { field: 'dayCall', header: 'Day or Call', align: 'right !important'},
+        { field: 'totalAmount', header: 'Total Amount', align: 'right !important'},
+    ];
     
     //vigneshwaran-end
 //region sampathkumar
@@ -43,6 +54,22 @@ export class TableConstants {
         {field: 'unionname',header:'UnionName',align:'right !important'},
         {field:'registernumber',header:'RegisterNumber',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'},
+    ];
+
+    public static readonly locationInfoColumns = [
+        { field: 'location_name', header: 'Location Name', align: 'right !important' },
+        { field: 'location_managerid', header: 'Location Manager', align: 'right !important' },
+        { field: 'local_epid', header: 'Location EP', align: 'right !important' },
+        { field: 'country_id', header: 'Country', align: 'right !important' },
+        { field: 'state_id', header: 'State', align: 'right !important' },
+        { field: 'city_id', header: 'City', align: 'right !important' },
+        { field: 'address1', header: 'Address 1', align: 'right !important' },
+        { field: 'address2', header: 'Address 2', align: 'right !important' },
+        { field: 'phonenumber', header: 'Mobile Number', align: 'right !important' },
+        { field: 'pincode', header: 'Pincode', align: 'right !important' },
+        { field: 'parking_note', header: 'Parking Note', align: 'right !important' },
+        { field: 'parking_facility', header: 'Parking Facility', align: 'right !important' },
+        { field: 'flag', header: 'Flag', align: 'right !important' },
     ];
    
     //sampathkumar-end
@@ -77,6 +104,19 @@ public static readonly RegistrationColumns =[
       { field: 'pincode', header: 'Pincode', align: 'left !important'},
       { field: 'flag', header: 'Status', align: 'left !important'},
 ];
+public static readonly DailyexpensesColumns =[
+      { field: 'project_name', header: 'ProjectName', align: 'right !important' },
+      { field: 'budget_amount', header: 'Budget Amount', align: 'left !important' },
+      { field: 'date', header: 'Date', align: 'left !important' },
+      { field: 'invoice_number', header: 'Invoice No', align: 'left !important' },
+      { field: 'name', header: 'Expenses category', align: 'left !important' },
+      { field: 'amount', header: 'Amount', align: 'left !important' },
+];
+public static readonly lodginginfoColumns =[
+    { field: 'location', header: 'Location', align: 'right !important' },
+      { field: 'address', header: 'Address', align: 'left !important' },
+      { field: 'note', header: 'Note', align: 'left !important' },
+]
 //#endregion
 
 //#region  Ananth

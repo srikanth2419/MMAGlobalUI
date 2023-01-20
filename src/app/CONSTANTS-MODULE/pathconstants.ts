@@ -15,6 +15,11 @@ export class Pathconstants {
     public static readonly StateMasterDB_GET ='StateMasterDB/GetStateMaterDB'
     public static readonly CityMaster_Post ='CityMaster/SaveCityMasterDB' 
     public static readonly CityMasterDB_GET ='CityMaster/GetcitymasterDB' 
+    public static readonly projectcreation_Post ='ProjectCreation/Saveproject_creation' 
+    public static readonly projectcreation_Get ='ProjectCreation/GetprojectCreation' 
+    public static readonly fundutilization_Post ='Fund_Utilization/SaveFund_utilization' 
+    public static readonly fundutilization_Get ='Fund_Utilization/Getfund_utilization' 
+
     //#endregion
 
 
@@ -39,6 +44,12 @@ export class Pathconstants {
      public static readonly expensescategorymaster_Get='ExpensesCategoryMaster/GetexpencesmasterDB'
      public static readonly registration_Post='Registration/SaveRegistration'
      public static readonly registration_GET='Registration/GetRegistration'
+     public static readonly dailyexpenses_Post='Dailyexpenses/SaveDailyexpenses'
+     public static readonly dailyexpenses_GET='Dailyexpenses/GetDailyexpenses'
+     public static readonly lodginginfo_Post='Lodginginfo/SaveLodginginfo'
+     public static readonly lodginginfo_GET='Lodginginfo/Getlodginginfo'
+     public static readonly transportinfo_Post='Transportinfo/Savetransportinfo'
+     public static readonly transportinfo_GET='Transportinfo/Gettransportinfo'
     //#endregion
     
 }

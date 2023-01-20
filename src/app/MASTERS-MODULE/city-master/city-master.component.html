@@ -1,5 +1,5 @@
 <div class="col-12 md:col-12 lg:col-12">
-    <p-panel header="city Master">
+    <p-panel header="City Master">
         <p-messages [(value)]="responseMsg" [enableService]="false"
         [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
@@ -48,7 +48,7 @@
                     <div class="lg:col-10 no-pad-top no-pad-btm">
                     <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
-                        <input #searchInput pInputText type="text"
+                        <input #searchInput pInputText type="text" [pKeyFilter]="block"
                             (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                     </span>
                 </div>
@@ -76,3 +76,7 @@
             </ng-template>
         </p-table>
     </div>
+
+
+
+
