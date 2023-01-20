@@ -7,15 +7,15 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
-                                    name="_projectname">
+                                (click)="onSelect('p')"  name="_projectname">
                                 </p-dropdown>
                                 <label for="_projectname">Project Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount" readonly="true"
-                                    required />
+                                <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount"   readonly="true"
+                                   required />
                                 <label for="_budget">Budget</label>
                             </span>
                         </div>
@@ -37,11 +37,12 @@
                                     <p-dropdown [options]="paymentByOptions" [(ngModel)]="paymentBy" name="_paymentBy">
                                     </p-dropdown>
                                     <label for="_paymentBy">Payment By</label>
+                                    
                                 </span>
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
-                                    <input type="text" name="_amount" pInputText [(ngModel)]="amount" required />
+                                    <input type="text" name="_amount" pInputText [(ngModel)]="amount"  [pKeyFilter]="'int'" required />
                                     <label for="_amount">Amount</label>
                                 </span>
                             </div>

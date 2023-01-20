@@ -28,14 +28,24 @@ export class FundUtilizationComponent implements OnInit {
   FundUtilizationData: any[] = [];
   loading: boolean = false;
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/;
+  item:any;
+  newprojectcreationData:any[] = [];
 
 
 
-
-  constructor(private restapiservice: RestapiService) { }
+  constructor(private restapiservice: RestapiService) { 
+  }
 
   ngOnInit(): void {
+    this.paymentByOptions = [
+      { label: 'select',value:1 },
+      { label: 'PER DAY', value: 2 },
+      { label: 'PER CALL', value: 3 },
+      { label: 'PER PROJECT', value: 4 },
+      
+    ];
     this.fundCols = TableConstants.FundColumns;
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
   }
 
   onSave() {
@@ -62,6 +72,20 @@ export class FundUtilizationComponent implements OnInit {
           setTimeout(() => this.responseMsg = [], 3000);
         }
       })
+    }
+  }
+
+  onSelect(type: any) {
+    let projectSelection: any = [];
+
+    switch (type) {
+      case 'p':
+        this.newprojectcreationData.forEach((c: any) => {
+          projectSelection.push({ label: c.project_name, value: c.slno });
+        })
+        this.projectNameOptions = projectSelection;
+        this.projectNameOptions.unshift({ label: '-select', value: null });
+        break;
     }
   }
 
