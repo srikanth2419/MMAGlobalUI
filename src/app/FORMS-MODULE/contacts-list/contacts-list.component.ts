@@ -60,7 +60,7 @@ export class ContactsListComponent implements OnInit {
     this.restapiService.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
     this.restapiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => { this.data = res})
     this.restapiService.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res})
-      this.cols = TableConstants.ContactslistColumns;
+    this.cols = TableConstants.ContactslistColumns;
   }
 
   onSelect(type: any) {
@@ -142,7 +142,7 @@ export class ContactsListComponent implements OnInit {
       'address1': this.addressLine1,
       'address2': this.addressLine2,
       'pincode': this.pincode,
-      'isunion':this.selected.value,
+      'isunion':this.selected.value,  
       'unionid': this.unionMaster,
       'flag': (this.selectedType == 1) ? true : false
     }

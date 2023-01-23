@@ -116,7 +116,14 @@ public static readonly lodginginfoColumns =[
     { field: 'location', header: 'Location', align: 'right !important' },
       { field: 'address', header: 'Address', align: 'left !important' },
       { field: 'note', header: 'Note', align: 'left !important' },
-]
+];
+public static readonly transportinfoColumns =[
+    { field: 'driver_name', header: 'DriverName', align: 'right !important' },
+     { field: 'pickup_time', header: 'PickupTime', align: 'left !important' },
+     { field: 'pickup_location', header: 'PickupLocation', align: 'left !important' },
+      { field: 'drop_location', header: 'DropLocation', align: 'left !important' },
+      { field: 'passenger_id', header: 'PassengerName', align: 'left !important' },
+    ]
 //#endregion
 
 //#region  Ananth

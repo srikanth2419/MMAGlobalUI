@@ -49,7 +49,7 @@ export class ShootingScheduleComponent implements OnInit {
       { label: 'Pending', value: 2 },
       { label: 'Started', value: 3 },
       { label: 'Completed', value: 4 },
-      { label: 'Cancelled ', value: 5 },
+      { label: 'Cancelled', value: 5 },
 
 
       
@@ -71,5 +71,6 @@ export class ShootingScheduleComponent implements OnInit {
         break;
     }
   }
+  onSave() {}
 
 }
