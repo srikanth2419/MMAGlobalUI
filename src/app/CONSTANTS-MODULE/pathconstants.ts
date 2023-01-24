@@ -18,7 +18,8 @@ export class Pathconstants {
     public static readonly projectcreation_Post ='ProjectCreation/Saveproject_creation' 
     public static readonly projectcreation_Get ='ProjectCreation/GetprojectCreation' 
     public static readonly fundutilization_Post ='Fund_Utilization/SaveFund_utilization' 
-    public static readonly fundutilization_Get ='Fund_Utilization/Getfund_utilization' 
+    public static readonly fundutilization_Get ='Fund_Utilization/Getfund_utilization'
+    public static readonly shooting_schedule_Post ='ShootingSchedule/Saveshooting_schedule'  
 
     //#endregion
 
