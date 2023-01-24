@@ -111,7 +111,19 @@ public static readonly DailyexpensesColumns =[
       { field: 'invoice_number', header: 'Invoice No', align: 'left !important' },
       { field: 'name', header: 'Expenses category', align: 'left !important' },
       { field: 'amount', header: 'Amount', align: 'left !important' },
-]
+];
+public static readonly lodginginfoColumns =[
+    { field: 'location', header: 'Location', align: 'right !important' },
+      { field: 'address', header: 'Address', align: 'left !important' },
+      { field: 'note', header: 'Note', align: 'left !important' },
+];
+public static readonly transportinfoColumns =[
+    { field: 'driver_name', header: 'DriverName', align: 'right !important' },
+     { field: 'pickup_time', header: 'PickupTime', align: 'left !important' },
+     { field: 'pickup_location', header: 'PickupLocation', align: 'left !important' },
+      { field: 'drop_location', header: 'DropLocation', align: 'left !important' },
+      { field: 'passenger_id', header: 'PassengerName', align: 'left !important' },
+    ]
 //#endregion
 
 //#region  Ananth
@@ -134,22 +146,22 @@ public static readonly SubCategoryMaster = [
 public static readonly ContactslistColumns=[
     {field:'first_name',header:'firstName',align:'left !important'},
     {field:'last_name',header:'lastName',align:'left !important'},
-    {field:'roleid',header:'RoleName',align:'left !important'},
-    {field:'maincategory_id',header:'Maincategory',align:'left !important'},
+    {field:'rolename',header:'RoleName',align:'left !important'},
+    {field:'categoryname',header:'Maincategory',align:'left !important'},
     {field:'subcategory_id',header:'Subcategory',align:'left !important'},
     {field:'dob',header:'DOB',align:'left !important'},
     {field:'phonenumber',header:'phonenumber',align:'left !important'},
     {field:'whatsappnumber',header:'whatsappnumber',align:'left !important'},
     {field:'email_id',header:'email_id',align:'left !important'},
-    {field:'country_id',header:'country',align:'left !important'},
-    {field:'state_id',header:'state',align:'left !important'},
-    {field:'city_id',header:'city',align:'left !important'},
+    {field:'countryname',header:'country',align:'left !important'},
+    {field:'statename',header:'state',align:'left !important'},
+    {field:'cityname',header:'city',align:'left !important'},
     {field:'address1',header:'address1',align:'left !important'},
     {field:'address2',header:'address2',align:'left !important'},
     {field:'pincode',header:'pincode',align:'left !important'},
     {field:'isunion',header:'isunion',align:'left !important'}, 
-    {field:'unionid',header:'union',align:'left !important'}, 
-    {field:'flag',header:'Flag',align:'left !important'}
+    {field:'unionname',header:'UnionName',align:'left !important'}, 
+    {field:'flagstatus',header:'Flag',align:'left !important'}
 ]
 
 

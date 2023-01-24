@@ -7,14 +7,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="firstname" name="_fname" pInputText [(ngModel)]="firstName"
-                                    required />
+                                [pKeyFilter]="'alpha'"  required />
                                 <label for="_fname">First Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="lastname" name="_lname" pInputText [(ngModel)]="lastName"
-                                    required />
+                                [pKeyFilter]="'alpha'" required />
                                 <label for="_lname">Last Name</label>
                             </span>
                         </div>
@@ -57,20 +57,20 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="phoneno" name="_phoneno" pInputText [(ngModel)]="phoneNumber"
-                                    maxlength="10" required />
+                                    maxlength="10" [pKeyFilter]="'num'" required />
                                 <label for="_mobno">phone Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="whatappno" name="_whatappno" pInputText
-                                    [(ngModel)]="whatappNumber" maxlength="10" required />
+                                    [(ngModel)]="whatappNumber" maxlength="10"[pKeyFilter]="'num'" required />
                                 <label for="_mobno">Whatsapp Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId" required />
+                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId" [pKeyFilter]="'alpha'" required />
                                 <label for="_email">Email Id</label>
                             </span>
                         </div>
@@ -89,7 +89,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="stateOptions" (click)="onSelect('C')" [(ngModel)]="state"
-                                    optionLabel="label" name="_state" [required]="true">
+                                     name="_state" [required]="true">
                                 </p-dropdown>
                                 <label for="_country">state</label>
                             </span>
@@ -106,14 +106,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr1" name="_addr1" pInputText [(ngModel)]="addressLine1"
-                                    required />
+                                [pKeyFilter]="'alpha'" required />
                                 <label for="_addr1">Address Line 1</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr2" name="_addr2" pInputText [(ngModel)]="addressLine2"
-                                    required />
+                                [pKeyFilter]="'alpha'" required />
                                 <label for="_addr2">Address Line 2</label>
                             </span>
                         </div>
@@ -129,7 +129,7 @@
                 <div #row4 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-1">
-                            <p-checkbox name="groupname" label="isunion" value="val1" [(ngModel)]="selected">
+                            <p-checkbox name="groupname" label="isunion" value="1" [(ngModel)]="selected">
                             </p-checkbox>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
@@ -158,7 +158,7 @@
         </div>
     </p-panel>
     <div class="col-12 md:col-12 lg:col-12">
-        <p-table #dt [columns]="cols" [value]="data" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
+        <p-table #dt [columns]="cols" [value]="contactlistData" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
         [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
         <ng-template pTemplate="caption">
             <div class="grid" style="width: -webkit-fill-available;">

@@ -48,11 +48,10 @@ export class ContactsListComponent implements OnInit {
   unionMaster: any;
   role: any;
   contactlistData: any;
-  selected:any;
+  selected:any;      
   constructor(private restapiService: RestapiService) { }
 
   ngOnInit(): void {
-    this.Id=0;
     this.onView();
     this.restapiService.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
     this.restapiService.get(Pathconstants.CityMasterDB_GET).subscribe(res => { this.citymasterData = res })
@@ -61,7 +60,7 @@ export class ContactsListComponent implements OnInit {
     this.restapiService.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
     this.restapiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => { this.data = res})
     this.restapiService.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res})
-      this.cols = TableConstants.ContactslistColumns;
+    this.cols = TableConstants.ContactslistColumns;
   }
 
   onSelect(type: any) {
@@ -95,15 +94,16 @@ export class ContactsListComponent implements OnInit {
         this.cityOptions.unshift({ label: '-select', value: null });
         break;
       case 'E':
+        console.log(this.mainCategory)
         this.mainCategoryData.forEach((c: any) => {
-          maincategoryselection.push({ label: c.categoryname, value: c.maincategory_id });
+          maincategoryselection.push({ label: c.categoryname, value: c.sino });
         })
         this.maincategoryOptions = maincategoryselection;
         this.maincategoryOptions.unshift({ label: '-select', value: null });
         break;
       case 'F':
         this.subCategoryData.forEach((c: any) => {
-          subcategoryselection.push({ label: c.categoryname, value: c.subcategory_id });
+          subcategoryselection.push({ label: c.categoryname, value: c.sino });
         })
         this.subcategoryOptions = subcategoryselection;
         this.subcategoryOptions.unshift({ label: '-select', value: null });
@@ -117,17 +117,15 @@ export class ContactsListComponent implements OnInit {
         break;
         case 'H':
           this.data.forEach((c: any) => {
-            unionselection.push({ label: c.unionname, value: c.unionid });
+            unionselection.push({ label: c.unionname, value: c.sino });
           })
           this.unionOptions = unionselection;
           this.unionOptions.unshift({ label: '-select', value: null });
-          break;
+         break;
     }
   }
-  onSave() {
-   
+  onSave() {  
     const params = {
-
       'slno': this.Id,
       'first_name': this.firstName,
       'last_name': this.lastName,
@@ -138,13 +136,13 @@ export class ContactsListComponent implements OnInit {
       'phonenumber': this.phoneNumber,
       'whatsappnumber': this.whatappNumber,
       'email_id': this.emailId,
-      'country_id': this.country,
-      'state_id': this.state,
-      'city_id': this.city,
+      'countrycode': this.country,
+      'statecode': this.state,
+      'citycode': this.city,
       'address1': this.addressLine1,
       'address2': this.addressLine2,
       'pincode': this.pincode,
-      'isunion':this.selected,
+      'isunion':this.selected.value,  
       'unionid': this.unionMaster,
       'flag': (this.selectedType == 1) ? true : false
     }
@@ -156,31 +154,33 @@ export class ContactsListComponent implements OnInit {
       this.contactlistData = res;
       if (res) {
         res.forEach((i: any) => {
-          i.flag = (i.flag == true) ? 'Active' : 'InActive'
+          i.flagstatus = (i.flag == true) ? 'Active' : 'InActive'
         })
       }
     })
   }
 
   onEdit(rowData: any) {
-    this.Id = rowData.id;
+    this.Id = rowData.slno;
     this.firstName=rowData.first_name;
     this.lastName=rowData.last_name;
     this.roleOptions=[{ label: rowData.rolename, value: rowData.roleid }];
-    this.maincategoryOptions=[{label: rowData.categoryname, value: rowData.maincategory_id}];
-    this.subcategoryOptions=[{label: rowData.categoryname, value: rowData.subcategory_id}];
+    this.mainCategory = rowData.sino;
+    this.maincategoryOptions=[{label: rowData.categoryname, value: rowData.sino}];
+    this.subcategoryOptions=[{label: rowData.categoryname, value: rowData.sino}];
     this.dob=rowData.dob;
     this.phoneNumber=rowData.phonenumber;
     this.whatappNumber=rowData.whatsappnumber;
     this.emailId=rowData.email_id;
     this.countryOptions=[{label: rowData.countryname, value: rowData.countrycode}];
     this.stateOptions=[{ label: rowData.statename, value: rowData.statecode}];
+    this.state = rowData.statecode;
     this.cityOptions=[{label: rowData.cityname, value: rowData.citycode}];
+    this.city=rowData.citycode;
     this.addressLine1=rowData.address1;
     this.addressLine2=rowData.address2;
     this.pincode=rowData.pincode;
-    this.selectedType = (rowData.isunion === 'Active') ? 1 : 0;
-    this.unionOptions=[{label: rowData.unionname, value: rowData.unionid}];
+    this.unionOptions=[{label: rowData.unionname, value: rowData.sino}];
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
   }
 
@@ -201,7 +201,6 @@ export class ContactsListComponent implements OnInit {
     this.addressLine1 = null;
     this.addressLine2 = null;
     this.pincode = null;
-    this.selectedType = null;
     this.unionOptions = null;
     this.selectedType = null;
   }

@@ -7,8 +7,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
-                                    name="_projectname">
-                                </p-dropdown>
+                                (click)="onSelect('p')"name="_projectname"></p-dropdown>
                                 <label for="_projectname">Project Name</label>
                             </span>
                         </div>
