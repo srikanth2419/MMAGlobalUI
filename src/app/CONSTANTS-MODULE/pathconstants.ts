@@ -8,6 +8,9 @@ export class Pathconstants {
     public static readonly UnionMasterController_GET ='UnionMaster/GetUnionMaster' 
     public static readonly MenuMasterController_GET ='MenuMaster/GetMenuMaster'  
     public static readonly UnionMaster_Post ='UnionMaster/SaveunionmasterDB' 
+    public static readonly LocationInfo_Post='LocationInfo/SaveLocationInfo'
+    public static readonly LocationInfo_Get='LocationInfo/GetLocationInfo'
+    
     //#endregion
 
      //#region  Vigneshwaran
