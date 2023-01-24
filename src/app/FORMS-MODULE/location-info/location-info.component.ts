@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { NgForm } from '@angular/forms';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
+import { Message } from 'primeng/api';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-location-info',
@@ -11,20 +13,20 @@ import { RestapiService } from 'src/app/services/restapi.service';
   styleUrls: ['./location-info.component.scss']
 })
 export class LocationInfoComponent implements OnInit {
-
+ slno:any;
   firstName: any;
   locationName: any;
   locationManager: any;
   locationEP: any;
   country: any;
-  locationOptions: SelectItem[] = [];
+  locationmanagerOptions: SelectItem[] = [];
   locationEPOptions: SelectItem[] = [];
-  countryOptions: SelectItem[] = [];
-  stateOptions: SelectItem[] = [];
+  countryOptions:any;
+  stateOptions: any;
   mobileNo: any;
   emailId: any;
   state: any;
-  cityOptions: SelectItem[] =[];
+  cityOptions:any;
   city: any;
   addressLine1:any;
   addressLine2: any;
@@ -34,28 +36,109 @@ export class LocationInfoComponent implements OnInit {
   parkingNote:any;
   cols: any[] = [];
   data: any[] = [];
+  responseMsg: Message[] = [];
+  countrymasterData: any;
+  statemasterData:any;
+  citymasterData:any;
+  contactlistData:any;
 
-  constructor() { }
+  @ViewChild('f', { static: false }) _locationinfoForm!: NgForm;
+
+  constructor(private restApiService: RestapiService) { }
 
   ngOnInit(): void {
+    this.onView();
+    this.restApiService.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
+    this.restApiService.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
+    this.restApiService.get(Pathconstants.CityMasterDB_GET).subscribe(res => { this.citymasterData = res})
+    this.restApiService.get(Pathconstants.ContactListController_Get).subscribe(res => {this.contactlistData = res;})
     this.cols = TableConstants.locationInfoColumns;
   }
+  
  onSubmit()
  {
-
+  const params = {
+    'slno': this.slno,
+     'location_name':this.locationName,
+     'location_managerid':39,
+     'local_epid':46,
+     //'location_managerid':this.locationManager,
+     //'local_epid':this.locationEP,
+     'country_id':this.country,
+     'state_id':this.state,
+     'city_id':this.city,
+     'address1':this.addressLine1,
+     'address2':this.addressLine2,
+     'phonenumber':this.mobileNo,
+     'pincode':this.pincode,
+     'parking_note':this.parkingNote,
+     'parking_facility':(this.parkingFacility == 1) ? true : false,
+     'flag':(this.flag == 1) ? true : false
+  }
+  this.restApiService.post(Pathconstants.LocationInfo_Post, params).subscribe(res => {
+    if (res != null && res != undefined) {
+      this.onView();
+      this.onClear();
+      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+      setTimeout(() => this.responseMsg = [], 3000);
+    }
+    else {
+      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+      setTimeout(() => this.responseMsg = [], 3000);
+    }
+  })
  }
+
+ onView() {
+  this.restApiService.get(Pathconstants.LocationInfo_Get).subscribe(res => {
+    this.data = res;
+    if (res) {
+      res.forEach((i: any) => {
+        i.flag = (i.flag == true) ? 'Active' : 'InActive',
+        i.parking_facility =(i.parking_facility == true) ? 'Yes' : 'No'
+      })
+    }
+  })
+}
+
+ onSelect(type: any) {
+  let countrySelection: any = [];
+  let stateSelection: any =[];
+  let citySelection:any=[];
+  switch (type) {
+    case 'C':
+      this.countrymasterData.forEach((c: any) => {
+        countrySelection.push({ label: c.countryname, value: c.countrycode });
+      })
+      this.countryOptions = countrySelection;
+      this.countryOptions.unshift({ label: '-select', value: null });
+      break;
+      case 'S':
+        this.statemasterData.forEach((c: any) => {
+          stateSelection.push({ label: c.statename, value: c.statecode });
+        })
+        this.stateOptions = stateSelection;
+        this.stateOptions.unshift({ label: '-select', value: null });
+        break;
+       case 'CT':
+          this.citymasterData.forEach((c: any) => {
+            citySelection.push({ label: c.cityname, value: c.citycode });
+          })
+          this.cityOptions = citySelection;
+          this.cityOptions.unshift({ label: '-select', value: null });
+          break;
+  }
+}
   onClear() {
-    this.firstName = null;
     this.locationName = null;
     this.locationManager = null;
     this.locationEP = null;
     this.country = null;
-    this.locationOptions = [];
+    this.locationmanagerOptions = [];
     this.locationEPOptions = [];
     this.countryOptions = [];
     this.stateOptions = [];
     this.mobileNo = null;
-    this.emailId = null;
     this.state = null;
     this.cityOptions = [];
     this.city = null;
@@ -67,8 +150,23 @@ export class LocationInfoComponent implements OnInit {
     this.flag = null;
   }
 
-  onEdit(rowData: any)
+  onEdit(row: any)
   {
-
+    this.slno = row.slno,
+    this.locationName = row.location_name;
+    this.locationManager = row.location_managerid;
+    this.locationEP = row.local_epid;
+   // this.locationmanagerOptions = [];
+   // this.locationEPOptions = [];
+    this.countryOptions = [{ label: row.countryname, value: row.country_id }];
+    this.stateOptions =  [{ label: row.statename, value: row.state_id }];
+    this.cityOptions = [ { label: row.cityname, value: row.city_id }];
+    this.mobileNo = row.phonenumber;
+   this.addressLine1 = row.address1;
+    this.addressLine2 = row.address2;
+    this.pincode = row.pincode;
+    this.parkingNote = row.parking_note;
+    this.parkingFacility = (row.parking_facility == 'Yes') ? 1 : 0;
+    this.flag = (row.flag === 'Active') ? 1 : 0;
   }
 }

@@ -35,7 +35,7 @@
                     <span style="text-decoration: underline;" (click)="showLogin=false">Forget Password?</span>
                 </div>
                 <div class="col-12 md:col-12 lg:col-12">
-                    <button pButton type="button" label="Login"></button>
+                    <button pButton type="button" label="Login" [disabled]="!username || !password" (click)="onLogin()"></button>
                 </div>
                 <div class="col-12 md:col-12 lg:col-12" style="margin-top: 1rem;">
                     <span [routerLink]="['/registration']">Dont have an account?&nbsp; <span

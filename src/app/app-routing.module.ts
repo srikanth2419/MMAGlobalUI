@@ -23,7 +23,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'registration', component: RegistrationComponent },
