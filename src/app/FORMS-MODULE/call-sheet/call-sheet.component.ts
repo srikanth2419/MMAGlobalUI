@@ -34,6 +34,8 @@ export class CallSheetComponent implements OnInit {
   passengerName: any;
   lodginginfocols:any;
   lodginginfoData:any[]=[];
+  transportinfocols:any;
+  transportinfoData:any[]=[];
   loading: boolean = false;
   RowId:any;
   responseMsg: Message[] = [];
@@ -42,6 +44,7 @@ export class CallSheetComponent implements OnInit {
   ngOnInit(): void {
     this.callSheetCols = TableConstants.ShootingScheduleColumns;
     this.lodginginfocols=TableConstants.lodginginfoColumns;
+    this.transportinfocols=TableConstants.transportinfoColumns;
   }
 onSave1(){
   const params = {

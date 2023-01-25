@@ -163,6 +163,8 @@ export class ContactsListComponent implements OnInit {
     setTimeout(() => this.responseMsg = [], 3000)
     }
     })
+   
+
   }
 
   onView() {

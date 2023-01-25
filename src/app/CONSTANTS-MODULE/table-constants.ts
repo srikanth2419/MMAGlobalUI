@@ -60,9 +60,9 @@ export class TableConstants {
         { field: 'location_name', header: 'Location Name', align: 'right !important' },
         { field: 'location_managerid', header: 'Location Manager', align: 'right !important' },
         { field: 'local_epid', header: 'Location EP', align: 'right !important' },
-        { field: 'country_id', header: 'Country', align: 'right !important' },
-        { field: 'state_id', header: 'State', align: 'right !important' },
-        { field: 'city_id', header: 'City', align: 'right !important' },
+        { field: 'countryname', header: 'Country', align: 'right !important' },
+        { field: 'statename', header: 'State', align: 'right !important' },
+        { field: 'cityname', header: 'City', align: 'right !important' },
         { field: 'address1', header: 'Address 1', align: 'right !important' },
         { field: 'address2', header: 'Address 2', align: 'right !important' },
         { field: 'phonenumber', header: 'Mobile Number', align: 'right !important' },
@@ -116,7 +116,14 @@ public static readonly lodginginfoColumns =[
     { field: 'location', header: 'Location', align: 'right !important' },
       { field: 'address', header: 'Address', align: 'left !important' },
       { field: 'note', header: 'Note', align: 'left !important' },
-]
+];
+public static readonly transportinfoColumns =[
+    { field: 'driver_name', header: 'DriverName', align: 'right !important' },
+     { field: 'pickup_time', header: 'PickupTime', align: 'left !important' },
+     { field: 'pickup_location', header: 'PickupLocation', align: 'left !important' },
+      { field: 'drop_location', header: 'DropLocation', align: 'left !important' },
+      { field: 'passenger_id', header: 'PassengerName', align: 'left !important' },
+    ]
 //#endregion
 
 //#region  Ananth

@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private _router: Router) {
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (event.url === '/login') {
+        if (event.url === '/login' ||event.url === '/') {
           this.hideContent = true;
           this.showMenu = false;
         } else {

@@ -1,14 +1,13 @@
 <div class="col-12 md:col-12 lg:col-12">
     <p-panel header="Shooting Schedule">
         <div class="col-12 md:col-12 lg:col-12">
-            <form #shootingForm="ngForm">
+            <form  #f="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
-                                    name="_projectname">
-                                </p-dropdown>
+                                (click)="onSelect('p')"name="_projectname"></p-dropdown>
                                 <label for="_projectname">Project Name</label>
                             </span>
                         </div>
@@ -26,13 +25,11 @@
                                 <label for="_scheduleDate">Schedule Date</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
-                                <p-dropdown [options]="dayNightOptions" [(ngModel)]="dayNight"
-                                    name="_dayNight">
-                                </p-dropdown>
-                                <label for="_dayNight">Day/Night</label>
-                            </span>
+                        <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
+                            <p-radioButton name="day_night" label="DAY" value=1 [(ngModel)]="selected" required>
+                            </p-radioButton>&nbsp;
+                            <p-radioButton name="day_night" label="NIGHT" value=0 [(ngModel)]="selected" required>
+                            </p-radioButton>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
@@ -65,6 +62,12 @@
                             </span>
                         </div>
                     </div>
+                </div>
+                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
+                    [disabled]="!f.valid || !f.dirty"  (click)="onSave()"></button>&nbsp;
+                    <button pButton type="button" label="Clear" icon="pi pi-trash"
+                        (click)="onClear()"></button>
                 </div>
                 <div #row2 class="col-12 md:col-12 lg:col-12">
                     <p-table [columns]="shootingScheduleCols" [value]="shootingScheduleDetails" 
