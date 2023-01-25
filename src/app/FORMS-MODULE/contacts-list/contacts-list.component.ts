@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Message, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 
 @Component({
   selector: 'app-contacts-list',
@@ -18,20 +19,20 @@ export class ContactsListComponent implements OnInit {
   mobileNo: any;
   emailId: any;
   mainCategory: any;
-  maincategoryOptions:any;
+  maincategoryOptions: any;
   subCategory: any;
   subcategoryOptions: any;
   countryOptions: any;
   country: any;
   stateOptions: any;
   state: any;
-  cityOptions:any;
+  cityOptions: any;
   city: any;
   addressLine1: any;
   addressLine2: any;
   pincode: any;
-  unionOptions:any;
-  roleOptions:any;
+  unionOptions: any;
+  roleOptions: any;
   unionSelection: any;
   selectedType: any;
   cols: any[] = [];
@@ -42,13 +43,15 @@ export class ContactsListComponent implements OnInit {
   mainCategoryData: any;
   subCategoryData: any;
   rolemasterData: any;
-  Id:any;
+  Id: any = 0;
   phoneNumber: any;
   whatappNumber: any;
   unionMaster: any;
   role: any;
   contactlistData: any;
-  selected:any;      
+  selected: any;
+  responseMsg: Message[] = [];
+  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   constructor(private restapiService: RestapiService) { }
 
   ngOnInit(): void {
@@ -58,9 +61,9 @@ export class ContactsListComponent implements OnInit {
     this.restapiService.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
     this.restapiService.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
     this.restapiService.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-    this.restapiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => { this.data = res})
-    this.restapiService.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res})
-      this.cols = TableConstants.ContactslistColumns;
+    this.restapiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => { this.data = res })
+    this.restapiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.rolemasterData = res })
+    this.cols = TableConstants.ContactslistColumns;
   }
 
   onSelect(type: any) {
@@ -115,16 +118,16 @@ export class ContactsListComponent implements OnInit {
         this.roleOptions = roleselection;
         this.roleOptions.unshift({ label: '-select', value: null });
         break;
-        case 'H':
-          this.data.forEach((c: any) => {
-            unionselection.push({ label: c.unionname, value: c.sino });
-          })
-          this.unionOptions = unionselection;
-          this.unionOptions.unshift({ label: '-select', value: null });
-         break;
+      case 'H':
+        this.data.forEach((c: any) => {
+          unionselection.push({ label: c.unionname, value: c.sino });
+        })
+        this.unionOptions = unionselection;
+        this.unionOptions.unshift({ label: '-select', value: null });
+        break;
     }
   }
-  onSave() {  
+  onSave() {
     const params = {
       'slno': this.Id,
       'first_name': this.firstName,
@@ -142,11 +145,24 @@ export class ContactsListComponent implements OnInit {
       'address1': this.addressLine1,
       'address2': this.addressLine2,
       'pincode': this.pincode,
-      'isunion':this.selected.value,
+      'isunion': this.selected.value,
       'unionid': this.unionMaster,
       'flag': (this.selectedType == 1) ? true : false
     }
-    this.restapiService.post(Pathconstants.ContactListController_Post, params).subscribe(res => { })
+    this.restapiService.post(Pathconstants.ContactListController_Post, params).subscribe(res => { 
+      if(res!== null && res!== undefined)
+    {
+      this.onView();
+      this.onClear();
+      this._respondentForm.reset();
+      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+      setTimeout(() => this.responseMsg = [], 3000);
+    }
+    else{
+      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+    setTimeout(() => this.responseMsg = [], 3000)
+    }
+    })
   }
 
   onView() {
@@ -162,26 +178,26 @@ export class ContactsListComponent implements OnInit {
 
   onEdit(rowData: any) {
     this.Id = rowData.slno;
-    this.firstName=rowData.first_name;
-    this.lastName=rowData.last_name;
-    this.roleOptions=[{ label: rowData.rolename, value: rowData.roleid }];
-    this.mainCategory = rowData.sino;
-    this.maincategoryOptions=[{label: rowData.categoryname, value: rowData.sino}];
-    this.subcategoryOptions=[{label: rowData.categoryname, value: rowData.sino}];
-    this.dob=rowData.dob;
-    this.phoneNumber=rowData.phonenumber;
-    this.whatappNumber=rowData.whatsappnumber;
-    this.emailId=rowData.email_id;
-    this.countryOptions=[{label: rowData.countryname, value: rowData.countrycode}];
-    this.stateOptions=[{ label: rowData.statename, value: rowData.statecode}];
+    this.firstName = rowData.first_name;
+    this.lastName = rowData.last_name;
+    this.roleOptions = [{ label: rowData.rolename, value: rowData.roleid }];
+    this.maincategoryOptions = [{ label: rowData.categoryname, value: rowData.maincategory_id}];
+    this.subcategoryOptions = [{ label: rowData.categoryname, value: rowData.subcategory_id }];
+    this.dob = rowData.dob;
+    this.phoneNumber = rowData.phonenumber;
+    this.whatappNumber = rowData.whatsappnumber;
+    this.emailId = rowData.email_id;
+    this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
+    this.stateOptions = [{ label: rowData.statename, value: rowData.statecode }];
     this.state = rowData.statecode;
-    this.cityOptions=[{label: rowData.cityname, value: rowData.citycode}];
-    this.city=rowData.citycode;
-    this.addressLine1=rowData.address1;
-    this.addressLine2=rowData.address2;
-    this.pincode=rowData.pincode;
-    this.unionOptions=[{label: rowData.unionname, value: rowData.sino}];
-    this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
+    this.cityOptions = [{ label: rowData.cityname, value: rowData.citycode }];
+    this.city = rowData.citycode;
+    this.addressLine1 = rowData.address1;
+    this.addressLine2 = rowData.address2;
+    this.pincode = rowData.pincode;
+    this.selected=rowData.isunion;
+    this.unionOptions = [{ label: rowData.unionname, value: rowData.sino }];
+    this.selectedType = (rowData.flagstatus === 'Active') ? 1 : 0;
   }
 
   onClear() {
