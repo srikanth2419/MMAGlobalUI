@@ -137,12 +137,10 @@ public static readonly MainCategoryMaster = [
     { field: 'categoryname', header: 'Category Name', align: 'left !important'},
     { field: 'flag', header: 'Status'},    
 ]
-
 public static readonly SubCategoryMaster = [
     { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
     { field: 'flag', header: 'Status'},
 ]
-
 public static readonly ContactslistColumns=[
     {field:'first_name',header:'firstName',align:'left !important'},
     {field:'last_name',header:'lastName',align:'left !important'},
@@ -163,7 +161,5 @@ public static readonly ContactslistColumns=[
     {field:'unionname',header:'UnionName',align:'left !important'}, 
     {field:'flagstatus',header:'Flag',align:'left !important'}
 ]
-
-
 //#endregion
 }
