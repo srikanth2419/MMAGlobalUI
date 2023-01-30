@@ -1,19 +1,23 @@
 <div style="overflow: hidden;">
     <img src="assets/images/shoot-setup.jpg" class="login-bg-img">
     <div *ngIf="showLogin" class="to-center login-content">
-        <div class="col-10 md:col-8 lg:col-8 card" style="background: #287466; text-align: center;">
+        <div class="col-10 md:col-8 lg:col-8 card" style="background: rgba(135, 146, 149, 0.825); text-align: center;">
+           <!-- <div style="width: 500px;text-align:center;"> -->
+            <p-messages  [(value)]="responseMsg" [enableService]="false"
+            [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
+        <!-- </div> -->
             <div>
-                <div class="col-12 md:col-12 lg:col-12" style="font-weight: 700;">LOGIN</div>
-                <div class="col-12 md:col-12 lg:col-12">Please enter your username and password!</div>
+                <div class="col-12 md:col-12 lg:col-12" style="font-weight: 700;color: #1c1b1b;">LOGIN</div>
+                <div class="col-12 md:col-12 lg:col-12" style="font-weight: 700;color: #1c1b1b;">Please enter your username and password!</div>
                 <div>
                     <div class="grid to-center" style="margin: 1rem;">
                         <div class="p-field col-12 md:col-4 lg:col-3">
                             <div class="p-inputgroup">
                                 <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                                 <span class="p-float-label">
-                                    <input type="text" id="uname" name="_username" pInputText [(ngModel)]="username"
+                                    <input type="text" id="uname" name="_username" pInputText   (keypress)="onEnter($event)"  [(ngModel)]="username"
                                         autocomplete="off" />
-                                    <label for="_username">Username</label>
+                                    <label for="_username" style="font-weight: 700;color: #1c1b1b;">Username</label>
                                 </span>
                             </div>
                         </div>
@@ -23,23 +27,23 @@
                             <div class="p-inputgroup">
                                 <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
                                 <span class="p-float-label">
-                                    <input type="password" id="pwd" name="_password" pInputText [(ngModel)]="password"
+                                    <input type="password" id="pwd" name="_password"   (keypress)="onEnter($event)"  pInputText [(ngModel)]="password"
                                         autocomplete="off" />
-                                    <label for="_password">Password</label>
+                                    <label for="_password" style="font-weight: 700;color: #1c1b1b;">Password</label>
                                 </span>
-                            </div>
                         </div>
+                    </div>
                     </div>
                 </div>
                 <div class="col-12 md:col-12 lg:col-12">
-                    <span style="text-decoration: underline;" (click)="showLogin=false">Forget Password?</span>
+                    <span style="text-decoration: underline;" (click)="showLogin=false" style="font-weight: 700;color: #1c1b1b;">Forget Password?</span>
                 </div>
                 <div class="col-12 md:col-12 lg:col-12">
                     <button pButton type="button" label="Login" [disabled]="!username || !password" (click)="onLogin()"></button>
                 </div>
                 <div class="col-12 md:col-12 lg:col-12" style="margin-top: 1rem;">
-                    <span [routerLink]="['/registration']">Dont have an account?&nbsp; <span
-                        style="color: var(--blue-300);text-decoration:underline">Register</span>
+                    <span [routerLink]="['/registration']" style="font-weight: 700;color: #1c1b1b;">Dont have an account?&nbsp; <span
+                        style="color:red;text-decoration:underline">Register</span>
                     </span>
                 </div>
 

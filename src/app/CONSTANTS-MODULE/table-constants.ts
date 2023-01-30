@@ -58,8 +58,8 @@ export class TableConstants {
 
     public static readonly locationInfoColumns = [
         { field: 'location_name', header: 'Location Name', align: 'right !important' },
-        { field: 'location_managerid', header: 'Location Manager', align: 'right !important' },
-        { field: 'local_epid', header: 'Location EP', align: 'right !important' },
+        { field: 'first_name', header: 'Location Manager', align: 'right !important' },
+        { field: 'first_name', header: 'Location EP', align: 'right !important' },
         { field: 'countryname', header: 'Country', align: 'right !important' },
         { field: 'statename', header: 'State', align: 'right !important' },
         { field: 'cityname', header: 'City', align: 'right !important' },

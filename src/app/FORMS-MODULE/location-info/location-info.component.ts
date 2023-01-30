@@ -41,6 +41,7 @@ export class LocationInfoComponent implements OnInit {
   statemasterData:any;
   citymasterData:any;
   contactlistData:any;
+  
 
   @ViewChild('f', { static: false }) _locationinfoForm!: NgForm;
 
@@ -60,8 +61,8 @@ export class LocationInfoComponent implements OnInit {
   const params = {
     'slno': this.slno,
      'location_name':this.locationName,
-     'location_managerid':39,
-     'local_epid':46,
+     'location_managerid':this.locationManager,
+     'local_epid':this.locationEP,
      //'location_managerid':this.locationManager,
      //'local_epid':this.locationEP,
      'country_id':this.country,
@@ -105,6 +106,8 @@ export class LocationInfoComponent implements OnInit {
   let countrySelection: any = [];
   let stateSelection: any =[];
   let citySelection:any=[];
+  let locationmanagerSelection:any=[];
+  let locationEPSelection:any=[];
   switch (type) {
     case 'C':
       this.countrymasterData.forEach((c: any) => {
@@ -127,6 +130,24 @@ export class LocationInfoComponent implements OnInit {
           this.cityOptions = citySelection;
           this.cityOptions.unshift({ label: '-select', value: null });
           break;
+       case 'LM':
+            this.contactlistData.forEach((c: any) => {
+              if(c.roleid === 5) {
+              locationmanagerSelection.push({ label: c.first_name, value: c.slno });
+            }
+            })
+            this.locationmanagerOptions = locationmanagerSelection;
+            this.locationmanagerOptions.unshift({ label: '-select', value: null });
+            break;
+       case 'LEP':
+              this.contactlistData.forEach((c: any) => {
+                if(c.roleid === 6) {
+                locationEPSelection.push({ label: c.first_name, value: c.slno});
+                }
+              })
+              this.locationEPOptions = locationEPSelection;
+              this.locationEPOptions.unshift({ label: '-select', value: null });
+              break;
   }
 }
   onClear() {
@@ -156,8 +177,8 @@ export class LocationInfoComponent implements OnInit {
     this.locationName = row.location_name;
     this.locationManager = row.location_managerid;
     this.locationEP = row.local_epid;
-   // this.locationmanagerOptions = [];
-   // this.locationEPOptions = [];
+   this.locationmanagerOptions = [{ label: row.first_name, value: row.location_managerid }];
+   this.locationEPOptions =[{ label: row.first_name, value: row.local_epid }];
     this.countryOptions = [{ label: row.countryname, value: row.country_id }];
     this.stateOptions =  [{ label: row.statename, value: row.state_id }];
     this.cityOptions = [ { label: row.cityname, value: row.city_id }];

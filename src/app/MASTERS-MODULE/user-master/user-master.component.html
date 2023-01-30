@@ -24,9 +24,20 @@
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="password" name="password" pInputText
-                                     [(ngModel)]="Password"  required />
+                                     [(ngModel)]="Password" (input)="check(Password)"   required />
                                 <label for="_Password"> Password</label>
                             </span>
+                            <div *ngIf="SpecialCharErrMsg"
+                            style="color: rgb(250, 15, 62); font-size: 12px; text-align: left;">Atleast one Special
+                            Character must!</div>
+                          <div *ngIf="NumericErrMsg"
+                            style="color: rgb(250, 15, 62); font-size: 12px; text-align: left;">Atleast one Numeric(0-9)
+                            must!</div>
+                          <div *ngIf="UpperCaseErrMsg"
+                            style="color: rgb(250, 15, 62); font-size: 12px; text-align: left">Atleast one
+                            Uppercase(A-Z) must!</div>
+                          <div *ngIf="LengthErrMsg" style="color: rgb(250, 15, 62); font-size: 12px; text-align: left">
+                            Minimum 8 Characters!</div>
                         </div>
                         <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
                             <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType" required>
