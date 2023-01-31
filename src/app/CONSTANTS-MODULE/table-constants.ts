@@ -2,11 +2,11 @@ export class TableConstants {
     
 
     public static readonly ShootingScheduleColumns = [
-        { field: 'name', header: 'Name', align: 'left !important'},
-        { field: 'role', header: 'Role', align: 'left !important'},
-        { field: 'mainCategory', header: 'Main Category', align: 'left !important'},
-        { field: 'subCategory', header: 'Sub Category', align: 'left !important'},
-        { field: 'phoneNo', header: 'Phone Number', align: 'right !important'},
+        { field: 'first_name', header: 'Name', align: 'left !important'},
+        { field: 'rolename', header: 'Role', align: 'left !important'},
+        { field: 'categoryname', header: 'Main Category', align: 'left !important'},
+        { field: 'subcategory_id', header: 'Sub Category', align: 'left !important'},
+        { field: 'phonenumber', header: 'Phone Number', align: 'right !important'},
     ];
 //region vigneshwaran
     public static readonly citymasterCols = [
@@ -25,6 +25,7 @@ export class TableConstants {
         {field: 'duration_in_days',header:'Duration Days',align:'left !important'},
         {field:'budget',header:'Budget',align:'left !important'},
         {field:'project_start_date',header:'Project Start Date',align:'left !important'},
+        //{field:'production_house_name',header:'Production House Name',align:'left !important'},
         {field:'created_date',header:'Created Date',align:'left !important'},
         {field:'flag',header:'Flag',align:'left !important'}
     ];
@@ -58,8 +59,8 @@ export class TableConstants {
 
     public static readonly locationInfoColumns = [
         { field: 'location_name', header: 'Location Name', align: 'right !important' },
-        { field: 'location_managerid', header: 'Location Manager', align: 'right !important' },
-        { field: 'local_epid', header: 'Location EP', align: 'right !important' },
+        { field: 'first_name', header: 'Location Manager', align: 'right !important' },
+        { field: 'first_name', header: 'Location EP', align: 'right !important' },
         { field: 'countryname', header: 'Country', align: 'right !important' },
         { field: 'statename', header: 'State', align: 'right !important' },
         { field: 'cityname', header: 'City', align: 'right !important' },

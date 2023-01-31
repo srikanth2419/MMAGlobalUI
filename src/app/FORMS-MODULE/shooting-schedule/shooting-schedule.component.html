@@ -1,21 +1,42 @@
 <div class="col-12 md:col-12 lg:col-12">
     <p-panel header="Shooting Schedule">
         <div class="col-12 md:col-12 lg:col-12">
-            <form  #f="ngForm">
+            <form #f="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
-                                (click)="onSelect('p')"name="_projectname"></p-dropdown>
+                                    (click)="onSelect('p')" name="_projectname"></p-dropdown>
                                 <label for="_projectname">Project Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" name="_scheduleDay" pInputText [(ngModel)]="scheduleDay"
+                                <input type="text" name="_scene" pInputText [(ngModel)]="scene" [pKeyFilter]="block"
                                     required />
-                                <label for="_scheduleDay">Schedule Day</label>
+                                <label for="_scene">Scene</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="designOptions" [(ngModel)]="design" name="_design">
+                                </p-dropdown>
+                                <label for="_design">Interior/Exterior</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="dayNightOptions" [(ngModel)]="dayNight" name="_daynight">
+                                </p-dropdown>
+                                <label for="_daynight">Day/Night/Both</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" name="_scheduleDay" pInputText [(ngModel)]="scheduleDay"
+                                    [pKeyFilter]="'int'" required />
+                                <label for="_scheduleDay">Scene start Day</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
@@ -25,57 +46,40 @@
                                 <label for="_scheduleDate">Schedule Date</label>
                             </span>
                         </div>
-                        <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
-                            <p-radioButton name="day_night" label="DAY" value=1 [(ngModel)]="selected" required>
-                            </p-radioButton>&nbsp;
-                            <p-radioButton name="day_night" label="NIGHT" value=0 [(ngModel)]="selected" required>
-                            </p-radioButton>
-                        </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
-                                <p-dropdown [options]="designOptions" [(ngModel)]="design"
-                                    name="_design">
-                                </p-dropdown>
-                                <label for="_design">Interior/Exterior</label>
-                            </span>
-                        </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
-                            <span class="p-float-label">
-                                <input type="text" name="_scene" pInputText [(ngModel)]="scene"
-                                    required />
-                                <label for="_scene">Scene</label>
-                            </span>
-                        </div>
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" name="_characters" pInputText [(ngModel)]="characters"
-                                    required />
+                                    [pKeyFilter]="block" required />
                                 <label for="_characters">Characters</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="statusOptions" [(ngModel)]="status"
-                                    name="_status">
+                                <p-dropdown [options]="statusOptions" [(ngModel)]="status" name="_status">
                                 </p-dropdown>
                                 <label for="_status">Status</label>
                             </span>
                         </div>
+                        <div class="field col-12 md:col-3 lg:col-1">
+                            <button pButton type="button" label="Add " [disabled]="!f.valid || !f.dirty"
+                                (click)="onAdd()"></button>
+                        </div>
                     </div>
                 </div>
-                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
-                    [disabled]="!f.valid || !f.dirty"  (click)="onSave()"></button>&nbsp;
-                    <button pButton type="button" label="Clear" icon="pi pi-trash"
-                        (click)="onClear()"></button>
-                </div>
-                <div #row2 class="col-12 md:col-12 lg:col-12">
-                    <p-table [columns]="shootingScheduleCols" [value]="shootingScheduleDetails" 
-                    [(selection)]="selectedPerson" dataKey="name" styleClass="p-datatable-gridlines" 
-                     responsiveLayout="scroll">
+                <p-panel header="character participation">
+                <!-- <div  class="field col-12 md:col-3 lg:col-2">
+                    <p-checkbox name="groupname" label="Character Prediction" value="1" [hidden]="isShowDiv"
+                        [(ngModel)]="select">
+                    </p-checkbox>
+                </div> -->
+                <div #row2 class="col-12 md:col-12 lg:col-12" >
+                    <p-table [columns]="shootingScheduleCols" [value]="shootingScheduleDetails"
+                        [(selection)]="selectedPerson" dataKey="name" styleClass="p-datatable-gridlines"
+                        responsiveLayout="scroll">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th style="width: 3rem">
+                                <th style="width: 4rem">
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
                                 <th>S.No.</th>
@@ -97,8 +101,11 @@
                         </ng-template>
                     </p-table>
                 </div>
-                <div #row3 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Save"></button>
+            </p-panel>
+                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton type="button" label="Save" icon="pi pi-save" [disabled]="!f.valid || !f.dirty"
+                        (click)="onSave()"></button>&nbsp;
+                    <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>
                 </div>
             </form>
         </div>

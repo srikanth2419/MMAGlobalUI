@@ -10,6 +10,7 @@ export class Pathconstants {
     public static readonly UnionMaster_Post ='UnionMaster/SaveunionmasterDB' 
     public static readonly LocationInfo_Post='LocationInfo/SaveLocationInfo'
     public static readonly LocationInfo_Get='LocationInfo/GetLocationInfo'
+    public static readonly UserLogin_Get='Login/GetUserMasterByName'
     
     //#endregion
 
@@ -23,6 +24,7 @@ export class Pathconstants {
     public static readonly fundutilization_Post ='Fund_Utilization/SaveFund_utilization' 
     public static readonly fundutilization_Get ='Fund_Utilization/Getfund_utilization'
     public static readonly shooting_schedule_Post ='ShootingSchedule/Saveshooting_schedule'  
+    public static readonly shooting_schedule_Get ='ShootingSchedule/Getshooting_schedule'
 
     //#endregion
 

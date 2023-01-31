@@ -31,6 +31,7 @@ export class FundUtilizationComponent implements OnInit {
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/;
   item:any;
   newprojectcreationData:any[] = [];
+  contactlistData:any[] = [];
 
 
 
@@ -47,6 +48,8 @@ export class FundUtilizationComponent implements OnInit {
     ];
     this.fundCols = TableConstants.FundColumns;
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
+    this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => { this.contactlistData = res })
+
   }
 
   onSave() {
@@ -78,6 +81,7 @@ export class FundUtilizationComponent implements OnInit {
 
   onSelect(type: any) {
     let projectSelection: any = [];
+    let personNameSelection:any=[];
 
     switch (type) {
       case 'p':
@@ -88,7 +92,19 @@ export class FundUtilizationComponent implements OnInit {
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
     }
+ 
+    switch (type) {
+      case 'C':
+        this.contactlistData.forEach((c: any) => {
+          personNameSelection.push({ label: c.first_name, value: c.slno });
+        })
+        this.personNameOptions = personNameSelection;
+        this.personNameOptions.unshift({ label: '-select', value: null });
+        break;
+    }
+
   }
+
 
   onClear() {
     this.personName = null;
@@ -119,12 +135,13 @@ export class FundUtilizationComponent implements OnInit {
        this.totalAmount=rowData.total_amount;
 
   }
-  // onCheck() {
-  //   this.newprojectcreationData.forEach(i => {
-  //     if (i.project_name === this.projectName) {
-  //       this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'project name is already exist, Please input different name' }];
-  //       this.projectName = null;
-  //     }
-  //   })
+   onCheck() {
+     this.newprojectcreationData.forEach(i => {
+       if (i.project_name === this.projectName) {
+         this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'project name is already exist, Please input different name' }];
+         this.projectName = null;
+      }
+    })
 
+  }
 }

@@ -25,6 +25,12 @@ export class UserMasterComponent implements OnInit {
   roleIdData: any;
   Password:any;
   responseMsg: Message[] = [];
+  SpecialCharErrMsg: boolean = false;
+  pswdStrongMsg: boolean = false;
+  NumericErrMsg: boolean = false;
+  UpperCaseErrMsg: boolean = false;
+  LengthErrMsg: boolean = false;
+  showMatchMsg: boolean = false;
   
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
@@ -115,5 +121,34 @@ export class UserMasterComponent implements OnInit {
     })
   }
 
+  check(Password: any) {
+
+    if (Password.match(/[@$!%*?&]/g)) {
+    this.SpecialCharErrMsg = false;
+    } else {
+    this.SpecialCharErrMsg = true;
+    this.pswdStrongMsg = false;
+   }    
+  if (Password.match(/[0-9]/g)) {   
+    this.NumericErrMsg = false;
+   } else {    
+   this.NumericErrMsg = true;    
+   this.pswdStrongMsg = false;    
+   }    
+   if (Password.match(/[A-Z]/g)) {    
+   this.UpperCaseErrMsg = false;    
+   } else {    
+   this.UpperCaseErrMsg = true;    
+   this.pswdStrongMsg = false;    
+   }    
+   if (Password.length >= 8) {    
+   this.LengthErrMsg = false;    
+   } else {    
+   this.LengthErrMsg = true;    
+   this.pswdStrongMsg = false;
+   }
+   if (Password.match(/[@$!%*?&]/g) && Password.match(/[0-9]/g) && Password.match(/[A-Z]/g) && Password.length > 8)
+   this.pswdStrongMsg = true;
+  }
 
 }
