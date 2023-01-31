@@ -139,6 +139,19 @@ onEdit(rowData:any){
 
 }
 onClear(){
-  
+  this.RowId =0;
+  this.productionHouseName = '';
+  this.firstName ='';
+  this.lastName ='';
+  this.dob =null;
+  this.mobileNo =null;
+  this.emailId ='';
+  this.password ='';
+  this.country =null;
+  this.state =null;
+  this.city =null;
+  this.addressLine1='';
+  this.addressLine2='';
+  this.pincode =null;
 }
 }
