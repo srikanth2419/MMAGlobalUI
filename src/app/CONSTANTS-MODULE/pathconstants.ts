@@ -10,6 +10,7 @@ export class Pathconstants {
     public static readonly UnionMaster_Post ='UnionMaster/SaveunionmasterDB' 
     public static readonly LocationInfo_Post='LocationInfo/SaveLocationInfo'
     public static readonly LocationInfo_Get='LocationInfo/GetLocationInfo'
+    public static readonly UserLogin_Get='Login/GetUserMasterByName'
     
     //#endregion
 

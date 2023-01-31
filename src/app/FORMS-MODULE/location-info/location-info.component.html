@@ -15,14 +15,14 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="locationmanagerOptions" [(ngModel)]="locationManager" name="_lmanager">
+                                <p-dropdown [options]="locationmanagerOptions" [(ngModel)]="locationManager" (click)="onSelect('LM')" name="_lmanager">
                                 </p-dropdown>
                                 <label for="_lmanager">Location Manager</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="locationEPOptions" [(ngModel)]="locationEP" name="_locationep">
+                                <p-dropdown [options]="locationEPOptions" [(ngModel)]="locationEP"(click)="onSelect('LEP')" name="_locationep">
                                 </p-dropdown>
                                 <label for="_locationep">Location EP</label>
                             </span>
