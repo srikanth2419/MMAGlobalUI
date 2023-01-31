@@ -51,7 +51,9 @@ export class ContactsListComponent implements OnInit {
   contactlistData: any;
   selected: any;
   responseMsg: Message[] = [];
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  isDisabled: boolean = true;
+  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/; 
+  @ViewChild('f', { static: false }) _respondentForm!: NgForm;
   constructor(private restapiService: RestapiService) { }
 
   ngOnInit(): void {
@@ -123,7 +125,7 @@ export class ContactsListComponent implements OnInit {
           unionselection.push({ label: c.unionname, value: c.sino });
         })
         this.unionOptions = unionselection;
-        this.unionOptions.unshift({ label: '-select', value: null });
+        this.unionOptions.unshift({ label: '', value: null });
         break;
     }
   }
@@ -149,21 +151,19 @@ export class ContactsListComponent implements OnInit {
       'unionid': this.unionMaster,
       'flag': (this.selectedType == 1) ? true : false
     }
-    this.restapiService.post(Pathconstants.ContactListController_Post, params).subscribe(res => { 
-      if(res!== null && res!== undefined)
-    {
-      this.onView();
-      this.onClear();
-      this._respondentForm.reset();
-      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-      setTimeout(() => this.responseMsg = [], 3000);
-    }
-    else{
-      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-    setTimeout(() => this.responseMsg = [], 3000)
-    }
+    this.restapiService.post(Pathconstants.ContactListController_Post, params).subscribe(res => {
+      if (res !== null && res !== undefined) {
+        this.onView();
+        this.onClear();
+        this._respondentForm.reset();
+        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
+      }
+      else {
+        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+        setTimeout(() => this.responseMsg = [], 3000)
+      }
     })
-   
 
   }
 
@@ -177,31 +177,6 @@ export class ContactsListComponent implements OnInit {
       }
     })
   }
-
-  onEdit(rowData: any) {
-    this.Id = rowData.slno;
-    this.firstName = rowData.first_name;
-    this.lastName = rowData.last_name;
-    this.roleOptions = [{ label: rowData.rolename, value: rowData.roleid }];
-    this.maincategoryOptions = [{ label: rowData.categoryname, value: rowData.maincategory_id}];
-    this.subcategoryOptions = [{ label: rowData.categoryname, value: rowData.subcategory_id }];
-    this.dob = rowData.dob;
-    this.phoneNumber = rowData.phonenumber;
-    this.whatappNumber = rowData.whatsappnumber;
-    this.emailId = rowData.email_id;
-    this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
-    this.stateOptions = [{ label: rowData.statename, value: rowData.statecode }];
-    this.state = rowData.statecode;
-    this.cityOptions = [{ label: rowData.cityname, value: rowData.citycode }];
-    this.city = rowData.citycode;
-    this.addressLine1 = rowData.address1;
-    this.addressLine2 = rowData.address2;
-    this.pincode = rowData.pincode;
-    this.selected=rowData.isunion;
-    this.unionOptions = [{ label: rowData.unionname, value: rowData.sino }];
-    this.selectedType = (rowData.flagstatus === 'Active') ? 1 : 0;
-  }
-
   onClear() {
     this.Id = 0;
     this.firstName = null;
@@ -221,5 +196,53 @@ export class ContactsListComponent implements OnInit {
     this.pincode = null;
     this.unionOptions = null;
     this.selectedType = null;
+    this.selected = null;
+    this.isDisabled = true;
   }
-}
+
+  onEdit(rowData: any) {
+    this.Id = rowData.slno;
+    this.firstName = rowData.first_name;
+    this.lastName = rowData.last_name;
+    this.roleOptions = [{ label: rowData.rolename, value: rowData.roleid }];
+    this.maincategoryOptions = [{ label: rowData.categoryname, value: rowData.maincategory_id }];
+    this.subcategoryOptions = [{ label: rowData.categoryname, value: rowData.subcategory_id }];
+    this.dob = new Date(rowData.dob);
+    this.phoneNumber = rowData.phonenumber;
+    this.whatappNumber = rowData.whatsappnumber;
+    this.emailId = rowData.email_id;
+    this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
+    this.stateOptions = [{ label: rowData.statename, value: rowData.statecode }];
+    this.city = rowData.citycode;
+    this.cityOptions = [{ label: rowData.cityname, value: rowData.citycode }];
+    this.addressLine1 = rowData.address1;
+    this.addressLine2 = rowData.address2;
+    this.pincode = rowData.pincode;
+    this.selected = rowData.isunion;
+    this.unionMaster = rowData.unionid;
+    this.unionOptions = [{ label: rowData.unionname, value: rowData.unionid }];
+    this.selectedType = (rowData.flagstatus === 'Active') ? 1 : 0;
+    this.isDisabled = false;
+  }
+
+  
+  onCheckboxChange(isChecked: any)
+  { 
+    if(isChecked)
+    {
+      this.isDisabled=false;
+    }
+    else
+    {
+      this.isDisabled=true;
+    }
+  }
+  
+  onCheck() {
+    this.data.forEach(i => {
+      if (i.first_name === this.firstName) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'name is already exist, Please input different name' }];
+        this.firstName = null;
+      }
+    })
+}}

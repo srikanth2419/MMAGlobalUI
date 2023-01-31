@@ -1,7 +1,7 @@
 <div class="col-12 md:col-12 lg:col-12">
     <p-panel header="Contacts List">
         <p-messages [(value)]="responseMsg" [enableService]="false"
-        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
+            [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #f="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
@@ -9,14 +9,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="firstname" name="_fname" pInputText [(ngModel)]="firstName"
-                                [pKeyFilter]="'alpha'"  required />
+                                (change)="onCheck()"  [pKeyFilter]="'alpha'" required />
                                 <label for="_fname">First Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="lastname" name="_lname" pInputText [(ngModel)]="lastName"
-                                [pKeyFilter]="'alpha'" required />
+                                    [pKeyFilter]="'alpha'" required />
                                 <label for="_lname">Last Name</label>
                             </span>
                         </div>
@@ -66,13 +66,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="whatappno" name="_whatappno" pInputText
-                                    [(ngModel)]="whatappNumber" maxlength="10"[pKeyFilter]="'num'" required />
+                                    [(ngModel)]="whatappNumber" maxlength="10" [pKeyFilter]="'num'" required />
                                 <label for="_mobno">Whatsapp Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId" [pKeyFilter]="'alpha'" required />
+                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId"
+                                    required />
                                 <label for="_email">Email Id</label>
                             </span>
                         </div>
@@ -91,7 +92,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="stateOptions" (click)="onSelect('C')" [(ngModel)]="state"
-                                     name="_state" [required]="true">
+                                    name="_state" [required]="true">
                                 </p-dropdown>
                                 <label for="_country">state</label>
                             </span>
@@ -108,21 +109,21 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr1" name="_addr1" pInputText [(ngModel)]="addressLine1"
-                                [pKeyFilter]="'alpha'" required />
+                                    [pKeyFilter]="'alpha'" required />
                                 <label for="_addr1">Address Line 1</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr2" name="_addr2" pInputText [(ngModel)]="addressLine2"
-                                [pKeyFilter]="'alpha'" required />
+                                    [pKeyFilter]="'alpha'" required />
                                 <label for="_addr2">Address Line 2</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="pcode" name="_pincode" pInputText [(ngModel)]="pincode"
-                                    maxlength="6" required />
+                                    maxlength="6" [pKeyFilter]="'num'" required />
                                 <label for="_pincode">Pincode</label>
                             </span>
                         </div>
@@ -131,16 +132,16 @@
                 <div #row4 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-1">
-                            <p-checkbox name="groupname" label="isunion" value="1" [(ngModel)]="selected">
+                            <p-checkbox name="groupname" label="isunion"[binary]="true" [(ngModel)]="selected" (onChange)="onCheckboxChange($event)">
                             </p-checkbox>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
+                        <div class="field col-12 md:col-3 lg:col-2" >
                             <span class="p-float-label">
-                                <p-dropdown [options]="unionOptions" (click)="onSelect('H')" [(ngModel)]="unionMaster"
-                                    name="_unionselection" placeholder="-select-"
-                                    [style]="{width: '-webkit-fill-available !important'}">
+                                <p-dropdown [options]="unionOptions"   (click)="onSelect('H')" [(ngModel)]="unionMaster"
+                                    name="_unionselection" placeholder="-select-" [disabled]="isDisabled"
+                                    [style]="{width: '-webkit-fill-available !important'}"> 
                                 </p-dropdown>
-                                <label for="_unionselection">Union Selection</label>
+                                <label for="_unionselection">Union Selection (optional)</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
@@ -160,39 +161,39 @@
         </div>
     </p-panel>
     <div class="col-12 md:col-12 lg:col-12">
-        <p-table #dt [columns]="cols" [value]="contactlistData" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
-        [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
-        <ng-template pTemplate="caption">
-            <div class="grid" style="width: -webkit-fill-available;">
-                <div class="lg:col-10 no-pad-top no-pad-btm">
-                    <span class="p-input-icon-left p-ml-auto">
-                        <i class="pi pi-search"></i>
-                        <input #searchInput pInputText type="text"
-                            (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
-                    </span>
+        <p-table #dt [columns]="cols" [value]="contactlistData" styleClass="p-datatable-gridlines" [paginator]="true"
+            [rows]="10" [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div class="grid" style="width: -webkit-fill-available;">
+                    <div class="lg:col-10 no-pad-top no-pad-btm">
+                        <span class="p-input-icon-left p-ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input #searchInput pInputText type="text"
+                                (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th>S.No:</th>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
-                <th>Edit</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-            <tr>
-                <td>{{rowIndex+1}}</td>
-                <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                </td>
-                <td>
-                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>S.No:</th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th>Edit</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                <tr>
+                    <td>{{rowIndex+1}}</td>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 </div>
