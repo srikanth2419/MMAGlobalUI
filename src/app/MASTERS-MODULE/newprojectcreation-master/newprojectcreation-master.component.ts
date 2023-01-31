@@ -40,6 +40,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
         'duration_in_days': this.durationDay,
         'budget': this.budget,
         'project_start_date': this.projectstartDate,
+        'production_house_name':this.prodhouseName,
         'created_date': new Date(),
         'flag': (this.selectedType == 1) ? true : false
       };
@@ -64,6 +65,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
     this.budget = null;
     this.projectstartDate = null;
     this.selectedType = null;
+    this.prodhouseName = null;
 
   }
 

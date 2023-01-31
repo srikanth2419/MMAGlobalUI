@@ -21,7 +21,7 @@ export class ShootingScheduleComponent implements OnInit {
   designOptions: SelectItem[] =[];
   design: any;
   statusOptions: SelectItem[] = [];
-  status: any;
+  status: any;  
   scene: any;
   characters: any;
   shootingScheduleCols: any;
@@ -31,10 +31,10 @@ export class ShootingScheduleComponent implements OnInit {
   responseMsg: Message[] = [];
   RowId: any = 0;
   selected:any;
-
-
-
-
+  block: RegExp = /[^=<>*%select(){}$@#_!+0-9&?,.;'"?/]/; 
+  select:any;
+  isShowDiv=true;
+  
   constructor(private restapiservice: RestapiService) { 
   }
 
@@ -43,6 +43,7 @@ export class ShootingScheduleComponent implements OnInit {
       { label: 'select',value:1 },
       { label: 'DAY', value: 2 },
       { label: 'NIGHT', value: 3 },
+      { label:'BOTH',value:4}
       
     ];
     this.designOptions = [
@@ -51,19 +52,14 @@ export class ShootingScheduleComponent implements OnInit {
       { label: 'Exterior', value: 3 },
       
     ];
-    this.statusOptions = [
-      { label: 'select',value:1 },
-      { label: 'Pending', value: 2 },
-      { label: 'Started', value: 3 },
-      { label: 'Completed', value: 4 },
-      { label: 'Cancelled', value: 5 },
-
-
-      
+    this.statusOptions= [
+      { label: 'Pending',value:1 },
     ];
+    //this.onView();
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
   }
+  toggleDisplayDiv() { this.isShowDiv = !this.isShowDiv;}
 
   onSelect(type: any) {
     let projectSelection: any = [];
@@ -85,8 +81,8 @@ export class ShootingScheduleComponent implements OnInit {
         'project_name': this.projectName,
         'schedule_day': this.scheduleDay,
         'schedule_date': this.scheduleDate,
-        'isactive': (this.selected == 1) ? true : false,
         'interior_exterior': this.design,
+        'day_night':this.dayNight,
         'scene': this.scene,
         'characters': this.characters,
         'status': this.status,
@@ -120,7 +116,22 @@ export class ShootingScheduleComponent implements OnInit {
 
   }
 
-  onView(){
+  onView() {
+    this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
+     this.shootingScheduleDetails = res;
+      if (res) {
+        res.forEach((i: any) => {
+          i.flag = (i.flag == true) ? 'Active' : 'InActive'
+        })
+      }
+    })
+  
+  this.restapiservice.get(Pathconstants.shooting_schedule_Get).subscribe(res =>{
+  })
+  }
 
+  onAdd(){
+        this.onView();
+        
   }
 }

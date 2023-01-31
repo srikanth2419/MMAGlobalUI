@@ -3,7 +3,7 @@
         <p-messages [(value)]="responseMsg" [enableService]="false"
             [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
-            <form #rf="ngForm">
+            <form #f="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-3">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
+                    <button pButton name="save" type="button" label="Submit" [disabled]="!f.valid || !f.dirty" icon="pi pi-save"
                         (click)="onSave()"></button>&nbsp;
                     <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                 </div>
