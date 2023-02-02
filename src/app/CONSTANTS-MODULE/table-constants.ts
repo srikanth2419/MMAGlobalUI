@@ -1,13 +1,13 @@
 export class TableConstants {
     
-
     public static readonly ShootingScheduleColumns = [
         { field: 'first_name', header: 'Name', align: 'left !important'},
         { field: 'rolename', header: 'Role', align: 'left !important'},
         { field: 'categoryname', header: 'Main Category', align: 'left !important'},
         { field: 'subcategory_id', header: 'Sub Category', align: 'left !important'},
-        { field: 'phonenumber', header: 'Phone Number', align: 'right !important'},
+        { field: 'phonenumber', header: 'Phone Number', align: 'left !important'},
     ];
+   
 //region vigneshwaran
     public static readonly citymasterCols = [
         { field: 'cityname', header: 'City Name', align: 'left !important' },
@@ -106,13 +106,14 @@ public static readonly RegistrationColumns =[
       { field: 'flag', header: 'Status', align: 'left !important'},
 ];
 public static readonly DailyexpensesColumns =[
-      { field: 'project_name', header: 'ProjectName', align: 'right !important' },
+      { field: 'project_name', header: 'Name', align: 'right !important' },
       { field: 'budget_amount', header: 'Budget Amount', align: 'left !important' },
       { field: 'date', header: 'Date', align: 'left !important' },
       { field: 'invoice_number', header: 'Invoice No', align: 'left !important' },
       { field: 'name', header: 'Expenses category', align: 'left !important' },
       { field: 'amount', header: 'Amount', align: 'left !important' },
 ];
+
 public static readonly lodginginfoColumns =[
     { field: 'location', header: 'Location', align: 'right !important' },
       { field: 'address', header: 'Address', align: 'left !important' },
@@ -123,7 +124,7 @@ public static readonly transportinfoColumns =[
      { field: 'pickup_time', header: 'PickupTime', align: 'left !important' },
      { field: 'pickup_location', header: 'PickupLocation', align: 'left !important' },
       { field: 'drop_location', header: 'DropLocation', align: 'left !important' },
-      { field: 'passenger_id', header: 'PassengerName', align: 'left !important' },
+      { field: 'first_name', header: 'PassengerName', align: 'left !important' },
     ]
 //#endregion
 
