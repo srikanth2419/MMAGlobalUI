@@ -40,7 +40,12 @@ export class ShootingScheduleComponent implements OnInit {
   ShootingScheduleData:any[] = [];
   loading:boolean = false;
   contactlistData:any[]=[];
+  maincategoryOptions: any;
+mainCategoryData:any;
+subCategoryData:any;
+subcategoryOptions:any;
   
+subCategory:any;
 
   constructor(private restapiservice: RestapiService) { 
   }
@@ -67,10 +72,14 @@ export class ShootingScheduleComponent implements OnInit {
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
     this.ShootingScheduleCols = TableConstants.ShootingColums;
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });
+    this.restapiservice.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
+    this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
   }
  
   onSelect(type: any) {
     let projectSelection: any = [];
+    let maincategoryselection: any = [];
+    let subcategoryselection: any = [];
     
 
     switch (type) {
@@ -81,8 +90,27 @@ export class ShootingScheduleComponent implements OnInit {
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
+        case 'E':
+          console.log(this.mainCategory)
+          this.mainCategoryData.forEach((c: any) => {
+            maincategoryselection.push({ label: c.categoryname, value: c.sino });
+          })
+          this.maincategoryOptions = maincategoryselection;
+          this.maincategoryOptions.unshift({ label: '-select', value: null });
+          break;
+        case 'F':
+          this.subCategoryData.forEach((c: any) => {
+            subcategoryselection.push({ label: c.categoryname, value: c.sino });
+          })
+          this.subcategoryOptions = subcategoryselection;
+          this.subcategoryOptions.unshift({ label: '-select', value: null });
+          break;
       }
+      
     
+  }
+  mainCategory(mainCategory: any) {
+    throw new Error('Method not implemented.');
   }
   onSave() {
     let value = this.selectedCustomers;

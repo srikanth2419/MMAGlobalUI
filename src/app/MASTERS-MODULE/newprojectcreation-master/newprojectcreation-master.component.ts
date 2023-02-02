@@ -35,7 +35,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   onSave() {
     {
       const params = {
-        'slno': this.RowId,
+        'project_id': this.RowId,
         'project_name': this.projectName,
         'duration_in_days': this.durationDay,
         'budget': this.budget,
@@ -81,7 +81,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   }
 
   onEdit(rowData: any) {
-    this.RowId = rowData.slno;
+    this.RowId = rowData.project_id;
     this.projectName = rowData.project_name;
     this.durationDay = rowData.duration_in_days;
     this.budget = rowData.budget;
