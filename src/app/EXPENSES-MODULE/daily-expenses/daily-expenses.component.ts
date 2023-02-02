@@ -14,6 +14,7 @@ export class DailyExpensesComponent implements OnInit {
 
   date: any;
   projectName: string = '';;
+  projectOptions:any;
   budgetAmount: any;
   invoiceNumber: any;
   expensesCategory: any;
