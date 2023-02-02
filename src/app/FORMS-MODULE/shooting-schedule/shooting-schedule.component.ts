@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Message, SelectItem } from 'primeng/api';
+import { Header, Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
@@ -31,14 +31,14 @@ export class ShootingScheduleComponent implements OnInit {
   responseMsg: Message[] = [];
   RowId: any = 0;
   selected:any;
-  block: RegExp = /[^=<>*%select(){}$@#_!+0-9&?,.;'"?/]/; 
-  select:any;
-  isShowDiv=true;
+  block: RegExp = /[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/; 
+  
   
   constructor(private restapiservice: RestapiService) { 
   }
 
   ngOnInit(): void {
+    
     this.dayNightOptions = [
       { label: 'select',value:1 },
       { label: 'DAY', value: 2 },
@@ -59,8 +59,7 @@ export class ShootingScheduleComponent implements OnInit {
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
   }
-  toggleDisplayDiv() { this.isShowDiv = !this.isShowDiv;}
-
+ 
   onSelect(type: any) {
     let projectSelection: any = [];
 
@@ -116,22 +115,12 @@ export class ShootingScheduleComponent implements OnInit {
 
   }
 
-  onView() {
+  onAdd() {
     this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
      this.shootingScheduleDetails = res;
-      if (res) {
-        res.forEach((i: any) => {
-          i.flag = (i.flag == true) ? 'Active' : 'InActive'
-        })
-      }
+     this.selectedPerson = res;
     })
-  
-  this.restapiservice.get(Pathconstants.shooting_schedule_Get).subscribe(res =>{
-  })
   }
-
-  onAdd(){
-        this.onView();
-        
+  onView(){
   }
 }

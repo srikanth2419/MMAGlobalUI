@@ -74,29 +74,36 @@
                     </p-checkbox>
                 </div> -->
                 <div #row2 class="col-12 md:col-12 lg:col-12" >
-                    <p-table [columns]="shootingScheduleCols" [value]="shootingScheduleDetails"
-                        [(selection)]="selectedPerson" dataKey="name" styleClass="p-datatable-gridlines"
+                    <p-table  [value]="shootingScheduleDetails"
+                         dataKey="slno" styleClass="p-datatable-gridlines"
                         responsiveLayout="scroll">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 4rem">
-                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    <p-tableHeaderCheckbox>
+                                      
+                                    </p-tableHeaderCheckbox>
                                 </th>
-                                <th>S.No.</th>
-                                <th *ngFor="let col of columns">
+                             <!-- <th *ngFor="let col of columns">
                                     {{col.header}}
-                                </th>
+                                </th> -->
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Main Category</th>
+                                <th>Sub Categoty</th>
+                                <th>Phone Number</th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                        <ng-template pTemplate="body" let-production>
                             <tr>
                                 <td>
-                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="production"></p-tableCheckbox>
                                 </td>
-                                <td>{{rowIndex+1}}</td>
-                                <td *ngFor="let col of columns">
-                                    {{rowData[col.field]}}
-                                </td>
+                                <td>{{production.first_name}}</td>
+                                <td>{{production.rolename}}</td>
+                                <td>{{production.categoryname}}</td>
+                                <td>{{production.subcategory_id}}</td>
+                                <td>{{production.phonenumber}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
