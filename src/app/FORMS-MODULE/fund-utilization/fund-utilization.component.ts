@@ -87,6 +87,7 @@ export class FundUtilizationComponent implements OnInit {
       case 'p':
         this.newprojectcreationData.forEach((c: any) => {
           projectSelection.push({ label: c.project_name, value: c.slno });
+         
         })
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });

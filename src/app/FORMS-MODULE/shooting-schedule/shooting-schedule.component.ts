@@ -32,8 +32,16 @@ export class ShootingScheduleComponent implements OnInit {
   RowId: any = 0;
   selected:any;
   block: RegExp = /[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/; 
+  totalRecords: number = 0;
+  selectAll: boolean = false;
+  selectedCustomers: any[] = [];
+  Disabled:any;
+  ShootingScheduleCols:any;
+  ShootingScheduleData:any[] = [];
+  loading:boolean = false;
+  contactlistData:any[]=[];
   
-  
+
   constructor(private restapiservice: RestapiService) { 
   }
 
@@ -57,11 +65,13 @@ export class ShootingScheduleComponent implements OnInit {
     ];
     //this.onView();
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
-    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
+    this.ShootingScheduleCols = TableConstants.ShootingColums;
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });
   }
  
   onSelect(type: any) {
     let projectSelection: any = [];
+    
 
     switch (type) {
       case 'p':
@@ -71,23 +81,25 @@ export class ShootingScheduleComponent implements OnInit {
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
-    }
+      }
+    
   }
   onSave() {
+    let value = this.selectedCustomers;
     {
       const params = {  
-        'slno': this.RowId,
-        'project_name': this.projectName,
-        'schedule_day': this.scheduleDay,
-        'schedule_date': this.scheduleDate,
-        'interior_exterior': this.design,
-        'day_night':this.dayNight,
+         'slno': this.RowId,
+         'project_name': this.projectName,
+         'schedule_day': this.scheduleDay,
+         'schedule_date': this.scheduleDate,
+         'interior_exterior': this.design,
+         'day_night':this.dayNight,
         'scene': this.scene,
         'characters': this.characters,
-        'status': this.status,
-        'created_date':new Date(),
+         'status': this.status,
+         'created_date':new Date(),
 
-      };
+       };
       this.restapiservice.post(Pathconstants.shooting_schedule_Post, params).subscribe(res => {
         if (res != null && res != undefined) {
           this.onView();
@@ -102,6 +114,13 @@ export class ShootingScheduleComponent implements OnInit {
       })
     }
   }
+  onSelectionChange(value = []) {
+    this.selectAll = value.length === this.totalRecords;
+    this.selectedCustomers = value;
+    console.log('m',value)
+}
+
+  
   
   onClear(){
     this.projectName = null;
@@ -112,6 +131,7 @@ export class ShootingScheduleComponent implements OnInit {
     this.scene = null;
     this.characters = null;
     this.status = null;
+    this.Disabled = null;
 
   }
 
@@ -122,5 +142,8 @@ export class ShootingScheduleComponent implements OnInit {
     })
   }
   onView(){
+  }
+
+  onEdit(rowData:any){
   }
 }
