@@ -13,7 +13,8 @@ import { RestapiService } from 'src/app/services/restapi.service';
 export class DailyExpensesComponent implements OnInit {
 
   date: any;
-  projectName: string = '';
+  projectName: string = '';;
+  projectOptions:any;
   budgetAmount: any;
   invoiceNumber: any;
   expensesCategory: any;
@@ -89,7 +90,13 @@ onEdit(rowData:any){
 
 }
 onClear(){
-
+    this.RowId=0;
+    this.projectName = '';
+    this.budgetAmount = null;
+    this.date = null;
+    this.invoiceNumber = null;
+    this.expensesCategory = null;
+    this.amount = null;
 }
   checkBudgetAmount() {
     if (this.budgetAmount !== null && this.budgetAmount !== undefined && this.amount !== undefined && this.amount !== null) {
@@ -105,18 +112,18 @@ onClear(){
     }
   }
 
-  onAdd() {
-    this.dailyexpensesData = this.checkIfTotalExists(this.dailyexpensesData)
-    this.dailyexpensesData.push({
-      'Date': this.date,
-      'Project': this.projectName,
-      'BudgetAmount': this.budgetAmount,
-      'InvoiceNo': this.invoiceNumber,
-      'expenses': this.expensesCategory,
-      'amount': this.amount,
-    })
-    this.calculateGrandTotal();
-  }
+  // onAdd() {
+  //   this.dailyexpensesData = this.checkIfTotalExists(this.dailyexpensesData)
+  //   this.dailyexpensesData.push({
+  //     'Date': this.date,
+  //     'Project': this.projectName,
+  //     'BudgetAmount': this.budgetAmount,
+  //     'InvoiceNo': this.invoiceNumber,
+  //     'expenses': this.expensesCategory,
+  //     'amount': this.amount,
+  //   })
+  //   this.calculateGrandTotal();
+  // }
 
   checkIfTotalExists(data: any[]) {
     var result = [];

@@ -14,7 +14,13 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
+<<<<<<< HEAD
                                 <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount" required />
+=======
+                                <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount" 
+                                 readonly="true"
+                                   required />
+>>>>>>> 01f828b3194863448a5f4603a577a51ef0ef2bc8
                                 <label for="_budget">Budget</label>
                             </span>
                         </div>
@@ -33,7 +39,7 @@
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="paymentByOptions" [(ngModel)]="paymentBy" name="_paymentBy">
+                                    <p-dropdown [options]="paymentByOptions" [(ngModel)]="paymentBy"   name="_paymentBy">
                                     </p-dropdown>
                                     <label for="_paymentBy">Payment By</label>
 

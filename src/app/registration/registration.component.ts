@@ -77,7 +77,7 @@ export class RegistrationComponent implements OnInit {
   }
   onSave(){
     const params={
-      'slno':this.RowId,
+      'production_id':this.RowId,
       'production_house_name':this.productionHouseName,
       'first_name':this.firstName,
       'last_name':this.lastName,
@@ -121,7 +121,7 @@ export class RegistrationComponent implements OnInit {
     })
   }
 onEdit(rowData:any){
-  this.RowId=rowData.slno;
+  this.RowId=rowData.production_id;
   this.productionHouseName=rowData.production_house_name;
   this.firstName=rowData.first_name;
   this.lastName=rowData.last_name;
@@ -139,6 +139,19 @@ onEdit(rowData:any){
 
 }
 onClear(){
-  
+  this.RowId =0;
+  this.productionHouseName = '';
+  this.firstName ='';
+  this.lastName ='';
+  this.dob =null;
+  this.mobileNo =null;
+  this.emailId ='';
+  this.password ='';
+  this.country =null;
+  this.state =null;
+  this.city =null;
+  this.addressLine1='';
+  this.addressLine2='';
+  this.pincode =null;
 }
 }

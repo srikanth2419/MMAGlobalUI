@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Message, SelectItem } from 'primeng/api';
+import { Header, Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
@@ -31,14 +31,22 @@ export class ShootingScheduleComponent implements OnInit {
   responseMsg: Message[] = [];
   RowId: any = 0;
   selected:any;
-  block: RegExp = /[^=<>*%select(){}$@#_!+0-9&?,.;'"?/]/; 
-  select:any;
-  isShowDiv=true;
+  block: RegExp = /[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/; 
+  totalRecords: number = 0;
+  selectAll: boolean = false;
+  selectedCustomers: any[] = [];
+  Disabled:any;
+  ShootingScheduleCols:any;
+  ShootingScheduleData:any[] = [];
+  loading:boolean = false;
+  contactlistData:any[]=[];
   
+
   constructor(private restapiservice: RestapiService) { 
   }
 
   ngOnInit(): void {
+    
     this.dayNightOptions = [
       { label: 'select',value:1 },
       { label: 'DAY', value: 2 },
@@ -57,12 +65,13 @@ export class ShootingScheduleComponent implements OnInit {
     ];
     //this.onView();
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
-    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
+    this.ShootingScheduleCols = TableConstants.ShootingColums;
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });
   }
-  toggleDisplayDiv() { this.isShowDiv = !this.isShowDiv;}
-
+ 
   onSelect(type: any) {
     let projectSelection: any = [];
+    
 
     switch (type) {
       case 'p':
@@ -72,23 +81,25 @@ export class ShootingScheduleComponent implements OnInit {
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
-    }
+      }
+    
   }
   onSave() {
+    let value = this.selectedCustomers;
     {
       const params = {  
-        'slno': this.RowId,
-        'project_name': this.projectName,
-        'schedule_day': this.scheduleDay,
-        'schedule_date': this.scheduleDate,
-        'interior_exterior': this.design,
-        'day_night':this.dayNight,
+         'slno': this.RowId,
+         'project_name': this.projectName,
+         'schedule_day': this.scheduleDay,
+         'schedule_date': this.scheduleDate,
+         'interior_exterior': this.design,
+         'day_night':this.dayNight,
         'scene': this.scene,
         'characters': this.characters,
-        'status': this.status,
-        'created_date':new Date(),
+         'status': this.status,
+         'created_date':new Date(),
 
-      };
+       };
       this.restapiservice.post(Pathconstants.shooting_schedule_Post, params).subscribe(res => {
         if (res != null && res != undefined) {
           this.onView();
@@ -103,6 +114,13 @@ export class ShootingScheduleComponent implements OnInit {
       })
     }
   }
+  onSelectionChange(value = []) {
+    this.selectAll = value.length === this.totalRecords;
+    this.selectedCustomers = value;
+    console.log('m',value)
+}
+
+  
   
   onClear(){
     this.projectName = null;
@@ -113,25 +131,19 @@ export class ShootingScheduleComponent implements OnInit {
     this.scene = null;
     this.characters = null;
     this.status = null;
+    this.Disabled = null;
 
   }
 
-  onView() {
+  onAdd() {
     this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
      this.shootingScheduleDetails = res;
-      if (res) {
-        res.forEach((i: any) => {
-          i.flag = (i.flag == true) ? 'Active' : 'InActive'
-        })
-      }
+     this.selectedPerson = res;
     })
-  
-  this.restapiservice.get(Pathconstants.shooting_schedule_Get).subscribe(res =>{
-  })
+  }
+  onView(){
   }
 
-  onAdd(){
-        this.onView();
-        
+  onEdit(rowData:any){
   }
 }

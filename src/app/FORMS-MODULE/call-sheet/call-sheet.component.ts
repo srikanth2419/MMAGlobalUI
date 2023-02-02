@@ -24,6 +24,7 @@ export class CallSheetComponent implements OnInit {
   callSheetDetails: any[] = [];
   selectedPerson: any[] = [];
   locationName: string = '';
+  phoneNumber:any;
   note: string = '';
   address: string = '';
   driverName: string = '';
@@ -34,19 +35,104 @@ export class CallSheetComponent implements OnInit {
   passengerName: any;
   lodginginfocols:any;
   lodginginfoData:any[]=[];
+  callinfoData:any[]=[];
   transportinfocols:any;
   transportinfoData:any[]=[];
   loading: boolean = false;
   RowId:any;
   responseMsg: Message[] = [];
+  selectedType: any;
+  rolemasterData:any[]=[];
+  Id:any = 0;
+  Row:any =0;
+  newprojectcreationData: any[] = [];
+  data: any[]=[];
+  contactlistData:any[]=[];
+  shootingScheduleDetails:any;
+  contactlistcols:any;
   constructor(private restapiservice: RestapiService) { }
-
   ngOnInit(): void {
-    this.callSheetCols = TableConstants.ShootingScheduleColumns;
+    this.onView1();
+    this.onView2();
+    this.onView3();
+    this.contactlistcols = TableConstants.ShootingScheduleColumns;
     this.lodginginfocols=TableConstants.lodginginfoColumns;
     this.transportinfocols=TableConstants.transportinfoColumns;
+    this.restapiservice.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res})
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
+    this.restapiservice.get(Pathconstants.LocationInfo_Get).subscribe(res => { this.data = res})
   }
-onSave1(){
+    onSelect(type: any) {
+    let roleSelection: any = [];
+    let projectcreationSelection:any =[];
+    let locationSelection:any =[];
+    let contactSelection:any =[];
+    switch (type) {
+      case 'P':
+        this.newprojectcreationData.forEach((c: any) => {
+          projectcreationSelection.push({ label:c. project_name, value: c.slno });
+        })
+        this.projectNameOptions =  projectcreationSelection;
+        this.projectNameOptions.unshift({ label: '-select', value: null });
+        break;
+      case 'R':
+        this.rolemasterData.forEach((c: any) => {
+          roleSelection.push({ label: c.rolename, value: c.roleid });
+        })
+        this.roleOptions =  roleSelection;
+        this.roleOptions.unshift({ label: '-select', value: null });
+        break;
+        case 'L':
+          this.data.forEach((c: any) => {
+            locationSelection.push({ label: c.location_name, value: c.slno });
+          })
+          this.locationOptions =  locationSelection;
+          this.locationOptions.unshift({ label: '-select', value: null });
+          break;
+          case 'T':
+          this.contactlistData.forEach((c: any) => {
+            contactSelection.push({ label: c.first_name, value: c.slno });
+          })
+          this.passengerNameOptions =  contactSelection;
+          this.passengerNameOptions.unshift({ label: '-select', value: null });
+          break;
+        }
+    }
+  onSave1(){
+    const params ={
+      'slno':this.Row,
+      'project_name':this.projectName,
+      'role_id':this.role,
+      'date':this.date,
+      'general_call_time':this.generalCallTime,
+      'shooting_call_time':this.scheduleCallTime,
+      'location_id':this.location,
+      'phone_number':this.phoneNumber,
+      'created_date': new Date(),
+      'flag':(this.selectedType == 1) ? true : false
+    };
+    this.restapiservice.post(Pathconstants.callinfo_Post, params).subscribe(res => {
+      if (res != null && res != undefined) {
+        this.onView1();
+        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
+      }
+      else {
+        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
+      }
+    })
+  }
+  onView1(){
+    this.restapiservice.get(Pathconstants.callinfo_GET).subscribe(res => {
+      this.callinfoData = res;
+    })
+
+  }
+  onEdit1(){
+
+  }
+onSave2(){
   const params = {
     'slno': this.RowId,
     'location': this. locationName,
@@ -55,7 +141,7 @@ onSave1(){
   };
   this.restapiservice.post(Pathconstants.lodginginfo_Post, params).subscribe(res => {
     if (res != null && res != undefined) {
-      this.onView1();
+      this.onView2();
       
       this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
       setTimeout(() => this.responseMsg = [], 3000);
@@ -66,29 +152,29 @@ onSave1(){
     }
   })
 }
-onView1(){
+onView2(){
     this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
       this.lodginginfoData = res;
     })
 }
-onEdit1(rowData:any){
+onEdit2(rowData:any){
   this.RowId=rowData.slno;
   this.locationName=rowData.location;
   this.address=rowData.address;
   this.note=rowData.note;
 }
-onSave2(){
+onSave3(){
   const params = {
-    'slno': this.RowId,
+    'slno': this.Id,
     'driver_name': this.driverName,
     'pickup_time':this.pickupTime,
-    'pickup_loaction':this.pickupLocation,
+    'pickup_location':this.pickupLocation,
     'drop_location':this.dropLocation,
-    'passenger_id':this.passengerName
+    'passenger_id':this.passengerName,
   };
   this.restapiservice.post(Pathconstants.transportinfo_Post, params).subscribe(res => {
     if (res != null && res != undefined) {
-      this.onView1();
+      this.onView3();
       
       this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
       setTimeout(() => this.responseMsg = [], 3000);
@@ -100,17 +186,22 @@ onSave2(){
   })
 
 }
-onView2(){
+onView3(){
   this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
-    this.lodginginfoData = res;
+    this.transportinfoData = res;
   })
 }
-onEdit2(rowData:any){
-  this.RowId=rowData.slno;
+onEdit3(rowData:any){
+  this.Id=rowData.slno;
   this.driverName=rowData.driver_name;
   this.pickupTime=rowData.pickup_time;
   this.pickupLocation=rowData.pickup_loaction;
   this.dropLocation=rowData.drop_location;
   this.passengerName=rowData.passenger_id;
 }
-}
+
+onAdd() {
+  this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {this.contactlistData = res})   
+
+    }
+  }

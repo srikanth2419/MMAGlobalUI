@@ -56,6 +56,8 @@ export class Pathconstants {
      public static readonly lodginginfo_GET='Lodginginfo/Getlodginginfo'
      public static readonly transportinfo_Post='Transportinfo/Savetransportinfo'
      public static readonly transportinfo_GET='Transportinfo/Gettransportinfo'
+     public static readonly callinfo_Post='Callinfo/SaveCallinfo'
+     public static readonly callinfo_GET='Callinfo/GetCallinfo'
     //#endregion
     
 }
