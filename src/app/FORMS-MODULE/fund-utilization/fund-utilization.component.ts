@@ -34,16 +34,18 @@ export class FundUtilizationComponent implements OnInit {
   contactlistData: any[] = [];
   data: any;
   newfundbudgetAmount: any;
+  
 
   constructor(private restapiservice: RestapiService) {
   }
 
   ngOnInit(): void {
+    this.onView();
     this.paymentByOptions = [
-      { label: 'select', value: 1 },
-      { label: 'PER DAY', value: 2 },
-      { label: 'PER CALL', value: 3 },
-      { label: 'PER PROJECT', value: 4 },
+      { label: 'select', value: null },
+      { label: 'PER DAY', value: 1 },
+      { label: 'PER CALL', value: 2 },
+      { label: 'PER PROJECT', value: 3 },
 
     ];
   this.fundCols = TableConstants.FundColumns;
@@ -82,7 +84,7 @@ export class FundUtilizationComponent implements OnInit {
 
   check() {
     this.newprojectcreationData.forEach(i => {
-      if (i.slno === this.projectName) {
+      if (i.project_id === this.projectName) {
         this.newfundbudgetAmount = i.budget
       }
     });
@@ -95,7 +97,8 @@ export class FundUtilizationComponent implements OnInit {
     switch (type) {
       case 'p':
         this.newprojectcreationData.forEach((c: any) => {
-          projectSelection.push({ label: c.project_name, value: c.slno });
+          projectSelection.push({ label: c.project_name, value: c.project_id
+          });
             })
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
@@ -135,22 +138,13 @@ export class FundUtilizationComponent implements OnInit {
 
   onEdit(rowData: any) {
     this.RowId = rowData.slno;
-    this.projectName = rowData.project_name;
-    this.budgetAmount = rowData.budget_amount;
-    this.personName = rowData.person_name;
+    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_name}];
+    this.budgetAmount=rowData.budget_amount;
+    this.personNameOptions=[{label:rowData.first_name,value:rowData.person_name}];
     this.paymentBy = rowData.payment_by;
-    this.amount = rowData.day_or_call;
-    this.dayCall = rowData.project_start_date;
+    this.amount = rowData.amount;
+    this.dayCall = rowData.day_or_call;
     this.totalAmount = rowData.total_amount;
+    
   }
-
-  // onCheck() {
-  //   this.newprojectcreationData.forEach(i => {
-  //     if (i.project_name === this.projectName) {
-  //       this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'project name is already exist, Please input different name' }];
-  //       this.projectName = null;
-  //     }
-  //   })
-
-  //}
 }

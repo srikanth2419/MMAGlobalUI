@@ -33,11 +33,11 @@ export class TableConstants {
     ];
 
     public static readonly FundColumns = [
-        { field: 'personName', header: 'Person Name', align: 'left !important'},
-        { field: 'paymentBy', header: 'Payment By', align: 'left !important'},
+        { field: 'first_name', header: 'Person Name', align: 'left !important'},
+        { field: 'payment_by', header: 'Payment By', align: 'left !important'},
         { field: 'amount', header: 'Amount', align: 'right !important'},
-        { field: 'dayCall', header: 'Day or Call', align: 'right !important'},
-        { field: 'totalAmount', header: 'Total Amount', align: 'right !important'},
+        { field: 'day_or_call', header: 'Day or Call', align: 'right !important'},
+        { field: 'total_amount', header: 'Total Amount', align: 'right !important'},
     ];
 
    
@@ -167,7 +167,7 @@ public static readonly ContactslistColumns=[
     {field:'last_name',header:'lastName',align:'left !important'},
     {field:'rolename',header:'RoleName',align:'left !important'},
     {field:'categoryname',header:'Maincategory',align:'left !important'},
-    {field:'subcategory_id',header:'Subcategory',align:'left !important'},
+    {field:'categoryname',header:'Subcategory',align:'left !important'},
     {field:'dob',header:'DOB',align:'left !important'},
     {field:'phonenumber',header:'phonenumber',align:'left !important'},
     {field:'whatsappnumber',header:'whatsappnumber',align:'left !important'},

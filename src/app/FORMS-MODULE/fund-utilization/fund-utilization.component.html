@@ -33,7 +33,7 @@
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="paymentByOptions" [(ngModel)]="paymentBy"   name="_paymentBy">
+                                    <p-dropdown [options]="paymentByOptions" optionLabel="label" [(ngModel)]="paymentBy"   name="_paymentBy">
                                     </p-dropdown>
                                     <label for="_paymentBy">Payment By</label>
 
@@ -70,10 +70,11 @@
                         responsiveLayout="scroll">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th>S.No.</th>
+                                <th>S.No</th>
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
+                                <th>Edit</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
@@ -81,6 +82,9 @@
                                 <td>{{rowIndex+1}}</td>
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
                                 </td>
                             </tr>
                         </ng-template>
