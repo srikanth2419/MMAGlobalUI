@@ -56,6 +56,23 @@
                             </span>
                         </div>
 
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('E')"
+                                    [(ngModel)]="mainCategory" name="_maincategory">
+                                </p-dropdown>
+                                <label for="_maincategory">Main category</label>
+                            </span>
+                        </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('F')"
+                                    [(ngModel)]="subCategory" name="_subCategory">
+                                </p-dropdown>
+                                <label for="_subCategory">Sub Category</label>
+                            </span>
+                        </div>
+
                         
                         <div class="field col-12 md:col-3 lg:col-1">
                             <button pButton type="button" label="Add " [disabled]="!f.valid || !f.dirty"
