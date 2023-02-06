@@ -32,8 +32,21 @@ export class ShootingScheduleComponent implements OnInit {
   RowId: any = 0;
   selected:any;
   block: RegExp = /[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/; 
+  totalRecords: number = 0;
+  selectAll: boolean = false;
+  selectedCustomers: any[] = [];
+  Disabled:any;
+  ShootingScheduleCols:any;
+  ShootingScheduleData:any[] = [];
+  loading:boolean = false;
+  contactlistData:any[]=[];
+  maincategoryOptions: any;
+mainCategoryData:any;
+subCategoryData:any;
+subcategoryOptions:any;
   
-  
+subCategory:any;
+
   constructor(private restapiservice: RestapiService) { 
   }
 
@@ -57,11 +70,17 @@ export class ShootingScheduleComponent implements OnInit {
     ];
     //this.onView();
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
-    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
+    this.ShootingScheduleCols = TableConstants.ShootingColums;
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });
+    this.restapiservice.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
+    this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
   }
  
   onSelect(type: any) {
     let projectSelection: any = [];
+    let maincategoryselection: any = [];
+    let subcategoryselection: any = [];
+    
 
     switch (type) {
       case 'p':
@@ -71,23 +90,44 @@ export class ShootingScheduleComponent implements OnInit {
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
-    }
+        case 'E':
+          console.log(this.mainCategory)
+          this.mainCategoryData.forEach((c: any) => {
+            maincategoryselection.push({ label: c.categoryname, value: c.sino });
+          })
+          this.maincategoryOptions = maincategoryselection;
+          this.maincategoryOptions.unshift({ label: '-select', value: null });
+          break;
+        case 'F':
+          this.subCategoryData.forEach((c: any) => {
+            subcategoryselection.push({ label: c.categoryname, value: c.sino });
+          })
+          this.subcategoryOptions = subcategoryselection;
+          this.subcategoryOptions.unshift({ label: '-select', value: null });
+          break;
+      }
+      
+    
+  }
+  mainCategory(mainCategory: any) {
+    throw new Error('Method not implemented.');
   }
   onSave() {
+    let value = this.selectedCustomers;
     {
       const params = {  
-        'slno': this.RowId,
-        'project_name': this.projectName,
-        'schedule_day': this.scheduleDay,
-        'schedule_date': this.scheduleDate,
-        'interior_exterior': this.design,
-        'day_night':this.dayNight,
+         'slno': this.RowId,
+         'project_name': this.projectName,
+         'schedule_day': this.scheduleDay,
+         'schedule_date': this.scheduleDate,
+         'interior_exterior': this.design,
+         'day_night':this.dayNight,
         'scene': this.scene,
         'characters': this.characters,
-        'status': this.status,
-        'created_date':new Date(),
+         'status': this.status,
+         'created_date':new Date(),
 
-      };
+       };
       this.restapiservice.post(Pathconstants.shooting_schedule_Post, params).subscribe(res => {
         if (res != null && res != undefined) {
           this.onView();
@@ -102,6 +142,13 @@ export class ShootingScheduleComponent implements OnInit {
       })
     }
   }
+  onSelectionChange(value = []) {
+    this.selectAll = value.length === this.totalRecords;
+    this.selectedCustomers = value;
+    console.log('m',value)
+}
+
+  
   
   onClear(){
     this.projectName = null;
@@ -112,6 +159,7 @@ export class ShootingScheduleComponent implements OnInit {
     this.scene = null;
     this.characters = null;
     this.status = null;
+    this.Disabled = null;
 
   }
 
@@ -122,5 +170,8 @@ export class ShootingScheduleComponent implements OnInit {
     })
   }
   onView(){
+  }
+
+  onEdit(rowData:any){
   }
 }

@@ -7,17 +7,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
-                                (click)="onSelect('p')"  name="_projectname">
+                                    (click)="onSelect('p')" name="_projectname" (onChange)="check()">
                                 </p-dropdown>
                                 <label for="_projectname">Project Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount"
-                                
-                                 readonly="true"
-                                   required />
+                                <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount" required />
                                 <label for="_budget">Budget</label>
                             </span>
                         </div>
@@ -29,22 +26,23 @@
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
                                     <p-dropdown [options]="personNameOptions" [(ngModel)]="personName"
-                                    (click)="onSelect('C')" name="_personName">
+                                        (click)="onSelect('C')" name="_personName">
                                     </p-dropdown>
                                     <label for="_personName">Person Name</label>
                                 </span>
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="paymentByOptions" [(ngModel)]="paymentBy" name="_paymentBy">
+                                    <p-dropdown [options]="paymentByOptions" optionLabel="label" [(ngModel)]="paymentBy"   name="_paymentBy">
                                     </p-dropdown>
                                     <label for="_paymentBy">Payment By</label>
-                                    
+
                                 </span>
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
-                                    <input type="text" name="_amount" pInputText [(ngModel)]="amount"  [pKeyFilter]="'int'" required />
+                                    <input type="text" name="_amount" pInputText [(ngModel)]="amount"
+                                        [pKeyFilter]="'int'" required />
                                     <label for="_amount">Amount</label>
                                 </span>
                             </div>
@@ -57,24 +55,26 @@
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
                                     <input type="text" name="_totalAmount" pInputText [(ngModel)]="totalAmount"
-                                        readonly="true" required />
+                                        [pKeyFilter]="'int'" required />
                                     <label for="_totalAmount">Total Amount</label>
                                 </span>
                             </div>&nbsp;&nbsp;
                             <div class="col-4 md:col-2 lg:col-1">
-                                <button pButton type="button" label="Enter"></button>
+                                <button pButton type="button" label="save" (click)="onSave()"></button>
                             </div>
                         </div>
                     </p-card>
                 </div>
                 <div #row3 class="col-12 md:col-12 lg:col-12">
-                    <p-table [columns]="fundCols" [value]="FundUtilizationData"styleClass="p-datatable-gridlines"  responsiveLayout="scroll">
+                    <p-table [columns]="fundCols" [value]="FundUtilizationData" styleClass="p-datatable-gridlines"
+                        responsiveLayout="scroll">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th>S.No.</th>
+                                <th>S.No</th>
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
+                                <th>Edit</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
@@ -83,12 +83,12 @@
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
+                                <td>
+                                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
-                </div>
-                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Save"></button>
                 </div>
             </form>
         </div>

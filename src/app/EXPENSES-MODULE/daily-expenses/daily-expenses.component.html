@@ -15,10 +15,13 @@
                                 <label for="_date">Date</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-3">
+                        <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="projectname" name="_pname" pInputText [(ngModel)]="projectName"
-                                    required />
+                                <!-- <input type="text" id="projectname" name="_pname" pInputText [(ngModel)]="projectName"
+                                    required /> -->
+                                    <p-dropdown [options]="projectOptions" (click)="onSelect('P')" [(ngModel)]="projectName"
+                                    (onChange)="check()" name="_pname">
+                                </p-dropdown>
                                 <label for="_pname">Project Name</label>
                             </span>
                         </div>

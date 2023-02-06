@@ -52,7 +52,8 @@ export class ContactsListComponent implements OnInit {
   selected: any;
   responseMsg: Message[] = [];
   isDisabled: boolean = true;
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/; 
+  productionId:any;
+  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
   constructor(private restapiService: RestapiService) { }
 
@@ -225,19 +226,7 @@ export class ContactsListComponent implements OnInit {
     this.isDisabled = false;
   }
 
-  
-  onCheckboxChange(isChecked: any)
-  { 
-    if(isChecked)
-    {
-      this.isDisabled=false;
-    }
-    else
-    {
-      this.isDisabled=true;
-    }
-  }
-  
+
   onCheck() {
     this.data.forEach(i => {
       if (i.first_name === this.firstName) {
@@ -245,4 +234,5 @@ export class ContactsListComponent implements OnInit {
         this.firstName = null;
       }
     })
-}}
+  }
+}
