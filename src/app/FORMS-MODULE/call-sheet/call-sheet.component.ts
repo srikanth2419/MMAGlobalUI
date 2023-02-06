@@ -25,6 +25,10 @@ export class CallSheetComponent implements OnInit {
   selectedPerson: any[] = [];
   locationName: string = '';
   phoneNumber:any;
+  mainCategoryOptions:any;
+  subCategoryOptions:any;
+  mainCategory:any;
+  subCategory:any;
   note: string = '';
   address: string = '';
   driverName: string = '';
@@ -50,23 +54,36 @@ export class CallSheetComponent implements OnInit {
   contactlistData:any[]=[];
   shootingScheduleDetails:any;
   contactlistcols:any;
+  mainCategoryData:any[]=[];
+  subCategoryData:any[]=[];
+  totalRecords: number = 0;
+  selectAll: boolean = false;
+  selectedCustomers: any[] = [];
+  callinfocol:any;
   constructor(private restapiservice: RestapiService) { }
   ngOnInit(): void {
     this.onView1();
     this.onView2();
     this.onView3();
+    this.callinfocol =TableConstants.callinfoColumns
     this.contactlistcols = TableConstants.ShootingScheduleColumns;
     this.lodginginfocols=TableConstants.lodginginfoColumns;
     this.transportinfocols=TableConstants.transportinfoColumns;
     this.restapiservice.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res})
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
     this.restapiservice.get(Pathconstants.LocationInfo_Get).subscribe(res => { this.data = res})
+    this.restapiservice.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => {
+      this.mainCategoryData = res})
+      this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => {
+        this.subCategoryData =res})
   }
     onSelect(type: any) {
     let roleSelection: any = [];
     let projectcreationSelection:any =[];
     let locationSelection:any =[];
     let contactSelection:any =[];
+    let maincategorySelection:any=[];
+    let subcategorySelection:any=[];
     switch (type) {
       case 'P':
         this.newprojectcreationData.forEach((c: any) => {
@@ -96,6 +113,20 @@ export class CallSheetComponent implements OnInit {
           this.passengerNameOptions =  contactSelection;
           this.passengerNameOptions.unshift({ label: '-select', value: null });
           break;
+          case 'M':
+            this.mainCategoryData.forEach((c: any) => {
+              maincategorySelection.push({ label:c. categoryname, value: c.sino });
+            })
+            this.mainCategoryOptions =  maincategorySelection;
+            this.mainCategoryOptions.unshift({ label: '-select', value: null });
+            break;
+            case 'S':
+            this.subCategoryData.forEach((c: any) => {
+              subcategorySelection.push({ label:c. categoryname, value: c.sino });
+            })
+            this.subCategoryOptions =  subcategorySelection;
+            this.subCategoryOptions.unshift({ label: '-select', value: null });
+            break;
         }
     }
   onSave1(){
@@ -122,7 +153,13 @@ export class CallSheetComponent implements OnInit {
         setTimeout(() => this.responseMsg = [], 3000);
       }
     })
+    
   }
+  onSelectionChange(value = []) {
+    this.selectAll = value.length === this.totalRecords;
+    this.selectedCustomers = value;
+    console.log('m',value)
+}
   onView1(){
     this.restapiservice.get(Pathconstants.callinfo_GET).subscribe(res => {
       this.callinfoData = res;

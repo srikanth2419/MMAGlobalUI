@@ -29,17 +29,32 @@ export class DailyExpensesComponent implements OnInit {
   RowId:any;
   responseMsg: Message[] = [];
   loading: boolean = false;
-  constructor(private restapiservice: RestapiService) { }
+  newprojectcreationData: any[] = [];
+  newfundbudgetAmount:any;
+    constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
-    this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {this.expensescategorymasterData = res})
+    this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {
+      this.expensescategorymasterData = res
+    })
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => {
+      this.newprojectcreationData = res
+    })
     this.onView();
     this.dailyexpensesCols = TableConstants.DailyexpensesColumns;
      
   }
   onSelect(type: any) {
     let dailyexpensesSelection: any = [];
+    let projectnameSelection:any =[];
     switch (type) {
+      case 'P':
+        this. newprojectcreationData.forEach((c: any) => {
+          projectnameSelection.push({ label: c.project_name, value: c.project_id });
+        })
+        this. projectOptions = projectnameSelection;
+        this. projectOptions.unshift({ label:'-select', value: null });
+        break;
       case 'D':
         this. expensescategorymasterData.forEach((c: any) => {
           dailyexpensesSelection.push({ label: c.name, value: c.sino });
@@ -49,6 +64,15 @@ export class DailyExpensesComponent implements OnInit {
         break;
     }
   }
+  check() {
+    this.newprojectcreationData.forEach(i => {
+      if (i.project_id === this.projectName) {
+        this.newfundbudgetAmount = i.budget
+      }
+    });
+    this.budgetAmount = this.newfundbudgetAmount
+  }
+
 onSave(){
   const params = {
   'slno': this.RowId,
