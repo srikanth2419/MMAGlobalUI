@@ -5,8 +5,8 @@ export class TableConstants {
     public static readonly ShootingScheduleColumns = [
         { field: 'first_name', header: 'Name', align: 'left !important'},
         { field: 'rolename', header: 'Role', align: 'left !important'},
-        { field: 'categoryname', header: 'Main Category', align: 'left !important'},
-        { field: 'subcategory_id', header: 'Sub Category', align: 'left !important'},
+        { field: 'maincategoryname', header: 'Main Category', align: 'left !important'},
+        { field: 'subcategoryname', header: 'Sub Category', align: 'left !important'},
         { field: 'phonenumber', header: 'Phone Number', align: 'left !important'},
     ];
    

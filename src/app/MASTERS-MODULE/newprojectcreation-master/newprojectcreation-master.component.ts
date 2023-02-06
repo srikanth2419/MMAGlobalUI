@@ -27,7 +27,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
-    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
+    //this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
     this.onView();
     this.newprojectcreationCols = TableConstants.newprojectcreationCols;
   }
@@ -40,7 +40,6 @@ export class NewprojectcreationMasterComponent implements OnInit {
         'duration_in_days': this.durationDay,
         'budget': this.budget,
         'project_start_date': this.projectstartDate,
-        'production_house_name':this.prodhouseName,
         'created_date': new Date(),
         'flag': (this.selectedType == 1) ? true : false
       };
