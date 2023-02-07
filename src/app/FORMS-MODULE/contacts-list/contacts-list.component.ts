@@ -49,16 +49,18 @@ export class ContactsListComponent implements OnInit {
   unionMaster: any;
   role: any;
   contactlistData: any;
-  selected: any;
+  selected: any = 0;
   responseMsg: Message[] = [];
   isDisabled: boolean = true;
   productionId:any;
+  unionno : any;
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
   constructor(private restapiService: RestapiService) { }
 
   ngOnInit(): void {
     this.onView();
+    this.unionno = 0
     this.restapiService.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
     this.restapiService.get(Pathconstants.CityMasterDB_GET).subscribe(res => { this.citymasterData = res })
     this.restapiService.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
@@ -131,6 +133,9 @@ export class ContactsListComponent implements OnInit {
     }
   }
   onSave() {
+      if (this.unionMaster !== 0){
+        this.unionno = this.unionMaster
+      }
     const params = {
       'slno': this.Id,
       'first_name': this.firstName,
@@ -148,8 +153,8 @@ export class ContactsListComponent implements OnInit {
       'address1': this.addressLine1,
       'address2': this.addressLine2,
       'pincode': this.pincode,
-      'isunion': this.selected.value,
-      'unionid': this.unionMaster,
+      'isunion': (this.selected == true) ? this.selected : false,
+      'unionid': this.unionno != undefined ? this.unionno : null,
       'flag': (this.selectedType == 1) ? true : false
     }
     this.restapiService.post(Pathconstants.ContactListController_Post, params).subscribe(res => {
@@ -178,6 +183,7 @@ export class ContactsListComponent implements OnInit {
       }
     })
   }
+
   onClear() {
     this.Id = 0;
     this.firstName = null;
@@ -225,7 +231,6 @@ export class ContactsListComponent implements OnInit {
     this.selectedType = (rowData.flagstatus === 'Active') ? 1 : 0;
     this.isDisabled = false;
   }
-
 
   onCheck() {
     this.data.forEach(i => {
