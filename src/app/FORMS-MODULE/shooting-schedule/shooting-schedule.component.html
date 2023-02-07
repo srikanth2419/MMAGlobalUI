@@ -20,108 +20,113 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="designOptions" [(ngModel)]="design" name="_design">
+                                <p-dropdown [options]="designOptions" optionLabel="label" [(ngModel)]="design"
+                                    name="_design">
                                 </p-dropdown>
                                 <label for="_design">Interior/Exterior</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="dayNightOptions" [(ngModel)]="dayNight" name="_daynight">
+                                <p-dropdown [options]="dayNightOptions" optionLabel="label" [(ngModel)]="dayNight"
+                                    name="_daynight">
                                 </p-dropdown>
                                 <label for="_daynight">Day/Night/Both</label>
                             </span>
                         </div>
-                       
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" name="_scheduleDay" pInputText [(ngModel)]="scheduleDay"
-                                    [pKeyFilter]="'int'" required />
+                                    optionLabel="label" [pKeyFilter]="'int'" required />
                                 <label for="_scheduleDay">Schedule Day</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-calendar [(ngModel)]="scheduleDate" name="_scheduleDate" [showIcon]="true">
+                                <p-calendar [(ngModel)]="scheduleDate" [minDate]="minDate" name="_scheduleDate"
+                                    [showIcon]="true">
                                 </p-calendar>
                                 <label for="_scheduleDate">Scene start Date</label>
                             </span>
                         </div>
-                       
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="statusOptions" [(ngModel)]="status" name="_status">
-                                </p-dropdown>
+                                <p-dropdown [options]="statusOptions" (click)="onSelect('S')" [(ngModel)]="status" name="_status">
+                                    optionLabel="label"   </p-dropdown>
                                 <label for="_status">Status</label>
                             </span>
                         </div>
 
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('E')"
-                                    [(ngModel)]="mainCategory" name="_maincategory">
+                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('E')"  optionLabel="label"
+                                    [(ngModel)]="mainCategoryMaster" name="_mainCategory">
                                 </p-dropdown>
-                                <label for="_maincategory">Main category</label>
+                                <label for="_mainCategory">Main Category</label>
                             </span>
                         </div>
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('F')"
-                                    [(ngModel)]="subCategory" name="_subCategory">
+                                <p-dropdown [options]="subcategoryOptions" (click)="onSelect('F')" optionLabel="label"
+                                    [(ngModel)]="subCategoryMaster" name="_subCategory">
                                 </p-dropdown>
                                 <label for="_subCategory">Sub Category</label>
                             </span>
                         </div>
-
-                        
+                        <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
+                            <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType"
+                                required>
+                            </p-radioButton>&nbsp;
+                            <p-radioButton name="Flag" label="INACTIVE" value=0
+                                [(ngModel)]="selectedType" required>
+                            </p-radioButton>
+                        </div>
                         <div class="field col-12 md:col-3 lg:col-1">
                             <button pButton type="button" label="Add " [disabled]="!f.valid || !f.dirty"
-                             (click)="onAdd()"  [disabled]="(this.selected !== true)"></button>
+                                (click)="onAdd()"></button>
                         </div>
                     </div>
                 </div>
                 <p-panel header="character participation">
-                <!-- <div  class="field col-12 md:col-3 lg:col-2">
-                    <p-checkbox name="groupname" label="Character Prediction" value="1" [hidden]="isShowDiv"
-                        [(ngModel)]="select">
-                    </p-checkbox>
-                </div> -->
-                <div #row2 class="col-12 md:col-12 lg:col-12" >
-                    <p-table  [value]="shootingScheduleDetails" 
-                         dataKey="slno" styleClass="p-datatable-gridlines"
-                        responsiveLayout="scroll"  (selectionChange)="onSelectionChange($event)" [totalRecords]="totalRecords" >
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th style="width: 4rem">
-                                    <p-tableHeaderCheckbox>
-                                      
-                                    </p-tableHeaderCheckbox>
-                                </th>
-                             <!-- <th *ngFor="let col of columns">
+                    <div #row2 class="col-12 md:col-12 lg:col-12">
+                        <p-table [value]="maincategorynew" dataKey="slno" styleClass="p-datatable-gridlines"
+                         [(selection)]="selectedPerson"   responsiveLayout="scroll" (selectionChange)="onSelectionChange($event)"
+                            [totalRecords]="totalRecords" [paginator]="true" [rows]="10">
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 4rem">
+                                        <p-tableHeaderCheckbox>
+
+                                        </p-tableHeaderCheckbox>
+                                    </th>
+                                    <!-- <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th> -->
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>Main Category</th>
-                                <th>Sub Categoty</th>
-                                <th>Phone Number</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-production let-rowData>
-                            <tr>
-                                <td>
-                                    <p-tableCheckbox [value]="production"></p-tableCheckbox>
-                                </td>
-                                <td>{{production.first_name}}</td>
-                                <td>{{production.rolename}}</td>
-                                <td>{{production.categoryname}}</td>
-                                <td>{{production.subcategory_id}}</td>
-                                <td>{{production.phonenumber}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </p-panel>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Main Category</th>
+                                    <th>Sub Categoty</th>
+                                    <th>Phone Number</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-production let-rowData>
+                                <tr>
+                                    <td>
+                                        <p-tableCheckbox [value]="production"></p-tableCheckbox>
+                                    </td>
+                                    <td>{{production.first_name}}</td>
+                                    <td>{{production.rolename}}</td>
+                                    <td>{{production.maincategoryname}}</td>
+                                    <td>{{production.subcategoryname}}</td>
+                                    <td>{{production.phonenumber}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-panel>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
                     <button pButton type="button" label="Save" icon="pi pi-save" [disabled]="!f.valid || !f.dirty"
                         (click)="onSave()"></button>&nbsp;
@@ -134,8 +139,8 @@
 </div>
 <div class="col-12 md:col-12 lg:col-12">
     <p-table #dt [columns]="ShootingScheduleCols" [value]="ShootingScheduleData" styleClass="p-datatable-gridlines"
-        [loading]="loading" [paginator]="true" [rows]="10" 
-        [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
+        [loading]="loading" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+        responsiveLayout="scroll">
         <ng-template pTemplate="caption">
             <div class="grid" style="width: -webkit-fill-available;">
                 <div class="lg:col-10 no-pad-top no-pad-btm">

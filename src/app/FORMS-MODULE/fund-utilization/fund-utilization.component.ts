@@ -64,7 +64,6 @@ export class FundUtilizationComponent implements OnInit {
         'day_or_call': this.dayCall,
         'total_amount': this.totalAmount,
         'created_date': new Date(),
-
       };
       this.restapiservice.post(Pathconstants.fundutilization_Post, params).subscribe(res => {
         if (res != null && res != undefined) {

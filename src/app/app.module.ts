@@ -51,6 +51,7 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +77,9 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
     UnionMasterComponent,
     CountryMasterComponent,
     DashboardComponent,
-    UserMasterComponent
+    UserMasterComponent,
+    
+    
   ],
   imports: [
     BrowserModule,

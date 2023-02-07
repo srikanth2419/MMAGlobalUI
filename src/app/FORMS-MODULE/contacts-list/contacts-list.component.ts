@@ -52,8 +52,8 @@ export class ContactsListComponent implements OnInit {
   selected: any = 0;
   responseMsg: Message[] = [];
   isDisabled: boolean = true;
-  productionId:any;
-  unionno : any;
+  productionId: any;
+  unionno: any;
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
   constructor(private restapiService: RestapiService) { }
@@ -133,9 +133,9 @@ export class ContactsListComponent implements OnInit {
     }
   }
   onSave() {
-      if (this.unionMaster !== 0){
-        this.unionno = this.unionMaster
-      }
+    if (this.unionMaster !== 0) {
+      this.unionno = this.unionMaster
+    }
     const params = {
       'slno': this.Id,
       'first_name': this.firstName,

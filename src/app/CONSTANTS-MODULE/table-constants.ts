@@ -5,8 +5,8 @@ export class TableConstants {
     public static readonly ShootingScheduleColumns = [
         { field: 'first_name', header: 'Name', align: 'left !important'},
         { field: 'rolename', header: 'Role', align: 'left !important'},
-        { field: 'categoryname', header: 'Main Category', align: 'left !important'},
-        { field: 'subcategory_id', header: 'Sub Category', align: 'left !important'},
+        { field: 'maincategoryname', header: 'Main Category', align: 'left !important'},
+        { field: 'subcategoryname', header: 'Sub Category', align: 'left !important'},
         { field: 'phonenumber', header: 'Phone Number', align: 'left !important'},
     ];
    
@@ -125,7 +125,7 @@ public static readonly RegistrationColumns =[
       { field: 'flag', header: 'Status', align: 'left !important'},
 ];
 public static readonly DailyexpensesColumns =[
-      { field: 'project_name', header: 'Name', align: 'right !important' },
+      { field: 'projectname', header: 'Projectname', align: 'right !important' },
       { field: 'budget_amount', header: 'Budget Amount', align: 'left !important' },
       { field: 'date', header: 'Date', align: 'left !important' },
       { field: 'invoice_number', header: 'Invoice No', align: 'left !important' },
@@ -144,7 +144,16 @@ public static readonly transportinfoColumns =[
      { field: 'pickup_location', header: 'PickupLocation', align: 'left !important' },
       { field: 'drop_location', header: 'DropLocation', align: 'left !important' },
       { field: 'first_name', header: 'PassengerName', align: 'left !important' },
-    ]
+    ];
+    public static readonly callinfoColumns =[
+        { field: 'project_name', header: 'ProjectName', align: 'right !important' },
+        { field: 'role_name', header: 'Role', align: 'left !important' },
+        { field: 'date', header: 'Date', align: 'left !important' },
+         { field: 'general_call_time', header: 'Generalcalltime', align: 'left !important' },
+         { field: 'schedule_call_time', header: 'Schedulecalltime', align: 'left !important' },
+         { field: 'location', header: 'Location', align: 'left !important' },
+       ];
+    
 //#endregion
 
 //#region  Ananth
