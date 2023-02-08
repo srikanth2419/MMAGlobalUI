@@ -143,19 +143,21 @@ public static readonly transportinfoColumns =[
      { field: 'pickup_time', header: 'PickupTime', align: 'left !important' },
      { field: 'pickup_location', header: 'PickupLocation', align: 'left !important' },
       { field: 'drop_location', header: 'DropLocation', align: 'left !important' },
-      { field: 'first_name', header: 'PassengerName', align: 'left !important' },
+      { field: 'passengername', header: 'PassengerName', align: 'left !important' },
     ];
     public static readonly callinfoColumns =[
         { field: 'project_name', header: 'ProjectName', align: 'right !important' },
         { field: 'role_name', header: 'Role', align: 'left !important' },
+        { field: 'mainCategory', header: 'Maincategory', align: 'left !important' },
+        { field: 'subCategory', header: 'subcategory', align: 'left !important' },
         { field: 'date', header: 'Date', align: 'left !important' },
          { field: 'general_call_time', header: 'Generalcalltime', align: 'left !important' },
          { field: 'schedule_call_time', header: 'Schedulecalltime', align: 'left !important' },
          { field: 'location', header: 'Location', align: 'left !important' },
+         { field: 'phoneNumber', header: 'Phonenumber', align: 'left !important' },
        ];
     
 //#endregion
-
 //#region  Ananth
 public static readonly UserMaster=[
     {field:'username_emailid',header:'Username/Emailid',align:'left !important'},
