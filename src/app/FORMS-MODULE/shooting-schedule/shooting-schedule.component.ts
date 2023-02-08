@@ -14,8 +14,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 export class ShootingScheduleComponent implements OnInit {
   projectNameOptions: SelectItem[] = [];
   projectName: any;
-  //scheduleDate: Date = new Date();
-  scheduleDate: any;
+  scheduleDate: Date = new Date();
   scheduleDay: any;
   dayNightOptions: SelectItem[] = [];
   dayNight: any;
@@ -24,7 +23,6 @@ export class ShootingScheduleComponent implements OnInit {
   statusOptions: SelectItem[] = [];
   status: any;
   scene: any;
-  characters: any;
   shootingScheduleCols: any;
   shootingScheduleDetails: any[] = [];
   selectedPerson: any[] = [];
@@ -51,9 +49,8 @@ export class ShootingScheduleComponent implements OnInit {
   maincategorynew: any[] = [];
   shootingStatusData:any[] = [];
   selectedType: any;
-
-  
-
+  contactid:any =[];
+  contactlistcols:any;
   constructor(private restapiservice: RestapiService) {
   }
 
@@ -115,32 +112,38 @@ export class ShootingScheduleComponent implements OnInit {
         break;
         case 'S':
           this.shootingStatusData.forEach((c: any) => {
-            shootingstatusselection.push({ label: c.status, value: c.sino });
+            shootingstatusselection.push({ label: c.status, value: c.slno });
           })
           this.statusOptions = shootingstatusselection;
           this.statusOptions.unshift({ label: '-select', value: null });
           break;
     }
   }
-  mainCategory(mainCategory: any) {
-    throw new Error('Method not implemented.');
-  }
+  // mainCategory(mainCategory: any) {
+  //   throw new Error('Method not implemented.');
+  // }
   onSave() {
-    let value = this.selectedCustomers;
+    this.getContactId();
     {
-      const params = {
+      const shootingparams = {
         'slno': this.RowId,
-        'project_name': this.projectName,
-        'schedule_day': this.scheduleDay,
-        'schedule_date': this.scheduleDate,
+        'project_id': this.projectName,
+        'scene': this.scene ,
         'interior_exterior': this.design.label,
         'day_night': this.dayNight.label,
-        'scene': this.scene.label,
-        'status': this.status,
+        'schedule_day': this.scheduleDay,
+        'schedule_date': this.scheduleDate,
+        'status_id': this.status,
         'main_category_id': this.mainCategoryMaster.value,
         'sub_category_id': this.subCategoryMaster.value,
         'created_date': new Date(),
+        'flag': (this.selectedType == 1) ? true : false,
+        
 
+      };
+      const params={
+        'shooting_Schedule':shootingparams,
+        'contactusid':this.contactid
       };
       this.restapiservice.post(Pathconstants.shooting_schedule_Post, params).subscribe(res => {
         if (res != null && res != undefined) {
@@ -156,10 +159,22 @@ export class ShootingScheduleComponent implements OnInit {
       })
     }
   }
+  getContactId() { 
+    //get selected fields contact id as a string array 
+      var arr:any = [];
+       this.contactid = []
+        this.selectedCustomers.forEach(i => {
+           this.contactid.push(i.contactid)
+          })
+          arr = this.contactid
+          //  var str = arr.toString();      
+          console.log('array',this.contactid)
+          //  console.log('strarray',str) 
+         }
   onSelectionChange(value = []) {
     this.selectAll = value.length === this.totalRecords;
     this.selectedCustomers = value;
-    console.log('m', value)
+    console.log('dd',value);
   }
 
   onClear() {
@@ -173,20 +188,26 @@ export class ShootingScheduleComponent implements OnInit {
     this.mainCategoryMaster = null;
     this.status = null;
     this.Disabled = null;
+    this.selectedType = null;
+    this.Disabled=null;
 
   }
 
   onAdd() {
-    this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
-      this.shootingScheduleDetails = res;
-      this.shootingScheduleDetails.forEach((i: any) => {
-        if(i.maincategory_id === this.mainCategoryMaster.value && i.subcategory_id === this.subCategoryMaster.value) {
-          this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name}); 
-          // this.maincategoryselection.push({ label: c.categoryname, value: c.sino });
-        }
-      })
+    this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => { 
+    this.shootingScheduleDetails = res; 
+    this.shootingScheduleDetails.forEach((i: any) => {
+      console.log('1')
+
+    if(i.maincategory_id === this.mainCategoryMaster.value && i.subcategory_id === this.subCategoryMaster.value) { 
+      console.log('2')
+
+    this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name,'contactid':i.slno});
+     }
+    }) 
     })
-  }
+    }
+    
   onView() {
     this.restapiservice.get(Pathconstants.shooting_schedule_Get).subscribe(res => {
       this.ShootingScheduleData = res;
@@ -200,5 +221,23 @@ export class ShootingScheduleComponent implements OnInit {
 
 
   onEdit(rowData: any) {
+
+    this.RowId = rowData.slno;
+    this.projectName = rowData.project_id;
+    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_id}];
+    this.scene = rowData.scene;
+    this.design = rowData.interior_exterior;
+    this.designOptions = rowData.design.label;
+    this.design = rowData.interior_exterior;
+    this.designOptions = rowData.design.label;
+    this.scheduleDay = rowData.schedule_day;  
+    this.scheduleDate = rowData.schedule_date;  
+    this.status = rowData.status_id;  
+    this.mainCategoryMaster = rowData.main_category_id;
+    this.maincategoryOptions=[{label:rowData.categoryname,value:rowData.sino}];
+    this.subCategoryMaster = rowData.sub_category_id;
+    this.subcategoryOptions=[{label:rowData.categoryname,value:rowData.sino}];
+    this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
+
   }
 }

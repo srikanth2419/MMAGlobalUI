@@ -1,5 +1,7 @@
 <div class="col-12 md:col-12 lg:col-12">
     <p-panel header="Shooting Schedule">
+        <p-messages [(value)]="responseMsg" [enableService]="false"
+        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #f="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
@@ -85,21 +87,21 @@
                             </p-radioButton>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-1">
-                            <button pButton type="button" label="Add " [disabled]="!f.valid || !f.dirty"
-                                (click)="onAdd()"></button>
+                            <button pButton type="button" label="Add "
+                                (click)="onAdd()" [disabled]="!f.valid || !f.dirty" 
+                                ></button>
                         </div>
                     </div>
                 </div>
                 <p-panel header="character participation">
                     <div #row2 class="col-12 md:col-12 lg:col-12">
-                        <p-table [value]="maincategorynew" dataKey="slno" styleClass="p-datatable-gridlines"
-                         [(selection)]="selectedPerson"   responsiveLayout="scroll" (selectionChange)="onSelectionChange($event)"
+                        <p-table [columns]="contactlistcols" [value]="maincategorynew" dataKey="first_name" styleClass="p-datatable-gridlines"
+                         [(selection)]="selectedCustomers" responsiveLayout="scroll" (selectionChange)="onSelectionChange($event)"
                             [totalRecords]="totalRecords" [paginator]="true" [rows]="10">
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
                                     <th style="width: 4rem">
                                         <p-tableHeaderCheckbox>
-
                                         </p-tableHeaderCheckbox>
                                     </th>
                                     <!-- <th *ngFor="let col of columns">
