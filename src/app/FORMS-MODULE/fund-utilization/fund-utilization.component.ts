@@ -35,7 +35,6 @@ export class FundUtilizationComponent implements OnInit {
   data: any;
   newfundbudgetAmount: any;
   
-
   constructor(private restapiservice: RestapiService) {
   }
 
@@ -49,7 +48,7 @@ export class FundUtilizationComponent implements OnInit {
 
     ];
   this.fundCols = TableConstants.FundColumns;
-  this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => {   this.newprojectcreationData = res})
+  this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res})
   this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => { this.contactlistData = res })
   }
 
@@ -65,7 +64,6 @@ export class FundUtilizationComponent implements OnInit {
         'day_or_call': this.dayCall,
         'total_amount': this.totalAmount,
         'created_date': new Date(),
-
       };
       this.restapiservice.post(Pathconstants.fundutilization_Post, params).subscribe(res => {
         if (res != null && res != undefined) {
@@ -138,13 +136,13 @@ export class FundUtilizationComponent implements OnInit {
 
   onEdit(rowData: any) {
     this.RowId = rowData.slno;
-    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_name}];
+    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_id}];
     this.budgetAmount=rowData.budget_amount;
     this.personNameOptions=[{label:rowData.first_name,value:rowData.person_name}];
     this.paymentBy = rowData.payment_by;
     this.amount = rowData.amount;
     this.dayCall = rowData.day_or_call;
     this.totalAmount = rowData.total_amount;
-    
   }
 }
+
