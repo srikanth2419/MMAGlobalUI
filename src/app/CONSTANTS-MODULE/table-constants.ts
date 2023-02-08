@@ -5,8 +5,8 @@ export class TableConstants {
     public static readonly ShootingScheduleColumns = [
         { field: 'first_name', header: 'Name', align: 'left !important'},
         { field: 'rolename', header: 'Role', align: 'left !important'},
-        { field: 'categoryname', header: 'Main Category', align: 'left !important'},
-        { field: 'subcategory_id', header: 'Sub Category', align: 'left !important'},
+        { field: 'maincategoryname', header: 'Main Category', align: 'left !important'},
+        { field: 'subcategoryname', header: 'Sub Category', align: 'left !important'},
         { field: 'phonenumber', header: 'Phone Number', align: 'left !important'},
     ];
    
@@ -42,19 +42,16 @@ export class TableConstants {
 
    
     public static readonly ShootingColums =[
-        { field: 'project_name', header: 'Name', align: 'left !important'},
-        { field: 'role_id', header: 'Role ', align: 'left !important'},
-        { field: 'main_category_id', header: 'Main Category', align: 'left !important'},
-        { field: 'sub_category_id', header: 'Sub Category', align: 'left !important'},
-        { field: 'phone_number', header: 'Phone Number', align: 'left !important'},
-        { field: 'date', header: 'Date', align: 'left !important'},
+        { field: 'project_name', header: 'ProjectName', align: 'left !important'},
+        { field: 'scene', header: 'Scene', align: 'left !important'},
+        { field: 'interior_exterior', header: 'Interior/Exterior', align: 'left !important'},
+        { field: 'day_night', header: 'Day Night', align: 'left !important'},
         { field: 'schedule_day', header: 'Schedule', align: 'left !important'},
         { field: 'schedule_date', header: 'Schedule Date', align: 'left !important'},
-        { field: 'day_night', header: 'Day Night', align: 'left !important'},
-        { field: 'interior_exterior', header: 'Interior/Exterior', align: 'left !important'},
-        { field: 'scene', header: 'Scene', align: 'left !important'},
-        { field: 'characters', header: 'Character', align: 'left !important'},
-        { field: 'status', header: 'Status', align: 'left !important'}
+        { field: 'shooting_status', header: 'Status', align: 'left !important'},
+        { field: 'maincategoryname', header: 'Main Category', align: 'left !important'},
+        { field: 'subcategoryname', header: 'Sub Category', align: 'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'}
 
     ]
     //vigneshwaran-end

@@ -9,7 +9,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="firstname" name="_fname" pInputText [(ngModel)]="firstName"
-                                (change)="onCheck()"  [pKeyFilter]="'alpha'" required />
+                                    (change)="onCheck()" [pKeyFilter]="'alpha'" required />
                                 <label for="_fname">First Name</label>
                             </span>
                         </div>
@@ -20,7 +20,7 @@
                                 <label for="_lname">Last Name</label>
                             </span>
                         </div>
-                    
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="roleOptions" (click)="onSelect('G')" [(ngModel)]="role"
@@ -45,13 +45,13 @@
                                 <label for="_subCategory">Sub Category</label>
                             </span>
                         </div>
-                       
+
 
                     </div>
                 </div>
                 <div #row2 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
-                        
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-calendar [(ngModel)]="dob" name="_dob" [showIcon]="true" inputId="dobvalue">
@@ -75,8 +75,7 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId"
-                                    required />
+                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId" required />
                                 <label for="_email">Email Id</label>
                             </span>
                         </div>
@@ -88,12 +87,12 @@
                                 <label for="_country">Country</label>
                             </span>
                         </div>
-                       
+
                     </div>
                 </div>
                 <div #row3 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
-                       
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="stateOptions" (click)="onSelect('C')" [(ngModel)]="state"
@@ -132,21 +131,20 @@
                                 <label for="_pincode">Pincode</label>
                             </span>
                         </div>
-                       
+
                     </div>
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
-                        
                         <div class="field col-12 md:col-3 lg:col-1">
                             <p-checkbox name="groupname" label="isunion" [binary]="true" [(ngModel)]="selected">
                             </p-checkbox>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2" >
+                        <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="unionOptions"   (click)="onSelect('H')" [(ngModel)]="unionMaster"
-                                    name="_unionselection" placeholder="-select-" [disabled]="(this.selected !== true)"
-                                    [style]="{width: '-webkit-fill-available !important'}"> 
+                                <p-dropdown [options]="unionOptions" (click)="onSelect('H')" [(ngModel)]="unionMaster"
+                                    name="_unionselection" placeholder="-select-" [disabled]="(selected !== true)"
+                                    [style]="{width: '-webkit-fill-available !important'}">
                                 </p-dropdown>
                                 <label for="_unionselection">Union Selection (optional)</label>
                             </span>
@@ -169,7 +167,7 @@
     </p-panel>
     <div class="col-12 md:col-12 lg:col-12">
         <p-table #dt [columns]="cols" [value]="contactlistData" styleClass="p-datatable-gridlines" [paginator]="true"
-            [rows]="10" [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
+            [rows]="10" [rowsPerPageOptions]="[5,10,15,20,30,50]" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="grid" style="width: -webkit-fill-available;">
                     <div class="lg:col-10 no-pad-top no-pad-btm">
