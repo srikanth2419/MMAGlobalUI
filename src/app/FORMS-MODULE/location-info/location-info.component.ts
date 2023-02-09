@@ -151,24 +151,26 @@ export class LocationInfoComponent implements OnInit {
   }
 }
   onClear() {
-    this.locationName = null;
-    this.locationManager = null;
-    this.locationEP = null;
-    this.country = null;
-    this.locationmanagerOptions = [];
-    this.locationEPOptions = [];
-    this.countryOptions = [];
-    this.stateOptions = [];
-    this.mobileNo = null;
-    this.state = null;
-    this.cityOptions = [];
-    this.city = null;
-    this.addressLine1 = null;
-    this.addressLine2 = null;
-    this.pincode = null;
-    this.parkingNote = null;
-    this.parkingFacility = null;
-    this.flag = null;
+    this._locationinfoForm.form.reset();
+    
+    // this.locationName = null;
+    // this.locationManager = null;
+    // this.locationEP = null;
+    // this.country = null;
+    // this.locationmanagerOptions = [];
+    // this.locationEPOptions = [];
+    // this.countryOptions = [];
+    // this.stateOptions = [];
+    // this.mobileNo = null;
+    // this.state = null;
+    // this.cityOptions = [];
+    // this.city = null;
+    // this.addressLine1 = null;
+    // this.addressLine2 = null;
+    // this.pincode = null;
+    // this.parkingNote = null;
+    // this.parkingFacility = null;
+    // this.flag = null;
   }
 
   onEdit(row: any)

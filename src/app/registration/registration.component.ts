@@ -38,6 +38,7 @@ export class RegistrationComponent implements OnInit {
   countrymasterData:any;
   statemasterData:any;
   citymasterData:any;
+  approvedstatus:any;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   constructor(private restapiservice: RestapiService) { }
   ngOnInit(): void {
@@ -92,7 +93,8 @@ export class RegistrationComponent implements OnInit {
       'address2':this.addressLine2,
       'pincode':this.pincode,
       'created_date': new Date(),
-      'flag':(this.selectedType == 1) ? true : false
+      'flag':(this.selectedType == 1) ? true : false,
+      'approvalstatus':0,
     };
    this.restapiservice.post(Pathconstants.registration_Post, params).subscribe(res => {
     if(res!== null && res!== undefined)

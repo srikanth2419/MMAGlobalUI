@@ -46,7 +46,10 @@ import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
-
+import { ProjectApprovalComponent } from './project-approval/project-approval.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
@@ -78,6 +81,8 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
     CountryMasterComponent,
     DashboardComponent,
     UserMasterComponent,
+    ProjectApprovalComponent,
+    ChangePasswordComponent,
     
     
   ],
@@ -103,8 +108,9 @@ import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.co
     MessageModule,
     MessagesModule,
     KeyFilterModule,
+    ConfirmDialogModule,
   ],
-  providers: [RestapiService],
+  providers: [RestapiService,ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

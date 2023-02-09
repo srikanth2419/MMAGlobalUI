@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   confirmPassword: any;
   userInfo!: User;
   responseMsg: any;
+  showPwd: boolean = false;
 
   @ViewChild('uname', { static: false }) _username!: HTMLInputElement;
   constructor(private restApiService: RestapiService, private _authService: AuthService, private _masterService: MasterService,) { }
@@ -35,10 +36,21 @@ export class LoginComponent implements OnInit {
     console.log(this.username)
     this.restApiService.getByParameters(Pathconstants.UserLogin_Get, login_params).subscribe(response => {
       if (response.item1) {
+        // this._masterService.invokeMasterData();
         if (response.item3.length !== 0) {
-          this.userInfo = response.item3;
-          this._authService.setUserInfo(this.userInfo);
-          this._authService.login();
+          [response.item3].forEach((key: any) => {
+            const obj: User = {
+            // Id = (key.id !== null && key.id !== undefined) ? key.id : 0;
+            roleid : (key.roleid !== null && key.roleid !== undefined) ? key.roleid : 0
+            ,id:(key.id !== null && key.id !== undefined)? key.id:0
+            ,mailid : (key.username_emailid !== null && key.username_emailid !== undefined) ? key.username_emailid : ''
+            }
+          this._authService.login(obj);
+
+          })
+          // this.userInfo = response.item3;
+          // this._authService.setUserInfo(this.userInfo);
+          console.log('sam',this.userInfo)
         }
       } else {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: response.item2 }];
@@ -55,4 +67,10 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+  onShowPswd() {
+    var inputValue = (<HTMLInputElement>document.getElementById('pswd'));
+    if (inputValue.type === 'password') { inputValue.type = 'text'; this.showPwd = !this.showPwd; }
+    else { this.showPwd = !this.showPwd; inputValue.type = 'password'; }
+  }
+
 }
