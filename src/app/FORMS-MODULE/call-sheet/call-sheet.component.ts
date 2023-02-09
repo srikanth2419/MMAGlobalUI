@@ -11,30 +11,30 @@ import { RestapiService } from 'src/app/services/restapi.service';
   styleUrls: ['./call-sheet.component.scss']
 })
 export class CallSheetComponent implements OnInit {
-  projectNameOptions: SelectItem[] = [];
+  projectNameOptions:any;
   projectName: any;
-  roleOptions: SelectItem[] = [];
+  roleOptions: any;
   role: any;
-  date: Date = new Date();
-  locationOptions: SelectItem[] = [];
+  date: any;
+  locationOptions:any;
   location: any;
   generalCallTime: any;
-  scheduleCallTime: any;
+  shootingCallTime: any;
   callSheetCols: any;
   callSheetDetails: any[] = [];
   selectedPerson: any[] = [];
-  locationName: string = '';
+  locationName: any;
   phoneNumber:any;
   mainCategoryOptions:any;
   subCategoryOptions:any;
   mainCategory:any;
   subCategory:any;
-  note: string = '';
-  address: string = '';
-  driverName: string = '';
+  note: any;
+  address: any;
+  driverName: any;
   pickupTime: any;
-  pickupLocation: string = '';
-  dropLocation: string = '';
+  pickupLocation: any;
+  dropLocation: any;
   passengerNameOptions: SelectItem[] = [];
   passengerName: any;
   lodginginfocols:any;
@@ -65,6 +65,8 @@ export class CallSheetComponent implements OnInit {
   maincategorynew:any[] = [];
   rowData:any;
   contactid: any = [];
+  hidetable: boolean = true;
+
   constructor(private restapiservice: RestapiService) { }
   ngOnInit(): void {
     this.callinfocol =TableConstants.callinfoColumns
@@ -134,19 +136,19 @@ export class CallSheetComponent implements OnInit {
             break;
         }
     }
-  onSave1(){
+  onSavecallsheet(){
     this.getContactId();
     const callinfoparams ={
       'slno':this.Row,
-      'project_name':this.projectName,
-      'role_id':this.role,
+      'project_name':this.projectName.value,
+      'role_id':this.role.value,
       'date':this.date,
       'general_call_time':this.generalCallTime,
-      'shooting_call_time':this.scheduleCallTime,
-      'location_id':this.location,
+      'shooting_call_time':this.shootingCallTime,
+      'location_id':this.location.value,
       'phone_number':this.phoneNumber,
-      'main_category_id':this.mainCategory,
-      'sub_category_id':this.subCategory,
+      'main_category_id':this.mainCategory.value,
+      'sub_category_id':this.subCategory.value,
       'created_date': new Date(),
       'flag':(this.selectedType == 1) ? true : false
     };
@@ -176,6 +178,7 @@ const params=   //call character
 };
     this.restapiservice.post(Pathconstants.callinfo_Post, params).subscribe(res => {
       if (res != null && res != undefined) {
+        this.onView();
         this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
         setTimeout(() => this.responseMsg = [], 3000);
       }
@@ -204,7 +207,12 @@ const params=   //call character
 
   onView(){
     this.restapiservice.get(Pathconstants.callinfo_GET).subscribe(res => {
-      this.callinfoData = res;
+      this.callinfoData = res
+      if (res) {
+        res.forEach((i: any) => {
+          i.flag = (i.flag == true) ? 'Active' : 'InActive'
+        })
+      }
     })
     this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
       this.lodginginfoData = res;
@@ -213,18 +221,26 @@ const params=   //call character
       this.transportinfoData = res;
     })
   }
-  onEdit1(rowData:any){
+  onEditcallinfo(rowData:any){
   this.RowId=rowData.slno;
   this.projectName=rowData.project_name;
+  this.projectNameOptions=[{ label: rowData.projectname, value: rowData.project_id }];
   this.role=rowData.role_id;
-  this.date=rowData.date;
+  this.roleOptions=[{ label: rowData.rolename, value: rowData.roleid }];
+  this.date=new Date(rowData.date);
   this.generalCallTime=rowData.general_call_time;
-  this.scheduleCallTime=rowData.shooting_call_time;
+  this.shootingCallTime=rowData.shooting_call_time;
   this.location=rowData.location_id;
+  this.locationOptions=[{ label: rowData.location_name, value: rowData.slno }];
   this.phoneNumber=rowData.phone_number,
+  this.mainCategory=rowData.main_category_id,
+  this.mainCategoryOptions=[{ label: rowData.categoryname, value: rowData.sino }];
+  this.subCategory=rowData.sub_category_id,
+  this.subCategoryOptions=[{ label: rowData.subcategoryname, value: rowData.sino }];
   this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
+  
   }
-onSave2(){
+onSavelodginginfo(){
   const params = {
     'slno': this.RowId,
     'location': this. locationName,
@@ -242,18 +258,13 @@ onSave2(){
     }
   })
 }
-// onView2(){
-//     this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
-//       this.lodginginfoData = res;
-//     })
-// }
-onEdit2(rowData:any){
+onEditlodginginfo(rowData:any){
   this.RowId=rowData.slno;
   this.locationName=rowData.location;
   this.address=rowData.address;
   this.note=rowData.note;
 }
-onSave3(){
+onSavetransportinfo(){
   const params = {
     'slno': this.Id,
     'driver_name': this.driverName,
@@ -276,18 +287,14 @@ onSave3(){
   })
 
 }
-// onView3(){
-//   this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
-//     this.transportinfoData = res;
-//   })
-// }
-onEdit3(rowData:any){
+onEdittransportinfo(rowData:any){
   this.Id=rowData.slno;
   this.driverName=rowData.driver_name;
   this.pickupTime=rowData.pickup_time;
-  this.pickupLocation=rowData.pickup_loaction;
+  this.pickupLocation=rowData.pickup_location;
   this.dropLocation=rowData.drop_location;
   this.passengerName=rowData.passenger_id;
+  this.passengerNameOptions=[{ label: rowData.passengername, value: rowData.slno }];
 }
 
 onAdd() {
@@ -298,7 +305,7 @@ onAdd() {
    console.log('kj',this.shootingScheduleDetails)
     this.shootingScheduleDetails.forEach((i: any) => {
        console.log(4)
-       if(i.maincategory_id === this.mainCategory && i.subcategory_id === this.subCategory) 
+       if(i.maincategory_id === this.mainCategory.value && i.subcategory_id === this.subCategory.value) 
        {console.log('i',i.maincategory_id)
         console.log('i2',i.subcategory_id)
         console.log('this',this.mainCategoryMaster)
@@ -306,4 +313,27 @@ onAdd() {
         this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name, 'contactid':i.slno});
       }})
     })}
+    onClear(){
+      this.Id=0;
+      this.projectNameOptions=null;
+      this.roleOptions=null;
+      this.generalCallTime=null;
+      this.date=null;
+      this.generalCallTime=null;
+      this.shootingCallTime=null;
+      this.locationOptions=null;
+      this.phoneNumber=null;
+      this.mainCategoryOptions=null;
+      this.subCategoryOptions=null;
+      this.selectedType = null;
+      this.locationName=null;
+      this.address=null;
+      this.note=null;
+      this.driverName=null;
+      this.pickupTime=null;
+      this.pickupLocation=null;
+      this.dropLocation=null;
+      this.passengerName=null;
+      this.hidetable=false;
+    }
 }

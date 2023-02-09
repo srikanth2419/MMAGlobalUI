@@ -25,7 +25,6 @@ export class Pathconstants {
     public static readonly fundutilization_Get ='Fund_Utilization/Getfund_utilization'
     public static readonly shooting_schedule_Post ='ShootingSchedule/Saveshooting_schedule'  
     public static readonly shooting_schedule_Get ='ShootingSchedule/Getshooting_schedule'
-    public static readonly shooting_status_Get ='Shooting_status/Getshooting_status'
 
     //#endregion
 
@@ -41,7 +40,7 @@ export class Pathconstants {
      public static readonly ContactListController_Get='ContactList/Getcontactlist'
    //#endregion
 
-
+  
      //#region  priyadharshani
      public static readonly countrymaster_Post='Countrymaster/SaveCountrymaster'//controller Name/Method Name
      public static readonly countrymaster_Get='Countrymaster/GetCountrymaster'
