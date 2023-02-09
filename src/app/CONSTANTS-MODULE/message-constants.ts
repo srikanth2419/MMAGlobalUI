@@ -9,8 +9,12 @@ export class ResponseMessage {
     public static readonly Alert = 'Alert !';
     public static readonly Warn = 'Warning !';
     private static readonly Error = 'Error !';
+    public static readonly SUMMARY_INVALID = 'Invalid Credentials!'
 
     public static readonly SuccessMessage = 'Saved successfully !';
     public static readonly ErrorMessage = 'Error occurred, Please try again !';
     public static readonly WarningMessage = 'Warning Message !';
+
+    //update
+    public static readonly UpdateMsg = 'Updated Successfully!';
 }
