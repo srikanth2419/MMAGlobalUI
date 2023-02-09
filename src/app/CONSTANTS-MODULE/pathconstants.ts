@@ -11,6 +11,8 @@ export class Pathconstants {
     public static readonly LocationInfo_Post='LocationInfo/SaveLocationInfo'
     public static readonly LocationInfo_Get='LocationInfo/GetLocationInfo'
     public static readonly UserLogin_Get='Login/GetUserMasterByName'
+    public static readonly UpdateApprovalStatus_update='Registration/UpdateApprovalStatus'
+    public static readonly updateChangePassword_Update='UserMaster/UpdateChangepassword'
     
     //#endregion
 

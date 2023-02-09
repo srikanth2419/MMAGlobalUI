@@ -42,10 +42,15 @@ export class AuthService {
     localStorage.setItem('UserInfo', JSON.stringify(user));
   }
 
-  login() {
+  login(user: User) {
+    if(user.mailid !== '' ){
+      localStorage.setItem('UserInfo',JSON.stringify(user))
     this.loggedIn.next(true);
+    console.log('succ',user)
+    
     ///navigating to dashboard once logged in successfully & setting all essential objects globally
     this._router.navigate(['/home']);
+    }
   }
 
   getUserInfo(): any {
