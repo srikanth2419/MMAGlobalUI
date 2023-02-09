@@ -12,15 +12,15 @@ import { RestapiService } from 'src/app/services/restapi.service';
   styleUrls: ['./shooting-schedule.component.scss']
 })
 export class ShootingScheduleComponent implements OnInit {
-  projectNameOptions: SelectItem[] = [];
+  projectNameOptions: any;
   projectName: any;
-  scheduleDate: Date = new Date();
+  scheduleDate:any;
   scheduleDay: any;
-  dayNightOptions: SelectItem[] = [];
+  dayNightOptions: any;
   dayNight: any;
-  designOptions: SelectItem[] = [];
+  designOptions: any;
   design: any;
-  statusOptions: SelectItem[] = [];
+  statusOptions: any;
   status: any;
   scene: any;
   shootingScheduleCols: any;
@@ -51,6 +51,7 @@ export class ShootingScheduleComponent implements OnInit {
   selectedType: any;
   contactid:any =[];
   contactlistcols:any;
+  hideTable: boolean = true;
   constructor(private restapiservice: RestapiService) {
   }
 
@@ -178,19 +179,21 @@ export class ShootingScheduleComponent implements OnInit {
   }
 
   onClear() {
-    this.projectName = null;
-    this.scheduleDay = null;
-    this.selected = null;
-    this.dayNight = null;
-    this.design = null;
-    this.scene = null;
-    this.subCategoryMaster = null;
-    this.mainCategoryMaster = null;
-    this.status = null;
-    this.Disabled = null;
-    this.selectedType = null;
-    this.Disabled=null;
-
+    this.RowId = 0;
+     this.projectNameOptions=null;
+     this.scene=null;
+     this.designOptions=null;
+     this.dayNightOptions=null;
+     this.scheduleDay=null;
+     this.statusOptions=null;
+     this.maincategoryOptions = null;
+     this.subcategoryOptions = null;
+     this.selectedType = null;
+     this.scheduleDate = null;
+     this.contactid =null;
+    // this.contactlistcols = null;
+    this.hideTable = false;
+     
   }
 
   onAdd() {
@@ -218,26 +221,24 @@ export class ShootingScheduleComponent implements OnInit {
       }
     })
   }
-
-
   onEdit(rowData: any) {
 
     this.RowId = rowData.slno;
     this.projectName = rowData.project_id;
     this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_id}];
-    this.scene = rowData.scene;
-    this.design = rowData.interior_exterior;
-    this.designOptions = rowData.design.label;
-    this.design = rowData.interior_exterior;
-    this.designOptions = rowData.design.label;
-    this.scheduleDay = rowData.schedule_day;  
-    this.scheduleDate = rowData.schedule_date;  
-    this.status = rowData.status_id;  
-    this.mainCategoryMaster = rowData.main_category_id;
-    this.maincategoryOptions=[{label:rowData.categoryname,value:rowData.sino}];
-    this.subCategoryMaster = rowData.sub_category_id;
-    this.subcategoryOptions=[{label:rowData.categoryname,value:rowData.sino}];
+    this.scene=rowData.scene;
+    this.design=rowData.interior_exterior;
+    this.designOptions=[{label:rowData.interior_exterior,value:rowData.slno}];
+    this.dayNight=rowData.day_night;
+    this.dayNightOptions=[{label:rowData.day_night,value:rowData.slno}];
+    this.scheduleDay=rowData.schedule_day;
+    this.scheduleDate=new Date(rowData.schedule_date);
+    this.status=rowData.status_id;
+    this.statusOptions=[{label:rowData.shooting_status,value:rowData.slno}];
+    this.mainCategoryMaster=rowData.main_category_id;
+    this.maincategoryOptions=[{label:rowData.maincategoryname,value:rowData.sino}];
+    this.subCategoryMaster=rowData.sub_category_id;
+    this.subcategoryOptions=[{label:rowData.subcategoryname,value:rowData.sino}];
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
-
   }
 }

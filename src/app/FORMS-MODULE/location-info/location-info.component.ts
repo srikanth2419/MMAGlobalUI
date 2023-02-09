@@ -177,13 +177,13 @@ export class LocationInfoComponent implements OnInit {
     this.locationName = row.location_name;
     this.locationManager = row.location_managerid;
     this.locationEP = row.local_epid;
-   this.locationmanagerOptions = [{ label: row.first_name, value: row.location_managerid }];
-   this.locationEPOptions =[{ label: row.first_name, value: row.local_epid }];
+    this.locationmanagerOptions = [{ label: row.first_name, value: row.location_managerid }];
+    this.locationEPOptions =[{ label: row.first_name, value: row.local_epid }];
     this.countryOptions = [{ label: row.countryname, value: row.country_id }];
     this.stateOptions =  [{ label: row.statename, value: row.state_id }];
     this.cityOptions = [ { label: row.cityname, value: row.city_id }];
     this.mobileNo = row.phonenumber;
-   this.addressLine1 = row.address1;
+    this.addressLine1 = row.address1;
     this.addressLine2 = row.address2;
     this.pincode = row.pincode;
     this.parkingNote = row.parking_note;
