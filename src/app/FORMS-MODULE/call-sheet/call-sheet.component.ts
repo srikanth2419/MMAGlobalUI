@@ -60,11 +60,13 @@ export class CallSheetComponent implements OnInit {
   selectAll: boolean = false;
   selectedCustomers: any[] = [];
   callinfocol:any;
+  mainCategoryMaster:any;
+  subCategoryMaster:any;
+  maincategorynew:any[] = [];
+  rowData:any;
+  contactid: any = [];
   constructor(private restapiservice: RestapiService) { }
   ngOnInit(): void {
-    this.onView1();
-    this.onView2();
-    this.onView3();
     this.callinfocol =TableConstants.callinfoColumns
     this.contactlistcols = TableConstants.ShootingScheduleColumns;
     this.lodginginfocols=TableConstants.lodginginfoColumns;
@@ -76,6 +78,9 @@ export class CallSheetComponent implements OnInit {
       this.mainCategoryData = res})
       this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => {
         this.subCategoryData =res})
+        this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
+          this.contactlistData = res})
+          this.onView();
   }
     onSelect(type: any) {
     let roleSelection: any = [];
@@ -87,7 +92,7 @@ export class CallSheetComponent implements OnInit {
     switch (type) {
       case 'P':
         this.newprojectcreationData.forEach((c: any) => {
-          projectcreationSelection.push({ label:c. project_name, value: c.slno });
+          projectcreationSelection.push({ label:c. project_name, value: c.project_id });
         })
         this.projectNameOptions =  projectcreationSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
@@ -130,7 +135,8 @@ export class CallSheetComponent implements OnInit {
         }
     }
   onSave1(){
-    const params ={
+    this.getContactId();
+    const callinfoparams ={
       'slno':this.Row,
       'project_name':this.projectName,
       'role_id':this.role,
@@ -139,12 +145,37 @@ export class CallSheetComponent implements OnInit {
       'shooting_call_time':this.scheduleCallTime,
       'location_id':this.location,
       'phone_number':this.phoneNumber,
+      'main_category_id':this.mainCategory,
+      'sub_category_id':this.subCategory,
       'created_date': new Date(),
       'flag':(this.selectedType == 1) ? true : false
     };
+//save 2
+const lodginginfoparams = {
+  'slno': this.RowId,
+  'location': this. locationName,
+  'address':this.address,
+  'note':this. note,
+};
+//save3
+const transportinfoparams = {
+  'slno': this.Id,
+  'driver_name': this.driverName,
+  'pickup_time':this.pickupTime,
+  'pickup_location':this.pickupLocation,
+  'drop_location':this.dropLocation,
+  'passenger_id':this.passengerName,
+};
+const params=   //call character
+{
+'callinfo' : callinfoparams,
+'lodging' : lodginginfoparams,
+'transport' : transportinfoparams,
+'contactusid' : this.contactid,
+
+};
     this.restapiservice.post(Pathconstants.callinfo_Post, params).subscribe(res => {
       if (res != null && res != undefined) {
-        this.onView1();
         this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
         setTimeout(() => this.responseMsg = [], 3000);
       }
@@ -153,21 +184,45 @@ export class CallSheetComponent implements OnInit {
         setTimeout(() => this.responseMsg = [], 3000);
       }
     })
-    
   }
-  onSelectionChange(value = []) {
-    this.selectAll = value.length === this.totalRecords;
-    this.selectedCustomers = value;
-    console.log('m',value)
+
+  getContactId() {            //get selected fields contact id as a string array
+    var arr:any = [];
+    this.contactid = []
+    this.selectedCustomers.forEach(i => {
+        this.contactid.push(i.contactid)
+       })
+       arr = this.contactid
+       console.log('array',this.contactid)
+  }
+   
+  onSelectionChange(value : any) {
+     this.selectAll = value.length === this.totalRecords;
+     this.selectedCustomers = value;
+   console.log('m',value)
 }
-  onView1(){
+
+  onView(){
     this.restapiservice.get(Pathconstants.callinfo_GET).subscribe(res => {
       this.callinfoData = res;
     })
-
+    this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
+      this.lodginginfoData = res;
+    })
+    this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
+      this.transportinfoData = res;
+    })
   }
-  onEdit1(){
-
+  onEdit1(rowData:any){
+  this.RowId=rowData.slno;
+  this.projectName=rowData.project_name;
+  this.role=rowData.role_id;
+  this.date=rowData.date;
+  this.generalCallTime=rowData.general_call_time;
+  this.scheduleCallTime=rowData.shooting_call_time;
+  this.location=rowData.location_id;
+  this.phoneNumber=rowData.phone_number,
+  this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
   }
 onSave2(){
   const params = {
@@ -178,8 +233,6 @@ onSave2(){
   };
   this.restapiservice.post(Pathconstants.lodginginfo_Post, params).subscribe(res => {
     if (res != null && res != undefined) {
-      this.onView2();
-      
       this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
       setTimeout(() => this.responseMsg = [], 3000);
     }
@@ -189,11 +242,11 @@ onSave2(){
     }
   })
 }
-onView2(){
-    this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
-      this.lodginginfoData = res;
-    })
-}
+// onView2(){
+//     this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
+//       this.lodginginfoData = res;
+//     })
+// }
 onEdit2(rowData:any){
   this.RowId=rowData.slno;
   this.locationName=rowData.location;
@@ -211,7 +264,7 @@ onSave3(){
   };
   this.restapiservice.post(Pathconstants.transportinfo_Post, params).subscribe(res => {
     if (res != null && res != undefined) {
-      this.onView3();
+      
       
       this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
       setTimeout(() => this.responseMsg = [], 3000);
@@ -223,11 +276,11 @@ onSave3(){
   })
 
 }
-onView3(){
-  this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
-    this.transportinfoData = res;
-  })
-}
+// onView3(){
+//   this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
+//     this.transportinfoData = res;
+//   })
+// }
 onEdit3(rowData:any){
   this.Id=rowData.slno;
   this.driverName=rowData.driver_name;
@@ -238,7 +291,19 @@ onEdit3(rowData:any){
 }
 
 onAdd() {
-  this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {this.contactlistData = res})   
-
-    }
-  }
+   this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
+    console.log(2,res);
+   this.shootingScheduleDetails = res;
+   console.log(3,res);
+   console.log('kj',this.shootingScheduleDetails)
+    this.shootingScheduleDetails.forEach((i: any) => {
+       console.log(4)
+       if(i.maincategory_id === this.mainCategory && i.subcategory_id === this.subCategory) 
+       {console.log('i',i.maincategory_id)
+        console.log('i2',i.subcategory_id)
+        console.log('this',this.mainCategoryMaster)
+        console.log('this1',this.subCategoryMaster)
+        this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name, 'contactid':i.slno});
+      }})
+    })}
+}

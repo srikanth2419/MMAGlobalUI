@@ -33,7 +33,8 @@
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
-                                    <p-dropdown [options]="paymentByOptions" optionLabel="label" [(ngModel)]="paymentBy"   name="_paymentBy">
+                                    <p-dropdown [options]="paymentByOptions" optionLabel="label" [(ngModel)]="paymentBy"
+                                        name="_paymentBy">
                                     </p-dropdown>
                                     <label for="_paymentBy">Payment By</label>
 
@@ -65,16 +66,15 @@
                         </div>
                     </p-card>
                 </div>
-                <div #row3 class="col-12 md:col-12 lg:col-12">
+                <div #row4 class="col-12 md:col-12 lg:col-12">
                     <p-table [columns]="fundCols" [value]="FundUtilizationData" styleClass="p-datatable-gridlines"
                         responsiveLayout="scroll">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th>S.No</th>
+                                <th>S.No.</th>
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
-                                <th>Edit</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
@@ -82,9 +82,6 @@
                                 <td>{{rowIndex+1}}</td>
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
-                                </td>
-                                <td>
-                                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
                                 </td>
                             </tr>
                         </ng-template>

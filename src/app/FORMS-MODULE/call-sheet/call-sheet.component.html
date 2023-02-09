@@ -33,7 +33,8 @@
                                         <span class="p-float-label">
                                             <!-- <input type="text" name="_generalCallTime" pInputText
                                                 [(ngModel)]="generalCallTime" required /> -->
-                                                <p-calendar [(ngModel)]="generalCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                                <!-- <p-calendar [(ngModel)]="generalCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar> -->
+                                                <p-calendar name="time" [(ngModel)]="generalCallTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar>
                                             <label for="_generalCallTime">General Call Time</label>
                                         </span>
                                         <div>(Availability in location)</div>
@@ -46,7 +47,8 @@
                                         <span class="p-float-label">
                                             <!-- <input type="text" name="_scheduleCallTime" pInputText
                                                 [(ngModel)]="scheduleCallTime" required /> -->
-                                                <p-calendar [(ngModel)]="scheduleCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                                <!-- <p-calendar [(ngModel)]="scheduleCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar> -->
+                                                <p-calendar name="time" [(ngModel)]="scheduleCallTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar>
                                             <label for="_scheduleCallTime">Schedule Call Time</label>
                                         </span>
                                     </div>
@@ -83,6 +85,14 @@
                                             <label for="_subcategory">Subcategory</label>
                                         </span>
                                     </div>
+                                    <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
+                                        <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType"
+                                            required>
+                                        </p-radioButton>&nbsp;
+                                        <p-radioButton name="Flag" label="INACTIVE" value=0
+                                            [(ngModel)]="selectedType" required>
+                                        </p-radioButton>
+                                    </div>
                                     <div class="field col-12 md:col-3 lg:col-1">
                                         <button pButton type="button" label="Add" 
                                             (click)="onAdd()"></button>
@@ -91,8 +101,8 @@
                             </div>
                         </div></div>
                             <div #row3 class="col-12 md:col-12 lg:col-12">
-                                <p-table [columns]="contactlistcols" [value]=" contactlistData"
-                                    [(selection)]="selectedPerson" dataKey="name" styleClass="p-datatable-gridlines" 
+                                <p-table [columns]="contactlistcols" [value]="maincategorynew"
+                                    [(selection)]="selectedCustomers" dataKey="first_name" styleClass="p-datatable-gridlines" 
                                      [paginator]="true" [rows]="10"  responsiveLayout="scroll" (selectionChange)="onSelectionChange($event)" [totalRecords]="totalRecords">
                                     <ng-template pTemplate="header" let-columns>
                                         <tr>
@@ -119,8 +129,8 @@
                                                 </td>
                                                 <td>{{production.first_name}}</td>
                                                 <td>{{production.rolename}}</td>
-                                                <td>{{production.categoryname}}</td>
-                                                <td>{{production.subcategory_id}}</td>
+                                                <td>{{production.maincategoryname}}</td>
+                                                <td>{{production.subcategoryname}}</td>
                                                 <td>{{production.phonenumber}}</td>
                                             </tr>
                                     
@@ -165,6 +175,9 @@
                                 </ng-template>
                             </p-table>
                             </div>
+                            <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                                <button pButton type="button" label="Save" [disabled]="!f.valid || !f.dirty" (click)="onSave1()"></button>
+                            </div>
                     </p-tabPanel>
                     <p-tabPanel header="Lodging Info">
                         <div #tab2 class="col-12 md:col-12 lg:col-12">
@@ -190,9 +203,9 @@
                                             <label for="_note">Note</label>
                                         </span>
                                     </div>
-                                    <div class="field col-12 md:col-3 lg:col-1">
+                                    <!-- <div class="field col-12 md:col-3 lg:col-1">
                                         <button pButton type="button" label="Add" [disabled]="!f.valid || !f.dirty" (click)="onSave2()"></button>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -255,8 +268,8 @@
                                     </div> -->
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-calendar [(ngModel)]="pickupTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
-                                            <label for="timeonly">pickupTime</label>
+                                            <p-calendar name="time" [(ngModel)]="pickupTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar>
+                                            <label for="time">pickupTime</label>
                                             </span>
                                         </div>
                                     
@@ -299,9 +312,6 @@
                                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                                         </span>
                                     </div>
-                                    <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                                        <button pButton type="button" label="Save" (click)="onSave3()"></button>
-                                </div>
                                     </div>
                                 </ng-template>
                                 <ng-template pTemplate="header" let-columns>
