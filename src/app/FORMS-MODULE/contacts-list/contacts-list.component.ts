@@ -167,7 +167,7 @@ export class ContactsListComponent implements OnInit {
       }
       else {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000)
+        setTimeout(() => this.responseMsg = [], 3000);
       }
     })
 
