@@ -13,7 +13,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 export class DailyExpensesComponent implements OnInit {
 
   date: any;
-  projectName: string = '';;
+  projectName: any;
   projectOptions:any;
   budgetAmount: any;
   invoiceNumber: any;
@@ -106,16 +106,18 @@ onView(){
 onEdit(rowData:any){
   this.RowId=rowData.slno;
   this.projectName=rowData.project_name;
+  this.projectOptions=[{ label: rowData.projectname, value: rowData.project_id }];
   this.budgetAmount=rowData.budget_amount;
-  this.date=rowData.date;
+  this.date=new Date(rowData.date);
   this.invoiceNumber=rowData.invoice_number;
   this.expensesCategory=rowData.expenses_category;
+  this.expensesOptions=[{ label: rowData.name, value: rowData.sino }];
   this.amount=rowData.amount;
 
 }
 onClear(){
     this.RowId=0;
-    this.projectName = '';
+    this.projectOptions = null;
     this.budgetAmount = null;
     this.date = null;
     this.invoiceNumber = null;

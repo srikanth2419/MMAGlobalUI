@@ -42,19 +42,16 @@ export class TableConstants {
 
    
     public static readonly ShootingColums =[
-        { field: 'project_name', header: 'Name', align: 'left !important'},
-        { field: 'role_id', header: 'Role ', align: 'left !important'},
-        { field: 'main_category_id', header: 'Main Category', align: 'left !important'},
-        { field: 'sub_category_id', header: 'Sub Category', align: 'left !important'},
-        { field: 'phone_number', header: 'Phone Number', align: 'left !important'},
-        { field: 'date', header: 'Date', align: 'left !important'},
+        { field: 'project_name', header: 'ProjectName', align: 'left !important'},
+        { field: 'scene', header: 'Scene', align: 'left !important'},
+        { field: 'interior_exterior', header: 'Interior/Exterior', align: 'left !important'},
+        { field: 'day_night', header: 'Day Night', align: 'left !important'},
         { field: 'schedule_day', header: 'Schedule', align: 'left !important'},
         { field: 'schedule_date', header: 'Schedule Date', align: 'left !important'},
-        { field: 'day_night', header: 'Day Night', align: 'left !important'},
-        { field: 'interior_exterior', header: 'Interior/Exterior', align: 'left !important'},
-        { field: 'scene', header: 'Scene', align: 'left !important'},
-        { field: 'characters', header: 'Character', align: 'left !important'},
-        { field: 'status', header: 'Status', align: 'left !important'}
+        { field: 'shooting_status', header: 'Status', align: 'left !important'},
+        { field: 'maincategoryname', header: 'Main Category', align: 'left !important'},
+        { field: 'subcategoryname', header: 'Sub Category', align: 'left !important'},
+        {field:'flag',header:'Flag',align:'left !important'}
 
     ]
     //vigneshwaran-end
@@ -143,19 +140,22 @@ public static readonly transportinfoColumns =[
      { field: 'pickup_time', header: 'PickupTime', align: 'left !important' },
      { field: 'pickup_location', header: 'PickupLocation', align: 'left !important' },
       { field: 'drop_location', header: 'DropLocation', align: 'left !important' },
-      { field: 'first_name', header: 'PassengerName', align: 'left !important' },
+      { field: 'passengername', header: 'PassengerName', align: 'left !important' },
     ];
     public static readonly callinfoColumns =[
-        { field: 'project_name', header: 'ProjectName', align: 'right !important' },
-        { field: 'role_name', header: 'Role', align: 'left !important' },
+        { field: 'projectname', header: 'ProjectName', align: 'right !important' },
+        { field: 'rolename', header: 'Role', align: 'left !important' },
+        { field: 'categoryname', header: 'Maincategory', align: 'left !important' },
+        { field: 'subcategoryname', header: 'subcategory', align: 'left !important' },
         { field: 'date', header: 'Date', align: 'left !important' },
          { field: 'general_call_time', header: 'Generalcalltime', align: 'left !important' },
-         { field: 'schedule_call_time', header: 'Schedulecalltime', align: 'left !important' },
-         { field: 'location', header: 'Location', align: 'left !important' },
+         { field: 'shooting_call_time', header: 'Schedulecalltime', align: 'left !important' },
+         { field: 'location_name', header: 'Location', align: 'left !important' },
+         { field: 'phone_number', header: 'Phonenumber', align: 'left !important' },
+         { field: 'flag', header: 'Status', align: 'left !important'},
        ];
     
 //#endregion
-
 //#region  Ananth
 public static readonly UserMaster=[
     {field:'username_emailid',header:'Username/Emailid',align:'left !important'},

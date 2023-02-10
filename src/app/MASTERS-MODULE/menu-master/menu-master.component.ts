@@ -63,6 +63,8 @@ export class MenuMasterComponent implements OnInit {
     this.restApiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.roleIdData = res })
     this.cols = TableConstants.menuMasterColumns;
   }
+
+  //save
   onSubmit() {
     const params = {
       'menuid': this.menuId,
@@ -88,7 +90,7 @@ export class MenuMasterComponent implements OnInit {
       }
     })
   }
-
+//
   onView() {
     this.restApiService.get(Pathconstants.MenuMasterController_GET).subscribe(res => {
       this.data = res;

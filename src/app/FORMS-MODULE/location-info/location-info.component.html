@@ -15,7 +15,8 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="locationmanagerOptions" [(ngModel)]="locationManager" (click)="onSelect('LM')" name="_lmanager">
+                                <p-dropdown [options]="locationmanagerOptions" [(ngModel)]="locationManager" (click)="onSelect('LM')" name="_lmanager"
+                                [autoDisplayFirst]="false">
                                 </p-dropdown>
                                 <label for="_lmanager">Location Manager</label>
                             </span>

@@ -21,6 +21,8 @@ import { CityMasterComponent } from './MASTERS-MODULE/city-master/city-master.co
 import { CountryMasterComponent } from './MASTERS-MODULE/country-master/country-master.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
+import { ProjectApprovalComponent } from './project-approval/project-approval.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -50,7 +52,11 @@ const routes: Routes = [
   { path: 'location-info', component: LocationInfoComponent },
   //Expenses
   { path: 'daily-expenses', component: DailyExpensesComponent },
-  { path: 'newprojectcreation-master', component: NewprojectcreationMasterComponent }
+  { path: 'newprojectcreation-master', component: NewprojectcreationMasterComponent },
+  //project-approval
+  { path:'project-approval',component:ProjectApprovalComponent},
+  //change-password
+  { path:'change-password',component:ChangePasswordComponent}
   
 
 ];

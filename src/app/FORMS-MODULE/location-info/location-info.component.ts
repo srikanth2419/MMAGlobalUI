@@ -151,24 +151,26 @@ export class LocationInfoComponent implements OnInit {
   }
 }
   onClear() {
-    this.locationName = null;
-    this.locationManager = null;
-    this.locationEP = null;
-    this.country = null;
-    this.locationmanagerOptions = [];
-    this.locationEPOptions = [];
-    this.countryOptions = [];
-    this.stateOptions = [];
-    this.mobileNo = null;
-    this.state = null;
-    this.cityOptions = [];
-    this.city = null;
-    this.addressLine1 = null;
-    this.addressLine2 = null;
-    this.pincode = null;
-    this.parkingNote = null;
-    this.parkingFacility = null;
-    this.flag = null;
+    this._locationinfoForm.form.reset();
+    
+    // this.locationName = null;
+    // this.locationManager = null;
+    // this.locationEP = null;
+    // this.country = null;
+    // this.locationmanagerOptions = [];
+    // this.locationEPOptions = [];
+    // this.countryOptions = [];
+    // this.stateOptions = [];
+    // this.mobileNo = null;
+    // this.state = null;
+    // this.cityOptions = [];
+    // this.city = null;
+    // this.addressLine1 = null;
+    // this.addressLine2 = null;
+    // this.pincode = null;
+    // this.parkingNote = null;
+    // this.parkingFacility = null;
+    // this.flag = null;
   }
 
   onEdit(row: any)
@@ -177,13 +179,13 @@ export class LocationInfoComponent implements OnInit {
     this.locationName = row.location_name;
     this.locationManager = row.location_managerid;
     this.locationEP = row.local_epid;
-   this.locationmanagerOptions = [{ label: row.first_name, value: row.location_managerid }];
-   this.locationEPOptions =[{ label: row.first_name, value: row.local_epid }];
+    this.locationmanagerOptions = [{ label: row.first_name, value: row.location_managerid }];
+    this.locationEPOptions =[{ label: row.first_name, value: row.local_epid }];
     this.countryOptions = [{ label: row.countryname, value: row.country_id }];
     this.stateOptions =  [{ label: row.statename, value: row.state_id }];
     this.cityOptions = [ { label: row.cityname, value: row.city_id }];
     this.mobileNo = row.phonenumber;
-   this.addressLine1 = row.address1;
+    this.addressLine1 = row.address1;
     this.addressLine2 = row.address2;
     this.pincode = row.pincode;
     this.parkingNote = row.parking_note;

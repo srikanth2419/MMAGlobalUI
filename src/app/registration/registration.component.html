@@ -1,5 +1,28 @@
-<div class="col-12 md:col-12 lg:col-12">
+<!--Header-->
+<div  class="col-12 md:col-12 lg:col-12 header-div">
+    <div class="grid">
+        <div class="col-7 md:col-4 lg:col-2 header-logo-txt">
+            <div class="grid">
+                <div class="col-3 md:col-2 lg:col-2 header-logo"> M </div>
+                <div class="col-9 md:col-10 lg:col-10">
+                    <span>Media Management</span>
+                </div>
+            </div>
+        </div>
+        <div class="md:col-4 lg:col-6"></div>
+        <div class="col-3 md:col-3 lg:col-3 header-login">
+            <!-- <span>Log Out</span><i class="pi pi-angle-down"
+                style="color: grey;" [routerLink]="['/login']" ></i> -->
+                <button pButton style="border-radius:20px;"[routerLink]="['/login']" type="button">Back To Home</button>
+            </div>
+    </div>
+</div>
+<!--Header End-->
+<div class="col-12 md:col-12 lg:col-12" style="margin-top: 100px;">
     <p-panel header="ProductionHouse Registration">
+        <!-- <div style="text-align: right;">
+        <button pButton style="border-radius:20px;"[routerLink]="['/login']" type="button">Back To Home</button>
+      </div> -->
         <p-messages [(value)]="responseMsg" [enableService]="false"
         [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
