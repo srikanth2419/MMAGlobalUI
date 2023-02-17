@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
@@ -31,7 +32,9 @@ export class DailyExpensesComponent implements OnInit {
   loading: boolean = false;
   newprojectcreationData: any[] = [];
   newfundbudgetAmount:any;
-    constructor(private restapiservice: RestapiService) { }
+  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+
+  constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
     this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {
@@ -88,6 +91,7 @@ this.restapiservice.post(Pathconstants.dailyexpenses_Post, params).subscribe(res
   if (res != null && res != undefined) {
     this.onView();
     this.onClear();
+    this._respondentForm.reset();
     this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
     setTimeout(() => this.responseMsg = [], 3000);
   }
@@ -106,12 +110,12 @@ onView(){
 onEdit(rowData:any){
   this.RowId=rowData.slno;
   this.projectName=rowData.project_name;
-  this.projectOptions=[{ label: rowData.projectname, value: rowData.project_id }];
+  this.projectOptions=[{ label: rowData.projectname, value: rowData.project_name }];
   this.budgetAmount=rowData.budget_amount;
   this.date=new Date(rowData.date);
   this.invoiceNumber=rowData.invoice_number;
   this.expensesCategory=rowData.expenses_category;
-  this.expensesOptions=[{ label: rowData.name, value: rowData.sino }];
+  this.expensesOptions=[{ label: rowData.name, value: rowData.expenses_category }];
   this.amount=rowData.amount;
 
 }

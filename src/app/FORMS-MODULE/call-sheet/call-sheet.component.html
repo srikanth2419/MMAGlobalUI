@@ -4,6 +4,7 @@
         [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #f="ngForm">
+
                 <p-tabView>
                     <p-tabPanel header="Call Info">
                         <div #tab1 class="col-12 md:col-12 lg:col-12">
@@ -11,15 +12,15 @@
                                 <div class="p-fluid grid">
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown optionLabel="label" [options]="projectNameOptions" [(ngModel)]="projectName"
-                                            (click)="onSelect('P')" name="_projectname">
+                                            <p-dropdown name="_projectname" optionLabel="label" [options]="projectNameOptions" [(ngModel)]="projectName"
+                                            (click)="onSelect('P')" >
                                             </p-dropdown>
                                             <label for="_projectname">Project Name</label>
                                         </span>
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown optionLabel="label"  [options]="roleOptions" (click)="onSelect('R')"[(ngModel)]="role" name="_role">
+                                            <p-dropdown name="_role" optionLabel="label"  [options]="roleOptions" (click)="onSelect('R')"[(ngModel)]="role" >
                                             </p-dropdown>
                                             <label for="_role">Role</label>
                                         </span>
@@ -35,7 +36,7 @@
                                         <span class="p-float-label">
                                             <!-- <input type="text" name="_generalCallTime" pInputText
                                                 [(ngModel)]="generalCallTime" required /> -->
-                                                <p-calendar [(ngModel)]="generalCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                                <p-calendar name="_generalCallTime" [(ngModel)]="generalCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
                                                 <!-- <p-calendar name="time" [(ngModel)]="generalCallTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar> -->
                                             <label for="_generalCallTime">General Call Time</label>
                                         </span>
@@ -49,15 +50,15 @@
                                         <span class="p-float-label">
                                             <!-- <input type="text" name="_scheduleCallTime" pInputText
                                                 [(ngModel)]="scheduleCallTime" required /> -->
-                                                <p-calendar [(ngModel)]="shootingCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                                <p-calendar name="_shootingCallTime" [(ngModel)]="shootingCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
                                                 <!-- <p-calendar name="time" [(ngModel)]="shootingCallTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar> -->
                                             <label for="_shootingCallTime">Shooting Call Time</label>
                                         </span>
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown optionLabel="label" [options]="locationOptions" [(ngModel)]="location"
-                                            (click)="onSelect('L')" name="_location">
+                                            <p-dropdown name="_location" optionLabel="label" [options]="locationOptions" [(ngModel)]="location"
+                                            (click)="onSelect('L')">
                                             </p-dropdown>
                                             <label for="_location">Location</label>
                                         </span>
@@ -66,13 +67,13 @@
                                         <span class="p-float-label">
                                             <input type="text" id="phoneno" name="_phoneno" pInputText [(ngModel)]="phoneNumber"
                                                 maxlength="10" [pKeyFilter]="'num'" required />
-                                            <label for="_mobno">phone Number</label>
+                                            <label for="_phoneno">phone Number</label>
                                         </span>
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown optionLabel="label" [options]="mainCategoryOptions" [(ngModel)]="mainCategory"
-                                            (click)="onSelect('M')" name="_maincategory">
+                                            <p-dropdown name="_maincategory" optionLabel="label" [options]="mainCategoryOptions" [(ngModel)]="mainCategory"
+                                            (click)="onSelect('M')" >
                                             </p-dropdown>
                                             <label for="_maincategory">Maincategory</label>
                                         </span>
@@ -81,8 +82,8 @@
                                         <div class="p-fluid grid">
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown optionLabel="label" [options]="subCategoryOptions" [(ngModel)]="subCategory"
-                                            (click)="onSelect('S')" name="_subcategory">
+                                            <p-dropdown name="_subcategory" optionLabel="label" [options]="subCategoryOptions" [(ngModel)]="subCategory"
+                                            (click)="onSelect('S')" >
                                             </p-dropdown>
                                             <label for="_subcategory">Subcategory</label>
                                         </span>
@@ -96,14 +97,14 @@
                                         </p-radioButton>
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-1">
-                                        <button pButton type="button" label="Add" 
+                                        <button pButton type="button" label="Add" [disabled]="!mainCategory ||!subCategory"
                                             (click)="onAdd()"></button>
                                     </div>
                                 </div>
                             </div>
                         </div></div>
                             <div #row3 class="col-12 md:col-12 lg:col-12">
-                                <p-table *ngIf='hidetable' [columns]="contactlistcols" [value]="maincategorynew"
+                                <p-table [columns]="contactlistcols" [value]="maincategorynew"
                                     [(selection)]="selectedCustomers" dataKey="first_name" styleClass="p-datatable-gridlines" 
                                      [paginator]="true" [rows]="10"  responsiveLayout="scroll" (selectionChange)="onSelectionChange($event)" [totalRecords]="totalRecords">
                                     <ng-template pTemplate="header" let-columns>
@@ -184,6 +185,7 @@
                     </p-tabPanel>
                     <p-tabPanel header="Lodging Info">
                         <div #tab2 class="col-12 md:col-12 lg:col-12">
+                           
                             <div #row1 class="col-12 md:col-12 lg:col-12">
                                 <div class="p-fluid grid">
                                     <div class="field col-12 md:col-3 lg:col-2">
@@ -211,6 +213,7 @@
                                     </div> -->
                                 </div>
                             </div>
+                           
                         </div>
                         <div class="col-12 md:col-12 lg:col-12">
                             <p-table #dt [columns]="lodginginfocols" [value]="lodginginfoData" styleClass="p-datatable-gridlines"
@@ -253,6 +256,7 @@
                     
                     <p-tabPanel header="Transport Info">
                         <div #tab2 class="col-12 md:col-12 lg:col-12">
+                        
                             <div #row1 class="col-12 md:col-12 lg:col-12">
                                 <div class="p-fluid grid">
                                     <div class="field col-12 md:col-3 lg:col-2">
@@ -265,8 +269,8 @@
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <!-- <p-calendar name="time" [(ngModel)]="pickupTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar> -->
-                                            <p-calendar [(ngModel)]="pickupTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
-                                            <label for="time">pickupTime</label>
+                                            <p-calendar name="_time" [(ngModel)]="pickupTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                            <label for="_time">pickupTime</label>
                                             </span>
                                         </div>
                                     
@@ -287,14 +291,14 @@
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown [options]="passengerNameOptions" (click)="onSelect('T')"[(ngModel)]="passengerName"
-                                                name="_passengerName">
+                                            <p-dropdown name="_passengerName" [options]="passengerNameOptions" (click)="onSelect('T')"[(ngModel)]="passengerName">
                                             </p-dropdown>
                                             <label for="_passengerName">Passenger Name</label>
                                         </span>
                                     </div>
                                 </div>
                             </div>
+                      
                         </div>
                         <div class="col-12 md:col-12 lg:col-12">
                             <p-table #dt [columns]="transportinfocols" [value]="transportinfoData" styleClass="p-datatable-gridlines"
@@ -333,10 +337,10 @@
                                 </ng-template>
                             </p-table>
                             </div>
+                            
                     </p-tabPanel>
                 </p-tabView>
                 </form>
         </div>
-    
     </p-panel>
 </div>
