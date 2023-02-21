@@ -19,7 +19,7 @@ export class DailyExpensesComponent implements OnInit {
   budgetAmount: any;
   invoiceNumber: any;
   expensesCategory: any;
-  expensesOptions: SelectItem[] = [];
+  expensesOptions: any;
   amount: any;
   dailyexpensesCols: any;
   dailyexpensesData: any[] = [];
@@ -125,7 +125,7 @@ onClear(){
     this.budgetAmount = null;
     this.date = null;
     this.invoiceNumber = null;
-    this.expensesCategory = null;
+    this.expensesOptions = null;
     this.amount = null;
 }
   checkBudgetAmount() {

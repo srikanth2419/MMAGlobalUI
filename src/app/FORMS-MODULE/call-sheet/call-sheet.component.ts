@@ -223,6 +223,7 @@ const params=   //call character
       this.transportinfoData = res;
     })
   }
+  
   onEditcallinfo(rowData:any){
   this.RowId=rowData.slno;
   this.projectName=rowData.project_name;

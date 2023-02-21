@@ -63,7 +63,7 @@ export class ContactsListComponent implements OnInit {
   ngOnInit(): void {
     this.onView();
     this.unionno = 0
-    this.master = this._masterService.getMastersAll();
+   // this.master = this._masterService.getMastersAll();
     this.cols = TableConstants.ContactslistColumns;
   }
 
