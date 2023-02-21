@@ -72,5 +72,4 @@ export class LoginComponent implements OnInit {
     if (inputValue.type === 'password') { inputValue.type = 'text'; this.showPwd = !this.showPwd; }
     else { this.showPwd = !this.showPwd; inputValue.type = 'password'; }
   }
-
 }
