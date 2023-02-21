@@ -22,6 +22,9 @@ export class MasterService {
             }
         }) 
     }
+    getMastersAll(){
+        return this.getMastersAll;
+    }
     
 }
 
