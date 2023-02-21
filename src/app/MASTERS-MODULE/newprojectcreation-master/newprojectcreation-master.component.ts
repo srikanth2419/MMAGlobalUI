@@ -84,7 +84,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
     this.projectName = rowData.project_name;
     this.durationDay = rowData.duration_in_days;
     this.budget = rowData.budget;
-    this.projectstartDate = rowData.project_start_date;
+    this.projectstartDate = new Date(rowData.project_start_date);
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
