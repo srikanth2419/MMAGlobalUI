@@ -1,5 +1,7 @@
 <div class="col-12 md:col-12 lg:col-12">
     <p-panel header="Fund Utilization">
+        <p-messages [(value)]="responseMsg" [enableService]="false"
+        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #fundForm="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12 no-pad-top">
@@ -37,7 +39,6 @@
                                         name="_paymentBy">
                                     </p-dropdown>
                                     <label for="_paymentBy">Payment By</label>
-
                                 </span>
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
@@ -75,6 +76,7 @@
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
+                                <th>Edit</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
@@ -82,6 +84,9 @@
                                 <td>{{rowIndex+1}}</td>
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
                                 </td>
                             </tr>
                         </ng-template>

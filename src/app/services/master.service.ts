@@ -20,7 +20,7 @@ export class MasterService {
                 this.masterData = response;
                 this.masterDataAll = response;
             }
-        })
+        }) 
     }
     
 }

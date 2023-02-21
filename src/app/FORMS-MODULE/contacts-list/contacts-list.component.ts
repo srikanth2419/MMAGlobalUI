@@ -5,6 +5,7 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
+import { MasterService } from 'src/app/services/master.service';
 
 @Component({
   selector: 'app-contacts-list',
@@ -54,24 +55,20 @@ export class ContactsListComponent implements OnInit {
   isDisabled: boolean = true;
   productionId: any;
   unionno: any;
+  master?: any;
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
-  constructor(private restapiService: RestapiService) { }
+  constructor(private restapiService: RestapiService,  private _masterService: MasterService) { }
 
   ngOnInit(): void {
     this.onView();
     this.unionno = 0
-    this.restapiService.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
-    this.restapiService.get(Pathconstants.CityMasterDB_GET).subscribe(res => { this.citymasterData = res })
-    this.restapiService.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
-    this.restapiService.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
-    this.restapiService.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-    this.restapiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => { this.data = res })
-    this.restapiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.rolemasterData = res })
+    this.master = this._masterService.getMastersAll();
     this.cols = TableConstants.ContactslistColumns;
   }
 
   onSelect(type: any) {
+    if (this.master){
     let stateSelection: any = [];
     let citySelection: any = [];
     let countryselection: any = [];
@@ -81,19 +78,25 @@ export class ContactsListComponent implements OnInit {
     let unionselection: any = [];
     switch (type) {
       case 'B':
-        this.countrymasterData.forEach((c: any) => {
+        if (this.master.country_Masters)
+        {
+        this.master.country_Masters.forEach((c: any) => {
           countryselection.push({ label: c.countryname, value: c.countrycode });
         })
         this.countryOptions = countryselection;
-        this.countryOptions.unshift({ label: '-select', value: null });
+      }
         break;
+        
       case 'C':
-        this.statemasterData.forEach((c: any) => {
+        if(this.master.statemasters)
+        {
+        this.master.statemasters.forEach((c: any) => {
           stateSelection.push({ label: c.statename, value: c.statecode });
-        })
+        })  
         this.stateOptions = stateSelection;
-        this.stateOptions.unshift({ label: '-select', value: null });
+      }
         break;
+
       case 'D':
         this.citymasterData.forEach((c: any) => {
           citySelection.push({ label: c.cityname, value: c.citycode });
@@ -132,6 +135,7 @@ export class ContactsListComponent implements OnInit {
         break;
     }
   }
+}
   onSave() {
     if (this.unionMaster !== 0) {
       this.unionno = this.unionMaster
@@ -167,7 +171,7 @@ export class ContactsListComponent implements OnInit {
       }
       else {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000)
+        setTimeout(() => this.responseMsg = [], 3000);
       }
     })
 

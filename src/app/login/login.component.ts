@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     console.log(this.username)
     this.restApiService.getByParameters(Pathconstants.UserLogin_Get, login_params).subscribe(response => {
       if (response.item1) {
-        // this._masterService.invokeMasterData();
+        this._masterService.invokeMasterData();
         if (response.item3.length !== 0) {
           [response.item3].forEach((key: any) => {
             const obj: User = {
@@ -72,5 +72,4 @@ export class LoginComponent implements OnInit {
     if (inputValue.type === 'password') { inputValue.type = 'text'; this.showPwd = !this.showPwd; }
     else { this.showPwd = !this.showPwd; inputValue.type = 'password'; }
   }
-
 }
