@@ -10,8 +10,6 @@ import { RestapiService } from "./restapi.service";
 
 export class MasterService {
     masterData: any = [];
-    masterDataAll: any = [];
-    master?: any;
     data: any;
     constructor(private _restApiService: RestapiService, private _authService: AuthService) { }
 
@@ -19,14 +17,13 @@ export class MasterService {
         this._restApiService.get('Master/GetMasters').subscribe(response => {
             if (response) {
                 this.data = response;
-                this.masterDataAll = response;
             }
         })
     }
 
-    getMastersAll() {
-        return this.masterDataAll;
-    }
+    // getMastersAll() {
+    //     return this.masterDataAll;
+    // }
 
     getMaster(value: any) {
         this.masterData = [];
@@ -52,7 +49,7 @@ export class MasterService {
                     this.masterData = [];
                 }
                 break;
-                
+
             //city-master
             case 'CIM':
                 if (this.data.city_Masters !== undefined && this.data.city_Masters !== null) {

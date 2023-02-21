@@ -58,6 +58,7 @@ export class ShootingScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.onView();
     this.minDate = new Date();
+
     this.dayNightOptions = [
       { label: 'select', value: null },
       { label: 'DAY', value: 1 },
@@ -78,7 +79,7 @@ export class ShootingScheduleComponent implements OnInit {
     this.restapiservice.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
     this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
     this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-   // this.restapiservice.get(Pathconstants.shooting_status_Get).subscribe(res => { this.shootingStatusData = res })
+    this.restapiservice.get(Pathconstants.shooting_status_Get).subscribe(res => { this.shootingStatusData = res })
     
   }
 
@@ -150,6 +151,7 @@ export class ShootingScheduleComponent implements OnInit {
         if (res != null && res != undefined) {
           this.onView();
           this.onClear();
+          this.hideTable = false;
           this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
           setTimeout(() => this.responseMsg = [], 3000);
         }
@@ -179,7 +181,7 @@ export class ShootingScheduleComponent implements OnInit {
   }
 
   onClear() {
-    this.RowId = 0;
+     this.RowId = 0;
      this.projectNameOptions=null;
      this.scene=null;
      this.designOptions=null;
@@ -192,19 +194,15 @@ export class ShootingScheduleComponent implements OnInit {
      this.scheduleDate = null;
      this.contactid =null;
     // this.contactlistcols = null;
-    this.hideTable = false;
-     
+     this.hideTable = false;
+   
   }
 
   onAdd() {
     this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => { 
     this.shootingScheduleDetails = res; 
     this.shootingScheduleDetails.forEach((i: any) => {
-      console.log('1')
-
     if(i.maincategory_id === this.mainCategoryMaster.value && i.subcategory_id === this.subCategoryMaster.value) { 
-      console.log('2')
-
     this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name,'contactid':i.slno});
      }
     }) 
