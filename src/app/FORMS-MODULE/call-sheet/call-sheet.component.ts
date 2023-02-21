@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
@@ -65,8 +66,7 @@ export class CallSheetComponent implements OnInit {
   maincategorynew:any[] = [];
   rowData:any;
   contactid: any = [];
-  hidetable: boolean = true;
-
+  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   constructor(private restapiservice: RestapiService) { }
   ngOnInit(): void {
     this.callinfocol =TableConstants.callinfoColumns
@@ -179,6 +179,8 @@ const params=   //call character
     this.restapiservice.post(Pathconstants.callinfo_Post, params).subscribe(res => {
       if (res != null && res != undefined) {
         this.onView();
+        this.onClear();
+        this._respondentForm.reset();
         this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
         setTimeout(() => this.responseMsg = [], 3000);
       }
@@ -294,7 +296,8 @@ onEdittransportinfo(rowData:any){
   this.pickupLocation=rowData.pickup_location;
   this.dropLocation=rowData.drop_location;
   this.passengerName=rowData.passenger_id;
-  this.passengerNameOptions=[{ label: rowData.passengername, value: rowData.slno }];
+  this.passengerNameOptions=[{ label: rowData.passengername, value: rowData.passenger_id
+  }];
 }
 
 onAdd() {
@@ -334,6 +337,5 @@ onAdd() {
       this.pickupLocation=null;
       this.dropLocation=null;
       this.passengerName=null;
-      this.hidetable=false;
     }
 }
