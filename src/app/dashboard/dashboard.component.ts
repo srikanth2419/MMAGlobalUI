@@ -13,8 +13,6 @@ export class DashboardComponent implements OnInit {
   allocatedOptions: any;
   constructor() { 
   }
-
-
   ngOnInit(): void {
     this.chartLabels = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'];
     this.planOptions = {

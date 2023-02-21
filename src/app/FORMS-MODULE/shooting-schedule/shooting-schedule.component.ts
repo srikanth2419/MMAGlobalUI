@@ -91,28 +91,28 @@ export class ShootingScheduleComponent implements OnInit {
 
 
     switch (type) {
-      case 'p':
+      case 'PN':
         this.newprojectcreationData.forEach((c: any) => {
           projectSelection.push({ label: c.project_name, value: c.project_id });
         })
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
-      case 'E':
+      case 'MC':
         this.mainCategoryData.forEach((c: any) => {
           maincategoryselection.push({ label: c.categoryname, value: c.sino });
         })
         this.maincategoryOptions = maincategoryselection;
         this.maincategoryOptions.unshift({ label: '-select', value: null });
         break;
-      case 'F':
+      case 'SC':
         this.subCategoryData.forEach((c: any) => {
           subcategoryselection.push({ label: c.categoryname, value: c.sino });
         })
         this.subcategoryOptions = subcategoryselection;
         this.subcategoryOptions.unshift({ label: '-select', value: null });
         break;
-        case 'S':
+        case 'SS':
           this.shootingStatusData.forEach((c: any) => {
             shootingstatusselection.push({ label: c.status, value: c.slno });
           })
