@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { DashStyleValue } from 'highcharts';
 import { Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
@@ -34,6 +35,8 @@ export class FundUtilizationComponent implements OnInit {
   contactlistData: any[] = [];
   data: any;
   newfundbudgetAmount: any;
+
+  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   
   constructor(private restapiservice: RestapiService) {
   }
@@ -136,13 +139,15 @@ export class FundUtilizationComponent implements OnInit {
 
   onEdit(rowData: any) {
     this.RowId = rowData.slno;
-    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_id}];
+    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_name}];
     this.budgetAmount=rowData.budget_amount;
     this.personNameOptions=[{label:rowData.first_name,value:rowData.person_name}];
-    this.paymentBy = rowData.payment_by;
+    this.paymentBy = rowData.value;
     this.amount = rowData.amount;
     this.dayCall = rowData.day_or_call;
     this.totalAmount = rowData.total_amount;
   }
+
+
 }
 
