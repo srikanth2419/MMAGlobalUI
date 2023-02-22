@@ -28,7 +28,8 @@ export class ChangePasswordComponent implements OnInit {
   userdata: any[] = [];
   userId: any[] = [];
   usermasterData: any[] = [];
-  showPswd: any;
+  showPswd: boolean = true;
+  showcPswd: boolean = true;
   userInfo: any;
   responseMsg: Message[] = [];
   logged_user!: User
@@ -134,4 +135,26 @@ export class ChangePasswordComponent implements OnInit {
     this.showMatchMsg = false;
     this.pswdStrongMsg = false;
   }
+  onShowPswd() {
+    var inputValue = (<HTMLInputElement>document.getElementById('pwd'));
+    if (inputValue.type === 'password') {
+      inputValue.type = 'text';
+      this.showPswd = !this.showPswd;
+    } else {
+      this.showPswd = !this.showPswd;
+      inputValue.type = 'password';
+    }
+  }
+
+  onShowcPswd() {
+    var inputValue = (<HTMLInputElement>document.getElementById('cpwd'));
+    if (inputValue.type === 'confirmPassword') {
+      inputValue.type = 'text';
+      this.showcPswd = !this.showcPswd;
+    } else {
+      this.showcPswd = !this.showcPswd;
+      inputValue.type = 'confirmPassword';
+    }
+  }
+
 }

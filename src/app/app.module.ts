@@ -50,6 +50,7 @@ import { ProjectApprovalComponent } from './project-approval/project-approval.co
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
 
 
 
@@ -83,6 +84,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     UserMasterComponent,
     ProjectApprovalComponent,
     ChangePasswordComponent,
+    MailtypeMasterComponent,
     
     
   ],

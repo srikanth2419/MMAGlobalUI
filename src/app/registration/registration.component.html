@@ -74,12 +74,12 @@
                                 <label for="_email">Email Id</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
+                        <!-- <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="pwd" name="_pwd" pInputText [(ngModel)]="password" required />
                                 <label for="_pwd">Password</label>
                             </span>
-                        </div>
+                        </div> -->
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="countryOptions" (click)="onSelect('C')" [(ngModel)]="country" name="_country">
@@ -101,10 +101,6 @@
                                 <label for="_city">City</label>
                             </span>
                         </div>
-                    </div>
-                </div>
-                        <div #row3 class="col-12 md:col-12 lg:col-12">
-                            <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr1" name="_addr1" pInputText [(ngModel)]="addressLine1"
@@ -112,6 +108,11 @@
                                 <label for="_addr1">Address Line 1</label>
                             </span>
                         </div>
+                    </div>
+                </div>
+                        <div #row3 class="col-12 md:col-12 lg:col-12">
+                            <div class="p-fluid grid">
+                        
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr2" name="_addr2" pInputText [(ngModel)]="addressLine2"

@@ -28,8 +28,15 @@
                             <div class="p-inputgroup">
                                 <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
                                 <span class="p-float-label">
-                                    <input type="password" id="pwd" name="_password" (keypress)="onEnter($event)"
+                                   
+                                    <input id="PWD" type="password"  name="_password" (keypress)="onEnter($event)"
                                         pInputText [(ngModel)]="password" autocomplete="off" />
+                                        <span class="p-inputgroup-addon" (click)="onShowPswd()">
+                                            <i *ngIf="!showPswd" class="pi pi-eye" aria-hidden="true"></i>
+                                            <i *ngIf="showPswd" class="pi pi-eye-slash"
+                                                aria-hidden="true"></i>
+                                        </span>
+                                    
                                     <label for="_password" style="font-weight: 700;color: #1c1b1b;">Password</label>
                                 </span>
                             </div>

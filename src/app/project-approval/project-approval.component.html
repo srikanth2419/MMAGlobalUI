@@ -4,6 +4,8 @@
         <div class="col-12 md:col-12 lg:col-12 box-shadow no-pad">
             <div #main class="col-12 form-border">
                 <p-panel header="Registration Approval">
+                    <p-messages [(value)]="responseMsg" [enableService]="false"
+                    [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
                     <!-- <div class="col-12 header">
                     <span>Reporter Approval</span>
                 </div> -->

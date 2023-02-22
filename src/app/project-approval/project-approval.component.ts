@@ -4,7 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Pathconstants } from '../CONSTANTS-MODULE/pathconstants';
 import { RestapiService } from '../services/restapi.service';
 import { ResponseMessage } from '../CONSTANTS-MODULE/message-constants';
-
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-project-approval',
@@ -19,6 +19,7 @@ export class ProjectApprovalComponent implements OnInit {
   tEnableTick: boolean = false;
   tCrossTick: boolean = false;
   id:any;
+  responseMsg: Message[] = [];
 
   constructor(private restApiService: RestapiService, private _confirmationService: ConfirmationService) { }
 
@@ -71,9 +72,8 @@ export class ProjectApprovalComponent implements OnInit {
           this.onView();
           // this.messageService.clear();
           // this.messageService.add({
-          //   key: 't-msg', severity: ResponseMessage.SuccessSeverity,
-          //   summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.UpdateMsg
-          // });
+            this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.UpdateMsg }];
+            setTimeout(() => this.responseMsg = [], 3000);
         }
       })
     }
@@ -97,9 +97,8 @@ export class ProjectApprovalComponent implements OnInit {
               this.onView();
               // this.messageService.clear();
               // this.messageService.add({
-              //   // key: 't-msg', severity: ResponseMessage.SuccessSeverity,
-              //   // summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.UpdateMsg
-              // });
+                this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.UpdateMsg }];
+                setTimeout(() => this.responseMsg = [], 3000);
             }
           })
         },
@@ -122,23 +121,20 @@ export class ProjectApprovalComponent implements OnInit {
         this.onView();
         // this.messageService.clear();
         // this.messageService.add({
-        //   // key: 't-msg', severity: ResponseMessage.SuccessSeverity,
-        //   // summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
-        // });
+          this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+          setTimeout(() => this.responseMsg = [], 3000);
       } else {
         // this.messageService.clear();
         // this.messageService.add({
-        //   // key: 't-msg', severity: ResponseMessage.ErrorSeverity,
-        //   // summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-        // });
+          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+          setTimeout(() => this.responseMsg = [], 3000);
       }
     }, (err: HttpErrorResponse) => {
       if (err.status === 0 || err.status === 400) {
         // this.messageService.clear();
         // this.messageService.add({
-        //   // key: 't-msg', severity: ResponseMessage.ErrorSeverity,
-        //   // summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-        // })
+          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ContactMessage }];
+          setTimeout(() => this.responseMsg = [], 3000);
       }
     })
   }

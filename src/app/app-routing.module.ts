@@ -23,40 +23,43 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
 import { ProjectApprovalComponent } from './project-approval/project-approval.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthGuard } from './services/auth.guard';
+import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'home', component: HomepageComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'home', component: HomepageComponent , canActivate:[AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent , canActivate:[AuthGuard]},
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'contacts-list', component: ContactsListComponent },
-  { path: 'fund-utilization', component: FundUtilizationComponent },
-  { path: 'shooting-schedule', component: ShootingScheduleComponent },
-  { path: 'call-sheet', component: CallSheetComponent },
+  { path: 'contacts-list', component: ContactsListComponent, canActivate:[AuthGuard] },
+  { path: 'fund-utilization', component: FundUtilizationComponent , canActivate:[AuthGuard]},
+  { path: 'shooting-schedule', component: ShootingScheduleComponent, canActivate:[AuthGuard] },
+  { path: 'call-sheet', component: CallSheetComponent, canActivate:[AuthGuard] },
   //Master-Entry
-  { path: 'role-master', component: RoleMasterComponent },
-  { path: 'menu-master', component: MenuMasterComponent },
-  { path: 'union-master', component: UnionMasterComponent },
-  { path: 'maincategory-master', component: MaincategoryMasterComponent },
-  { path: 'subcategory-master', component: SubcategoryMasterComponent },
-  { path: 'state-master', component: StateMasterComponent },
-  { path: 'expenses-category', component: ExpensesCategoryMasterComponent },
-  {path: 'user-master',component:UserMasterComponent},
+  { path: 'role-master', component: RoleMasterComponent , canActivate:[AuthGuard]},
+  { path: 'menu-master', component: MenuMasterComponent, canActivate:[AuthGuard] },
+  { path: 'union-master', component: UnionMasterComponent, canActivate:[AuthGuard] },
+  { path: 'maincategory-master', component: MaincategoryMasterComponent, canActivate:[AuthGuard] },
+  { path: 'subcategory-master', component: SubcategoryMasterComponent, canActivate:[AuthGuard] },
+  { path: 'state-master', component: StateMasterComponent, canActivate:[AuthGuard] },
+  { path: 'expenses-category', component: ExpensesCategoryMasterComponent, canActivate:[AuthGuard] },
+  {path: 'user-master',component:UserMasterComponent, canActivate:[AuthGuard]},
 
-  { path: 'country-master', component: CountryMasterComponent },
-  { path: 'city-master', component: CityMasterComponent },
+  { path: 'country-master', component: CountryMasterComponent, canActivate:[AuthGuard] },
+  { path: 'city-master', component: CityMasterComponent , canActivate:[AuthGuard]},
   //FORMS
-  { path: 'contacts-list', component: ContactsListComponent },
-  { path: 'location-info', component: LocationInfoComponent },
+  { path: 'contacts-list', component: ContactsListComponent, canActivate:[AuthGuard] },
+  { path: 'location-info', component: LocationInfoComponent , canActivate:[AuthGuard]},
   //Expenses
-  { path: 'daily-expenses', component: DailyExpensesComponent },
-  { path: 'newprojectcreation-master', component: NewprojectcreationMasterComponent },
+  { path: 'daily-expenses', component: DailyExpensesComponent, canActivate:[AuthGuard] },
+  { path: 'newprojectcreation-master', component: NewprojectcreationMasterComponent , canActivate:[AuthGuard]},
   //project-approval
-  { path:'project-approval',component:ProjectApprovalComponent},
+  { path:'project-approval',component:ProjectApprovalComponent, canActivate:[AuthGuard]},
   //change-password
-  { path:'change-password',component:ChangePasswordComponent}
+  { path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
+  { path:'mailtype-master',component:MailtypeMasterComponent, }
   
 
 ];

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   confirmPassword: any;
   userInfo!: User;
   responseMsg: any;
-  showPwd: boolean = false;
+  showPswd: boolean = true;
 
   @ViewChild('uname', { static: false }) _username!: HTMLInputElement;
   constructor(private restApiService: RestapiService, private _authService: AuthService, private _masterService: MasterService,) { }
@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
           })
           // this.userInfo = response.item3;
           // this._authService.setUserInfo(this.userInfo);
-          console.log('sam',this.userInfo)
         }
       } else {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: response.item2 }];
@@ -67,10 +66,15 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+  
   onShowPswd() {
-    var inputValue = (<HTMLInputElement>document.getElementById('pswd'));
-    if (inputValue.type === 'password') { inputValue.type = 'text'; this.showPwd = !this.showPwd; }
-    else { this.showPwd = !this.showPwd; inputValue.type = 'password'; }
+    var inputValue = (<HTMLInputElement>document.getElementById('PWD'));
+    if (inputValue.type === 'password') {
+      inputValue.type = 'text';
+      this.showPswd = !this.showPswd;
+    } else {
+      this.showPswd = !this.showPswd;
+      inputValue.type = 'password';
+    }
   }
-
 }
