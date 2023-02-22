@@ -5,6 +5,8 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { MasterService } from 'src/app/services/master.service';
+
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -52,12 +54,20 @@ export class ShootingScheduleComponent implements OnInit {
   contactid:any =[];
   contactlistcols:any;
   hideTable: boolean = true;
-  constructor(private restapiservice: RestapiService) {
+  mainCategory: any = [];
+  subCategory: any = [];
+  shootingStatus:any=[];
+
+
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService) {
   }
 
   ngOnInit(): void {
     this.onView();
     this.minDate = new Date();
+    this.mainCategory = this._masterService.getMaster('MC')
+    this.subCategory = this._masterService.getMaster('SC')
+    this.shootingStatus=this._masterService.getMaster('SS')
 
     this.dayNightOptions = [
       { label: 'select', value: null },
@@ -75,12 +85,7 @@ export class ShootingScheduleComponent implements OnInit {
     
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
     this.ShootingScheduleCols = TableConstants.ShootingColums;
-    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });
-    this.restapiservice.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
-    this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-    this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-    this.restapiservice.get(Pathconstants.shooting_status_Get).subscribe(res => { this.shootingStatusData = res })
-    
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });    
   }
 
   onSelect(type: any) {
@@ -99,22 +104,24 @@ export class ShootingScheduleComponent implements OnInit {
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
       case 'MC':
-        this.mainCategoryData.forEach((c: any) => {
-          maincategoryselection.push({ label: c.categoryname, value: c.sino });
+        this.mainCategory.forEach((c: any) => {
+          maincategoryselection.push({ label: c.name, value: c.code });
         })
         this.maincategoryOptions = maincategoryselection;
         this.maincategoryOptions.unshift({ label: '-select', value: null });
         break;
+
       case 'SC':
-        this.subCategoryData.forEach((c: any) => {
-          subcategoryselection.push({ label: c.categoryname, value: c.sino });
+        this.subCategory.forEach((c: any) => {
+          subcategoryselection.push({ label: c.name, value: c.code });
         })
         this.subcategoryOptions = subcategoryselection;
         this.subcategoryOptions.unshift({ label: '-select', value: null });
         break;
+
         case 'SS':
-          this.shootingStatusData.forEach((c: any) => {
-            shootingstatusselection.push({ label: c.status, value: c.slno });
+          this.shootingStatus.forEach((c: any) => {
+            shootingstatusselection.push({ label: c.name, value: c.code });
           })
           this.statusOptions = shootingstatusselection;
           this.statusOptions.unshift({ label: '-select', value: null });

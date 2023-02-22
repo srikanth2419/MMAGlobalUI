@@ -214,7 +214,7 @@ export class ContactsListComponent implements OnInit {
     this.phoneNumber = null;
     this.whatappNumber = null;
     this.emailId = null;
-    this.countryOptions = null;
+    
     this.stateOptions = null;
     this.cityOptions = null;
     this.addressLine1 = null;
