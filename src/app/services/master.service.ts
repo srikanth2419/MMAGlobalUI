@@ -10,21 +10,19 @@ import { RestapiService } from "./restapi.service";
 
 export class MasterService {
     masterData: any = [];
-    data: any;
+    masterDataAll: any = [];
+    userInfo!: User;
+    data:any=[];
     constructor(private _restApiService: RestapiService, private _authService: AuthService) { }
 
     invokeMasterData() {
-        this._restApiService.get('Master/GetMasters').subscribe(response => {
+        this._restApiService.get('Masters/GetMasters').subscribe(response => {
             if (response) {
-                this.data = response;
+                this.masterData = response;
+                this.masterDataAll = response;
             }
         })
     }
-
-    // getMastersAll() {
-    //     return this.masterDataAll;
-    // }
-
     getMaster(value: any) {
         this.masterData = [];
         //country-master
@@ -131,4 +129,7 @@ export class MasterService {
 
     }
 }
- 
+
+
+
+
