@@ -18,7 +18,7 @@ export class MasterService {
     invokeMasterData() {
         this._restApiService.get('Master/GetMasters').subscribe(response => {
             if (response) {
-                this.masterData = response;
+                this.data = response;
                 this.masterDataAll = response;
             }
         })
