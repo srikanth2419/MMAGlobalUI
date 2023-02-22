@@ -5,6 +5,8 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { MasterService } from 'src/app/services/master.service';
+
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -12,15 +14,15 @@ import { RestapiService } from 'src/app/services/restapi.service';
   styleUrls: ['./shooting-schedule.component.scss']
 })
 export class ShootingScheduleComponent implements OnInit {
-  projectNameOptions: SelectItem[] = [];
+  projectNameOptions: any;
   projectName: any;
-  scheduleDate: Date = new Date();
+  scheduleDate:any;
   scheduleDay: any;
-  dayNightOptions: SelectItem[] = [];
+  dayNightOptions: any;
   dayNight: any;
-  designOptions: SelectItem[] = [];
+  designOptions: any;
   design: any;
-  statusOptions: SelectItem[] = [];
+  statusOptions: any;
   status: any;
   scene: any;
   shootingScheduleCols: any;
@@ -51,12 +53,22 @@ export class ShootingScheduleComponent implements OnInit {
   selectedType: any;
   contactid:any =[];
   contactlistcols:any;
-  constructor(private restapiservice: RestapiService) {
+  hideTable: boolean = true;
+  mainCategory: any = [];
+  subCategory: any = [];
+  shootingStatus:any=[];
+
+
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService) {
   }
 
   ngOnInit(): void {
     this.onView();
     this.minDate = new Date();
+    this.mainCategory = this._masterService.getMaster('MC')
+    this.subCategory = this._masterService.getMaster('SC')
+    this.shootingStatus=this._masterService.getMaster('SS')
+
     this.dayNightOptions = [
       { label: 'select', value: null },
       { label: 'DAY', value: 1 },
@@ -73,12 +85,7 @@ export class ShootingScheduleComponent implements OnInit {
     
     this.shootingScheduleCols = TableConstants.ShootingScheduleColumns;
     this.ShootingScheduleCols = TableConstants.ShootingColums;
-    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });
-    this.restapiservice.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
-    this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-    this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-    this.restapiservice.get(Pathconstants.shooting_status_Get).subscribe(res => { this.shootingStatusData = res })
-    
+    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res });    
   }
 
   onSelect(type: any) {
@@ -89,30 +96,32 @@ export class ShootingScheduleComponent implements OnInit {
 
 
     switch (type) {
-      case 'p':
+      case 'PN':
         this.newprojectcreationData.forEach((c: any) => {
           projectSelection.push({ label: c.project_name, value: c.project_id });
         })
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
-      case 'E':
-        this.mainCategoryData.forEach((c: any) => {
-          maincategoryselection.push({ label: c.categoryname, value: c.sino });
+      case 'MC':
+        this.mainCategory.forEach((c: any) => {
+          maincategoryselection.push({ label: c.name, value: c.code });
         })
         this.maincategoryOptions = maincategoryselection;
         this.maincategoryOptions.unshift({ label: '-select', value: null });
         break;
-      case 'F':
-        this.subCategoryData.forEach((c: any) => {
-          subcategoryselection.push({ label: c.categoryname, value: c.sino });
+
+      case 'SC':
+        this.subCategory.forEach((c: any) => {
+          subcategoryselection.push({ label: c.name, value: c.code });
         })
         this.subcategoryOptions = subcategoryselection;
         this.subcategoryOptions.unshift({ label: '-select', value: null });
         break;
-        case 'S':
-          this.shootingStatusData.forEach((c: any) => {
-            shootingstatusselection.push({ label: c.status, value: c.slno });
+
+        case 'SS':
+          this.shootingStatus.forEach((c: any) => {
+            shootingstatusselection.push({ label: c.name, value: c.code });
           })
           this.statusOptions = shootingstatusselection;
           this.statusOptions.unshift({ label: '-select', value: null });
@@ -149,6 +158,7 @@ export class ShootingScheduleComponent implements OnInit {
         if (res != null && res != undefined) {
           this.onView();
           this.onClear();
+          this.hideTable = false;
           this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
           setTimeout(() => this.responseMsg = [], 3000);
         }
@@ -178,30 +188,28 @@ export class ShootingScheduleComponent implements OnInit {
   }
 
   onClear() {
-    this.projectName = null;
-    this.scheduleDay = null;
-    this.selected = null;
-    this.dayNight = null;
-    this.design = null;
-    this.scene = null;
-    this.subCategoryMaster = null;
-    this.mainCategoryMaster = null;
-    this.status = null;
-    this.Disabled = null;
-    this.selectedType = null;
-    this.Disabled=null;
-
+     this.RowId = 0;
+     this.projectNameOptions=null;
+     this.scene=null;
+     this.designOptions=null;
+     this.dayNightOptions=null;
+     this.scheduleDay=null;
+     this.statusOptions=null;
+     this.maincategoryOptions = null;
+     this.subcategoryOptions = null;
+     this.selectedType = null;
+     this.scheduleDate = null;
+     this.contactid =null;
+    // this.contactlistcols = null;
+     this.hideTable = false;
+   
   }
 
   onAdd() {
     this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => { 
     this.shootingScheduleDetails = res; 
     this.shootingScheduleDetails.forEach((i: any) => {
-      console.log('1')
-
     if(i.maincategory_id === this.mainCategoryMaster.value && i.subcategory_id === this.subCategoryMaster.value) { 
-      console.log('2')
-
     this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name,'contactid':i.slno});
      }
     }) 
@@ -218,26 +226,24 @@ export class ShootingScheduleComponent implements OnInit {
       }
     })
   }
-
-
   onEdit(rowData: any) {
 
     this.RowId = rowData.slno;
     this.projectName = rowData.project_id;
     this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_id}];
-    this.scene = rowData.scene;
-    this.design = rowData.interior_exterior;
-    this.designOptions = rowData.design.label;
-    this.design = rowData.interior_exterior;
-    this.designOptions = rowData.design.label;
-    this.scheduleDay = rowData.schedule_day;  
-    this.scheduleDate = rowData.schedule_date;  
-    this.status = rowData.status_id;  
-    this.mainCategoryMaster = rowData.main_category_id;
-    this.maincategoryOptions=[{label:rowData.categoryname,value:rowData.sino}];
-    this.subCategoryMaster = rowData.sub_category_id;
-    this.subcategoryOptions=[{label:rowData.categoryname,value:rowData.sino}];
+    this.scene=rowData.scene;
+    this.design=rowData.interior_exterior;
+    this.designOptions=[{label:rowData.interior_exterior,value:rowData.slno}];
+    this.dayNight=rowData.day_night;
+    this.dayNightOptions=[{label:rowData.day_night,value:rowData.slno}];
+    this.scheduleDay=rowData.schedule_day;
+    this.scheduleDate=new Date(rowData.schedule_date);
+    this.status=rowData.status_id;
+    this.statusOptions=[{label:rowData.shooting_status,value:rowData.slno}];
+    this.mainCategoryMaster=rowData.main_category_id;
+    this.maincategoryOptions=[{label:rowData.maincategoryname,value:rowData.sino}];
+    this.subCategoryMaster=rowData.sub_category_id;
+    this.subcategoryOptions=[{label:rowData.subcategoryname,value:rowData.sino}];
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
-
   }
 }

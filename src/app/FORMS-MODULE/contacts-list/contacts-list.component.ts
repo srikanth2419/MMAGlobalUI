@@ -5,6 +5,7 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
+import { MasterService } from 'src/app/services/master.service';
 
 @Component({
   selector: 'app-contacts-list',
@@ -18,9 +19,9 @@ export class ContactsListComponent implements OnInit {
   dob: any;
   mobileNo: any;
   emailId: any;
-  mainCategory: any;
+  mainCategory: any = [];
   maincategoryOptions: any;
-  subCategory: any;
+  subCategory: any = [];
   subcategoryOptions: any;
   countryOptions: any;
   country: any;
@@ -46,7 +47,7 @@ export class ContactsListComponent implements OnInit {
   Id: any = 0;
   phoneNumber: any;
   whatappNumber: any;
-  unionMaster: any;
+  unionMaster: any = [];
   role: any;
   contactlistData: any;
   selected: any = 0;
@@ -54,23 +55,30 @@ export class ContactsListComponent implements OnInit {
   isDisabled: boolean = true;
   productionId: any;
   unionno: any;
+  masters?: any;
+  countryMaster: any = [];
+  statemaster: any = [];
+  cityMaster: any = [];
+  roleMaster: any = [];
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
+
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
-  constructor(private restapiService: RestapiService) { }
+  constructor(private restapiService: RestapiService, private _masterService: MasterService) { }
 
   ngOnInit(): void {
     this.onView();
     this.unionno = 0
-    this.restapiService.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
-    this.restapiService.get(Pathconstants.CityMasterDB_GET).subscribe(res => { this.citymasterData = res })
-    this.restapiService.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
-    this.restapiService.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => { this.mainCategoryData = res })
-    this.restapiService.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => { this.subCategoryData = res })
-    this.restapiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => { this.data = res })
-    this.restapiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.rolemasterData = res })
+    this.countryMaster = this._masterService.getMaster('CM');
+    this.statemaster = this._masterService.getMaster('SM');
+    this.cityMaster = this._masterService.getMaster('CIM');
+    this.mainCategory = this._masterService.getMaster('MC')
+    this.subCategory = this._masterService.getMaster('SC')
+    this.roleMaster = this._masterService.getMaster('RM')
+    this.unionMaster = this._masterService.getMaster('UM')
     this.cols = TableConstants.ContactslistColumns;
   }
 
+  //dropdown
   onSelect(type: any) {
     let stateSelection: any = [];
     let citySelection: any = [];
@@ -81,57 +89,69 @@ export class ContactsListComponent implements OnInit {
     let unionselection: any = [];
     switch (type) {
       case 'B':
-        this.countrymasterData.forEach((c: any) => {
-          countryselection.push({ label: c.countryname, value: c.countrycode });
+        console.log('d', this.countryMaster)
+        this.countryMaster.forEach((c: any) => {
+          countryselection.push({ label: c.name, value: c.code });
         })
         this.countryOptions = countryselection;
         this.countryOptions.unshift({ label: '-select', value: null });
         break;
+
       case 'C':
-        this.statemasterData.forEach((c: any) => {
-          stateSelection.push({ label: c.statename, value: c.statecode });
+        console.log('e', this.statemaster)
+        this.statemaster.forEach((c: any) => {
+          stateSelection.push({ label: c.name, value: c.code });
         })
         this.stateOptions = stateSelection;
         this.stateOptions.unshift({ label: '-select', value: null });
         break;
+
       case 'D':
-        this.citymasterData.forEach((c: any) => {
-          citySelection.push({ label: c.cityname, value: c.citycode });
+        this.cityMaster.forEach((c: any) => {
+          citySelection.push({ label: c.name, value: c.code });
         })
         this.cityOptions = citySelection;
         this.cityOptions.unshift({ label: '-select', value: null });
         break;
+
+
       case 'E':
         console.log(this.mainCategory)
-        this.mainCategoryData.forEach((c: any) => {
-          maincategoryselection.push({ label: c.categoryname, value: c.sino });
+        this.mainCategory.forEach((c: any) => {
+          maincategoryselection.push({ label: c.name, value: c.code });
         })
         this.maincategoryOptions = maincategoryselection;
         this.maincategoryOptions.unshift({ label: '-select', value: null });
         break;
+
+
       case 'F':
-        this.subCategoryData.forEach((c: any) => {
-          subcategoryselection.push({ label: c.categoryname, value: c.sino });
+        this.subCategory.forEach((c: any) => {
+          subcategoryselection.push({ label: c.name, value: c.code });
         })
         this.subcategoryOptions = subcategoryselection;
         this.subcategoryOptions.unshift({ label: '-select', value: null });
         break;
+
       case 'G':
-        this.rolemasterData.forEach((c: any) => {
-          roleselection.push({ label: c.rolename, value: c.roleid });
+        this.roleMaster.forEach((c: any) => {
+          roleselection.push({ label: c.name, value: c.code });
         })
         this.roleOptions = roleselection;
         this.roleOptions.unshift({ label: '-select', value: null });
         break;
+
       case 'H':
-        this.data.forEach((c: any) => {
-          unionselection.push({ label: c.unionname, value: c.sino });
+        this.unionMaster.forEach((c: any) => {
+          unionselection.push({ label: c.name, value: c.code });
         })
         this.unionOptions = unionselection;
-        this.unionOptions.unshift({ label: '', value: null });
+        this.unionOptions.unshift({ label: '-select', value: null });
         break;
     }
   }
+  
+  //save method
   onSave() {
     if (this.unionMaster !== 0) {
       this.unionno = this.unionMaster
@@ -167,10 +187,9 @@ export class ContactsListComponent implements OnInit {
       }
       else {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000)
+        setTimeout(() => this.responseMsg = [], 3000);
       }
     })
-
   }
 
   onView() {
@@ -195,7 +214,7 @@ export class ContactsListComponent implements OnInit {
     this.phoneNumber = null;
     this.whatappNumber = null;
     this.emailId = null;
-    this.countryOptions = null;
+    
     this.stateOptions = null;
     this.cityOptions = null;
     this.addressLine1 = null;
@@ -209,11 +228,11 @@ export class ContactsListComponent implements OnInit {
 
   onEdit(rowData: any) {
     this.Id = rowData.slno;
-    this.firstName = rowData.first_name;
+    this.firstName = rowData.first_name;  
     this.lastName = rowData.last_name;
     this.roleOptions = [{ label: rowData.rolename, value: rowData.roleid }];
-    this.maincategoryOptions = [{ label: rowData.categoryname, value: rowData.maincategory_id }];
-    this.subcategoryOptions = [{ label: rowData.categoryname, value: rowData.subcategory_id }];
+    this.maincategoryOptions = [{ label: rowData.maincategoryname, value: rowData.maincategory_id }];
+    this.subcategoryOptions = [{ label: rowData.subcategoryname, value: rowData.subcategory_id }];
     this.dob = new Date(rowData.dob);
     this.phoneNumber = rowData.phonenumber;
     this.whatappNumber = rowData.whatsappnumber;

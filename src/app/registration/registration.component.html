@@ -82,21 +82,21 @@
                         </div> -->
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="countryOptions" (click)="onSelect('C')" [(ngModel)]="country" name="_country">
+                                <p-dropdown  name="_country" [options]="countryOptions" (click)="onSelect('C')" [(ngModel)]="country">
                                 </p-dropdown>
                                 <label for="_country">Country</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="stateOptions" (click)="onSelect('S')" [(ngModel)]="state" name="_state"></p-dropdown>
+                                <p-dropdown name="_state" [options]="stateOptions" (click)="onSelect('S')" [(ngModel)]="state" ></p-dropdown>
                                 <label for="_state">State</label>
                             </span>
                         </div>
                     
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="cityOptions" (click)="onSelect('y')" [(ngModel)]="city" name="_city"
+                                <p-dropdown name="_city" [options]="cityOptions" (click)="onSelect('y')" [(ngModel)]="city" 
                                 placeholder="-select-" [style]="{width: '-webkit-fill-available !important'}"></p-dropdown>
                                 <label for="_city">City</label>
                             </span>

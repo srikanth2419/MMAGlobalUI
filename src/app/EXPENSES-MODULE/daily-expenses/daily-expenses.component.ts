@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
@@ -13,12 +14,12 @@ import { RestapiService } from 'src/app/services/restapi.service';
 export class DailyExpensesComponent implements OnInit {
 
   date: any;
-  projectName: string = '';;
+  projectName: any;
   projectOptions:any;
   budgetAmount: any;
   invoiceNumber: any;
   expensesCategory: any;
-  expensesOptions: SelectItem[] = [];
+  expensesOptions: any;
   amount: any;
   dailyexpensesCols: any;
   dailyexpensesData: any[] = [];
@@ -31,7 +32,9 @@ export class DailyExpensesComponent implements OnInit {
   loading: boolean = false;
   newprojectcreationData: any[] = [];
   newfundbudgetAmount:any;
-    constructor(private restapiservice: RestapiService) { }
+  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+
+  constructor(private restapiservice: RestapiService) { }
 
   ngOnInit(): void {
     this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {
@@ -88,6 +91,7 @@ this.restapiservice.post(Pathconstants.dailyexpenses_Post, params).subscribe(res
   if (res != null && res != undefined) {
     this.onView();
     this.onClear();
+    this._respondentForm.reset();
     this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
     setTimeout(() => this.responseMsg = [], 3000);
   }
@@ -106,20 +110,22 @@ onView(){
 onEdit(rowData:any){
   this.RowId=rowData.slno;
   this.projectName=rowData.project_name;
+  this.projectOptions=[{ label: rowData.projectname, value: rowData.project_name }];
   this.budgetAmount=rowData.budget_amount;
-  this.date=rowData.date;
+  this.date=new Date(rowData.date);
   this.invoiceNumber=rowData.invoice_number;
   this.expensesCategory=rowData.expenses_category;
+  this.expensesOptions=[{ label: rowData.name, value: rowData.expenses_category }];
   this.amount=rowData.amount;
 
 }
 onClear(){
     this.RowId=0;
-    this.projectName = '';
+    this.projectOptions = null;
     this.budgetAmount = null;
     this.date = null;
     this.invoiceNumber = null;
-    this.expensesCategory = null;
+    this.expensesOptions = null;
     this.amount = null;
 }
   checkBudgetAmount() {

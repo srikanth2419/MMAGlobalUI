@@ -41,9 +41,10 @@ export class Pathconstants {
      public static readonly UserMaster_Post='UserMaster/SaveUserMaster'
      public static readonly ContactListController_Post='ContactList/Savecontactlist'
      public static readonly ContactListController_Get='ContactList/Getcontactlist'
+     public static readonly MasterController_Get='MasterController/Getmasters'
    //#endregion
 
-
+  
      //#region  priyadharshani
      public static readonly countrymaster_Post='Countrymaster/SaveCountrymaster'//controller Name/Method Name
      public static readonly countrymaster_Get='Countrymaster/GetCountrymaster'

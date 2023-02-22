@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     console.log(this.username)
     this.restApiService.getByParameters(Pathconstants.UserLogin_Get, login_params).subscribe(response => {
       if (response.item1) {
-        // this._masterService.invokeMasterData();
+        this._masterService.invokeMasterData();
         if (response.item3.length !== 0) {
           [response.item3].forEach((key: any) => {
             const obj: User = {

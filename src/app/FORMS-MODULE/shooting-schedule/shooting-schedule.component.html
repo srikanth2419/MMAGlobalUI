@@ -9,10 +9,11 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="projectNameOptions" [(ngModel)]="projectName"
-                                    (click)="onSelect('p')" name="_projectname"></p-dropdown>
+                                optionLabel="label" (click)="onSelect('PN')" name="_projectname"></p-dropdown>
                                 <label for="_projectname">Project Name</label>
                             </span>
                         </div>
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" name="_scene" pInputText [(ngModel)]="scene" [pKeyFilter]="block"
@@ -20,6 +21,7 @@
                                 <label for="_scene">Scene</label>
                             </span>
                         </div>
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="designOptions" optionLabel="label" [(ngModel)]="design"
@@ -36,7 +38,6 @@
                                 <label for="_daynight">Day/Night/Both</label>
                             </span>
                         </div>
-
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" name="_scheduleDay" pInputText [(ngModel)]="scheduleDay"
@@ -55,16 +56,17 @@
 
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="statusOptions" (click)="onSelect('S')" [(ngModel)]="status" name="_status">
-                                    optionLabel="label"   </p-dropdown>
+                                <p-dropdown [options]="statusOptions" (click)="onSelect('SS')" [(ngModel)]="status"
+                                optionLabel="label" name="_status">
+                                    </p-dropdown>
                                 <label for="_status">Status</label>
                             </span>
                         </div>
 
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('E')"  optionLabel="label"
-                                    [(ngModel)]="mainCategoryMaster" name="_mainCategory">
+                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('MC')"  
+                                    [(ngModel)]="mainCategoryMaster"optionLabel="label" name="_mainCategory">
                                 </p-dropdown>
                                 <label for="_mainCategory">Main Category</label>
                             </span>
@@ -72,12 +74,13 @@
 
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="subcategoryOptions" (click)="onSelect('F')" optionLabel="label"
-                                    [(ngModel)]="subCategoryMaster" name="_subCategory">
+                                <p-dropdown [options]="subcategoryOptions" (click)="onSelect('SC')"
+                                    [(ngModel)]="subCategoryMaster" optionLabel="label" name="_subCategory">
                                 </p-dropdown>
                                 <label for="_subCategory">Sub Category</label>
                             </span>
                         </div>
+
                         <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
                             <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType"
                                 required>
@@ -86,6 +89,7 @@
                                 [(ngModel)]="selectedType" required>
                             </p-radioButton>
                         </div>
+
                         <div class="field col-12 md:col-3 lg:col-1">
                             <button pButton type="button" label="Add "
                                 (click)="onAdd()" [disabled]="!f.valid || !f.dirty" 
@@ -95,9 +99,9 @@
                 </div>
                 <p-panel header="character participation">
                     <div #row2 class="col-12 md:col-12 lg:col-12">
-                        <p-table [columns]="contactlistcols" [value]="maincategorynew" dataKey="first_name" styleClass="p-datatable-gridlines"
+                        <p-table *ngIf="hideTable" [columns]="contactlistcols" [value]="maincategorynew" dataKey="first_name" styleClass="p-datatable-gridlines"
                          [(selection)]="selectedCustomers" responsiveLayout="scroll" (selectionChange)="onSelectionChange($event)"
-                            [totalRecords]="totalRecords" [paginator]="true" [rows]="10">
+                          [totalRecords]="totalRecords" [paginator]="true" [rows]="10">
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
                                     <th style="width: 4rem">
@@ -117,7 +121,7 @@
                             <ng-template pTemplate="body" let-production let-rowData>
                                 <tr>
                                     <td>
-                                        <p-tableCheckbox [value]="production"></p-tableCheckbox>
+                                        <p-tableCheckbox [value]="production" ></p-tableCheckbox>
                                     </td>
                                     <td>{{production.first_name}}</td>
                                     <td>{{production.rolename}}</td>
