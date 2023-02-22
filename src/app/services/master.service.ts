@@ -16,7 +16,7 @@ export class MasterService {
     constructor(private _restApiService: RestapiService, private _authService: AuthService) { }
 
     invokeMasterData() {
-        this._restApiService.get('Masters/GetMasters').subscribe(response => {
+        this._restApiService.get('Master/GetMasters').subscribe(response => {
             if (response) {
                 this.masterData = response;
                 this.masterDataAll = response;
