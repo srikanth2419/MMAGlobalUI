@@ -6,6 +6,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Message } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { MasterService } from 'src/app/services/master.service';
 
 
 @Component({
@@ -35,10 +36,11 @@ export class MenuMasterComponent implements OnInit {
   blockIcon: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.:;^'"~`?/]/;
   blockUrl: RegExp = /^[^=<>*%()|{}$@#_!+0-9&?,|.:;'`~"?^\s]/;
   blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,~`|.:;'"?/]/;
+  roleMaster: any = [];
 
   @ViewChild('f', { static: false }) _menumasterForm!: NgForm;
 
-  constructor(private restApiService: RestapiService) { }
+  constructor(private restApiService: RestapiService, private _masterService: MasterService) { }
 
   ngOnInit(): void {
     this.onView();
@@ -60,8 +62,9 @@ export class MenuMasterComponent implements OnInit {
       { label: '15', value: 15 }
     ]
 
-    this.restApiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.roleIdData = res })
+    // this.restApiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.roleIdData = res })
     this.cols = TableConstants.menuMasterColumns;
+    this.roleMaster = this._masterService.getMaster('RM')
   }
 
   //save
@@ -109,8 +112,8 @@ export class MenuMasterComponent implements OnInit {
     let prioritySelection: any = [];
     switch (type) {
       case 'R':
-        this.roleIdData.forEach((c: any) => {
-          roleSelection.push({ label: c.rolename, value: c.roleid });
+        this.roleMaster.forEach((c: any) => {
+          roleSelection.push({ label: c.name, value: c.code });
         })
         this.roleOptions = roleSelection;
         this.roleOptions.unshift({ label: '-Select', value: null });
