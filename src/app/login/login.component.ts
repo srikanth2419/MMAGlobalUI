@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
             ,mailid : (key.username_emailid !== null && key.username_emailid !== undefined) ? key.username_emailid : ''
             }
           this._authService.login(obj);
-
           })
           // this.userInfo = response.item3;
           // this._authService.setUserInfo(this.userInfo);

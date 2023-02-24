@@ -51,6 +51,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
+import { DatePipe } from '@angular/common';
+
 
 
 
@@ -112,7 +114,7 @@ import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.compo
     KeyFilterModule,
     ConfirmDialogModule,
   ],
-  providers: [RestapiService,ConfirmationService],
+  providers: [RestapiService,ConfirmationService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
