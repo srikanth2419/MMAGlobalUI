@@ -4,7 +4,6 @@
         [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #f="ngForm">
-
                 <p-tabView>
                     <p-tabPanel header="Call Info">
                         <div #tab1 class="col-12 md:col-12 lg:col-12">
@@ -36,7 +35,7 @@
                                         <span class="p-float-label">
                                             <!-- <input type="text" name="_generalCallTime" pInputText
                                                 [(ngModel)]="generalCallTime" required /> -->
-                                                <p-calendar name="_generalCallTime" [(ngModel)]="generalCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                                <p-calendar name="_generalCallTime" [(ngModel)]="generalCallTime" [timeOnly]="true" [hourFormat]="'24'" [showSeconds]="true" inputId="timeonly"></p-calendar>
                                                 <!-- <p-calendar name="time" [(ngModel)]="generalCallTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar> -->
                                             <label for="_generalCallTime">General Call Time</label>
                                         </span>
@@ -50,7 +49,7 @@
                                         <span class="p-float-label">
                                             <!-- <input type="text" name="_scheduleCallTime" pInputText
                                                 [(ngModel)]="scheduleCallTime" required /> -->
-                                                <p-calendar name="_shootingCallTime" [(ngModel)]="shootingCallTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                                <p-calendar name="_shootingCallTime" [(ngModel)]="shootingCallTime" [timeOnly]="true" [hourFormat]="'24'" [showSeconds]="true" inputId="timeonly"></p-calendar>
                                                 <!-- <p-calendar name="time" [(ngModel)]="shootingCallTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar> -->
                                             <label for="_shootingCallTime">Shooting Call Time</label>
                                         </span>
@@ -72,7 +71,7 @@
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown name="_maincategory" optionLabel="label" [options]="mainCategoryOptions" [(ngModel)]="mainCategory"
+                                            <p-dropdown name="_maincategory" (change)="oncheck()" optionLabel="label" [options]="mainCategoryOptions" [(ngModel)]="mainCategory"
                                             (click)="onSelect('M')" >
                                             </p-dropdown>
                                             <label for="_maincategory">Maincategory</label>
@@ -141,6 +140,10 @@
                                 </p-table>
                             </div>
                         </div>
+                        <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                            <button pButton type="button" label="Save"  icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSavecallsheet()"></button>&nbsp;
+                            <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
+                        </div>
                         <div class="col-12 md:col-12 lg:col-12">
                             <p-table #dt [columns]="callinfocol" [value]="callinfoData" styleClass="p-datatable-gridlines"
                                 [loading]="loading" [paginator]="true" [rows]="10" 
@@ -150,7 +153,7 @@
                                         <div class="lg:col-10 no-pad-top no-pad-btm">
                                         <span class="p-input-icon-left p-ml-auto">
                                             <i class="pi pi-search"></i>
-                                            <input #searchInput pInputText type="text" 
+                                            <input #searchInput pInputText type="text" [pKeyFilter]="block" 
                                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                                         </span>
                                     </div>
@@ -177,10 +180,6 @@
                                     </tr>
                                 </ng-template>
                             </p-table>
-                            </div>
-                            <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                                <button pButton type="button" label="Save"  icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSavecallsheet()"></button>&nbsp;
-                                <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                             </div>
                     </p-tabPanel>
                     <p-tabPanel header="Lodging Info">
@@ -224,7 +223,7 @@
                                         <div class="lg:col-10 no-pad-top no-pad-btm">
                                         <span class="p-input-icon-left p-ml-auto">
                                             <i class="pi pi-search"></i>
-                                            <input #searchInput pInputText type="text" 
+                                            <input #searchInput pInputText type="text" [pKeyFilter]="block"
                                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                                         </span>
                                     </div>
@@ -269,7 +268,7 @@
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <!-- <p-calendar name="time" [(ngModel)]="pickupTime" [hourFormat]="'12'" [showTime]="true" inputId="time"></p-calendar> -->
-                                            <p-calendar name="_time" [(ngModel)]="pickupTime" [timeOnly]="true" [hourFormat]="'12'" inputId="timeonly"></p-calendar>
+                                            <p-calendar name="_time" [(ngModel)]="pickupTime" [timeOnly]="true" [hourFormat]="'24'" [showSeconds]="true"  inputId="timeonly"></p-calendar>
                                             <label for="_time">pickupTime</label>
                                             </span>
                                         </div>
@@ -309,7 +308,7 @@
                                         <div class="lg:col-10 no-pad-top no-pad-btm">
                                         <span class="p-input-icon-left p-ml-auto">
                                             <i class="pi pi-search"></i>
-                                            <input #searchInput pInputText type="text" 
+                                            <input #searchInput pInputText type="text" [pKeyFilter]="block"
                                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                                         </span>
                                     </div>

@@ -59,8 +59,8 @@
                                 <label for="_amnt"> Amount</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-1">
-                            <button pButton type="button" label="Add" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
+                        <div class="field col-4 md:col-3 lg:col-2">
+                            <button pButton type="button" label=" +Add" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
                             <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
 
                         </div>
@@ -79,7 +79,7 @@
                                 <div class="lg:col-10 no-pad-top no-pad-btm">
                                 <span class="p-input-icon-left p-ml-auto">
                                     <i class="pi pi-search"></i>
-                                    <input #searchInput pInputText type="text"
+                                    <input #searchInput pInputText type="text" [pKeyFilter]="block"
                                         (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                                 </span>
                             </div>

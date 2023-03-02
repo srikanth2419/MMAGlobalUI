@@ -4,6 +4,8 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interface/user.interface';
 
 @Component({
   selector: 'app-newprojectcreation-master',
@@ -24,12 +26,18 @@ export class NewprojectcreationMasterComponent implements OnInit {
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/;
   responseMsg: Message[] = [];
   RowId: any;
-  constructor(private restapiservice: RestapiService) { }
+  userInfo: any;
+  logged_user!: User
+productionhouse:any;
+
+  constructor(private restapiservice: RestapiService, private authservice: AuthService) { }
 
   ngOnInit(): void {
     //this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
     this.onView();
     this.newprojectcreationCols = TableConstants.newprojectcreationCols;
+    this.logged_user = this.authservice.getUserInfo();
+    this.productionhouse = this.logged_user.production_house_name;
   }
 
   onSave() {

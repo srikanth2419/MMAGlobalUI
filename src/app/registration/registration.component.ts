@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Message, SelectItem } from 'primeng/api';
+import { Observable, observable } from 'rxjs';
 import { ResponseMessage } from '../CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from '../CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from '../CONSTANTS-MODULE/table-constants';
+import { MasterService } from '../services/master.service';
 import { RestapiService } from '../services/restapi.service';
 
 @Component({
@@ -39,14 +41,25 @@ export class RegistrationComponent implements OnInit {
   statemasterData:any;
   citymasterData:any;
   approvedstatus:any;
+  countryMaster:any[]=[];
+  statemaster:any[]=[];
+  cityMaster:any[]=[];
+  masterData:any;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
-  constructor(private restapiservice: RestapiService) { }
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService) { 
+    // let masterData:any =new Observable<any[]>();
+   this.masterData=this._masterService.invokeMasterData();
+    // masterData.subscribe();
+  }
   ngOnInit(): void {
     this.onView();
-    this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
-    this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
-    this.restapiservice.get(Pathconstants.CityMasterDB_GET).subscribe(res => { this.citymasterData = res})
+    setTimeout(() => {
+      this.countryMaster = this._masterService.getMaster('CM');
+    this.statemaster = this._masterService.getMaster('SM');
+    this.cityMaster = this._masterService.getMaster('CIM');
+    }, 500);
     this.registrationCols = TableConstants.RegistrationColumns;
+     
   }
   onSelect(type: any) {
     let countrySelection: any = [];
@@ -54,22 +67,22 @@ export class RegistrationComponent implements OnInit {
     let citySelection: any =[];
     switch (type) {
       case 'C':
-        this.countrymasterData.forEach((c: any) => {
-          countrySelection.push({ label: c.countryname, value: c.countrycode });
+        this.countryMaster.forEach((c: any) => {
+          countrySelection.push({ label: c.name, value: c.code });
         })
         this.countryOptions = countrySelection;
         this.countryOptions.unshift({ label: '-select', value: null });
         break;
         case 'S':
-        this.statemasterData.forEach((c: any) => {
-          stateSelection.push({ label: c.statename, value: c.statecode });
+        this.statemaster.forEach((c: any) => {
+          stateSelection.push({ label: c.name, value: c.code });
         })
         this.stateOptions = stateSelection;
         this.stateOptions.unshift({ label: '-select', value: null });
         break;
         case 'y':
-          this.citymasterData.forEach((c:any) => {
-            citySelection.push({ label: c.cityname, value: c.citycode });
+          this.cityMaster.forEach((c:any) => {
+            citySelection.push({ label: c.name, value: c.code });
           })
           this.cityOptions =citySelection;
           this.cityOptions.unshift({ label: '-select', value: null });

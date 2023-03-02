@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/internal/Observable";
 import { User } from "../interface/user.interface";
 import { AuthService } from "./auth.service";
 import { RestapiService } from "./restapi.service";
@@ -14,9 +15,11 @@ export class MasterService {
     }
     masterData: any = [];
     masterDataAll: any = [];
-    userInfo!: User;
-    data:any=[];
+    data: any = [];
+
+
     constructor(private _restApiService: RestapiService, private _authService: AuthService) { }
+
 
     invokeMasterData() {
         this._restApiService.get('Master/GetMasters').subscribe(response => {
@@ -26,6 +29,7 @@ export class MasterService {
             }
         })
     }
+
     getMaster(value: any) {
         this.masterData = [];
         //country-master
@@ -44,7 +48,7 @@ export class MasterService {
             case 'SM':
                 if (this.data.statemasters !== undefined && this.data.statemasters !== null) {
                     this.data.statemasters.forEach((c: any) => {
-                        this.masterData.push({ name: c.statename, code: c.statecode });
+                        this.masterData.push({ name: c.statename, code: c.statecode, countrycode: c.countrycode });
                     })
                 } else {
                     this.masterData = [];
@@ -55,7 +59,7 @@ export class MasterService {
             case 'CIM':
                 if (this.data.city_Masters !== undefined && this.data.city_Masters !== null) {
                     this.data.city_Masters.forEach((c: any) => {
-                        this.masterData.push({ name: c.cityname, code: c.citycode });
+                        this.masterData.push({ name: c.cityname, code: c.citycode, statecode: c.statecode });
                     })
                 } else {
                     this.masterData = [];
@@ -77,7 +81,7 @@ export class MasterService {
             case 'SC':
                 if (this.data.sub_Categorymasters !== undefined && this.data.sub_Categorymasters !== null) {
                     this.data.sub_Categorymasters.forEach((c: any) => {
-                        this.masterData.push({ name: c.categoryname, code: c.sino });
+                        this.masterData.push({ name: c.categoryname, code: c.sino, maincategorycode: c.maincategorycode });
                     })
                 } else {
                     this.masterData = [];
@@ -117,7 +121,7 @@ export class MasterService {
                 }
                 break;
 
-          //Shooting-Status
+            //Shooting-Status
             case 'SS':
                 if (this.data.shooting_Statuses !== undefined && this.data.shooting_Statuses !== null) {
                     this.data.shooting_Statuses.forEach((c: any) => {

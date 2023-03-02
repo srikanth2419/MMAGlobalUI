@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { OverlayPanel } from 'primeng/overlaypanel';
+import { AuthService } from '../services/auth.service';
+import { User } from '../interface/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   display: boolean = false;
+  @ViewChild('op', { static: false }) _op!: OverlayPanel;
   @Output() openMenu = new EventEmitter<boolean>();
   @Input() hide: boolean = false;
-  constructor() { }
+  username: string = '';
+  isLoggedIn: boolean = false;
+  constructor(private authservice: AuthService) {
+    this.authservice.isLoggedIn.subscribe(value => {
+      if(value) {
+        this.isLoggedIn = value;
+        this.username = this.authservice.getUserInfo().mailid;
+      }
+    })
+   }
 
   ngOnInit(): void {
   }
@@ -19,5 +32,7 @@ export class HeaderComponent implements OnInit {
     this.openMenu.emit(value);
     console.log('val', value, this.display)
   }
+
+ 
 
 }
