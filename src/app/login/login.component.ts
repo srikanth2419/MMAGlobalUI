@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
             ,production_house_name : (key.production_house_name !== null && key.production_house_name !== undefined) ? key.production_house_name:''
             }
           this._authService.login(obj);
-
           })
           // this.userInfo = response.item3;
           // this._authService.setUserInfo(this.userInfo);
