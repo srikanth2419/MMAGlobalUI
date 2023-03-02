@@ -51,7 +51,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
-
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 
@@ -111,6 +111,8 @@ import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.compo
     MessagesModule,
     KeyFilterModule,
     ConfirmDialogModule,
+    OverlayPanelModule,
+
   ],
   providers: [RestapiService,ConfirmationService],
   bootstrap: [AppComponent]
