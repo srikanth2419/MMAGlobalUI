@@ -125,14 +125,18 @@ export class LocationInfoComponent implements OnInit {
       break;
       case 'S':
         this.statemaster.forEach((c: any) => {
+          if (c.countrycode === this.country){
           stateSelection.push({ label: c.name, value: c.code });
+          }
         })
         this.stateOptions = stateSelection;
         this.stateOptions.unshift({ label: '-select', value: null });
         break;
        case 'CT':
           this.cityMaster.forEach((c: any) => {
+            if (c.statecode === this.state) {
             citySelection.push({ label: c.name, value: c.code });
+            }
           })
           this.cityOptions = citySelection;
           this.cityOptions.unshift({ label: '-select', value: null });
