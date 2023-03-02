@@ -71,8 +71,8 @@ export class ContactsListComponent implements OnInit {
     this.countryMaster = this._masterService.getMaster('CM');
     this.statemaster = this._masterService.getMaster('SM');
     this.cityMaster = this._masterService.getMaster('CIM');
-    this.mainCategory = this._masterService.getMaster('MC')
-    this.subCategory = this._masterService.getMaster('SC')
+    this.mainCategoryData = this._masterService.getMaster('MC')
+    this.subCategoryData = this._masterService.getMaster('SC')
     this.roleMaster = this._masterService.getMaster('RM')
     this.unionMaster = this._masterService.getMaster('UM')
     this.cols = TableConstants.ContactslistColumns;
@@ -89,7 +89,6 @@ export class ContactsListComponent implements OnInit {
     let unionselection: any = [];
     switch (type) {
       case 'B':
-        console.log('d', this.countryMaster)
         this.countryMaster.forEach((c: any) => {
           countryselection.push({ label: c.name, value: c.code });
         })
@@ -98,36 +97,39 @@ export class ContactsListComponent implements OnInit {
         break;
 
       case 'C':
-        console.log('e', this.statemaster)
-        this.statemaster.forEach((c: any) => {
-          stateSelection.push({ label: c.name, value: c.code });
+        this.statemaster.forEach((sm: any) => {
+          if (sm.countrycode === this.country) {  // to filter statemaster based on countrymaster
+            stateSelection.push({ label: sm.name, value: sm.code });
+          }
         })
         this.stateOptions = stateSelection;
         this.stateOptions.unshift({ label: '-select', value: null });
         break;
 
       case 'D':
-        this.cityMaster.forEach((c: any) => {
-          citySelection.push({ label: c.name, value: c.code });
+        this.cityMaster.forEach((cm: any) => {
+          if (cm.statecode === this.state) {
+            citySelection.push({ label: cm.name, value: cm.code });
+          }
         })
         this.cityOptions = citySelection;
         this.cityOptions.unshift({ label: '-select', value: null });
         break;
 
-
       case 'E':
-        console.log(this.mainCategory)
-        this.mainCategory.forEach((c: any) => {
-          maincategoryselection.push({ label: c.name, value: c.code });
+        this.mainCategoryData.forEach((mc: any) => {
+          maincategoryselection.push({ label: mc.name, value: mc.code });
+
         })
         this.maincategoryOptions = maincategoryselection;
         this.maincategoryOptions.unshift({ label: '-select', value: null });
         break;
 
-
       case 'F':
-        this.subCategory.forEach((c: any) => {
-          subcategoryselection.push({ label: c.name, value: c.code });
+        this.subCategoryData.forEach((c: any) => {
+          if (c.maincategorycode === this.mainCategory) {   //to filter subcategory based on maincategory
+            subcategoryselection.push({ label: c.name, value: c.code });
+          }
         })
         this.subcategoryOptions = subcategoryselection;
         this.subcategoryOptions.unshift({ label: '-select', value: null });
@@ -150,7 +152,7 @@ export class ContactsListComponent implements OnInit {
         break;
     }
   }
-  
+
   //save method
   onSave() {
     if (this.unionMaster !== 0) {
@@ -214,7 +216,6 @@ export class ContactsListComponent implements OnInit {
     this.phoneNumber = null;
     this.whatappNumber = null;
     this.emailId = null;
-    
     this.stateOptions = null;
     this.cityOptions = null;
     this.addressLine1 = null;
@@ -228,7 +229,7 @@ export class ContactsListComponent implements OnInit {
 
   onEdit(rowData: any) {
     this.Id = rowData.slno;
-    this.firstName = rowData.first_name;  
+    this.firstName = rowData.first_name;
     this.lastName = rowData.last_name;
     this.roleOptions = [{ label: rowData.rolename, value: rowData.roleid }];
     this.maincategoryOptions = [{ label: rowData.maincategoryname, value: rowData.maincategory_id }];
@@ -237,6 +238,7 @@ export class ContactsListComponent implements OnInit {
     this.phoneNumber = rowData.phonenumber;
     this.whatappNumber = rowData.whatsappnumber;
     this.emailId = rowData.email_id;
+    this.country = rowData.countrycode;
     this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
     this.stateOptions = [{ label: rowData.statename, value: rowData.statecode }];
     this.city = rowData.citycode;

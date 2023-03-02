@@ -5,6 +5,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Message } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { MasterService } from 'src/app/services/master.service';
 
 
 @Component({
@@ -19,24 +20,67 @@ export class SubcategoryMasterComponent implements OnInit {
   cols: any[] = [];
   subCategoryData: any[] = [];
   sino: any;
-  RowId:any;
+  RowId: any;
   responseMsg: Message[] = [];
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/;  
+  mainCategoryData: any;
+  maincategoryOptions: any;
+  mainCategorycode: any;
 
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/;
 
-  constructor(private restApiService: RestapiService) {
+  @ViewChild('f', { static: false }) _respondentForm!: NgForm;
+
+  constructor(private restApiService: RestapiService, private _masterService: MasterService) {
   }
 
 
   ngOnInit(): void {
+    this.mainCategoryData = this._masterService.getMaster('MC')
     this.cols = TableConstants.SubCategoryMaster;
     this.onView();
   }
 
+  onSelect(type: any) {
+    let maincategorySelection: any = [];
+    switch (type) {
+      case 'C':
+        this.mainCategoryData.forEach((c: any) => {
+          maincategorySelection.push({ label: c.name, value: c.code });
+        })
+        this.maincategoryOptions = maincategorySelection;
+        this.maincategoryOptions.unshift({ label: '-select', value: null });
+        break;
+    }
+  }
+  onSave() {
+    const params = {
+      'sino': this.RowId,
+      'categoryname': this.categoryName,
+      'maincategorycode': this.mainCategorycode,
+      'flag': (this.selectedType == 1) ? true : false
+    }
+
+    this.restApiService.post(Pathconstants.SubCategoryMasterController_Post, params).subscribe(res => {
+      if (res != null && res != undefined) {
+        this.onView();
+        this.onClear();
+        this._respondentForm.reset();
+        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
+      }
+      else {
+        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
+      }
+    })
+
+  }
+
+
   onEdit(rowData: any) {
     this.RowId = rowData.sino;
     this.categoryName = rowData.categoryname;
+    this.maincategoryOptions = [{ label: rowData.categoryname, Value: rowData.sino }];
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
   }
 
@@ -52,30 +96,12 @@ export class SubcategoryMasterComponent implements OnInit {
   }
 
 
-  onSave() {
-    const params = {
-      'sino': this.RowId,
-      'categoryname': this.categoryName,
-      'flag': (this.selectedType == 1) ? true : false
-    }
 
-    this.restApiService.post(Pathconstants.SubCategoryMasterController_Post, params).subscribe(res => {  if(res!= null && res!= undefined){
-      this.onView();
-      this.onClear();
-      this._respondentForm.reset();
-      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-      setTimeout(() => this.responseMsg = [], 3000);
-    }
-    else{
-      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-      setTimeout(() => this.responseMsg = [], 3000);
-    }})
-
-  }
 
   onClear() {
     this.categoryName = null;
     this.selectedType = null;
+    this.mainCategorycode = null;
     this.sino = 0;
   }
   onCheck() {
