@@ -29,7 +29,8 @@ export class ProjectApprovalComponent implements OnInit {
 
   onUserMasterGet(row: any) {
     const params = {
-      'username_emailid': row.email_id
+      'username_emailid': row.email_id,
+      'production_house_name':row.production_house_name
     }
     this.restApiService.get(Pathconstants.UserMasterController_Get).subscribe(res => {
       this.userdata = res;
@@ -112,6 +113,7 @@ export class ProjectApprovalComponent implements OnInit {
     const params = {
       'id': 0,
       'username_emailid': row.email_id,
+      'production_house_name':row.production_house_name,
       'password': 'MMA@1234',
       'roleid': 2,
       'flag': true

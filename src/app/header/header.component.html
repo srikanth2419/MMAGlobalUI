@@ -1,5 +1,5 @@
 <div *ngIf="!hide" class="col-12 md:col-12 lg:col-12 header-div">
-    <div class="grid">
+    <div class="grid" style="height: 50px;">
         <div class="col-7 md:col-4 lg:col-2 header-logo-txt">
             <div class="grid">
                 <div class="col-3 md:col-2 lg:col-2 header-logo"> M </div>
@@ -12,10 +12,31 @@
             <span><i class="pi pi-fw pi-bars"></i></span>
         </div>
         <div class="md:col-4 lg:col-6"></div>
+        <!-- <div class="col-3 md:col-3 lg:col-3 header-login">
+            <button pButton style="border-radius:20px;" [routerLink]="['/login']" type="button">Log Out</button>
+        </div> -->
+
+        <!--Profile-->
         <div class="col-3 md:col-3 lg:col-3 header-login">
-            <!-- <span>Log Out</span><i class="pi pi-angle-down"
-                style="color: grey;" [routerLink]="['/login']" ></i> -->
-                <button pButton style="border-radius:20px;"[routerLink]="['/login']" type="button">Log Out</button>
-            </div>
+            <p-overlayPanel #op>
+                <ng-template pTemplate>
+                    <div
+                        style="text-align: center !important; text-shadow: 0.5px 0.5px #45e155 !important; color: #53b548;">
+                    </div>
+                    <span style="font-size: 13px;">Username: <span
+                            style="color: #08747b; font-size: 14px !important;">{{username}} </span></span><br />
+                    <p><a style="font-size: 15px; color: green;" routerLink="/change-password"
+                            routerLinkActive="active">Change Password</a></p>
+                </ng-template>
+            </p-overlayPanel>
+            <span>
+                <!-- <button pButton pRipple type="button" icon="pi pi-power-off" class="p-button-rounded" (click)="onLogout()" pTooltip="Logout" tooltipPosition="bottom" [fitContent]="true"></button> -->
+                <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded" pTooltip="Userinfo"
+                    tooltipPosition="bottom" (click)="op.toggle($event)">
+                </button> </span>&nbsp;
+            <!-- <span>Log Out</span><i class="pi pi-angle-down"                style="color: grey;" [routerLink]="['/login']" ></i> --> 
+            <button pButton style="border-radius:20px;" [routerLink]="['/login']" type="button">Log
+                Out</button>
+        </div>
     </div>
 </div>

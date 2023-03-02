@@ -1,9 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
+import { MasterService } from 'src/app/services/master.service';
 import { RestapiService } from 'src/app/services/restapi.service';
 
 @Component({
@@ -65,21 +67,24 @@ export class CallSheetComponent implements OnInit {
   subCategoryMaster:any;
   maincategorynew:any[] = [];
   rowData:any;
+  roleMaster:any[]=[];
   contactid: any = [];
+  generalCallTimeUpdate: any;
+  shootingCallTimeUpdate: any;
+  pickupTimeUpdate: any;
+  block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
-  constructor(private restapiservice: RestapiService) { }
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe) { }
   ngOnInit(): void {
     this.callinfocol =TableConstants.callinfoColumns
     this.contactlistcols = TableConstants.ShootingScheduleColumns;
     this.lodginginfocols=TableConstants.lodginginfoColumns;
     this.transportinfocols=TableConstants.transportinfoColumns;
-    this.restapiservice.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res})
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
     this.restapiservice.get(Pathconstants.LocationInfo_Get).subscribe(res => { this.data = res})
-    this.restapiservice.get(Pathconstants.MainCategoryMasterController_Get).subscribe(res => {
-      this.mainCategoryData = res})
-      this.restapiservice.get(Pathconstants.SubCategoryMasterController_Get).subscribe(res => {
-        this.subCategoryData =res})
+    this.mainCategoryData = this._masterService.getMaster('MC')
+    this.subCategoryData = this._masterService.getMaster('SC')
+    this.roleMaster = this._masterService.getMaster('RM')
         this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
           this.contactlistData = res})
           this.onView();
@@ -100,8 +105,8 @@ export class CallSheetComponent implements OnInit {
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
       case 'R':
-        this.rolemasterData.forEach((c: any) => {
-          roleSelection.push({ label: c.rolename, value: c.roleid });
+        this.roleMaster.forEach((c: any) => {
+          roleSelection.push({label: c.name, value: c.code });
         })
         this.roleOptions =  roleSelection;
         this.roleOptions.unshift({ label: '-select', value: null });
@@ -122,14 +127,14 @@ export class CallSheetComponent implements OnInit {
           break;
           case 'M':
             this.mainCategoryData.forEach((c: any) => {
-              maincategorySelection.push({ label:c. categoryname, value: c.sino });
+              maincategorySelection.push({ label: c.name, value: c.code });
             })
             this.mainCategoryOptions =  maincategorySelection;
             this.mainCategoryOptions.unshift({ label: '-select', value: null });
             break;
             case 'S':
             this.subCategoryData.forEach((c: any) => {
-              subcategorySelection.push({ label:c. categoryname, value: c.sino });
+              subcategorySelection.push({ label: c.name, value: c.code });
             })
             this.subCategoryOptions =  subcategorySelection;
             this.subCategoryOptions.unshift({ label: '-select', value: null });
@@ -143,8 +148,8 @@ export class CallSheetComponent implements OnInit {
       'project_name':this.projectName.value,
       'role_id':this.role.value,
       'date':this.date,
-      'general_call_time':this.generalCallTime,
-      'shooting_call_time':this.shootingCallTime,
+      'general_call_time':(this.generalCallTimeUpdate)? this.generalCallTimeUpdate : this._datePipe.transform(this.generalCallTime, 'hh:mm:ss'),
+      'shooting_call_time':(this.shootingCallTimeUpdate)? this.shootingCallTimeUpdate:this._datePipe.transform(this.shootingCallTime, 'hh:mm:ss'),
       'location_id':this.location.value,
       'phone_number':this.phoneNumber,
       'main_category_id':this.mainCategory.value,
@@ -152,18 +157,18 @@ export class CallSheetComponent implements OnInit {
       'created_date': new Date(),
       'flag':(this.selectedType == 1) ? true : false
     };
-//save 2
+//lodginginfo
 const lodginginfoparams = {
   'slno': this.RowId,
   'location': this. locationName,
   'address':this.address,
   'note':this. note,
 };
-//save3
+//transportinfo
 const transportinfoparams = {
   'slno': this.Id,
   'driver_name': this.driverName,
-  'pickup_time':this.pickupTime,
+  'pickup_time':(this.pickupTimeUpdate) ? this.pickupTimeUpdate :this._datePipe.transform(this.pickupTime, 'hh:mm:ss'),
   'pickup_location':this.pickupLocation,
   'drop_location':this.dropLocation,
   'passenger_id':this.passengerName,
@@ -190,7 +195,6 @@ const params=   //call character
       }
     })
   }
-
   getContactId() {            //get selected fields contact id as a string array
     var arr:any = [];
     this.contactid = []
@@ -206,7 +210,6 @@ const params=   //call character
      this.selectedCustomers = value;
    console.log('m',value)
 }
-
   onView(){
     this.restapiservice.get(Pathconstants.callinfo_GET).subscribe(res => {
       this.callinfoData = res
@@ -222,26 +225,27 @@ const params=   //call character
     this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
       this.transportinfoData = res;
     })
-  }
-  
+  } 
   onEditcallinfo(rowData:any){
-  this.RowId=rowData.slno;
+  this.Row=rowData.slno;
   this.projectName=rowData.project_name;
-  this.projectNameOptions=[{ label: rowData.projectname, value: rowData.project_id }];
+  this.projectNameOptions=[{ label: rowData.projectname, value: rowData.project_name}];
   this.role=rowData.role_id;
-  this.roleOptions=[{ label: rowData.rolename, value: rowData.roleid }];
+  this.roleOptions=[{ label: rowData.rolename, value: rowData.role_id }];
   this.date=new Date(rowData.date);
   this.generalCallTime=rowData.general_call_time;
+  this.generalCallTimeUpdate=rowData.general_call_time;
   this.shootingCallTime=rowData.shooting_call_time;
+  this.shootingCallTimeUpdate=rowData.shooting_call_time;
   this.location=rowData.location_id;
-  this.locationOptions=[{ label: rowData.location_name, value: rowData.slno }];
+  this.locationOptions=[{ label: rowData.location_name, value: rowData.location_id }];
   this.phoneNumber=rowData.phone_number,
   this.mainCategory=rowData.main_category_id,
-  this.mainCategoryOptions=[{ label: rowData.categoryname, value: rowData.sino }];
+  this.mainCategoryOptions=[{ label: rowData.categoryname, value: rowData.main_category_id }];
   this.subCategory=rowData.sub_category_id,
-  this.subCategoryOptions=[{ label: rowData.subcategoryname, value: rowData.sino }];
+  this.subCategoryOptions=[{ label: rowData.subcategoryname, value: rowData.sub_category_id }];
   this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
-  
+  this.onAdd();
   }
 onSavelodginginfo(){
   const params = {
@@ -294,21 +298,22 @@ onEdittransportinfo(rowData:any){
   this.Id=rowData.slno;
   this.driverName=rowData.driver_name;
   this.pickupTime=rowData.pickup_time;
+  this.pickupTimeUpdate=rowData.pickup_time;
   this.pickupLocation=rowData.pickup_location;
   this.dropLocation=rowData.drop_location;
   this.passengerName=rowData.passenger_id;
   this.passengerNameOptions=[{ label: rowData.passengername, value: rowData.passenger_id
   }];
+  
 }
-
 onAdd() {
+  this.maincategorynew=[];
    this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
-    console.log(2,res);
+    //console.log(2,res);
    this.shootingScheduleDetails = res;
-   console.log(3,res);
-   console.log('kj',this.shootingScheduleDetails)
+   //console.log(3,res);
+  // console.log('kj',this.shootingScheduleDetails)
     this.shootingScheduleDetails.forEach((i: any) => {
-       console.log(4)
        if(i.maincategory_id === this.mainCategory.value && i.subcategory_id === this.subCategory.value) 
        {console.log('i',i.maincategory_id)
         console.log('i2',i.subcategory_id)
@@ -338,5 +343,15 @@ onAdd() {
       this.pickupLocation=null;
       this.dropLocation=null;
       this.passengerName=null;
+      this.onAdd();
+    }
+    oncheck(){
+      this.data.forEach( i => {
+        if(i.maincategory_id == this.mainCategory.value && i.subcategory_id == this.subCategory.value)  {
+          this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Name is already exist, Please input different name' }];
+           this.mainCategory = null;
+           this.subCategory =null;
+        }
+      })
     }
 }
