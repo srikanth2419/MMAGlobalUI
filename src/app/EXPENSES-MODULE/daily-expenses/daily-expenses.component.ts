@@ -4,6 +4,7 @@ import { Message, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
+import { MasterService } from 'src/app/services/master.service';
 import { RestapiService } from 'src/app/services/restapi.service';
 
 @Component({
@@ -32,11 +33,13 @@ export class DailyExpensesComponent implements OnInit {
   loading: boolean = false;
   newprojectcreationData: any[] = [];
   newfundbudgetAmount:any;
+  dailyexpenses: any[] = [];
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
-  constructor(private restapiservice: RestapiService) { }
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService) { }
 
   ngOnInit(): void {
+    this.dailyexpenses=this._masterService.getMaster('EC')
     this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {
       this.expensescategorymasterData = res
     })
@@ -60,7 +63,7 @@ export class DailyExpensesComponent implements OnInit {
         break;
       case 'D':
         this. expensescategorymasterData.forEach((c: any) => {
-          dailyexpensesSelection.push({ label: c.name, value: c.sino });
+          dailyexpensesSelection.push({ label: c.name, value: c.code });
         })
         this.expensesOptions = dailyexpensesSelection;
         this.expensesOptions.unshift({ label:'-select', value: null });
@@ -183,6 +186,4 @@ onClear(){
       this.grandTotal = 0;
     }
   }
-
-
 }

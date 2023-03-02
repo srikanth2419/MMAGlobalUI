@@ -42,22 +42,18 @@ export class ShootingScheduleComponent implements OnInit {
   loading: boolean = false;
   contactlistData: any[] = [];
   maincategoryOptions: any;
-  mainCategoryMaster: any
-  mainCategoryData: any;
+  mainCategory: any
+  mainCategoryData: any[] = [];
   subCategoryData: any;
   subcategoryOptions: any;
-  subCategoryMaster: any;
+  subCategory: any;
   minDate: any;
   maincategorynew: any[] = [];
   shootingStatusData:any[] = [];
   selectedType: any;
   contactid:any =[];
   contactlistcols:any;
-  hideTable: boolean = true;
-  mainCategory: any = [];
-  subCategory: any = [];
-  shootingStatus:any=[];
-
+  masterData:any[] = [];
 
   constructor(private restapiservice: RestapiService,private _masterService: MasterService) {
   }
@@ -65,9 +61,9 @@ export class ShootingScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.onView();
     this.minDate = new Date();
-    this.mainCategory = this._masterService.getMaster('MC')
-    this.subCategory = this._masterService.getMaster('SC')
-    this.shootingStatus=this._masterService.getMaster('SS')
+    this.mainCategoryData = this._masterService.getMaster('MC')
+    this.subCategoryData = this._masterService.getMaster('SC')
+    this.shootingStatusData=this._masterService.getMaster('SS')
 
     this.dayNightOptions = [
       { label: 'select', value: null },
@@ -76,6 +72,7 @@ export class ShootingScheduleComponent implements OnInit {
       { label: 'BOTH', value: 3 }
 
     ];
+
     this.designOptions = [
       { label: 'select', value: null },
       { label: 'Interior', value: 1 },
@@ -104,7 +101,7 @@ export class ShootingScheduleComponent implements OnInit {
         this.projectNameOptions.unshift({ label: '-select', value: null });
         break;
       case 'MC':
-        this.mainCategory.forEach((c: any) => {
+        this.mainCategoryData.forEach((c: any) => {
           maincategoryselection.push({ label: c.name, value: c.code });
         })
         this.maincategoryOptions = maincategoryselection;
@@ -112,7 +109,7 @@ export class ShootingScheduleComponent implements OnInit {
         break;
 
       case 'SC':
-        this.subCategory.forEach((c: any) => {
+        this.subCategoryData.forEach((c: any) => {
           subcategoryselection.push({ label: c.name, value: c.code });
         })
         this.subcategoryOptions = subcategoryselection;
@@ -120,7 +117,7 @@ export class ShootingScheduleComponent implements OnInit {
         break;
 
         case 'SS':
-          this.shootingStatus.forEach((c: any) => {
+          this.shootingStatusData.forEach((c: any) => {
             shootingstatusselection.push({ label: c.name, value: c.code });
           })
           this.statusOptions = shootingstatusselection;
@@ -136,18 +133,17 @@ export class ShootingScheduleComponent implements OnInit {
     {
       const shootingparams = {
         'slno': this.RowId,
-        'project_id': this.projectName,
+        'project_id': this.projectName.value,
         'scene': this.scene ,
         'interior_exterior': this.design.label,
         'day_night': this.dayNight.label,
         'schedule_day': this.scheduleDay,
         'schedule_date': this.scheduleDate,
-        'status_id': this.status,
-        'main_category_id': this.mainCategoryMaster.value,
-        'sub_category_id': this.subCategoryMaster.value,
+        'status_id': this.status.value,
+        'main_category_id': this.mainCategory.value,
+        'sub_category_id': this.subCategory.value,
         'created_date': new Date(),
         'flag': (this.selectedType == 1) ? true : false,
-        
 
       };
       const params={
@@ -158,7 +154,6 @@ export class ShootingScheduleComponent implements OnInit {
         if (res != null && res != undefined) {
           this.onView();
           this.onClear();
-          this.hideTable = false;
           this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
           setTimeout(() => this.responseMsg = [], 3000);
         }
@@ -170,7 +165,6 @@ export class ShootingScheduleComponent implements OnInit {
     }
   }
   getContactId() { 
-    //get selected fields contact id as a string array 
       var arr:any = [];
        this.contactid = []
         this.selectedCustomers.forEach(i => {
@@ -191,8 +185,10 @@ export class ShootingScheduleComponent implements OnInit {
      this.RowId = 0;
      this.projectNameOptions=null;
      this.scene=null;
-     this.designOptions=null;
-     this.dayNightOptions=null;
+     this.design = null;
+     this.designOptions=[];
+     this.dayNight = null;
+     this.dayNightOptions=[];
      this.scheduleDay=null;
      this.statusOptions=null;
      this.maincategoryOptions = null;
@@ -200,22 +196,30 @@ export class ShootingScheduleComponent implements OnInit {
      this.selectedType = null;
      this.scheduleDate = null;
      this.contactid =null;
-    // this.contactlistcols = null;
-     this.hideTable = false;
-   
+     this.onAdd();
   }
 
   onAdd() {
+    this.shootingScheduleDetails = [];
+    this.maincategorynew =[];
     this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => { 
     this.shootingScheduleDetails = res; 
     this.shootingScheduleDetails.forEach((i: any) => {
-    if(i.maincategory_id === this.mainCategoryMaster.value && i.subcategory_id === this.subCategoryMaster.value) { 
+    if(i.maincategory_id === this.mainCategory.value && i.subcategory_id === this.subCategory.value) { 
+      console.log('succ')
     this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name,'contactid':i.slno});
      }
     }) 
     })
-    }
-    
+    this.mainCategoryData.forEach(i => {
+      if (i.maincategory_id === this.maincategoryOptions) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Category name is already exist, Please input different name' }];
+        setTimeout(() => this.responseMsg = [], 2000)
+        this.mainCategory = null;
+      }
+    })
+  } 
+  
   onView() {
     this.restapiservice.get(Pathconstants.shooting_schedule_Get).subscribe(res => {
       this.ShootingScheduleData = res;
@@ -227,23 +231,23 @@ export class ShootingScheduleComponent implements OnInit {
     })
   }
   onEdit(rowData: any) {
-
     this.RowId = rowData.slno;
     this.projectName = rowData.project_id;
     this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_id}];
     this.scene=rowData.scene;
     this.design=rowData.interior_exterior;
-    this.designOptions=[{label:rowData.interior_exterior,value:rowData.slno}];
+    this.designOptions=[{label:rowData.interior_exterior,value:rowData.interior_exterior}];
     this.dayNight=rowData.day_night;
-    this.dayNightOptions=[{label:rowData.day_night,value:rowData.slno}];
+    this.dayNightOptions=[{label:rowData.day_night,value:rowData.day_night}];
     this.scheduleDay=rowData.schedule_day;
     this.scheduleDate=new Date(rowData.schedule_date);
     this.status=rowData.status_id;
-    this.statusOptions=[{label:rowData.shooting_status,value:rowData.slno}];
-    this.mainCategoryMaster=rowData.main_category_id;
-    this.maincategoryOptions=[{label:rowData.maincategoryname,value:rowData.sino}];
-    this.subCategoryMaster=rowData.sub_category_id;
-    this.subcategoryOptions=[{label:rowData.subcategoryname,value:rowData.sino}];
+    this.statusOptions=[{label:rowData.shooting_status,value:rowData.status_id}];
+    this.mainCategory=rowData.main_category_id;
+    this.maincategoryOptions=[{label:rowData.maincategoryname,value:rowData.main_category_id}];
+    this.subCategory=rowData.sub_category_id;
+    this.subcategoryOptions=[{label:rowData.subcategoryname,value:rowData.sub_category_id}];
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
+    this.onAdd();
   }
 }
