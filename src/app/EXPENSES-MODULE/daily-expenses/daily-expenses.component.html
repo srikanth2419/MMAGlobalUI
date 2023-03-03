@@ -37,7 +37,7 @@
             <div>Invoice Entry</div>
             <p-card>
                 <div #tab2 class="col-12 md:col-12 lg:col-12">
-                    <div class="p-fluid grid"> 
+                    <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="incoiceno" name="_invoiceno" pInputText
@@ -59,12 +59,12 @@
                                 <label for="_amnt"> Amount</label>
                             </span>
                         </div>
-                        <div class="field col-4 md:col-3 lg:col-2">
-                            <button pButton type="button" label=" +Add" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
-                            <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
-
-                        </div>
                     </div>
+                </div>
+                <div class="field col-12 md:col-12 lg:col-12 to-center">
+                    <button pButton type="button" label=" +Add" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
+                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
+
                 </div>
             </p-card>
         </form>
