@@ -40,17 +40,25 @@ export class LoginComponent implements OnInit {
         if (response.item3.length !== 0) {
           [response.item3].forEach((key: any) => {
             const obj: User = {
-            // Id = (key.id !== null && key.id !== undefined) ? key.id : 0;
-            roleid : (key.roleid !== null && key.roleid !== undefined) ? key.roleid : 0
-            ,id:(key.id !== null && key.id !== undefined)? key.id:0
-            ,mailid : (key.username_emailid !== null && key.username_emailid !== undefined) ? key.username_emailid : ''
-            ,production_house_name : (key.production_house_name !== null && key.production_house_name !== undefined) ? key.production_house_name:''
+              // Id = (key.id !== null && key.id !== undefined) ? key.id : 0;
+              roleid: (key.roleid !== null && key.roleid !== undefined) ? key.roleid : 0
+              , id: (key.id !== null && key.id !== undefined) ? key.id : 0
+              , mailid: (key.username_emailid !== null && key.username_emailid !== undefined) ? key.username_emailid : ''
+              , production_house_name: (key.production_house_name !== null && key.production_house_name !== undefined) ? key.production_house_name : ''
             }
-          this._authService.login(obj);
+            this._authService.login(obj);
           })
-          // this.userInfo = response.item3;
-          // this._authService.setUserInfo(this.userInfo);
+          this.userInfo = response.item3;
+          this._authService.setUserInfo(this.userInfo);
         }
+        const menu_params = new HttpParams().append('roleid', this._authService.getUserInfo().roleid);
+        this.restApiService.getByParameters('MenuMasterRoleid/GetMenuRoleid', menu_params).subscribe(res => {
+          ///setting menu in authservice as object to load after login
+          this._authService.setMenu(res);
+          this._authService.setMenuStatus(true);
+          this._authService.login(this.userInfo);
+
+        });
       } else {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: response.item2 }];
         setTimeout(() => this.responseMsg = [], 3000);
@@ -66,7 +74,7 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-  
+
   onShowPswd() {
     var inputValue = (<HTMLInputElement>document.getElementById('PWD'));
     if (inputValue.type === 'password') {

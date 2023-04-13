@@ -1,10 +1,10 @@
-<app-header [hide]="hideContent" (openMenu)="toggleMenu($event)"></app-header>
+<app-header  [hide]="hideContent" (openMenu)="toggleMenu($event)" ></app-header>
 <div class="col-12 md:col-12 lg:col-12">
   <div class="grid">
-    <div *ngIf="showMenu" class="col-10 md:col-3 lg:col-2 no-padding">
-      <app-menu [hide]="hideContent"></app-menu>
+    <div *ngIf="isLoggedIn" class="col-10 md:col-3 lg:col-2 no-padding">
+      <app-menu  [status]="show"   (sidenavToggle)="onToggle($event)"></app-menu>
     </div>
-    <div [ngClass]="showMenu ? 'col-12 md:col-9 lg:col-10' : 'col-12 md:col-12 lg:col-12'" 
+    <div [ngClass]="isLoggedIn ? 'col-12 md:col-9 lg:col-10' : 'col-12 md:col-12 lg:col-12'" 
     [ngStyle]="{ 'padding': !hideContent ? '5px 10px 0px' : '0', 'margin-top' : !hideContent ? '4.5rem' : '0' }">
       <!-- <app-homepage></app-homepage> -->
       <router-outlet></router-outlet>

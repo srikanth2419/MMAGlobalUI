@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('op', { static: false }) _op!: OverlayPanel;
   @Output() openMenu = new EventEmitter<boolean>();
   @Input() hide: boolean = false;
+  @Input() public toggle: boolean = true; 
   username: string = '';
   isLoggedIn: boolean = false;
   constructor(private authservice: AuthService) {
@@ -32,7 +33,5 @@ export class HeaderComponent implements OnInit {
     this.openMenu.emit(value);
     console.log('val', value, this.display)
   }
-
- 
-
+  
 }

@@ -7,6 +7,7 @@ export class Pathconstants {
     public static readonly MenuMaster_Post ='MenuMaster/Savemenumaster'
     public static readonly UnionMasterController_GET ='UnionMaster/GetUnionMaster' 
     public static readonly MenuMasterController_GET ='MenuMaster/GetMenuMaster'  
+    public static readonly MenuMasterRoleidController_GET='MenuMasterRoleid/GetMenuRoleid'
     public static readonly UnionMaster_Post ='UnionMaster/SaveunionmasterDB' 
     public static readonly LocationInfo_Post='LocationInfo/SaveLocationInfo'
     public static readonly LocationInfo_Get='LocationInfo/GetLocationInfo'

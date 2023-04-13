@@ -8,7 +8,7 @@ import { MasterService } from './master.service';
   providedIn: 'root'
 })
 export class AuthService {
-  menuObj: any = [];
+  menuObj: any ;
   private loggedIn = new BehaviorSubject<boolean>(false);
   private hasMenu = new BehaviorSubject<boolean>(false);
   /// To control if the user is logged in or not
@@ -27,6 +27,7 @@ export class AuthService {
   }
 
   get fetchMenu() {
+    console.log('fetch', this.menuObj)
     return this.menuObj;
   }
 
@@ -36,8 +37,9 @@ export class AuthService {
 
   setMenu(obj: any) {
     this.menuObj = obj;
+    console.log('setm',this.menuObj)
   }
-
+   
   setUserInfo(user: User) {
     localStorage.setItem('UserInfo', JSON.stringify(user));
   }
@@ -47,7 +49,7 @@ export class AuthService {
       localStorage.setItem('UserInfo',JSON.stringify(user))
     this.loggedIn.next(true);
     console.log('succ',user)
-    
+
     ///navigating to dashboard once logged in successfully & setting all essential objects globally
     this._router.navigate(['/home']);
     }

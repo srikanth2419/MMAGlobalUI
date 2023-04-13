@@ -53,6 +53,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DatePipe } from '@angular/common';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 
 
@@ -115,6 +116,8 @@ import { DatePipe } from '@angular/common';
     KeyFilterModule,
     ConfirmDialogModule,
     OverlayPanelModule,
+    PanelMenuModule,
+    
 
   ],
   providers: [RestapiService,ConfirmationService,DatePipe],

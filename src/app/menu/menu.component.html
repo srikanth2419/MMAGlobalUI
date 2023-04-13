@@ -1,48 +1,12 @@
-<div *ngIf="!hide" class="col-10 md:col-3 lg:col-2 menu-sidebar">
-    <div style="margin-top: 2rem;">
-        <div style="margin-bottom: 0.5rem;" [routerLink]="['/home']">
-            <span class="menu-item-subtitle">
-                <i class="pi pi-fw pi-home"></i>
-                 Home </span>
-            </div>
-            <div style="margin-bottom: 0.5rem;" [routerLink]="['/dashboard']">
-                <span class="menu-item-subtitle">
-                    <i class="pi pi-fw pi-home"></i>
-                     Dashboard </span>
-                </div>
-            <!-- <div style="margin-bottom: 0.5rem;" [routerLink]="['/registration']">
-                <span class="menu-item-subtitle">
-                    <i class="pi pi-fw pi-pencil"></i>
-
-                     Registration </span>
-                </div> -->
-                <div style="margin-bottom: 0.5rem;" [routerLink]="['/project-approval']">
-                    <span class="menu-item-subtitle">
-                        <i class="pi pi-fw pi-pencil"></i>
-                         Registration Approval </span>
-                    </div>
-                    <div style="margin-bottom: 0.5rem;" [routerLink]="['/change-password']">
-                        <span class="menu-item-subtitle">
-                            <i class="pi pi-fw pi-eye"></i>
-                             Change Password</span>
-                        </div>
-                    
-                
-
-        <div *ngFor="let i of titles" class="col-12 md:col-12 lg:col-12">
-            <div>
-               <span class="menu-item-title"> {{i.title}} </span>
-            <div class="menu-item-subtitle" *ngFor="let j of items">
-                <div *ngIf="(i.id == j.id)"> 
-                    <div [routerLink]="j.routerLink">
-                <div *ngIf="(i.id == j.id)">    
-                <i class="{{j.icon}}"></i>
-                <span>{{j.label}}</span>
-            </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
+<p-sidebar [(visible)]="status" [modal]="false" [showCloseIcon]="false" 
+fxHide.gt-lg fxFlex.gt-md fxHide.gt-sm fxHide.md fxHide.lg fxHide.xl fxHide.lt-xl
+fxShow.lt-sm fxShow.xs fxShow.gt-xs>
+    <div>
+        <p-panelMenu [model]="items" [style]="{'width':'80%', 'height': '-webkit-fill-available','min-height': '200%', 'border': '1px solid #baff9c',
+        'box-shadow': '5px 0 5px -5px #088d0d', 'background': '#0c9616' }" ></p-panelMenu>
     </div>
-</div>
+</p-sidebar>
+<p-panelMenu [model]="items" [style]="{'position': 'absolute', 'width': '180px', 'height': '-webkit-fill-available','min-height': '100%', 'border': '1px solid #787f92',
+'box-shadow': '5px 0 5px -5px #787f92', 'background': '#787f92'}" fxHide.xs 
+fxShow.gt-lg fxShow.gt-md fxShow.gt-sm fxShow.gt-xs fxShow.lg
+fxShow.lt-lg fxShow.lt-md fxShow.lt-sm fxShow.lt-xl fxShow.md></p-panelMenu>
