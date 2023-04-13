@@ -24,7 +24,7 @@
 
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown [options]="designOptions" optionLabel="label" [(ngModel)]="design"
+                                <p-dropdown [options]="designOptions" [(ngModel)]="design"
                                     name="_design">
                                 </p-dropdown>
                                 <label for="_design">Interior/Exterior</label>
@@ -66,8 +66,8 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="maincategoryOptions" (click)="onSelect('MC')"  
-                                    [(ngModel)]="mainCategoryMaster"optionLabel="label" name="_mainCategory">
-                                </p-dropdown>
+                                    [(ngModel)]="mainCategory"optionLabel="label" name="_mainCategory">
+                                    (change)="onAdd()"  required </p-dropdown>
                                 <label for="_mainCategory">Main Category</label>
                             </span>
                         </div>
@@ -75,8 +75,8 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <p-dropdown [options]="subcategoryOptions" (click)="onSelect('SC')"
-                                    [(ngModel)]="subCategoryMaster" optionLabel="label" name="_subCategory">
-                                </p-dropdown>
+                                    [(ngModel)]="subCategory" optionLabel="label" name="_subCategory">
+                                    required </p-dropdown>
                                 <label for="_subCategory">Sub Category</label>
                             </span>
                         </div>
@@ -92,14 +92,14 @@
 
                         <div class="field col-12 md:col-3 lg:col-1">
                             <button pButton type="button" label="Add "
-                                (click)="onAdd()" [disabled]="!f.valid || !f.dirty" 
+                                (click)="onAdd()" 
                                 ></button>
                         </div>
                     </div>
                 </div>
                 <p-panel header="character participation">
                     <div #row2 class="col-12 md:col-12 lg:col-12">
-                        <p-table *ngIf="hideTable" [columns]="contactlistcols" [value]="maincategorynew" dataKey="first_name" styleClass="p-datatable-gridlines"
+                        <p-table [columns]="contactlistcols" [value]="maincategorynew" dataKey="contactid" styleClass="p-datatable-gridlines"
                          [(selection)]="selectedCustomers" responsiveLayout="scroll" (selectionChange)="onSelectionChange($event)"
                           [totalRecords]="totalRecords" [paginator]="true" [rows]="10">
                             <ng-template pTemplate="header" let-columns>

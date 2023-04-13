@@ -134,7 +134,9 @@ export class CallSheetComponent implements OnInit {
             break;
             case 'S':
             this.subCategoryData.forEach((c: any) => {
+              if (c.maincategorycode === this.mainCategory.value) {
               subcategorySelection.push({ label: c.name, value: c.code });
+              }
             })
             this.subCategoryOptions =  subcategorySelection;
             this.subCategoryOptions.unshift({ label: '-select', value: null });

@@ -74,15 +74,19 @@ export class RegistrationComponent implements OnInit {
         this.countryOptions.unshift({ label: '-select', value: null });
         break;
         case 'S':
-        this.statemaster.forEach((c: any) => {
-          stateSelection.push({ label: c.name, value: c.code });
+        this.statemaster.forEach((sm: any) => {
+          if (sm.countrycode === this.country){
+          stateSelection.push({ label: sm.name, value: sm.code });
+          }
         })
         this.stateOptions = stateSelection;
         this.stateOptions.unshift({ label: '-select', value: null });
         break;
         case 'y':
-          this.cityMaster.forEach((c:any) => {
-            citySelection.push({ label: c.name, value: c.code });
+          this.cityMaster.forEach((cm:any) => {
+            if (cm.statecode === this.state) {
+            citySelection.push({ label: cm.name, value: cm.code });
+            }
           })
           this.cityOptions =citySelection;
           this.cityOptions.unshift({ label: '-select', value: null });

@@ -10,6 +10,9 @@ import { RestapiService } from "./restapi.service";
 })
 
 export class MasterService {
+    forEach(arg0: (i: any) => void) {
+      throw new Error('Method not implemented.');
+    }
     masterData: any = [];
     masterDataAll: any = [];
     data: any = [];
