@@ -9,7 +9,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'MediaManage';
-  showMenu: boolean = true;
+ // showMenu: boolean = true;
   hideContent: boolean = false;
   show: boolean = false;
   isLoggedIn: boolean = false;
@@ -23,10 +23,10 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         if (event.url === '/login' || event.url === '/registration' ) {
           this.hideContent = true;
-          this.showMenu = false;
+        //  this.showMenu = false;
         } else {
           this.hideContent = false;
-          this.showMenu = true;
+         // this.showMenu = true;
         }
       }
     }); 
@@ -54,7 +54,7 @@ export class AppComponent {
   // }
 
   toggleMenu(value: boolean) {
-    this.showMenu = value;
-    console.log('appcp', this.showMenu, value)
+   // this.showMenu = value;
+   // console.log('appcp', this.showMenu, value)
   }
 }
