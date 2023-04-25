@@ -45,6 +45,7 @@ export class MenuMasterComponent implements OnInit {
   ngOnInit(): void {
     this.onView();
     this.prioritiesOptions = [
+      {label : '-select-', value: 0},
       { label: '1', value: 1 },
       { label: '2', value: 2 },
       { label: '3', value: 3 },
@@ -78,7 +79,7 @@ export class MenuMasterComponent implements OnInit {
       'icon': (this.icon !== null && this.icon !== undefined) ? this.icon : '',
       'priorities': this.priorities,
       'isactive': (this.selectedType == 1) ? true : false
-    }
+    }   
     this.restApiService.post(Pathconstants.MenuMaster_Post, params).subscribe(res => {
       if (res != null && res != undefined) {
         this.onView();
@@ -92,7 +93,7 @@ export class MenuMasterComponent implements OnInit {
         setTimeout(() => this.responseMsg = [], 3000);
       }
     })
-  }
+  } 
 //
   onView() {
     this.restApiService.get(Pathconstants.MenuMasterController_GET).subscribe(res => {
@@ -105,8 +106,8 @@ export class MenuMasterComponent implements OnInit {
       console.log('name', this.data);
     })
   }
-  onSelect(type: any) {
 
+  onSelect(type: any) {
     let roleSelection: any = [];
     let parentSelection: any = [];
     let prioritySelection: any = [];
@@ -120,7 +121,9 @@ export class MenuMasterComponent implements OnInit {
         break;
       case 'M':
         this.data.forEach((c: any) => {
+          if(c.roleid === this.roleId ) {
           parentSelection.push({ label: c.name, value: c.id });
+        }
         })
         this.parentIdOptions = parentSelection;
         this.parentIdOptions.unshift({ label: '-Select', value: 0 });
@@ -166,21 +169,22 @@ export class MenuMasterComponent implements OnInit {
 
   checkMenuName() {
     this.data.forEach(i => {
-      if (i.name === this.name) {
+      if (i.name === this.name && i.url === this.url && i.roleid === this.roleId ) {
         this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Menu Name already exist, Please input different name' }];
         setTimeout(() => this.responseMsg = [], 2000)
         this.name = null;
       }
     })
   }
-  checkUrl() {
-    this.data.forEach(i => {
-      if (i.url === this.url) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'URL already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.url = null;
-      }
-    })
-  }
+
+  // checkUrl() {
+  //   this.data.forEach(i => {
+  //     if (i.url === this.url) {
+  //       this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'URL already exist, Please input different name' }];
+  //       setTimeout(() => this.responseMsg = [], 2000)
+  //       this.url = null;
+  //     }
+  //   })
+  // }
 
 }
