@@ -90,6 +90,7 @@ export class CallSheetComponent implements OnInit {
           this.onView();
   }
     onSelect(type: any) {
+      console.log('l',this.generalCallTime)
     let roleSelection: any = [];
     let projectcreationSelection:any =[];
     let locationSelection:any =[];
@@ -152,6 +153,8 @@ export class CallSheetComponent implements OnInit {
       'date':this.date,
       'general_call_time':(this.generalCallTimeUpdate)? this.generalCallTimeUpdate : this._datePipe.transform(this.generalCallTime, 'hh:mm:ss'),
       'shooting_call_time':(this.shootingCallTimeUpdate)? this.shootingCallTimeUpdate:this._datePipe.transform(this.shootingCallTime, 'hh:mm:ss'),
+      //'general_call_time':this.generalCallTime,
+      //'shooting_call_time':this.shootingCallTime,
       'location_id':this.location.value,
       'phone_number':this.phoneNumber,
       'main_category_id':this.mainCategory.value,
@@ -235,8 +238,8 @@ const params=   //call character
   this.role=rowData.role_id;
   this.roleOptions=[{ label: rowData.rolename, value: rowData.role_id }];
   this.date=new Date(rowData.date);
-  this.generalCallTime=rowData.general_call_time;
-  this.generalCallTimeUpdate=rowData.general_call_time;
+  this.generalCallTime= rowData.general_call_time;
+  this.generalCallTimeUpdate=new Date(rowData.general_call_time);
   this.shootingCallTime=rowData.shooting_call_time;
   this.shootingCallTimeUpdate=rowData.shooting_call_time;
   this.location=rowData.location_id;
@@ -285,7 +288,6 @@ onSavetransportinfo(){
   this.restapiservice.post(Pathconstants.transportinfo_Post, params).subscribe(res => {
     if (res != null && res != undefined) {
       
-      
       this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
       setTimeout(() => this.responseMsg = [], 3000);
     }
@@ -294,7 +296,6 @@ onSavetransportinfo(){
       setTimeout(() => this.responseMsg = [], 3000);
     }
   })
-
 }
 onEdittransportinfo(rowData:any){
   this.Id=rowData.slno;
@@ -353,7 +354,7 @@ onAdd() {
           this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Name is already exist, Please input different name' }];
            this.mainCategory = null;
            this.subCategory =null;
-        }
+        } 
       })
     }
 }
