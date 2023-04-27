@@ -9,23 +9,27 @@ import { User } from '../interface/user.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  userInfo: any;
+  logged_user!: User;
   display: boolean = false;
   @ViewChild('op', { static: false }) _op!: OverlayPanel;
   @Output() openMenu = new EventEmitter<boolean>();
   @Input() hide: boolean = false;
   @Input() public toggle: boolean = true; 
-  username: string = '';
+  
   isLoggedIn: boolean = false;
+  username: string='';
   constructor(private authservice: AuthService) {
     this.authservice.isLoggedIn.subscribe(value => {
       if(value) {
         this.isLoggedIn = value;
-        this.username = this.authservice.getUserInfo().mailid;
+       
       }
     })
    }
 
   ngOnInit(): void {
+    this.username = this.authservice.getUserInfo().mailid;
   }
 
   toggleMenu(value: boolean) {

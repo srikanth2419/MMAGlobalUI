@@ -52,7 +52,7 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-calendar [(ngModel)]="dob" name="_dob" [showIcon]="true" inputId="dobvalue">
+                                <p-calendar [(ngModel)]="dob" name="_dob" [showIcon]="true" inputId="dobvalue" [readonlyInput]="true">
                                 </p-calendar>
                                 <label for="_dob">D.O.B</label>
                             </span>
@@ -60,7 +60,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="mobno" name="_mobno" pInputText [(ngModel)]="mobileNo"
-                                    maxlength="10" required />
+                                    maxlength="10" [pKeyFilter]="'num'" required />
                                 <label for="_mobno">Mobile No</label>
                             </span>
                         </div>
@@ -70,7 +70,7 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId" required />
+                                <input type="text" id="email" name="_email" pInputText [(ngModel)]="emailId" [pKeyFilter]="blockMail" required />
                                 <label for="_email">Email Id</label>
                             </span>
                         </div>

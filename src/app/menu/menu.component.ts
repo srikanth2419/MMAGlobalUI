@@ -21,10 +21,6 @@ export class MenuComponent implements OnInit {
 
 
   constructor(private authservice: AuthService) {
-
-  }
-
-  ngOnInit(): void {
     this.authservice.isLoggedIn.subscribe(value => {
       if (value !== undefined || value !== null) {
         console.log('log', value)
@@ -39,7 +35,10 @@ export class MenuComponent implements OnInit {
         this.items = []
       }
     });
+
   }
+
+  ngOnInit(): void {}
 
 
   checkChildItems(data: any) {

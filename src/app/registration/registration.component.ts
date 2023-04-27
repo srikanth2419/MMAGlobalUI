@@ -45,6 +45,8 @@ export class RegistrationComponent implements OnInit {
   statemaster:any[]=[];
   cityMaster:any[]=[];
   masterData:any;
+  blockMail: RegExp = /^[^-=<>*%()^{}$#_!+&?,\s~`|:;'"?/]/;
+
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   constructor(private restapiservice: RestapiService,private _masterService: MasterService) { 
     // let masterData:any =new Observable<any[]>();

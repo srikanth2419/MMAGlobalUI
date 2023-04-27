@@ -35,7 +35,7 @@ export class MenuMasterComponent implements OnInit {
   disableInput: boolean = false;
   blockIcon: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.:;^'"~`?/]/;
   blockUrl: RegExp = /^[^=<>*%()|{}$@#_!+0-9&?,|.:;'`~"?^\s]/;
-  blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,~`|.:;'"?/]/;
+  blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   roleMaster: any = [];
 
   @ViewChild('f', { static: false }) _menumasterForm!: NgForm;
