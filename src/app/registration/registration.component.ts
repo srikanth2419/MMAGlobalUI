@@ -19,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   lastName: string = '';
   dob: any;
   mobileNo: any;
-  emailId: string = '';
+  mailId: any;
   password: string = '';
   confirmPwd: string = '';
   countryOptions: SelectItem[] = [];
@@ -45,6 +45,9 @@ export class RegistrationComponent implements OnInit {
   statemaster:any[]=[];
   cityMaster:any[]=[];
   masterData:any;
+  data: any[] = [];
+  userName:any;
+
   blockMail: RegExp = /^[^-=<>*%()^{}$#_!+&?,\s~`|:;'"?/]/;
 
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
@@ -103,7 +106,7 @@ export class RegistrationComponent implements OnInit {
       'last_name':this.lastName,
       'dob':this.dob,
       'mobile_number':this.mobileNo,
-      'email_id':this.emailId,
+      'email_id':this.mailId,
       'password':this.password,
       'country':this.country,
       'state':this.state,
@@ -148,7 +151,7 @@ onEdit(rowData:any){
   this.lastName=rowData.last_name;
   this.dob=rowData.dob;
   this.mobileNo=rowData.mobile_number;
-  this.emailId=rowData.email_id;
+  this.mailId=rowData.email_id;
   this.password=rowData.password;
   this.country=rowData.country;
   this.state=rowData.state;
@@ -166,7 +169,7 @@ onClear(){
   this.lastName ='';
   this.dob =null;
   this.mobileNo =null;
-  this.emailId ='';
+  this.mailId ='';
   this.password ='';
   this.country =null;
   this.state =null;
@@ -175,4 +178,50 @@ onClear(){
   this.addressLine2='';
   this.pincode =null;
 }
+checkIfEmailExists() {
+  this.data.forEach(i => {
+    const email: string = i.mailid;
+    if (email === this.mailId) {
+      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Email-ID is already exist' }];
+      setTimeout(() => this.responseMsg = [], 3000);
+      this.mailId = '';
+    } else {
+    }
+  })
 }
+onCheck() {
+  this.data.forEach(i => {
+    if (i.username === this.userName) {
+      this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: ' Username already exists, Please enter valid Username' }];
+      this.userName = null;
+    }
+  })
+}
+//checking existing mailid
+emailValidationCheck() {
+  if (this.mailId !== undefined && this.mailId !== null && this.mailId.trim() !== '' 
+      ) {
+    const entered_email: string = this.mailId.trim();
+    const substr = entered_email.split('@');
+    if (substr !== undefined && substr.length > 1) {
+      const last_str = substr[1].split('.');
+      if (last_str !== undefined && last_str.length > 1) {
+        if (last_str[1].toLowerCase() === 'com' || last_str[1].toLowerCase() === 'in') {
+        } else {
+          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
+          setTimeout(() => this.responseMsg = [], 3000);      
+        }
+      } else {
+        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
+        setTimeout(() => this.responseMsg = [], 3000);      
+      }
+    }else {
+      this.mailId = null;
+      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
+      setTimeout(() => this.responseMsg = [], 3000);      
+    }
+  }
+}
+
+}
+
