@@ -20,6 +20,20 @@ import {KeyFilterModule} from 'primeng/keyfilter';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { AppRoutingModule } from './app-routing.module';
+ 
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { DatePipe } from '@angular/common';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { PasswordModule } from 'primeng/password';
+import { CalendarComponent } from './calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { Calendar } from '@fullcalendar/core';
+ 
+
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
@@ -51,14 +65,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { DatePipe } from '@angular/common';
-import { PanelMenuModule } from 'primeng/panelmenu';
-
-
-
-
-
+ 
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -89,6 +101,9 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     ProjectApprovalComponent,
     ChangePasswordComponent,
     MailtypeMasterComponent,
+    CalendarComponent,
+  
+
     
     
   ],
@@ -117,8 +132,10 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     ConfirmDialogModule,
     OverlayPanelModule,
     PanelMenuModule,
+    PasswordModule,
+    FullCalendarModule,
     
-
+    
   ],
   providers: [RestapiService,ConfirmationService,DatePipe],
   bootstrap: [AppComponent]

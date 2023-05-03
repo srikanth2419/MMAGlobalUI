@@ -21,7 +21,7 @@
                                 <label for="_country">Role Name</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-3">
+                        <!-- <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="password" name="password" pInputText
                                      [(ngModel)]="Password" (input)="check(Password)"   required />
@@ -38,7 +38,26 @@
                             Uppercase(A-Z) must!</div>
                           <div *ngIf="LengthErrMsg" style="color: rgb(250, 15, 62); font-size: 12px; text-align: left">
                             Minimum 8 Characters!</div>
-                        </div>
+                        </div> -->
+                        <div class="field col-12 md:col-3 lg:col-3">
+                                       <span class="p-float-label">
+                                       <p-password name="_password" [(ngModel)]="Password" [toggleMask]="true" required>
+                                        <ng-template pTemplate="header">
+                                            <h6>Pick a password</h6>
+                                        </ng-template>
+                                        <ng-template pTemplate="footer">
+                                            <h5 class="mt-2">Password Hint</h5>
+                                            <ul class="pl-2 ml-2 mt-0" style="font-size: small;" >
+                                                <li>At least one lowercase</li>
+                                                <li>At least one uppercase</li>
+                                                <li>At least one numeric</li>
+                                                <li>Minimum 8 characters</li>
+                                            </ul>
+                                        </ng-template>
+                                    </p-password>
+                                    <label for="float-input">Password</label>
+                                       </span>
+                                    </div>   
                         <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
                             <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType" required>
                             </p-radioButton>&nbsp;
