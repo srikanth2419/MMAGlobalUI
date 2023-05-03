@@ -61,6 +61,7 @@ export class TableConstants {
         {field:'parentid',header:'ParentId',align:'right !important'},
         {field:'name',header:'Menu Name',align:'left !important'},
         {field:'url',header:'URL',align:'left !important'},
+        {field:'parentname',header:'Parent Name',align:'left !important'},
         {field:'icon',header:'Icon',align:'left !important'},
         {field:'priorities',header:'Priorities'},
         {field:'isactive',header:'IsActive'},
