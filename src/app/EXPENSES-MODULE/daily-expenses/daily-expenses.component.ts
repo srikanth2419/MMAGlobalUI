@@ -71,7 +71,7 @@ export class DailyExpensesComponent implements OnInit {
         break;
     }
   }
-  check() {
+  check() { 
     this.newprojectcreationData.forEach(i => {
       if (i.project_id === this.projectName) {
         this.newfundbudgetAmount = i.budget
