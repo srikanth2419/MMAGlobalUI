@@ -19,6 +19,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   budget: any;
   projectstartDate: any;
   prodhouseName: any;
+  prod_id: any;
   selectedType: any;
   loading: boolean = false;
   newprojectcreationData: any[] = [];
@@ -34,10 +35,13 @@ productionhouse:any;
 
   ngOnInit(): void {
     //this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
-    this.onView();
+  
     this.newprojectcreationCols = TableConstants.newprojectcreationCols;
     this.logged_user = this.authservice.getUserInfo();
     this.productionhouse = this.logged_user.production_house_name;
+    this.prod_id = this.logged_user.production_id;
+    this.onView();
+
   }
 
   onSave() {
@@ -49,6 +53,7 @@ productionhouse:any;
         'budget': this.budget,
         'project_start_date': this.projectstartDate,
         'created_date': new Date(),
+        'production_id':this.prod_id,
         'flag': (this.selectedType == 1) ? true : false
       };
       this.restapiservice.post(Pathconstants.projectcreation_Post, params).subscribe(res => {
@@ -77,10 +82,21 @@ productionhouse:any;
   }
 
   onView() {
-    this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => {
-      this.newprojectcreationData = res;
-      if (res) {
-        res.forEach((i: any) => {
+    // this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => {
+    //   this.newprojectcreationData = res;
+    //   if (res) {
+    //     res.forEach((i: any) => {
+    //       i.flag = (i.flag == true) ? 'Active' : 'InActive'
+    //     })
+    //   }
+    // })
+    const params = {
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.projectcreationproduction_GET, params).subscribe(response => {
+      this.newprojectcreationData = response
+      if (response) {
+        response.forEach((i: any) => {
           i.flag = (i.flag == true) ? 'Active' : 'InActive'
         })
       }

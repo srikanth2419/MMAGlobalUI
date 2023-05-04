@@ -21,7 +21,7 @@ export class AppComponent {
     });
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (event.url === '/login' || event.url === '/registration' ) {
+        if (event.url === '/login' || event.url === '/registration' || event.url === '/'  ) {
           this.hideContent = true;
         //  this.showMenu = false;
         } else {

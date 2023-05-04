@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
               , id: (key.id !== null && key.id !== undefined) ? key.id : 0
               , mailid: (key.username_emailid !== null && key.username_emailid !== undefined) ? key.username_emailid : ''
               , production_house_name: (key.production_house_name !== null && key.production_house_name !== undefined) ? key.production_house_name : ''
+              ,production_id:(key.production_id !== null && key.production_id !== undefined) ? key.production_id : 0
             }
             this._authService.login(obj);
           })
