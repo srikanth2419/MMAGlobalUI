@@ -30,7 +30,8 @@ export class ProjectApprovalComponent implements OnInit {
   onUserMasterGet(row: any) {
     const params = {
       'username_emailid': row.email_id,
-      'production_house_name':row.production_house_name
+      'production_house_name':row.production_house_name,
+      'production_id':row.production_id
     }
     this.restApiService.get(Pathconstants.UserMasterController_Get).subscribe(res => {
       this.userdata = res;
@@ -116,7 +117,8 @@ export class ProjectApprovalComponent implements OnInit {
       'production_house_name':row.production_house_name,
       'password': 'MMA@1234',
       'roleid': 2,
-      'flag': true
+      'flag': true,
+      'production_id':row.production_id
     }
     this.restApiService.post(Pathconstants.UserMaster_Post, params).subscribe(res => {
       if (res) {

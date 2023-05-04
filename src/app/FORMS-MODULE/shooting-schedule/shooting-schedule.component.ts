@@ -6,7 +6,8 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { MasterService } from 'src/app/services/master.service';
-
+import { User } from 'src/app/interface/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -54,8 +55,11 @@ export class ShootingScheduleComponent implements OnInit {
   contactid:any =[];
   contactlistcols:any;
   masterData:any[] = [];
+  userInfo: any;
+  logged_user!: User;
+  prod_id:any;
 
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService) {
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService) {
   }
 
   ngOnInit(): void {
@@ -64,6 +68,8 @@ export class ShootingScheduleComponent implements OnInit {
     this.mainCategoryData = this._masterService.getMaster('MC')
     this.subCategoryData = this._masterService.getMaster('SC')
     this.shootingStatusData=this._masterService.getMaster('SS')
+    this.logged_user = this.authservice.getUserInfo();
+    this.prod_id= this.logged_user.production_id;
 
     this.dayNightOptions = [
       { label: 'select', value: null },
@@ -95,7 +101,10 @@ export class ShootingScheduleComponent implements OnInit {
     switch (type) {
       case 'PN':
         this.newprojectcreationData.forEach((c: any) => {
-          projectSelection.push({ label: c.project_name, value: c.project_id });
+          if(c.production_id === this.prod_id)
+          {
+          projectSelection.push({ label: c.project_name, value: c.production_id });
+          }
         })
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });

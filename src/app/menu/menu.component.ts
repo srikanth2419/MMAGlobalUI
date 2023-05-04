@@ -31,9 +31,9 @@ export class MenuComponent implements OnInit {
         console.log('menu', this.items)
         // }
       }
-      else {
-        this.items = []
-      }
+      // else {
+      //   this.items = []
+      // }
     });
 
   }
@@ -43,6 +43,7 @@ export class MenuComponent implements OnInit {
 
   checkChildItems(data: any) {
     console.log('1', data)
+    if (data.length !== 0) {
     for (let i = 0; i < data.length; i++) {
       if (data[i]) {
         if (data[i].items.length !== 0) {
@@ -57,11 +58,11 @@ export class MenuComponent implements OnInit {
         }
       }
     }
+  }
   }   
 
   public onToggleSidenav = () => {
     this.status = this.status; //closing menu once its been clicked
     this.sidenavToggle.emit(this.status); //emitting event that menu is closed to app component
   }
-
 }
