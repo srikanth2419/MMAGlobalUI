@@ -47,10 +47,11 @@ export class RegistrationComponent implements OnInit {
   masterData:any;
   data: any[] = [];
   userName:any;
+  block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/; 
 
-  blockMail: RegExp = /^[^-=<>*%()^{}$#_!+&?,\s~`|:;'"?/]/;
-
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  @ViewChild('f', {static: false}) _RegistrationForm!: NgForm;
+  pincode_max: any;
+  obj: any;
   constructor(private restapiservice: RestapiService,private _masterService: MasterService) { 
     // let masterData:any =new Observable<any[]>();
    this.masterData=this._masterService.invokeMasterData();
@@ -64,6 +65,7 @@ export class RegistrationComponent implements OnInit {
     this.cityMaster = this._masterService.getMaster('CIM');
     }, 500);
     this.registrationCols = TableConstants.RegistrationColumns;
+    this.pincode_max = 643253;
      
   }
   onSelect(type: any) {
@@ -123,7 +125,7 @@ export class RegistrationComponent implements OnInit {
     {
       this.onView();
       this.onClear();
-      this._respondentForm.reset();
+      this._RegistrationForm.reset();
       this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
       setTimeout(() => this.responseMsg = [], 3000);
     }
@@ -222,6 +224,13 @@ emailValidationCheck() {
     }
   }
 }
-
+validateFields() {
+  if (this.pincode !== null && this.pincode !== undefined) {
+     if (this.pincode > this.pincode_max) {
+    this._RegistrationForm.controls['_pincode'].setErrors({ 'incorrect': true });
+     } } 
+     else {
+    this._RegistrationForm.controls['_pincode'].setErrors({ 'incorrect': true });
 }
-
+}
+}

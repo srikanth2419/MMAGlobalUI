@@ -1,5 +1,5 @@
 <!--Header-->
-<div  class="col-12 md:col-12 lg:col-12 header-div">
+<div class="col-12 md:col-12 lg:col-12 header-div">
     <div class="grid">
         <div class="col-7 md:col-4 lg:col-2 header-logo-txt">
             <div class="grid">
@@ -13,8 +13,8 @@
         <div class="col-3 md:col-3 lg:col-3 header-login">
             <!-- <span>Log Out</span><i class="pi pi-angle-down"
                 style="color: grey;" [routerLink]="['/login']" ></i> -->
-                <button pButton style="border-radius:20px;"[routerLink]="['/login']" type="button">Back To Home</button>
-            </div>
+            <button pButton style="border-radius:20px;" [routerLink]="['/login']" type="button">Back To Home</button>
+        </div>
     </div>
 </div>
 <!--Header End-->
@@ -24,35 +24,36 @@
         <button pButton style="border-radius:20px;"[routerLink]="['/login']" type="button">Back To Home</button>
       </div> -->
         <p-messages [(value)]="responseMsg" [enableService]="false"
-        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
+            [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
-            <form #f="ngForm">
+            <form #f="ngForm" name="RegistrationForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="prodhousename" name="_phousename" pInputText
-                                    [(ngModel)]="productionHouseName" required />
+                                    [(ngModel)]="productionHouseName" [pKeyFilter]="block" required />
                                 <label for="_phousename">Production Housename</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="firstname" name="_fname" pInputText [(ngModel)]="firstName"
-                                    required />
+                                [pKeyFilter]="block" required />
                                 <label for="_fname">First Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="lastname" name="_lname" pInputText [(ngModel)]="lastName"
-                                    required />
+                                [pKeyFilter]="block"  required />
                                 <label for="_lname">Last Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-calendar [(ngModel)]="dob" name="_dob" [showIcon]="true" inputId="dobvalue" [readonlyInput]="true">
+                                <p-calendar [(ngModel)]="dob" name="_dob" [showIcon]="true" inputId="dobvalue"
+                                    [readonlyInput]="true">
                                 </p-calendar>
                                 <label for="_dob">D.O.B</label>
                             </span>
@@ -70,9 +71,9 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input name="_mailid" type="email"  (change)="emailValidationCheck()"  (input)="checkIfEmailExists()" [(ngModel)]="mailId" 
-                                (input)="onCheck()" pInputText>
-                                <label for="float-input">e-mail ID</label>      
+                                <input name="_mailid" type="email" (change)="emailValidationCheck()"
+                                    (input)="checkIfEmailExists()" [(ngModel)]="mailId" (input)="onCheck()" pInputText>
+                                <label for="float-input">e-mail ID</label>
 
                             </span>
                         </div>
@@ -84,22 +85,25 @@
                         </div> -->
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown  name="_country" [options]="countryOptions" (click)="onSelect('C')" [(ngModel)]="country">
+                                <p-dropdown name="_country" [options]="countryOptions" (click)="onSelect('C')"
+                                    [(ngModel)]="country">
                                 </p-dropdown>
                                 <label for="_country">Country</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown name="_state" [options]="stateOptions" (click)="onSelect('S')" [(ngModel)]="state" ></p-dropdown>
+                                <p-dropdown name="_state" [options]="stateOptions" (click)="onSelect('S')"
+                                    [(ngModel)]="state"></p-dropdown>
                                 <label for="_state">State</label>
                             </span>
                         </div>
-                    
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-dropdown name="_city" [options]="cityOptions" (click)="onSelect('y')" [(ngModel)]="city" 
-                                placeholder="-select-" [style]="{width: '-webkit-fill-available !important'}"></p-dropdown>
+                                <p-dropdown name="_city" [options]="cityOptions" (click)="onSelect('y')"
+                                    [(ngModel)]="city" placeholder="-select-"
+                                    [style]="{width: '-webkit-fill-available !important'}"></p-dropdown>
                                 <label for="_city">City</label>
                             </span>
                         </div>
@@ -112,9 +116,9 @@
                         </div>
                     </div>
                 </div>
-                        <div #row3 class="col-12 md:col-12 lg:col-12">
-                            <div class="p-fluid grid">
-                        
+                <div #row3 class="col-12 md:col-12 lg:col-12">
+                    <div class="p-fluid grid">
+
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr2" name="_addr2" pInputText [(ngModel)]="addressLine2"
@@ -122,13 +126,26 @@
                                 <label for="_addr2">Address Line 2</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
+                        <!-- <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="pcode" name="_pincode" pInputText [(ngModel)]="pincode" 
                                     maxlength="6" required />
                                 <label for="_pincode">Pincode</label>
                             </span>
+                        </div> -->
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" name="_pincode" pInputText [(ngModel)]="pincode"
+                                    appInputFormat="digitOnly" minlength="6" maxlength="6" (input)="validateFields()"
+                                    placeholder="Pincode" pattern="^6[0-4]\d{4}$" autocomplete="off" required>
+                                <label for="_pincode">Pincode</label>
+                            </span>
+                            <span *ngIf="(pincode != null && pincode !== undefined)">
+                                <span *ngIf="(f.controls['_pincode'].invalid)||(pincode>pincode_max)"
+                                    style="color: crimson;font-size: 12px;">Invalidpincode!</span>
+                            </span>
                         </div>
+
                         <div class="p-col-12 p-md-12 p-lg-3" style="margin-top: 23px;">
                             <p-radioButton name="Flag" label="ACTIVE" value=1 [(ngModel)]="selectedType" required>
                             </p-radioButton>&nbsp;
@@ -138,12 +155,14 @@
                     </div>
                 </div>
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label="Register" icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
-                    <button pButton type="button" label="Clear"icon="pi pi-trash"(click)="onClear()" ></button>
+                    <button pButton type="button" label="Register" icon="pi pi-save" [disabled]="!f.valid || !f.dirty"
+                        (click)="onSave()"></button>&nbsp;
+                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                 </div>
             </form>
         </div>
-    </p-panel><div class="col-12 md:col-12 lg:col-12">
+    </p-panel>
+    <div class="col-12 md:col-12 lg:col-12">
         <!-- <p-table #dt [columns]="registrationCols" [value]="registrationData" styleClass="p-datatable-gridlines"
             [loading]="loading" [paginator]="true" [rows]="10" 
             [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
@@ -179,4 +198,4 @@
                 </tr>
             </ng-template>
         </p-table> -->
-</div>
+    </div>

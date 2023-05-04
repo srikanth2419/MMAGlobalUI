@@ -27,9 +27,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
 import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
+
 import { Calendar } from '@fullcalendar/core';
  
 
@@ -65,12 +63,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
- 
-// FullCalendarModule.registerPlugins([
-//   dayGridPlugin,
-//   timeGridPlugin,
-//   interactionPlugin
-// ]);
+
+
 
 @NgModule({
   declarations: [

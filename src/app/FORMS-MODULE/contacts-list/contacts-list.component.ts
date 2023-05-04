@@ -6,6 +6,8 @@ import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { MasterService } from 'src/app/services/master.service';
+import { User } from 'src/app/interface/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-contacts-list',
@@ -62,9 +64,12 @@ export class ContactsListComponent implements OnInit {
   roleMaster: any = [];
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
   userName:any;
+  productionid:any;
+  logged_user!: User;
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
-  constructor(private restapiService: RestapiService, private _masterService: MasterService) { }
+  email: any;
+  constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice:AuthService) { }
 
   ngOnInit(): void {
     this.onView();
@@ -77,6 +82,8 @@ export class ContactsListComponent implements OnInit {
     this.roleMaster = this._masterService.getMaster('RM')
     this.unionMaster = this._masterService.getMaster('UM')
     this.cols = TableConstants.ContactslistColumns;
+    this.logged_user =this.authservice.getUserInfo();
+    this.productionid= this.logged_user.production_id
   }
 
   //dropdown
@@ -157,9 +164,9 @@ export class ContactsListComponent implements OnInit {
   //save method
   onSave() {
     if (this.unionMaster !== 0) {
-      this.unionno = this.unionMaster
-    }
-    const params = {
+    this.unionno = this.unionMaster
+       }
+    const conctantsparams = {
       'slno': this.Id,
       'first_name': this.firstName,
       'last_name': this.lastName,
@@ -178,9 +185,11 @@ export class ContactsListComponent implements OnInit {
       'pincode': this.pincode,
       'isunion': (this.selected == true) ? this.selected : false,
       'unionid': this.unionno != undefined ? this.unionno : null,
-      'flag': (this.selectedType == 1) ? true : false
-    }
-    this.restapiService.post(Pathconstants.ContactListController_Post, params).subscribe(res => {
+      'flag': (this.selectedType == 1) ? true : false,
+      'productionId': this.productionid
+    };
+    
+    this.restapiService.post(Pathconstants.ContactListController_Post, conctantsparams).subscribe(res => {
       if (res !== null && res !== undefined) {
         this.onView();
         this.onClear();
@@ -193,19 +202,22 @@ export class ContactsListComponent implements OnInit {
         setTimeout(() => this.responseMsg = [], 3000);
       }
     })
+    
   }
 
+  
   onView() {
     this.restapiService.get(Pathconstants.ContactListController_Get).subscribe(res => {
       this.contactlistData = res;
       if (res) {
         res.forEach((i: any) => {
-          i.flagstatus = (i.flag == true) ? 'Active' : 'InActive'
+          i.flagstatus = (i.flag == true) ? 'Active' : 'InActive';
+            
+
         })
       }
     })
   }
-
   onClear() {
     this.Id = 0;
     this.firstName = null;
@@ -227,7 +239,6 @@ export class ContactsListComponent implements OnInit {
     this.selected = null;
     this.isDisabled = true;
   }
-
   onEdit(rowData: any) {
     this.Id = rowData.slno;
     this.firstName = rowData.first_name;
@@ -254,14 +265,7 @@ export class ContactsListComponent implements OnInit {
     this.isDisabled = false;
   }
 
-  onCheck() {
-    this.data.forEach(i => {
-      if (i.first_name === this.firstName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'name is already exist, Please input different name' }];
-        this.firstName = null;
-      }
-    })
-  }
+  
   checkIfEmailExists() {
     this.data.forEach(i => {
       const email: string = i.mailid;
@@ -304,4 +308,32 @@ export class ContactsListComponent implements OnInit {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
         setTimeout(() => this.responseMsg = [], 3000);      
       }
-        }}}
+        }}
+
+        onphoneno() {
+          this.contactlistData.forEach((i:any) => {
+            if (i.phonenumber === this.phoneNumber) {
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different name' }];
+              this.phoneNumber = null;
+            }
+          })
+        }
+
+        onwhatsappno() {
+          this.contactlistData.forEach((i:any) => {
+            if (i.whatsappnumber === this.whatappNumber) {
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different name' }];
+              this.whatappNumber = null;
+            }
+          })
+        }
+        onCheck() {
+        
+          this.contactlistData.forEach((i:any) => {
+            if (i.email_id === this.mailId) {
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'email is already exist, Please input different name' }];
+              this.mailId = null;
+            }
+          })
+        }
+      }

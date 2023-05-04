@@ -23,13 +23,14 @@ export class HeaderComponent implements OnInit {
     this.authservice.isLoggedIn.subscribe(value => {
       if(value) {
         this.isLoggedIn = value;
-       
+        // this.username = this.authservice.getUserInfo().roleid;
+        this.username =  this.authservice.getUserInfo().production_house_name;
       }
     })
    }
 
   ngOnInit(): void {
-    this.username = this.authservice.getUserInfo().mailid;
+   
   }
 
   toggleMenu(value: boolean) {

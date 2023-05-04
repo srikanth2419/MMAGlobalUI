@@ -64,7 +64,7 @@ const routes: Routes = [
   { path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
   { path:'mailtype-master',component:MailtypeMasterComponent, },
   //calender
-  { path:'calender' ,component:CalendarComponent,},
+  { path:'calendar' ,component:CalendarComponent, canActivate:[AuthGuard]},
   
 
 ];

@@ -14,6 +14,7 @@ export class Pathconstants {
     public static readonly UserLogin_Get='Login/GetUserMasterByName'
     public static readonly UpdateApprovalStatus_update='Registration/UpdateApprovalStatus'
     public static readonly updateChangePassword_Update='UserMaster/UpdateChangepassword'
+    public static readonly projectcreationproduction_GET='ProjectCreation/GetprojectCreationbyId'
     
     //#endregion
 
