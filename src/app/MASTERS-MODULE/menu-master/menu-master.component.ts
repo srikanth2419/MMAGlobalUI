@@ -35,7 +35,7 @@ export class MenuMasterComponent implements OnInit {
   disableInput: boolean = false;
   blockIcon: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.:;^'"~`?/]/;
   blockUrl: RegExp = /^[^=<>*%()|{}$@#_!+0-9&?,|.:;'`~"?^\s]/;
-  blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,~`|.:;'"?/]/;
+  blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   roleMaster: any = [];
 
   @ViewChild('f', { static: false }) _menumasterForm!: NgForm;
@@ -157,7 +157,8 @@ export class MenuMasterComponent implements OnInit {
     // }
     this.menuId = row.menuid;
     this.roleOptions = [{ label: row.rolename, value: row.roleid }];
-    this.parentIdOptions = [{ label: row.name, value: row.menuid }];
+    this.parentIdOptions = [{ label: row.parentname, value: row.parentid }];
+    this.parentId = row.parentid;
     this.name = row.name;
     this.url = row.url.replace('/', '');
     this.icon = row.icon;

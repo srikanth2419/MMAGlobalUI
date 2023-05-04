@@ -11,6 +11,7 @@ export class AuthService {
   menuObj: any ;
   private loggedIn = new BehaviorSubject<boolean>(false);
   private hasMenu = new BehaviorSubject<boolean>(false);
+  UserInfo!: User;
   /// To control if the user is logged in or not
   /// The BehaviorSubject keeps the latest value cached (in our case when the service is created the initial value is going to be false). 
   /// So when an Observer subscribes to the isLoggedIn(), the cached valued is going to be emitted right away.
@@ -27,7 +28,7 @@ export class AuthService {
   }
 
   get fetchMenu() {
-    console.log('fetch', this.menuObj)
+    // console.log('fetch', this.menuObj)
     return this.menuObj;
   }
 
@@ -37,7 +38,7 @@ export class AuthService {
 
   setMenu(obj: any) {
     this.menuObj = obj;
-    console.log('setm',this.menuObj)
+    // console.log('setm',this.menuObj)
   }
    
   setUserInfo(user: User) {
@@ -48,7 +49,7 @@ export class AuthService {
     if(user.mailid !== '' ){
       localStorage.setItem('UserInfo',JSON.stringify(user))
     this.loggedIn.next(true);
-    console.log('succ',user)
+    // console.log('succ',user)
 
     ///navigating to dashboard once logged in successfully & setting all essential objects globally
     this._router.navigate(['/home']);

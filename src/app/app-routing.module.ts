@@ -25,6 +25,9 @@ import { ProjectApprovalComponent } from './project-approval/project-approval.co
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AuthGuard } from './services/auth.guard';
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
+import { CalendarComponent } from './calendar/calendar.component';
+
+
 
 
 const routes: Routes = [
@@ -59,7 +62,9 @@ const routes: Routes = [
   { path:'project-approval',component:ProjectApprovalComponent, canActivate:[AuthGuard]},
   //change-password
   { path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
-  { path:'mailtype-master',component:MailtypeMasterComponent, }
+  { path:'mailtype-master',component:MailtypeMasterComponent, },
+  //calender
+  { path:'calendar' ,component:CalendarComponent,},
   
 
 ];

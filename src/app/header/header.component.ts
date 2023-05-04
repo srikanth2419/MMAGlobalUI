@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { AuthService } from '../services/auth.service';
-// import { User } from '../interface/user.interface';
+import { User } from '../interface/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +9,16 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  userInfo: any;
+  logged_user!: User;
   display: boolean = false;
   @ViewChild('op', { static: false }) _op!: OverlayPanel;
   @Output() openMenu = new EventEmitter<boolean>();
   @Input() hide: boolean = false;
   @Input() public toggle: boolean = true; 
-  username: string = '';
+  
   isLoggedIn: boolean = false;
+  username: string='';
   constructor(private authservice: AuthService) {
     this.authservice.isLoggedIn.subscribe(value => {
       if(value) {

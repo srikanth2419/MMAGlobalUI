@@ -15,7 +15,7 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" name="_regnum"  [(ngModel)]="regNumber" [pKeyFilter]="blockRegno" (change)="checkRegno()" 
+                                <input type="text" name="_regnum"  [(ngModel)]="regNumber" [pKeyFilter]="blockRegno" (change)="checkRegno()" [pKeyFilter]="'int'" 
                                 pInputText  required />
                                 <label for="_regnum">Register Number</label>
                             </span>

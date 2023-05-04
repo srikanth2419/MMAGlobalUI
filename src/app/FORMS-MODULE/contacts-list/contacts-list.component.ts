@@ -18,7 +18,7 @@ export class ContactsListComponent implements OnInit {
   lastName: any;
   dob: any;
   mobileNo: any;
-  emailId: any;
+  mailId: any;
   mainCategory: any = [];
   maincategoryOptions: any;
   subCategory: any = [];
@@ -61,6 +61,7 @@ export class ContactsListComponent implements OnInit {
   cityMaster: any = [];
   roleMaster: any = [];
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
+  userName:any;
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
   constructor(private restapiService: RestapiService, private _masterService: MasterService) { }
@@ -168,7 +169,7 @@ export class ContactsListComponent implements OnInit {
       'dob': this.dob,
       'phonenumber': this.phoneNumber,
       'whatsappnumber': this.whatappNumber,
-      'email_id': this.emailId,
+      'email_id': this.mailId,
       'countrycode': this.country,
       'statecode': this.state,
       'citycode': this.city,
@@ -215,7 +216,7 @@ export class ContactsListComponent implements OnInit {
     this.dob = null;
     this.phoneNumber = null;
     this.whatappNumber = null;
-    this.emailId = null;
+    this.mailId = null;
     this.stateOptions = null;
     this.cityOptions = null;
     this.addressLine1 = null;
@@ -237,7 +238,7 @@ export class ContactsListComponent implements OnInit {
     this.dob = new Date(rowData.dob);
     this.phoneNumber = rowData.phonenumber;
     this.whatappNumber = rowData.whatsappnumber;
-    this.emailId = rowData.email_id;
+    this.mailId = rowData.email_id;
     this.country = rowData.countrycode;
     this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
     this.stateOptions = [{ label: rowData.statename, value: rowData.statecode }];
@@ -261,4 +262,46 @@ export class ContactsListComponent implements OnInit {
       }
     })
   }
-}
+  checkIfEmailExists() {
+    this.data.forEach(i => {
+      const email: string = i.mailid;
+      if (email === this.mailId) {
+        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Email-ID is already exist' }];
+        setTimeout(() => this.responseMsg = [], 3000);
+        this.mailId = '';
+      } else {
+      }
+    })
+  }
+  oncheck() {
+    this.data.forEach(i => {
+      if (i.username === this.userName) {
+        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: ' Username already exists, Please enter valid Username' }];
+        this.userName = null;
+      }
+    })
+  }
+  //checking existing mailid
+  emailValidationCheck() {
+    if (this.mailId !== undefined && this.mailId !== null && this.mailId.trim() !== '' 
+        ) {
+      const entered_email: string = this.mailId.trim();
+      const substr = entered_email.split('@');
+      if (substr !== undefined && substr.length > 1) {
+        const last_str = substr[1].split('.');
+        if (last_str !== undefined && last_str.length > 1) {
+          if (last_str[1].toLowerCase() === 'com' || last_str[1].toLowerCase() === 'in') {
+          } else {
+            this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
+            setTimeout(() => this.responseMsg = [], 3000);      
+          }
+        } else {
+          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
+          setTimeout(() => this.responseMsg = [], 3000);      
+        }
+      }else {
+        this.mailId = null;
+        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
+        setTimeout(() => this.responseMsg = [], 3000);      
+      }
+        }}}
