@@ -11,6 +11,7 @@ export class AuthService {
   menuObj: any ;
   private loggedIn = new BehaviorSubject<boolean>(false);
   private hasMenu = new BehaviorSubject<boolean>(false);
+  UserInfo!: User;
   /// To control if the user is logged in or not
   /// The BehaviorSubject keeps the latest value cached (in our case when the service is created the initial value is going to be false). 
   /// So when an Observer subscribes to the isLoggedIn(), the cached valued is going to be emitted right away.
