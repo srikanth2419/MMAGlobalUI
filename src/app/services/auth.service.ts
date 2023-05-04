@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   get fetchMenu() {
-    console.log('fetch', this.menuObj)
+    // console.log('fetch', this.menuObj)
     return this.menuObj;
   }
 
@@ -38,7 +38,7 @@ export class AuthService {
 
   setMenu(obj: any) {
     this.menuObj = obj;
-    console.log('setm',this.menuObj)
+    // console.log('setm',this.menuObj)
   }
    
   setUserInfo(user: User) {
@@ -49,7 +49,7 @@ export class AuthService {
     if(user.mailid !== '' ){
       localStorage.setItem('UserInfo',JSON.stringify(user))
     this.loggedIn.next(true);
-    console.log('succ',user)
+    // console.log('succ',user)
 
     ///navigating to dashboard once logged in successfully & setting all essential objects globally
     this._router.navigate(['/home']);
