@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { AuthService } from '../services/auth.service';
-import { User } from '../interface/user.interface';
+// import { User } from '../interface/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -20,12 +20,14 @@ export class HeaderComponent implements OnInit {
     this.authservice.isLoggedIn.subscribe(value => {
       if(value) {
         this.isLoggedIn = value;
-        this.username = this.authservice.getUserInfo().mailid;
+        // this.username = this.authservice.getUserInfo().roleid;
+        this.username =  this.authservice.getUserInfo().production_house_name;
       }
     })
    }
 
   ngOnInit(): void {
+   
   }
 
   toggleMenu(value: boolean) {

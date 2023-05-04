@@ -31,11 +31,11 @@
             </p-overlayPanel>
             <span>
                 <!-- <button pButton pRipple type="button" icon="pi pi-power-off" class="p-button-rounded" (click)="onLogout()" pTooltip="Logout" tooltipPosition="bottom" [fitContent]="true"></button> -->
-                <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded" pTooltip="Userinfo"
+                <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-outlined" pTooltip="Userinfo"
                     tooltipPosition="bottom" (click)="op.toggle($event)">
                 </button> </span>&nbsp;
             <!-- <span>Log Out</span><i class="pi pi-angle-down"                style="color: grey;" [routerLink]="['/login']" ></i> --> 
-            <button pButton style="border-radius:20px;" [routerLink]="['/login']" type="button">Log
+            <button pButton style="border-radius:20px;" class="p-button-outlined" [routerLink]="['/login']" type="button">Log
                 Out</button>
         </div>
     </div>
