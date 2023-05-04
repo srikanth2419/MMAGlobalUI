@@ -144,7 +144,6 @@ export class ShootingScheduleComponent implements OnInit {
         'sub_category_id': this.subCategory.value,
         'created_date': new Date(),
         'flag': (this.selectedType == 1) ? true : false,
-
       };
       const params={
         'shooting_Schedule':shootingparams,
@@ -175,6 +174,8 @@ export class ShootingScheduleComponent implements OnInit {
           console.log('array',this.contactid)
           //  console.log('strarray',str) 
          }
+
+
   onSelectionChange(value = []) {
     this.selectAll = value.length === this.totalRecords;
     this.selectedCustomers = value;
