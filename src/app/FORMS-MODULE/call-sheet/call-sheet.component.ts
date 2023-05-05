@@ -7,6 +7,8 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { MasterService } from 'src/app/services/master.service';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interface/user.interface';
 
 @Component({
   selector: 'app-call-sheet',
@@ -72,9 +74,13 @@ export class CallSheetComponent implements OnInit {
   generalCallTimeUpdate: any;
   shootingCallTimeUpdate: any;
   pickupTimeUpdate: any;
+  userInfo: any;
+  logged_user!: User
+  prod_id: any;
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe) { }
+  
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe,private authservice: AuthService) { }
   ngOnInit(): void {
     this.callinfocol =TableConstants.callinfoColumns
     this.contactlistcols = TableConstants.ShootingScheduleColumns;
@@ -87,7 +93,10 @@ export class CallSheetComponent implements OnInit {
     this.roleMaster = this._masterService.getMaster('RM')
         this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
           this.contactlistData = res})
+          this.logged_user = this.authservice.getUserInfo();
+          this.prod_id = this.logged_user.production_id;
           this.onView();
+          
   }
     onSelect(type: any) {
       console.log('l',this.generalCallTime)
@@ -160,6 +169,7 @@ export class CallSheetComponent implements OnInit {
       'main_category_id':this.mainCategory.value,
       'sub_category_id':this.subCategory.value,
       'created_date': new Date(),
+      'production_id':this.prod_id,
       'flag':(this.selectedType == 1) ? true : false
     };
 //lodginginfo
@@ -216,7 +226,11 @@ const params=   //call character
    console.log('m',value)
 }
   onView(){
-    this.restapiservice.get(Pathconstants.callinfo_GET).subscribe(res => {
+     
+     const params = {
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.callinfo_GET,params).subscribe(res => {
       this.callinfoData = res
       if (res) {
         res.forEach((i: any) => {

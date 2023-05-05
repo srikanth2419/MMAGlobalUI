@@ -22,21 +22,25 @@ export class CalendarComponent implements OnInit {
   };
   ShootingScheduleData: any;
   events: any;
+  logged_user!:User;
   
   constructor(private restApiService: RestapiService, private authservice: AuthService, private datePipe: DatePipe) { 
     
   }
 
   ngOnInit(): void {
+
      
-   //this.logged_user = this.authservice.UserInfo;
+   this.logged_user = this.authservice.getUserInfo();
     this.loadevents();
   }
   loadevents(){
     var setInitialDate = new Date();
     console.log('dd',setInitialDate)
-    
-    this.restApiService.get(Pathconstants.shooting_schedule_Get).subscribe(res => {
+    const params ={
+      'production_id':this.logged_user.production_id,
+    }
+    this.restApiService.getByParameters(Pathconstants.shootingshedule_GETBYID,params).subscribe(res => {
       var data: any = [];
       res.forEach((e:any) => {
        // console.log('a',e.schedule_date.setUTCDate(10));
