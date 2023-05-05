@@ -313,7 +313,7 @@ export class ContactsListComponent implements OnInit {
         onphoneno() {
           this.contactlistData.forEach((i:any) => {
             if (i.phonenumber === this.phoneNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different name' }];
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different number' }];
               this.phoneNumber = null;
             }
           })
@@ -322,7 +322,7 @@ export class ContactsListComponent implements OnInit {
         onwhatsappno() {
           this.contactlistData.forEach((i:any) => {
             if (i.whatsappnumber === this.whatappNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different name' }];
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different number' }];
               this.whatappNumber = null;
             }
           })
