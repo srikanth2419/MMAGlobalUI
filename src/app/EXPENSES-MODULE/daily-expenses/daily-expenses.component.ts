@@ -40,12 +40,14 @@ export class DailyExpensesComponent implements OnInit {
   logged_user!: User
   productionhouse:any;
   prod_id: any;
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/;
+  minDate: any;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
   constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService) { }
 
   ngOnInit(): void {
+    this.minDate = new Date();
     this.dailyexpenses=this._masterService.getMaster('EC')
     //this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {
       this.expensescategorymasterData = this.dailyexpenses

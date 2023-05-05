@@ -20,7 +20,7 @@ export class CountryMasterComponent implements OnInit {
   RowId:any;
   data:any;
   responseMsg: Message[] = [];
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/; 
+  block:RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   constructor(private restapiservice: RestapiService) { }
   ngOnInit(): void {

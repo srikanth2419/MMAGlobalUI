@@ -33,7 +33,7 @@ export class ShootingScheduleComponent implements OnInit {
   responseMsg: Message[] = [];
   RowId: any = 0;
   selected: any;
-  block: RegExp = /[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   totalRecords: number = 0;
   selectAll: boolean = false;
   selectedCustomers: any[] = [];
