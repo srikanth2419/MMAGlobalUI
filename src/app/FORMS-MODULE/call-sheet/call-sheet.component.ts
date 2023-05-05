@@ -78,7 +78,10 @@ export class CallSheetComponent implements OnInit {
   logged_user!: User
   prod_id: any;
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/;
+ 
+
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+
   
   constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe,private authservice: AuthService) { }
   ngOnInit(): void {
@@ -109,7 +112,10 @@ export class CallSheetComponent implements OnInit {
     switch (type) {
       case 'P':
         this.newprojectcreationData.forEach((c: any) => {
+          if(c.production_id === this.prod_id)
+          {
           projectcreationSelection.push({ label:c. project_name, value: c.project_id });
+          }
         })
         this.projectNameOptions =  projectcreationSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });

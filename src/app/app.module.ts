@@ -63,7 +63,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
- 
+
 
 
 @NgModule({
