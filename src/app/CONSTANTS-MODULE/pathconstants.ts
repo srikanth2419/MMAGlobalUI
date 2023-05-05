@@ -71,6 +71,7 @@ export class Pathconstants {
      public static readonly callinfo_Post='Callinfo/SaveCallinfo'
      public static readonly callinfo_GET='Callinfo/GetCallinfo'
      public static readonly shootingshedule_GETBYID='ShootingSchedule/Getshooting_schedule_byprod_id'
+     public static readonly callinfo_get_by_productionid_GET='Callinfo/GetCallinfo_by_productionid'
     //#endregion
     
 }
