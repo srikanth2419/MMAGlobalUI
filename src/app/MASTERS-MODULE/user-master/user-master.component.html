@@ -9,7 +9,7 @@
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
                                 <input type="text" id="username_emailid" name="username_emailid" pInputText
-                                    (change)="checkMenu()" [(ngModel)]="usernameEmailid"  required />
+                                    (change)="checkMenu()" [(ngModel)]="usernameEmailid"  [pKeyFilter]="block" required />
                                 <label for="_statename"> Username/Emailid</label>
                             </span>
                         </div>

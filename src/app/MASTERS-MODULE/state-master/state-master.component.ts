@@ -22,7 +22,7 @@ export class StateMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   countrymasterData: any;
   loading: boolean = false;
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/; 
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   
   constructor(private restapiservice: RestapiService) { }
 
