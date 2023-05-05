@@ -165,9 +165,9 @@ export class ContactsListComponent implements OnInit {
   //save method
   onSave() {
     if (this.unionMaster !== 0) {
-      this.unionno = this.unionMaster
-    }
-    const params = {
+    this.unionno = this.unionMaster
+       }
+    const conctantsparams = {
       'slno': this.Id,
       'first_name': this.firstName,
       'last_name': this.lastName,
@@ -189,7 +189,7 @@ export class ContactsListComponent implements OnInit {
       'flag': (this.selectedType == 1) ? true : false,
       'production_id':this.prod_id
     }
-    this.restapiService.post(Pathconstants.ContactListController_Post, params).subscribe(res => {
+    this.restapiService.post(Pathconstants.ContactListController_Post, conctantsparams).subscribe(res => {
       if (res !== null && res !== undefined) {
         this.onView();
         this.onClear();
@@ -202,8 +202,10 @@ export class ContactsListComponent implements OnInit {
         setTimeout(() => this.responseMsg = [], 3000);
       }
     })
+    
   }
 
+  
   onView() {
     // this.restapiService.get(Pathconstants.ContactListController_Get).subscribe(res => {
     //   this.contactlistData = res;
@@ -225,7 +227,6 @@ export class ContactsListComponent implements OnInit {
       }
     })
   }
-
   onClear() {
     this.Id = 0;
     this.firstName = null;
@@ -247,7 +248,6 @@ export class ContactsListComponent implements OnInit {
     this.selected = null;
     this.isDisabled = true;
   }
-
   onEdit(rowData: any) {
     this.Id = rowData.slno;
     this.firstName = rowData.first_name;
@@ -274,14 +274,7 @@ export class ContactsListComponent implements OnInit {
     this.isDisabled = false;
   }
 
-  onCheck() {
-    this.data.forEach(i => {
-      if (i.first_name === this.firstName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'name is already exist, Please input different name' }];
-        this.firstName = null;
-      }
-    })
-  }
+  
   checkIfEmailExists() {
     this.data.forEach(i => {
       const email: string = i.mailid;
@@ -324,4 +317,32 @@ export class ContactsListComponent implements OnInit {
         this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
         setTimeout(() => this.responseMsg = [], 3000);      
       }
-        }}}
+        }}
+
+        onphoneno() {
+          this.contactlistData.forEach((i:any) => {
+            if (i.phonenumber === this.phoneNumber) {
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different name' }];
+              this.phoneNumber = null;
+            }
+          })
+        }
+
+        onwhatsappno() {
+          this.contactlistData.forEach((i:any) => {
+            if (i.whatsappnumber === this.whatappNumber) {
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different name' }];
+              this.whatappNumber = null;
+            }
+          })
+        }
+        onCheck() {
+        
+          this.contactlistData.forEach((i:any) => {
+            if (i.email_id === this.mailId) {
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'email is already exist, Please input different name' }];
+              this.mailId = null;
+            }
+          })
+        }
+      }

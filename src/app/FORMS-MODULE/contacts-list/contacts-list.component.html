@@ -9,7 +9,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="firstname" name="_fname" pInputText [(ngModel)]="firstName"
-                                    (change)="onCheck()" [pKeyFilter]="'alpha'" required />
+                                     [pKeyFilter]="'alpha'" required />
                                 <label for="_fname">First Name</label>
                             </span>
                         </div>
@@ -62,21 +62,21 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="phoneno" name="_phoneno" pInputText [(ngModel)]="phoneNumber"
-                                    maxlength="10" [pKeyFilter]="'num'" required />
+                                    maxlength="10" [pKeyFilter]="'num'"  (input)="onphoneno()" required />
                                 <label for="_mobno">phone Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="whatappno" name="_whatappno" pInputText
-                                    [(ngModel)]="whatappNumber" maxlength="10" [pKeyFilter]="'num'" required />
+                                    [(ngModel)]="whatappNumber" maxlength="10" [pKeyFilter]="'num'" (input)="onwhatsappno()" />
                                 <label for="_mobno">Whatsapp Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input name="_mailid" type="email"  (change)="emailValidationCheck()"  (input)="checkIfEmailExists()" [(ngModel)]="mailId" 
-                                (input)="oncheck()" pInputText>
+                                (input)="oncheck()"  (change)="onCheck()" pInputText>
                                 <label for="float-input">e-mail ID</label>
                             </span>
                         </div>
@@ -182,21 +182,21 @@
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
+                    <th>Edit</th>
                     <th>S.No:</th>
                     <th *ngFor="let col of columns">
                         {{col.header}}
                     </th>
-                    <th>Edit</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                 <tr>
+                    <td>
+                        <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                    </td>
                     <td>{{rowIndex+1}}</td>
                     <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
-                    </td>
-                    <td>
-                        <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
                     </td>
                 </tr>
             </ng-template>

@@ -188,6 +188,8 @@ export class ShootingScheduleComponent implements OnInit {
           console.log('array',this.contactid)
           //  console.log('strarray',str) 
          }
+
+
   onSelectionChange(value = []) {
     this.selectAll = value.length === this.totalRecords;
     this.selectedCustomers = value;
