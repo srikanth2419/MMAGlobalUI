@@ -31,6 +31,8 @@ export class Pathconstants {
     public static readonly shooting_schedule_Post ='ShootingSchedule/Saveshooting_schedule'  
     public static readonly shooting_schedule_Get ='ShootingSchedule/Getshooting_schedule'
     public static readonly shooting_status_Get ='Shooting_status/Getshooting_status'
+    public static readonly locationInfo_GET ='LocationInfo/GetLocationInfoId'
+    public static readonly dailyexpensesId_Get = 'Dailyexpenses/GetDailyexpensesById'
     public static readonly contactlistprodid_GET='ContactList/Getcontactlist_production_id'
 
     //#endregion
