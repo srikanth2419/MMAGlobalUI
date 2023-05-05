@@ -63,6 +63,7 @@ export class FundUtilizationComponent implements OnInit {
   this.productionhouse = this.logged_user.production_house_name;
   this.prod_id = this.logged_user.production_id;
   this.onView();
+  this.prod_id = this.logged_user.production_id;
 
   }
 
@@ -110,8 +111,11 @@ export class FundUtilizationComponent implements OnInit {
     switch (type) {
       case 'p':
         this.newprojectcreationData.forEach((c: any) => {
+          if(c.production_id === this.prod_id)
+          {
           projectSelection.push({ label: c.project_name, value: c.project_id
           });
+        }
             })
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });

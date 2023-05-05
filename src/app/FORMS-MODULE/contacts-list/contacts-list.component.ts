@@ -64,15 +64,14 @@ export class ContactsListComponent implements OnInit {
   roleMaster: any = [];
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
   userName:any;
-  productionid:any;
   logged_user!: User;
+  prod_id: any;
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
-  email: any;
-  constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice:AuthService) { }
+  constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice: AuthService) { }
 
   ngOnInit(): void {
-    this.onView();
+ 
     this.unionno = 0
     this.countryMaster = this._masterService.getMaster('CM');
     this.statemaster = this._masterService.getMaster('SM');
@@ -82,8 +81,10 @@ export class ContactsListComponent implements OnInit {
     this.roleMaster = this._masterService.getMaster('RM')
     this.unionMaster = this._masterService.getMaster('UM')
     this.cols = TableConstants.ContactslistColumns;
-    this.logged_user =this.authservice.getUserInfo();
-    this.productionid= this.logged_user.production_id
+    this.logged_user = this.authservice.getUserInfo();
+  this.prod_id = this.logged_user.production_id;
+  this.onView();
+  console.log('contact prod id',this.prod_id)
   }
 
   //dropdown
@@ -186,9 +187,8 @@ export class ContactsListComponent implements OnInit {
       'isunion': (this.selected == true) ? this.selected : false,
       'unionid': this.unionno != undefined ? this.unionno : null,
       'flag': (this.selectedType == 1) ? true : false,
-      'productionId': this.productionid
-    };
-    
+      'production_id':this.prod_id
+    }
     this.restapiService.post(Pathconstants.ContactListController_Post, conctantsparams).subscribe(res => {
       if (res !== null && res !== undefined) {
         this.onView();
@@ -207,13 +207,22 @@ export class ContactsListComponent implements OnInit {
 
   
   onView() {
-    this.restapiService.get(Pathconstants.ContactListController_Get).subscribe(res => {
-      this.contactlistData = res;
-      if (res) {
-        res.forEach((i: any) => {
-          i.flagstatus = (i.flag == true) ? 'Active' : 'InActive';
-            
-
+    // this.restapiService.get(Pathconstants.ContactListController_Get).subscribe(res => {
+    //   this.contactlistData = res;
+    //   if (res) {
+    //     res.forEach((i: any) => {
+    //       i.flagstatus = (i.flag == true) ? 'Active' : 'InActive'
+    //     })
+    //   }
+    // })
+    const params = {
+      "production_id" : this.prod_id
+    };
+    this.restapiService.getByParameters(Pathconstants.contactlistprodid_GET, params).subscribe(response => {
+      this.contactlistData = response
+      if (response) {
+        response.forEach((i: any) => {
+          i.flag = (i.flag == true) ? 'Active' : 'InActive'
         })
       }
     })
