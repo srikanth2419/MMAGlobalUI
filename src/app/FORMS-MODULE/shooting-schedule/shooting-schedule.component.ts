@@ -63,13 +63,14 @@ export class ShootingScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onView();
+    
     this.minDate = new Date();
     this.mainCategoryData = this._masterService.getMaster('MC')
     this.subCategoryData = this._masterService.getMaster('SC')
     this.shootingStatusData=this._masterService.getMaster('SS')
     this.logged_user = this.authservice.getUserInfo();
     this.prod_id= this.logged_user.production_id;
+    this.onView();
 
     this.dayNightOptions = [
       { label: 'select', value: null },
@@ -103,7 +104,7 @@ export class ShootingScheduleComponent implements OnInit {
         this.newprojectcreationData.forEach((c: any) => {
           if(c.production_id === this.prod_id)
           {
-          projectSelection.push({ label: c.project_name, value: c.production_id });
+          projectSelection.push({ label: c.project_name, value: c.project_id });
           }
         })
         this.projectNameOptions = projectSelection;
@@ -140,6 +141,7 @@ export class ShootingScheduleComponent implements OnInit {
   onSave() {
     this.getContactId();
     {
+      console.log('1', this.projectName.value);
       const shootingparams = {
         'slno': this.RowId,
         'project_id': this.projectName.value,
@@ -153,11 +155,13 @@ export class ShootingScheduleComponent implements OnInit {
         'sub_category_id': this.subCategory.value,
         'created_date': new Date(),
         'flag': (this.selectedType == 1) ? true : false,
+        'production_id':this.prod_id
 
       };
       const params={
         'shooting_Schedule':shootingparams,
-        'contactusid':this.contactid
+        'contactusid':this.contactid,
+        
       };
       this.restapiservice.post(Pathconstants.shooting_schedule_Post, params).subscribe(res => {
         if (res != null && res != undefined) {
@@ -230,10 +234,21 @@ export class ShootingScheduleComponent implements OnInit {
   } 
   
   onView() {
-    this.restapiservice.get(Pathconstants.shooting_schedule_Get).subscribe(res => {
-      this.ShootingScheduleData = res;
-      if (res) {
-        res.forEach((i: any) => {
+    // this.restapiservice.get(Pathconstants.shooting_schedule_Get).subscribe(res => {
+    //   this.ShootingScheduleData = res;
+    //   if (res) {
+    //     res.forEach((i: any) => {
+    //       i.flag = (i.flag == true) ? 'Active' : 'InActive'
+    //     })
+    //   }
+    // })
+    const params = {
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.shooting_schedule_Get_by_prodid, params).subscribe(response => {
+      this.ShootingScheduleData = response
+      if (response) {
+        response.forEach((i: any) => {
           i.flag = (i.flag == true) ? 'Active' : 'InActive'
         })
       }

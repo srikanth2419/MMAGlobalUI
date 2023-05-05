@@ -7,6 +7,8 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { MasterService } from 'src/app/services/master.service';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { User } from 'src/app/interface/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-call-sheet',
@@ -73,8 +75,11 @@ export class CallSheetComponent implements OnInit {
   shootingCallTimeUpdate: any;
   pickupTimeUpdate: any;
   block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/;
+  logged_user!: User;
+  prod_id: any;
+
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe) { }
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe, private authservice: AuthService) { }
   ngOnInit(): void {
     this.callinfocol =TableConstants.callinfoColumns
     this.contactlistcols = TableConstants.ShootingScheduleColumns;
@@ -87,6 +92,8 @@ export class CallSheetComponent implements OnInit {
     this.roleMaster = this._masterService.getMaster('RM')
         this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
           this.contactlistData = res})
+          this.logged_user = this.authservice.getUserInfo();
+  this.prod_id = this.logged_user.production_id;
           this.onView();
   }
     onSelect(type: any) {
@@ -100,7 +107,10 @@ export class CallSheetComponent implements OnInit {
     switch (type) {
       case 'P':
         this.newprojectcreationData.forEach((c: any) => {
+          if(c.production_id === this.prod_id)
+          {
           projectcreationSelection.push({ label:c. project_name, value: c.project_id });
+          }
         })
         this.projectNameOptions =  projectcreationSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
