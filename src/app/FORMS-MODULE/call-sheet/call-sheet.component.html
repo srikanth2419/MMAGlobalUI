@@ -189,20 +189,20 @@
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <input type="text" name="_locationName" pInputText
-                                                [(ngModel)]="locationName" required />
+                                                [(ngModel)]="locationName" [pKeyFilter]="block" required />
                                             <label for="_locationName">Location</label>
                                         </span>
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <input type="text" name="_address" pInputText [(ngModel)]="address"
-                                                required />
+                                            [pKeyFilter]="block" required />
                                             <label for="_address">Address</label>
                                         </span>
                                     </div>
                                     <div class="field col-12 md:col-4 lg:col-3">
                                         <span class="p-float-label">
-                                            <input type="text" name="_note" pInputText [(ngModel)]="note" required />
+                                            <input type="text" name="_note" pInputText [(ngModel)]="note" [pKeyFilter]="block" required />
                                             <label for="_note">Note</label>
                                         </span>
                                     </div>
@@ -260,7 +260,7 @@
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <input type="text" name="_driverName" pInputText [(ngModel)]="driverName"
-                                                required />
+                                            [pKeyFilter]="block" required />
                                             <label for="_driverName">Driver Name</label>
                                         </span>
                                     </div>
@@ -275,7 +275,7 @@
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <input type="text" name="_pickupLocation" pInputText
-                                                [(ngModel)]="pickupLocation" required />
+                                             [(ngModel)]="pickupLocation" [pKeyFilter]="block" required />
                                             <label for="_pickupLocation">Pickup Location</label>
                                         </span>
                                     </div>
@@ -283,7 +283,7 @@
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <input type="text" name="_dropLocation" pInputText
-                                                [(ngModel)]="dropLocation" required />
+                                                [(ngModel)]="dropLocation" [pKeyFilter]="block" required />
                                             <label for="_dropLocation">Drop Location</label>
                                         </span>
                                     </div>
