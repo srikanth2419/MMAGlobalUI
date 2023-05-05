@@ -10,7 +10,7 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-calendar [(ngModel)]="date" name="_date" [showIcon]="true" inputId="datevalue" [readonlyInput]="true">
+                                <p-calendar [(ngModel)]="date" name="_date" [minDate]="minDate" [showIcon]="true" inputId="datevalue" [readonlyInput]="true">
                                 </p-calendar>
                                 <label for="_date">Date</label>
                             </span>
@@ -26,7 +26,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="budgetamnt" name="_amount" pInputText [(ngModel)]="budgetAmount"
-                                    required />
+                                [pKeyFilter]="block"  [pKeyFilter]="'int'" required />
                                 <label for="_amount">Budget Amount</label>
                             </span>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="incoiceno" name="_invoiceno" pInputText
-                                    [(ngModel)]="invoiceNumber" required />
+                                    [(ngModel)]="invoiceNumber" required  [pKeyFilter]="block"  [pKeyFilter]="'int'" />
                                 <label for="_invoiceno">Invoice Number</label>
                             </span>
                         </div>
@@ -55,7 +55,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="amnt" name="_amnt" pInputText [(ngModel)]="amount"
-                                    (input)="checkBudgetAmount()" required />
+                                    (input)="checkBudgetAmount()" [pKeyFilter]="block"  [pKeyFilter]="'int'" required />
                                 <label for="_amnt"> Amount</label>
                             </span>
                         </div>

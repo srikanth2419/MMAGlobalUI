@@ -31,6 +31,7 @@ export class UserMasterComponent implements OnInit {
   UpperCaseErrMsg: boolean = false;
   LengthErrMsg: boolean = false;
   showMatchMsg: boolean = false;
+  block: RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
   
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;

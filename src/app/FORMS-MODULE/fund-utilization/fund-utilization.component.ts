@@ -31,7 +31,7 @@ export class FundUtilizationComponent implements OnInit {
   responseMsg: Message[] = [];
   FundUtilizationData: any[] = [];
   loading: boolean = false;
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   item: any;
   newprojectcreationData: any[] = [];
   contactlistData: any[] = [];
