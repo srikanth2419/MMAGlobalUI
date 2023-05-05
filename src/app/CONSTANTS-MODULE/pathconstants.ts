@@ -44,6 +44,8 @@ export class Pathconstants {
      public static readonly ContactListController_Post='ContactList/Savecontactlist'
      public static readonly ContactListController_Get='ContactList/Getcontactlist'
      public static readonly MasterController_Get='MasterController/Getmasters'
+     public static readonly FundUtilizationbyid_Get ='Fund_Utilization/Getfund_utilizationId'
+
    //#endregion
 
   
