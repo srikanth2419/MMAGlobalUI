@@ -47,7 +47,7 @@ export class RegistrationComponent implements OnInit {
   masterData:any;
   data: any[] = [];
   userName:any;
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/; 
+  block: RegExp = /^[^=<>*%(){}$@#_!-+&?,.;'"?/]/; 
 
   @ViewChild('f', {static: false}) _RegistrationForm!: NgForm;
   pincode_max: any;
