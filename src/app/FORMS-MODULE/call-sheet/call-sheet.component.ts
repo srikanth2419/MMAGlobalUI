@@ -233,21 +233,38 @@ const params=   //call character
 }
   onView(){
      
-     const params = {
+    //  const params = {
+    //   "production_id" : this.prod_id
+    // };
+    // this.restapiservice.getByParameters(Pathconstants.callinfo_GET,params).subscribe(res => {
+    //   this.callinfoData = res
+    //   if (res) {
+    //     res.forEach((i: any) => {
+    //       i.flag = (i.flag == true) ? 'Active' : 'InActive'
+    //     })
+    //   }
+    // })
+    const params = {
       "production_id" : this.prod_id
     };
-    this.restapiservice.getByParameters(Pathconstants.callinfo_GET,params).subscribe(res => {
-      this.callinfoData = res
-      if (res) {
-        res.forEach((i: any) => {
+    this.restapiservice.getByParameters(Pathconstants.callinfo_get_by_productionid_GET, params).subscribe(response => {
+      this.callinfoData = response
+      if (response) {
+        response.forEach((i: any) => {
           i.flag = (i.flag == true) ? 'Active' : 'InActive'
         })
       }
     })
-    this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
+    const params1 ={
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.lodginginfo_GET,params1).subscribe(res => {
       this.lodginginfoData = res;
     })
-    this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
+    const params2={
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.transportinfo_GET,params2).subscribe(res => {
       this.transportinfoData = res;
     })
   } 
