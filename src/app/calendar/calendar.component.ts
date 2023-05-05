@@ -17,7 +17,7 @@ import { DatePipe } from '@angular/common';
 export class CalendarComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
-    initialView: 'dayGridMonth',
+    //initialView: 'dayGridMonth',
     weekends: true,
   };
   ShootingScheduleData: any;
@@ -43,14 +43,11 @@ export class CalendarComponent implements OnInit {
     this.restApiService.getByParameters(Pathconstants.shootingshedule_GETBYID,params).subscribe(res => {
       var data: any = [];
       res.forEach((e:any) => {
-       // console.log('a',e.schedule_date.setUTCDate(10));
-        //console.log('d',this.datePipe.transform (e.schedule_date, 'ddd MMM dd yyyy HH:SS:MM'))
-        //var ndate= this.datePipe.transform (e.schedule_date, 'ddd MMM dd yyyy HH:SS:MM')
         data.push({
           'id': e.slno,
           'title': e.scene,
           'start': e.schedule_date,
-          'color':  '#41cf41' 
+          'color': ((e.slno * 1) === 1) ? '#41cf41' : '#6565cb'
         })
       })
       this.events = data;

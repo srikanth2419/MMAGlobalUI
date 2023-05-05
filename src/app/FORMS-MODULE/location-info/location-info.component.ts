@@ -51,9 +51,10 @@ export class LocationInfoComponent implements OnInit {
   productionhouse:any;
   prod_id: any;
   userInfo: any;
-  
-
+  blockadd :RegExp = /^[^-=<>*%()^{}$#!+&?\s~`|;'"?/]/;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   @ViewChild('f', { static: false }) _locationinfoForm!: NgForm;
+  pincode_max: any;
 
   constructor(private restApiService: RestapiService, private _masterService: MasterService,private authservice: AuthService) { }
 
@@ -71,6 +72,8 @@ export class LocationInfoComponent implements OnInit {
     this.productionhouse = this.logged_user.production_house_name;
     this.prod_id = this.logged_user.production_id;
     this.onView();
+    this.pincode_max = 643253;
+
   }
   
  onSubmit()
@@ -223,5 +226,14 @@ export class LocationInfoComponent implements OnInit {
     this.parkingNote = row.parking_note;
     this.parkingFacility = (row.parking_facility == 'Yes') ? 1 : 0;
     this.flag = (row.flag === 'Active') ? 1 : 0;
+  }
+  validateFields() {
+    if (this.pincode !== null && this.pincode !== undefined) {
+       if (this.pincode > this.pincode_max) {
+      this._locationinfoForm.controls['_pincode'].setErrors({ 'incorrect': true });
+       } } 
+       else {
+      this._locationinfoForm.controls['_pincode'].setErrors({ 'incorrect': true });
+  }
   }
 }

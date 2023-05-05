@@ -72,7 +72,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input name="_mailid" type="email" (change)="emailValidationCheck()"
-                                    (input)="checkIfEmailExists()" [(ngModel)]="mailId" (input)="onCheck()" pInputText>
+                                    (input)="checkIfEmailExists()" [(ngModel)]="mailId" [pKeyFilter]="blockemail" (input)="onCheck()" pInputText>
                                 <label for="float-input">e-mail ID</label>
 
                             </span>
@@ -110,7 +110,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr1" name="_addr1" pInputText [(ngModel)]="addressLine1"
-                                    required />
+                                [pKeyFilter]="blockadd"  required />
                                 <label for="_addr1">Address Line 1</label>
                             </span>
                         </div>
@@ -122,7 +122,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr2" name="_addr2" pInputText [(ngModel)]="addressLine2"
-                                    required />
+                                [pKeyFilter]="blockadd" required />
                                 <label for="_addr2">Address Line 2</label>
                             </span>
                         </div>
