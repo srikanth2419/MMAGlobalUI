@@ -7,6 +7,8 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Message } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { MasterService } from 'src/app/services/master.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interface/user.interface';
 
 @Component({
   selector: 'app-location-info',
@@ -45,11 +47,15 @@ export class LocationInfoComponent implements OnInit {
   countryMaster: any = [];
   statemaster: any = [];
   cityMaster: any = [];
+  logged_user!: User
+  productionhouse:any;
+  prod_id: any;
+  userInfo: any;
   
 
   @ViewChild('f', { static: false }) _locationinfoForm!: NgForm;
 
-  constructor(private restApiService: RestapiService, private _masterService: MasterService) { }
+  constructor(private restApiService: RestapiService, private _masterService: MasterService,private authservice: AuthService) { }
 
   ngOnInit(): void {
     this.onView();
@@ -61,6 +67,10 @@ export class LocationInfoComponent implements OnInit {
     this.cityMaster = this._masterService.getMaster('CIM');
     this.restApiService.get(Pathconstants.ContactListController_Get).subscribe(res => {this.contactlistData = res;})
     this.cols = TableConstants.locationInfoColumns;
+    this.logged_user = this.authservice.getUserInfo();
+    this.productionhouse = this.logged_user.production_house_name;
+    this.prod_id = this.logged_user.production_id;
+    this.onView();
   }
   
  onSubmit()
@@ -81,6 +91,7 @@ export class LocationInfoComponent implements OnInit {
      'pincode':this.pincode,
      'parking_note':this.parkingNote,
      'parking_facility':(this.parkingFacility == 1) ? true : false,
+     'production_id':this.prod_id,
      'flag':(this.flag == 1) ? true : false
   }
   this.restApiService.post(Pathconstants.LocationInfo_Post, params).subscribe(res => {
@@ -98,17 +109,27 @@ export class LocationInfoComponent implements OnInit {
  }
 
  onView() {
-  this.restApiService.get(Pathconstants.LocationInfo_Get).subscribe(res => {
-    this.data = res;
-    if (res) {
-      res.forEach((i: any) => {
-        i.flag = (i.flag == true) ? 'Active' : 'InActive',
-        i.parking_facility =(i.parking_facility == true) ? 'Yes' : 'No'
+  // this.restApiService.get(Pathconstants.LocationInfo_Get).subscribe(res => {
+  //   this.data = res;
+  //   if (res) {
+  //     res.forEach((i: any) => {
+  //       i.flag = (i.flag == true) ? 'Active' : 'InActive',
+  //       i.parking_facility =(i.parking_facility == true) ? 'Yes' : 'No'
+  //     })
+  //   }
+  // })
+  const params = {
+    "production_id" : this.prod_id
+  };
+  this.restApiService.getByParameters(Pathconstants.locationInfo_GET, params).subscribe(response => {
+    this.data = response
+    if (response) {
+      response.forEach((i: any) => {
+        i.flag = (i.flag == true) ? 'Active' : 'InActive'
       })
     }
   })
 }
-
  onSelect(type: any) {
   let countrySelection: any = [];
   let stateSelection: any =[];

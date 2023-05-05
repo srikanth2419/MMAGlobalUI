@@ -29,7 +29,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   RowId: any;
   userInfo: any;
   logged_user!: User
-productionhouse:any;
+   productionhouse:any;
 
   constructor(private restapiservice: RestapiService, private authservice: AuthService) { }
 
