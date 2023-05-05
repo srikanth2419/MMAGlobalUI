@@ -19,34 +19,37 @@ export class CalendarComponent implements OnInit {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
     weekends: true,
-    // events: [
-    //   { title: '' , start: new Date() },
-    //   {title : 'sample meeting',start : new Date()}
-    // ]
   };
   ShootingScheduleData: any;
   events: any;
+  logged_user!:User;
   
   constructor(private restApiService: RestapiService, private authservice: AuthService, private datePipe: DatePipe) { 
     
   }
 
   ngOnInit(): void {
+
      
-   // this.logged_user = this.authservice.UserInfo;
+   this.logged_user = this.authservice.getUserInfo();
     this.loadevents();
   }
   loadevents(){
     var setInitialDate = new Date();
     console.log('dd',setInitialDate)
-    this.restApiService.get(Pathconstants.shooting_schedule_Get).subscribe(res => {
+    const params ={
+      'production_id':this.logged_user.production_id,
+    }
+    this.restApiService.getByParameters(Pathconstants.shootingshedule_GETBYID,params).subscribe(res => {
       var data: any = [];
       res.forEach((e:any) => {
-        console.log('d',this.datePipe.transform (e.schedule_date, 'dd/MM/yyyy'))
+       // console.log('a',e.schedule_date.setUTCDate(10));
+        //console.log('d',this.datePipe.transform (e.schedule_date, 'ddd MMM dd yyyy HH:SS:MM'))
+        //var ndate= this.datePipe.transform (e.schedule_date, 'ddd MMM dd yyyy HH:SS:MM')
         data.push({
           'id': e.slno,
           'title': e.scene,
-          'start': new Date,
+          'start': e.schedule_date,
           'color':  '#41cf41' 
         })
       })

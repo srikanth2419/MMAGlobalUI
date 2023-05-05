@@ -6,6 +6,8 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { User } from 'src/app/interface/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-fund-utilization',
@@ -35,10 +37,14 @@ export class FundUtilizationComponent implements OnInit {
   contactlistData: any[] = [];
   data: any;
   newfundbudgetAmount: any;
+  userInfo: any;
+  logged_user!: User
+  productionhouse:any;
 
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  prod_id: any;
   
-  constructor(private restapiservice: RestapiService) {
+  constructor(private restapiservice: RestapiService,private authservice: AuthService) {
   }
 
   ngOnInit(): void {
@@ -53,6 +59,12 @@ export class FundUtilizationComponent implements OnInit {
   this.fundCols = TableConstants.FundColumns;
   this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res})
   this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => { this.contactlistData = res })
+  this.logged_user = this.authservice.getUserInfo();
+  this.productionhouse = this.logged_user.production_house_name;
+  this.prod_id = this.logged_user.production_id;
+  this.onView();
+  this.prod_id = this.logged_user.production_id;
+
   }
 
   onSave() {
@@ -67,6 +79,7 @@ export class FundUtilizationComponent implements OnInit {
         'day_or_call': this.dayCall,
         'total_amount': this.totalAmount,
         'created_date': new Date(),
+        'production_id':this.prod_id,
       };
       this.restapiservice.post(Pathconstants.fundutilization_Post, params).subscribe(res => {
         if (res != null && res != undefined) {
@@ -98,8 +111,11 @@ export class FundUtilizationComponent implements OnInit {
     switch (type) {
       case 'p':
         this.newprojectcreationData.forEach((c: any) => {
+          if(c.production_id === this.prod_id)
+          {
           projectSelection.push({ label: c.project_name, value: c.project_id
           });
+        }
             })
         this.projectNameOptions = projectSelection;
         this.projectNameOptions.unshift({ label: '-select', value: null });
@@ -127,13 +143,24 @@ export class FundUtilizationComponent implements OnInit {
   }
 
   onView() {
-    this.restapiservice.get(Pathconstants.fundutilization_Get).subscribe(res => {
-      this.FundUtilizationData = res;
-      if (res) {
-        res.forEach((i: any) => {
+    // this.restapiservice.get(Pathconstants.fundutilization_Get).subscribe(res => {
+    //   this.FundUtilizationData = res;
+    //   if (res) {
+    //     res.forEach((i: any) => {
 
-        })
-      }
+    //     })
+    //   }
+    // })
+
+    const params = {
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.FundUtilizationbyid_Get,params).subscribe(res => {
+      this.FundUtilizationData = res;
+      // if (Response) {
+      //   Response.forEach((i: any) => {
+      //   })
+      // }
     })
   }
 

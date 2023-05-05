@@ -15,6 +15,7 @@ export class Pathconstants {
     public static readonly UpdateApprovalStatus_update='Registration/UpdateApprovalStatus'
     public static readonly updateChangePassword_Update='UserMaster/UpdateChangepassword'
     public static readonly projectcreationproduction_GET='ProjectCreation/GetprojectCreationbyId'
+    public static readonly shooting_schedule_Get_by_prodid='ShootingSchedule/Getshooting_schedule_byprod_id'
     
     //#endregion
 
@@ -32,6 +33,8 @@ export class Pathconstants {
     public static readonly shooting_status_Get ='Shooting_status/Getshooting_status'
     public static readonly locationInfo_GET ='LocationInfo/GetLocationInfoId'
     public static readonly dailyexpensesId_Get = 'Dailyexpenses/GetDailyexpensesById'
+    public static readonly contactlistprodid_GET='ContactList/Getcontactlist_production_id'
+
     //#endregion
 
 
@@ -45,6 +48,8 @@ export class Pathconstants {
      public static readonly ContactListController_Post='ContactList/Savecontactlist'
      public static readonly ContactListController_Get='ContactList/Getcontactlist'
      public static readonly MasterController_Get='MasterController/Getmasters'
+     public static readonly FundUtilizationbyid_Get ='Fund_Utilization/Getfund_utilizationId'
+
    //#endregion
 
   
@@ -65,6 +70,7 @@ export class Pathconstants {
      public static readonly transportinfo_GET='Transportinfo/Gettransportinfo'
      public static readonly callinfo_Post='Callinfo/SaveCallinfo'
      public static readonly callinfo_GET='Callinfo/GetCallinfo'
+     public static readonly shootingshedule_GETBYID='ShootingSchedule/Getshooting_schedule_byprod_id'
     //#endregion
     
 }
