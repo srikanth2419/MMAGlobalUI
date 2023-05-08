@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Message } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-expenses-category-master',
@@ -23,7 +26,8 @@ export class ExpensesCategoryMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   block:RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
-  constructor(private restapiservice: RestapiService) { }
+  
+  constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.onView();
@@ -38,18 +42,33 @@ const params={
   'flag':(this.selectedType == 1) ? true : false
 };
 this.restapiservice.post(Pathconstants.expensescategorymaster_Post, params).subscribe(res => { 
-  if(res!== null && res!== undefined){
+  if (res) {
+    this.clearform();
     this.onView();
-    this.onClear();
-    this._respondentForm.reset();
-    this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-    setTimeout(() => this.responseMsg = [], 3000);
+    this.messageService.clear();
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+      summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+    });
+  } else {
+    this.messageService.clear();
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+      summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+    });
   }
-  else{
-    this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-    setTimeout(() => this.responseMsg = [], 3000);
+}, (err: HttpErrorResponse) => {
+  if (err.status === 0 || err.status === 400) {
+    this.messageService.clear();
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+      summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+    })
   }
 })
+}
+clearform() {
+this._respondentForm.reset();
 }
 onView(){
   this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {this.expensescategorymasterData = res

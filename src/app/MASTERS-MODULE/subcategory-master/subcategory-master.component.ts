@@ -3,9 +3,10 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
-import { Message } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { MasterService } from 'src/app/services/master.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class SubcategoryMasterComponent implements OnInit {
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
 
-  constructor(private restApiService: RestapiService, private _masterService: MasterService) {
+  constructor(private restApiService: RestapiService, private _masterService: MasterService,private messageService: MessageService) {
   }
 
 
@@ -61,22 +62,34 @@ export class SubcategoryMasterComponent implements OnInit {
     }
 
     this.restApiService.post(Pathconstants.SubCategoryMasterController_Post, params).subscribe(res => {
-      if (res != null && res != undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._respondentForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
-
   }
-
-
+  clearform() {
+    this._respondentForm.reset();
+  }
   onEdit(rowData: any) {
     this.RowId = rowData.sino;
     this.categoryName = rowData.categoryname;

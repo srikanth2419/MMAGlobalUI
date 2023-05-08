@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Message, SelectItem } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
@@ -9,6 +9,7 @@ import { MasterService } from 'src/app/services/master.service';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interface/user.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-call-sheet',
@@ -82,7 +83,7 @@ export class CallSheetComponent implements OnInit {
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
   
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe,private authservice: AuthService) { }
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe,private authservice: AuthService,private messageService: MessageService) { }
   ngOnInit(): void {
     this.callinfocol =TableConstants.callinfoColumns
     this.contactlistcols = TableConstants.ShootingScheduleColumns;
@@ -202,19 +203,34 @@ const params=   //call character
 
 };
     this.restapiservice.post(Pathconstants.callinfo_Post, params).subscribe(res => {
-      if (res != null && res != undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._respondentForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
-  }
+    }
+    clearform() {
+    this._respondentForm.reset();
+    }
   getContactId() {            //get selected fields contact id as a string array
     var arr:any = [];
     this.contactid = []

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
 import { MasterService } from 'src/app/services/master.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interface/user.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-location-info',
@@ -56,7 +57,7 @@ export class LocationInfoComponent implements OnInit {
   @ViewChild('f', { static: false }) _locationinfoForm!: NgForm;
   pincode_max: any;
 
-  constructor(private restApiService: RestapiService, private _masterService: MasterService,private authservice: AuthService) { }
+  constructor(private restApiService: RestapiService, private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.onView();
@@ -98,19 +99,34 @@ export class LocationInfoComponent implements OnInit {
      'flag':(this.flag == 1) ? true : false
   }
   this.restApiService.post(Pathconstants.LocationInfo_Post, params).subscribe(res => {
-    if (res != null && res != undefined) {
+    if (res) {
+      this.clearform();
       this.onView();
-      this.onClear();
-      this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-      setTimeout(() => this.responseMsg = [], 3000);
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+        summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+      });
+    } else {
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+      });
     }
-    else {
-      this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-      setTimeout(() => this.responseMsg = [], 3000);
+  }, (err: HttpErrorResponse) => {
+    if (err.status === 0 || err.status === 400) {
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+      })
     }
   })
- }
-
+  }
+  clearform() {
+  this._locationinfoForm.reset();
+  }
  onView() {
   // this.restApiService.get(Pathconstants.LocationInfo_Get).subscribe(res => {
   //   this.data = res;
