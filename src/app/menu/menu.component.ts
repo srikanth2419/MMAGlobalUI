@@ -23,12 +23,10 @@ export class MenuComponent implements OnInit {
   constructor(private authservice: AuthService) {
     this.authservice.isLoggedIn.subscribe(value => {
       if (value !== undefined || value !== null) {
-        console.log('log', value)
         var menuList = this.authservice.fetchMenu;
         // if(this.items === undefined || this.items === null) {
         this.checkChildItems(menuList);
         this.items = menuList;
-        console.log('menu', this.items)
         // }
       }
       // else {
@@ -42,7 +40,6 @@ export class MenuComponent implements OnInit {
 
 
   checkChildItems(data: any) {
-    console.log('1', data)
     if (data.length !== 0) {
     for (let i = 0; i < data.length; i++) {
       if (data[i]) {

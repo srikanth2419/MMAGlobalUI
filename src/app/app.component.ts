@@ -17,7 +17,6 @@ export class AppComponent {
   constructor(private _router: Router,private _authService: AuthService) {
     this._authService.isLoggedIn.subscribe(value => {
       this.isLoggedIn = value;
-      console.log('s',this.isLoggedIn)
     });
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -43,7 +42,6 @@ export class AppComponent {
 
   onToggle($event: boolean) {
     this.show = $event; //setting show value from menu component
-    console.log('p')
   }
   
   // ngAfterViewChecked(): void {

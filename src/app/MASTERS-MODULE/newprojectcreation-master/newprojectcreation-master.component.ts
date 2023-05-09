@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Message } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interface/user.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-newprojectcreation-master',
@@ -24,14 +25,14 @@ export class NewprojectcreationMasterComponent implements OnInit {
   loading: boolean = false;
   newprojectcreationData: any[] = [];
   newprojectcreationCols: any;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   responseMsg: Message[] = [];
   RowId: any;
   userInfo: any;
   logged_user!: User
    productionhouse:any;
 
-  constructor(private restapiservice: RestapiService, private authservice: AuthService) { }
+  constructor(private restapiservice: RestapiService, private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
     //this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => { this.newprojectcreationData = res })
@@ -57,20 +58,33 @@ export class NewprojectcreationMasterComponent implements OnInit {
         'flag': (this.selectedType == 1) ? true : false
       };
       this.restapiservice.post(Pathconstants.projectcreation_Post, params).subscribe(res => {
-        if (res != null && res != undefined) {
-          this.onView();
+        if (res) {
           this.onClear();
-          this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+          this.onView();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+            summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
         }
-        else {
-          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+      }, (err: HttpErrorResponse) => {
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
         }
       })
     }
+    
   }
-
   onClear() {
     this.projectName = null;
     this.durationDay = null;
@@ -115,8 +129,11 @@ export class NewprojectcreationMasterComponent implements OnInit {
   onCheck() {
     this.newprojectcreationData.forEach(i => {
       if (i.project_name === this.projectName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'project name is already exist, Please input different name' }];
-        this.projectName = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Project Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.projectName = null;
       }
     })
   }

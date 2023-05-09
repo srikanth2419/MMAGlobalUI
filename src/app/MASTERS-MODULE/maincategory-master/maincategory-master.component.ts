@@ -3,8 +3,9 @@ import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
-import { Message } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -21,13 +22,13 @@ export class MaincategoryMasterComponent implements OnInit {
   sino: any;
   RowId:any;
   responseMsg: Message[] = [];
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/; 
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/; 
 
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
 
 
-  constructor(private restApiService: RestapiService) { }
+  constructor(private restApiService: RestapiService,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.cols = TableConstants.MainCategoryMaster;
@@ -60,36 +61,45 @@ export class MaincategoryMasterComponent implements OnInit {
       'flag': (this.selectedType == 1) ? true : false
     }
     this.restApiService.post(Pathconstants.MainCategoryMasterController_Post, params).subscribe(res => { 
-      if(res!== null && res!== undefined){
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._respondentForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else{
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
-   
-    
   }
-
-
+  clearform() {
+    this._respondentForm.reset();
+  }
   onClear() {
     this.categoryName = null;
     this.selectedType = null;
     this.sino = 0;
   }
   onCheck() {
-    this.mainCategoryData.forEach(i => {
-      if (i.categoryname === this.categoryName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Category name is already exist, Please input different name' }];
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Maincategory Name Already Exist, Please input different name'
+    });
+      setTimeout(() => this.responseMsg = [], 3000);
         setTimeout(() => this.responseMsg = [], 2000)
         this.categoryName = null;
       }
-    })
-  }
-}
-
+    }

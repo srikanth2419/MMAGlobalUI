@@ -1,10 +1,9 @@
 <div class="col-12 md:col-12 lg:col-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Call Sheet">
-        <p-messages [(value)]="responseMsg" [enableService]="false"
-        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
-            <form #f="ngForm">
-                <p-tabView>
+            <form #c="ngForm" name="callinfoForm">
+                <p-tabView [(activeIndex)]="tabIndex">
                     <p-tabPanel header="Call Info">
                         <div #tab1 class="col-12 md:col-12 lg:col-12">
                             <div #row1 class="col-12 md:col-12 lg:col-12">
@@ -96,12 +95,13 @@
                                         </p-radioButton>
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-1">
-                                        <button pButton type="button" label="Add" [disabled]="!mainCategory ||!subCategory"
+                                        <button pButton type="button" label="Add" [disabled]="!c.valid || !c.dirty"
                                             (click)="onAdd()"></button>
                                     </div>
                                 </div>
                             </div>
-                        </div></div>
+                        </div>
+                    </div>
                             <div #row3 class="col-12 md:col-12 lg:col-12">
                                 <p-table [columns]="contactlistcols" [value]="maincategorynew"
                                     [(selection)]="selectedCustomers" dataKey="first_name" styleClass="p-datatable-gridlines" 
@@ -140,9 +140,10 @@
                             </div>
                         </div>
                         <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
-                            <button pButton type="button" label="Save"  icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSavecallsheet()"></button>&nbsp;
-                            <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
+                            <button pButton type="button" label="Next"  icon="pi pi-arrow-right" [disabled]="!c.valid || !c.dirty" (click)="onNext()"></button>&nbsp;
+                            <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClearcallinfo()"></button>
                         </div>
+                        
                         <div class="col-12 md:col-12 lg:col-12">
                             <p-table #dt [columns]="callinfocol" [value]="callinfoData" styleClass="p-datatable-gridlines"
                                 [loading]="loading" [paginator]="true" [rows]="10" 
@@ -160,30 +161,32 @@
                                 </ng-template>
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
+                                        <th>Edit</th>
                                         <th>S.No:</th>
                                         <th *ngFor="let col of columns">
                                             {{col.header}}
                                         </th>
-                                        <th>Edit</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                                     <tr>
+                                        <td>
+                                            <p-button icon="pi pi-pencil" (onClick)="onEditcallinfo(rowData)"></p-button>
+                                        </td>
                                         <td>{{rowIndex+1}}</td>
                                         <td *ngFor="let col of columns">
                                             {{rowData[col.field]}}
                                         </td>
-                                        <td>
-                                            <p-button icon="pi pi-pencil" (onClick)="onEditcallinfo(rowData)"></p-button>
-                                        </td>
+                                        
                                     </tr>
                                 </ng-template>
                             </p-table>
+                            
                             </div>
                     </p-tabPanel>
                     <p-tabPanel header="Lodging Info">
                         <div #tab2 class="col-12 md:col-12 lg:col-12">
-                           
+                            <form #l="ngForm" name="lodginginfoForm">
                             <div #row1 class="col-12 md:col-12 lg:col-12">
                                 <div class="p-fluid grid">
                                     <div class="field col-12 md:col-3 lg:col-2">
@@ -206,14 +209,17 @@
                                             <label for="_note">Note</label>
                                         </span>
                                     </div>
-                                    <!-- <div class="field col-12 md:col-3 lg:col-1">
-                                        <button pButton type="button" label="Add" [disabled]="!f.valid || !f.dirty" (click)="onSave2()"></button>
-                                    </div> -->
                                 </div>
+                                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                                    <button pButton type="button" label="Next"  icon="pi pi-arrow-right" [disabled]="!l.valid || !l.dirty"  (click)="onNext()"></button>&nbsp;
+                                    <button pButton type="button" label="Prev"  icon="pi pi-arrow-left"  (click)="onPrev()"></button>&nbsp;
+                                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClearlodginginfo()"></button>
+                                    </div>
                             </div>
-                           
+                           </form>
                         </div>
                         <div class="col-12 md:col-12 lg:col-12">
+                           
                             <p-table #dt [columns]="lodginginfocols" [value]="lodginginfoData" styleClass="p-datatable-gridlines"
                                 [loading]="loading" [paginator]="true" [rows]="10" 
                                 [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll">
@@ -230,22 +236,24 @@
                                 </ng-template>
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
+                                        <th>Edit</th>
                                         <th>S.No:</th>
                                         <th *ngFor="let col of columns">
                                             {{col.header}}
                                         </th>
-                                        <th>Edit</th>
+                                        
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                                     <tr>
+                                        <td>
+                                            <p-button icon="pi pi-pencil" (onClick)="onEditlodginginfo(rowData)"></p-button>
+                                        </td>
                                         <td>{{rowIndex+1}}</td>
                                         <td *ngFor="let col of columns">
                                             {{rowData[col.field]}}
                                         </td>
-                                        <td>
-                                            <p-button icon="pi pi-pencil" (onClick)="onEditlodginginfo(rowData)"></p-button>
-                                        </td>
+                                        
                                     </tr>
                                 </ng-template>
                             </p-table>
@@ -254,7 +262,7 @@
                     
                     <p-tabPanel header="Transport Info">
                         <div #tab2 class="col-12 md:col-12 lg:col-12">
-                        
+                            <form #t="ngForm" name="transportinfoForm">
                             <div #row1 class="col-12 md:col-12 lg:col-12">
                                 <div class="p-fluid grid">
                                     <div class="field col-12 md:col-3 lg:col-2">
@@ -289,14 +297,18 @@
                                     </div>
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
-                                            <p-dropdown name="_passengerName" [options]="passengerNameOptions" (click)="onSelect('T')"[(ngModel)]="passengerName">
+                                            <p-dropdown name="_passengerName" [options]="passengerNameOptions" (click)="onSelect('T')" [(ngModel)]="passengerName">
                                             </p-dropdown>
                                             <label for="_passengerName">Passenger Name</label>
                                         </span>
+                                    </div></div>
+                                <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
+                                    <button pButton type="button" label="Save"  icon="pi pi-save" [disabled]="!t.valid || !t.dirty" (click)="onSavecallsheet()"></button>&nbsp;
+                                    <button pButton type="button" label="Prev"  icon="pi pi-arrow-left"  (click)="onPrev()"></button>&nbsp;
+                                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onCleartransportinfo()"></button>
                                     </div>
-                                </div>
                             </div>
-                      
+                      </form>
                         </div>
                         <div class="col-12 md:col-12 lg:col-12">
                             <p-table #dt [columns]="transportinfocols" [value]="transportinfoData" styleClass="p-datatable-gridlines"
@@ -315,22 +327,24 @@
                                 </ng-template>
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
+                                        <th>Edit</th>
                                         <th>S.No:</th>
                                         <th *ngFor="let col of columns">
                                             {{col.header}}
                                         </th>
-                                        <th>Edit</th>
+                                        
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                                     <tr>
+                                        <td>
+                                            <p-button icon="pi pi-pencil" (onClick)="onEdittransportinfo(rowData)"></p-button>
+                                        </td>
                                         <td>{{rowIndex+1}}</td>
                                         <td *ngFor="let col of columns">
                                             {{rowData[col.field]}}
                                         </td>
-                                        <td>
-                                            <p-button icon="pi pi-pencil" (onClick)="onEdittransportinfo(rowData)"></p-button>
-                                        </td>
+                                       
                                     </tr>
                                 </ng-template>
                             </p-table>
