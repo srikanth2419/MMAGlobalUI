@@ -32,7 +32,7 @@ export class FundUtilizationComponent implements OnInit {
   responseMsg: Message[] = [];
   FundUtilizationData: any[] = [];
   loading: boolean = false;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   item: any;
   newprojectcreationData: any[] = [];
   contactlistData: any[] = [];
@@ -44,8 +44,9 @@ export class FundUtilizationComponent implements OnInit {
 
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   prod_id: any;
+  messageService: any;
   
-  constructor(private restapiservice: RestapiService,private authservice: AuthService,private messageService: MessageService) {
+  constructor(private restapiservice: RestapiService,private authservice: AuthService) {
   }
 
   ngOnInit(): void {
@@ -183,6 +184,7 @@ export class FundUtilizationComponent implements OnInit {
     this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_name}];
     this.budgetAmount=rowData.budget_amount;
     this.personNameOptions=[{label:rowData.first_name,value:rowData.person_name}];
+  //  this.paymentByOptions=[{}];
     this.paymentBy = rowData.value;
     this.amount = rowData.amount;
     this.dayCall = rowData.day_or_call;

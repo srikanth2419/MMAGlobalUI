@@ -26,7 +26,7 @@ export class CityMasterComponent implements OnInit {
   loading: boolean = false;
   statecode: any;
   responseMsg: Message[] = [];
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
   @ViewChild('f', { static: false }) _citymasterForm!: NgForm;
   constructor(private restapiservice: RestapiService,private messageService: MessageService,) { }

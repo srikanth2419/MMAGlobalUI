@@ -25,7 +25,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   loading: boolean = false;
   newprojectcreationData: any[] = [];
   newprojectcreationCols: any;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   responseMsg: Message[] = [];
   RowId: any;
   userInfo: any;

@@ -27,7 +27,7 @@ export class SubcategoryMasterComponent implements OnInit {
   maincategoryOptions: SelectItem[] = [];
   mainCategorycode: any;
 
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
 
@@ -112,120 +112,12 @@ export class SubcategoryMasterComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   onClear() {
     this.categoryName = null;
     this.selectedType = null;
-    this.mainCategorycode = null;
+    this.mainCategorycode = 0;
     this.sino = 0;
+    this.selectedType=null;
   }
   onCheck() {
     this.subCategoryData.forEach(i => {

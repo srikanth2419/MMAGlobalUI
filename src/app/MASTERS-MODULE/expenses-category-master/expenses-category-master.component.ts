@@ -24,7 +24,7 @@ export class ExpensesCategoryMasterComponent implements OnInit {
   RowId:any;
   loading:boolean = false;
   responseMsg: Message[] = [];
-  block:RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block:RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   
   constructor(private restapiservice: RestapiService,private messageService: MessageService) { }

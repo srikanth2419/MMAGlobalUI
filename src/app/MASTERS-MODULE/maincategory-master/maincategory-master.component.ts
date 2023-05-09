@@ -22,7 +22,7 @@ export class MaincategoryMasterComponent implements OnInit {
   sino: any;
   RowId:any;
   responseMsg: Message[] = [];
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/; 
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/; 
 
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
