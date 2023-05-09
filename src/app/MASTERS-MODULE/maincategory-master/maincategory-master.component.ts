@@ -95,13 +95,11 @@ export class MaincategoryMasterComponent implements OnInit {
     this.sino = 0;
   }
   onCheck() {
-    this.mainCategoryData.forEach(i => {
-      if (i.categoryname === this.categoryName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Category name is already exist, Please input different name' }];
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Maincategory Name Already Exist, Please input different name'
+    });
+      setTimeout(() => this.responseMsg = [], 3000);
         setTimeout(() => this.responseMsg = [], 2000)
         this.categoryName = null;
       }
-    })
-  }
-}
-
+    }

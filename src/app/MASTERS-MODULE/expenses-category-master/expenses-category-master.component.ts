@@ -94,10 +94,14 @@ onClear(){
 onCheck() {
   this.expensescategorymasterData.forEach( i => {
     if(i.name  === this.name ) {
-      this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Expensescategory name is already exist, Please input different name' }];
-        this.name = null;
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Expenses Name Already Exist, Please input different name'
+      });
         setTimeout(() => this.responseMsg = [], 3000);
+        this.name = null;
+
     }
   })
 }
 }
+

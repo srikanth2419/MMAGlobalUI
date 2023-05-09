@@ -116,10 +116,15 @@ export class StateMasterComponent implements OnInit {
   onCheck(){
     this.statemasterData.forEach( i => {
       if(i.statename  === this.stateName ) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'statename name is already exist, Please input different name' }];
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'State Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
           this.stateName = null;
+  
       }
     })
   }
   }
+  
   

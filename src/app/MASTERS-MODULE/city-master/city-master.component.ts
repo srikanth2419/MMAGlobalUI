@@ -114,11 +114,10 @@ export class CityMasterComponent implements OnInit {
 
   }
   onCheck() {
-    this.citymasterData.forEach(i => {
-      if (i.cityname === this.cityName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'cityname name is already exist, Please input different name' }];
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'City Name Already Exist, Please input different name'
+    });
+      setTimeout(() => this.responseMsg = [], 3000);
         this.cityName = null;
       }
-    })
-  }
-}
+    }

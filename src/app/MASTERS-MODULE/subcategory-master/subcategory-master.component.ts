@@ -122,12 +122,15 @@ export class SubcategoryMasterComponent implements OnInit {
   onCheck() {
     this.subCategoryData.forEach(i => {
       if (i.categoryname === this.categoryName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Category name is already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.categoryName = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Subcategory Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.categoryName = null;
+  
       }
     })
   }
-
-
-}
+  }
+  
+  

@@ -142,7 +142,6 @@ export class ShootingScheduleComponent implements OnInit {
   onSave() {
     this.getContactId();
     {
-      console.log('1', this.projectName.value);
       const shootingparams = {
         'slno': this.RowId,
         'project_id': this.projectName.value,

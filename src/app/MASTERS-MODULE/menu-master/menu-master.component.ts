@@ -188,12 +188,18 @@ export class MenuMasterComponent implements OnInit {
   checkMenuName() {
     this.data.forEach(i => {
       if (i.name === this.name && i.url === this.url && i.roleid === this.roleId ) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Menu Name already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.name = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Menu Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.name = null;
+
       }
     })
   }
+  }
+  
+  
 
   // checkUrl() {
   //   this.data.forEach(i => {
@@ -205,4 +211,3 @@ export class MenuMasterComponent implements OnInit {
   //   })
   // }
 
-}
