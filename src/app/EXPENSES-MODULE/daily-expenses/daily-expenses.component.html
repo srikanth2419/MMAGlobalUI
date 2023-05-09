@@ -1,7 +1,6 @@
 <div class="col-12 md:col-12 lg:col-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Daily Expenses">
-        <p-messages [(value)]="responseMsg" [enableService]="false"
-        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #f="ngForm" name="dailyexpenses">
             <div>Project Selection</div>
@@ -10,7 +9,7 @@
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <p-calendar [(ngModel)]="date" name="_date" [showIcon]="true" inputId="datevalue" [readonlyInput]="true">
+                                <p-calendar [(ngModel)]="date" name="_date" [minDate]="minDate" [showIcon]="true" inputId="datevalue" [readonlyInput]="true">
                                 </p-calendar>
                                 <label for="_date">Date</label>
                             </span>
@@ -26,7 +25,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="budgetamnt" name="_amount" pInputText [(ngModel)]="budgetAmount"
-                                    required />
+                                [pKeyFilter]="block"  [pKeyFilter]="'int'" required />
                                 <label for="_amount">Budget Amount</label>
                             </span>
                         </div>
@@ -41,7 +40,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="incoiceno" name="_invoiceno" pInputText
-                                    [(ngModel)]="invoiceNumber" required />
+                                    [(ngModel)]="invoiceNumber" required  [pKeyFilter]="block"  [pKeyFilter]="'int'" />
                                 <label for="_invoiceno">Invoice Number</label>
                             </span>
                         </div>
@@ -55,14 +54,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="amnt" name="_amnt" pInputText [(ngModel)]="amount"
-                                    (input)="checkBudgetAmount()" required />
+                                    (input)="checkBudgetAmount()" [pKeyFilter]="block"  [pKeyFilter]="'int'" required />
                                 <label for="_amnt"> Amount</label>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="field col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton type="button" label=" +Add" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
+                    <button pButton type="button" label="Save" icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
                     <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
 
                 </div>

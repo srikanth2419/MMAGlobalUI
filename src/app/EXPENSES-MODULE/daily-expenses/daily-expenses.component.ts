@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Message, SelectItem } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { MasterService } from 'src/app/services/master.service';
 import { RestapiService } from 'src/app/services/restapi.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interface/user.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-daily-expenses',
@@ -34,21 +37,31 @@ export class DailyExpensesComponent implements OnInit {
   newprojectcreationData: any[] = [];
   newfundbudgetAmount:any;
   dailyexpenses: any[] = [];
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/;
+  userInfo: any;
+  logged_user!: User
+  productionhouse:any;
+  prod_id: any;
+  minDate: any;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService) { }
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this.minDate = new Date();
     this.dailyexpenses=this._masterService.getMaster('EC')
-    this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {
-      this.expensescategorymasterData = res
-    })
+    //this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {
+      this.expensescategorymasterData = this.dailyexpenses
+   // })
     this.restapiservice.get(Pathconstants.projectcreation_Get).subscribe(res => {
       this.newprojectcreationData = res
     })
-    this.onView();
     this.dailyexpensesCols = TableConstants.DailyexpensesColumns;
+    this.logged_user = this.authservice.getUserInfo();
+    this.productionhouse = this.logged_user.production_house_name;
+    this.prod_id = this.logged_user.production_id;
+    this.onView();
+
      
   }
   onSelect(type: any) {
@@ -56,15 +69,16 @@ export class DailyExpensesComponent implements OnInit {
     let projectnameSelection:any =[];
     switch (type) {
       case 'P':
-        this. newprojectcreationData.forEach((c: any) => {
+        this.newprojectcreationData.forEach((c: any) => {
           projectnameSelection.push({ label: c.project_name, value: c.project_id });
         })
-        this. projectOptions = projectnameSelection;
-        this. projectOptions.unshift({ label:'-select', value: null });
+        this.projectOptions = projectnameSelection;
+        this.projectOptions.unshift({ label:'-select', value: null });
         break;
       case 'D':
-        this. expensescategorymasterData.forEach((c: any) => {
+        this.expensescategorymasterData.forEach((c: any) => {
           dailyexpensesSelection.push({ label: c.name, value: c.code });
+          console.log('d',c);
         })
         this.expensesOptions = dailyexpensesSelection;
         this.expensesOptions.unshift({ label:'-select', value: null });
@@ -83,32 +97,56 @@ export class DailyExpensesComponent implements OnInit {
 onSave(){
   const params = {
   'slno': this.RowId,
-  'project_name': this. projectName,
+  'project_name': this.projectName,
   'budget_amount':this.budgetAmount,
   'date':this.date,
   'invoice_number':this.invoiceNumber,
   'expenses_category':this.expensesCategory,
   'amount':this.amount,
+  'production_id':this.prod_id,
   'created_date': new Date(),
 };
 this.restapiservice.post(Pathconstants.dailyexpenses_Post, params).subscribe(res => {
-  if (res != null && res != undefined) {
+  if (res) {
+    this.clearform();
     this.onView();
-    this.onClear();
-    this._respondentForm.reset();
-    this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-    setTimeout(() => this.responseMsg = [], 3000);
+    this.messageService.clear();
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+      summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+    });
+  } else {
+    this.messageService.clear();
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+      summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+    });
   }
-  else {
-    this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-    setTimeout(() => this.responseMsg = [], 3000);
+}, (err: HttpErrorResponse) => {
+  if (err.status === 0 || err.status === 400) {
+    this.messageService.clear();
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+      summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+    })
   }
 })
-
+}
+clearform() {
+this._respondentForm.reset();
 }
 onView(){
-  this.restapiservice.get(Pathconstants.dailyexpenses_GET).subscribe(res => {
-    this.dailyexpensesData = res;
+  // })
+  const params = {
+    "production_id" : this.prod_id
+  };
+  this.restapiservice.getByParameters(Pathconstants.dailyexpensesId_Get, params).subscribe(response => {
+    this.dailyexpensesData = response
+    if (response) {
+      response.forEach((i: any) => {
+        i.flag = (i.flag == true) ? 'Active' : 'InActive'
+      })
+    }
   })
 }
 onEdit(rowData:any){
@@ -146,18 +184,6 @@ onClear(){
     }
   }
 
-  // onAdd() {
-  //   this.dailyexpensesData = this.checkIfTotalExists(this.dailyexpensesData)
-  //   this.dailyexpensesData.push({
-  //     'Date': this.date,
-  //     'Project': this.projectName,
-  //     'BudgetAmount': this.budgetAmount,
-  //     'InvoiceNo': this.invoiceNumber,
-  //     'expenses': this.expensesCategory,
-  //     'amount': this.amount,
-  //   })
-  //   this.calculateGrandTotal();
-  // }
 
   checkIfTotalExists(data: any[]) {
     var result = [];

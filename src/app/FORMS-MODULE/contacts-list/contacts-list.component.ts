@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Message, SelectItem } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
@@ -8,6 +8,7 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { MasterService } from 'src/app/services/master.service';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-contacts-list',
@@ -62,13 +63,14 @@ export class ContactsListComponent implements OnInit {
   statemaster: any = [];
   cityMaster: any = [];
   roleMaster: any = [];
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,;'"?/]/;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  blockmail: RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
   userName:any;
   logged_user!: User;
   prod_id: any;
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
-  constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice: AuthService) { }
+  constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
  
@@ -190,21 +192,34 @@ export class ContactsListComponent implements OnInit {
       'production_id':this.prod_id
     }
     this.restapiService.post(Pathconstants.ContactListController_Post, conctantsparams).subscribe(res => {
-      if (res !== null && res !== undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._respondentForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
-    
-  }
-
+    }
+    clearform() {
+    this._respondentForm.reset();
+    }
   
   onView() {
     // this.restapiService.get(Pathconstants.ContactListController_Get).subscribe(res => {
@@ -322,7 +337,7 @@ export class ContactsListComponent implements OnInit {
         onphoneno() {
           this.contactlistData.forEach((i:any) => {
             if (i.phonenumber === this.phoneNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different name' }];
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different number' }];
               this.phoneNumber = null;
             }
           })
@@ -331,7 +346,7 @@ export class ContactsListComponent implements OnInit {
         onwhatsappno() {
           this.contactlistData.forEach((i:any) => {
             if (i.whatsappnumber === this.whatappNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different name' }];
+              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different number' }];
               this.whatappNumber = null;
             }
           })

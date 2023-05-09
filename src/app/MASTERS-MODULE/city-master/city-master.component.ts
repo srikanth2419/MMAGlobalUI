@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Message, SelectItem } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
@@ -24,10 +26,10 @@ export class CityMasterComponent implements OnInit {
   loading: boolean = false;
   statecode: any;
   responseMsg: Message[] = [];
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/; 
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
 
-
-  constructor(private restapiservice: RestapiService) { }
+  @ViewChild('f', { static: false }) _citymasterForm!: NgForm;
+  constructor(private restapiservice: RestapiService,private messageService: MessageService,) { }
 
   ngOnInit(): void {
     this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => { this.statemasterData = res })
@@ -58,19 +60,34 @@ export class CityMasterComponent implements OnInit {
       'isactive': (this.selectedType == 1) ? true : false
     };
     this.restapiservice.post(Pathconstants.CityMaster_Post, params).subscribe(res => {
-      if (res != null && res != undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
   }
-
+  clearform() {
+    this._citymasterForm.reset();
+  }
   onView() {
     this.restapiservice.get(Pathconstants.CityMasterDB_GET).subscribe(res => {
       this.citymasterData = res;

@@ -1,14 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Message, SelectItem } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { MasterService } from 'src/app/services/master.service';
 import { RestapiService } from 'src/app/services/restapi.service';
-import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interface/user.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-call-sheet',
@@ -74,12 +75,18 @@ export class CallSheetComponent implements OnInit {
   generalCallTimeUpdate: any;
   shootingCallTimeUpdate: any;
   pickupTimeUpdate: any;
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9-&?,.;'"?/]/;
-  logged_user!: User;
+  userInfo: any;
+  logged_user!: User
   prod_id: any;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/; 
+  tabIndex:number=0;
+  @ViewChild('c', {static: false}) _callinfoForm!: NgForm;
+  @ViewChild('l', {static: false}) _lodginginfoForm!: NgForm;
+  @ViewChild('t', {static: false}) _transportinfoForm!: NgForm;
 
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe, private authservice: AuthService) { }
+
+  
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe,private authservice: AuthService,private messageService: MessageService) { }
   ngOnInit(): void {
     this.callinfocol =TableConstants.callinfoColumns
     this.contactlistcols = TableConstants.ShootingScheduleColumns;
@@ -93,8 +100,9 @@ export class CallSheetComponent implements OnInit {
         this.restapiservice.get(Pathconstants.ContactListController_Get).subscribe(res => {
           this.contactlistData = res})
           this.logged_user = this.authservice.getUserInfo();
-  this.prod_id = this.logged_user.production_id;
+          this.prod_id = this.logged_user.production_id;
           this.onView();
+          
   }
     onSelect(type: any) {
       console.log('l',this.generalCallTime)
@@ -170,6 +178,7 @@ export class CallSheetComponent implements OnInit {
       'main_category_id':this.mainCategory.value,
       'sub_category_id':this.subCategory.value,
       'created_date': new Date(),
+      'production_id':this.prod_id,
       'flag':(this.selectedType == 1) ? true : false
     };
 //lodginginfo
@@ -197,19 +206,38 @@ const params=   //call character
 
 };
     this.restapiservice.post(Pathconstants.callinfo_Post, params).subscribe(res => {
-      if (res != null && res != undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._respondentForm.reset();
+        this.onClearcallinfo();
+        this._callinfoForm.reset();
         this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
         setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
-  }
+    }
+    clearform() {
+    this._callinfoForm.reset();
+    }
   getContactId() {            //get selected fields contact id as a string array
     var arr:any = [];
     this.contactid = []
@@ -226,18 +254,39 @@ const params=   //call character
    console.log('m',value)
 }
   onView(){
-    this.restapiservice.get(Pathconstants.callinfo_GET).subscribe(res => {
-      this.callinfoData = res
-      if (res) {
-        res.forEach((i: any) => {
+     
+    //  const params = {
+    //   "production_id" : this.prod_id
+    // };
+    // this.restapiservice.getByParameters(Pathconstants.callinfo_GET,params).subscribe(res => {
+    //   this.callinfoData = res
+    //   if (res) {
+    //     res.forEach((i: any) => {
+    //       i.flag = (i.flag == true) ? 'Active' : 'InActive'
+    //     })
+    //   }
+    // })
+    const params = {
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.callinfo_get_by_productionid_GET, params).subscribe(response => {
+      this.callinfoData = response
+      if (response) {
+        response.forEach((i: any) => {
           i.flag = (i.flag == true) ? 'Active' : 'InActive'
         })
       }
     })
-    this.restapiservice.get(Pathconstants.lodginginfo_GET).subscribe(res => {
+    const params1 ={
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.lodginginfo_GET,params1).subscribe(res => {
       this.lodginginfoData = res;
     })
-    this.restapiservice.get(Pathconstants.transportinfo_GET).subscribe(res => {
+    const params2={
+      "production_id" : this.prod_id
+    };
+    this.restapiservice.getByParameters(Pathconstants.transportinfo_GET,params2).subscribe(res => {
       this.transportinfoData = res;
     })
   } 
@@ -335,7 +384,7 @@ onAdd() {
         this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name, 'contactid':i.slno});
       }})
     })}
-    onClear(){
+    onClearcallinfo(){
       this.Id=0;
       this.projectNameOptions=null;
       this.roleOptions=null;
@@ -348,15 +397,21 @@ onAdd() {
       this.mainCategoryOptions=null;
       this.subCategoryOptions=null;
       this.selectedType = null;
+      this.onAdd();
+    }
+
+      onClearlodginginfo(){
       this.locationName=null;
       this.address=null;
       this.note=null;
+    }
+      onCleartransportinfo(){
       this.driverName=null;
       this.pickupTime=null;
       this.pickupLocation=null;
       this.dropLocation=null;
       this.passengerName=null;
-      this.onAdd();
+     
     }
     oncheck(){
       this.data.forEach( i => {
@@ -367,4 +422,11 @@ onAdd() {
         } 
       })
     }
+    onNext(){
+      this.tabIndex+=1;
+    }
+    onPrev() {
+      this.tabIndex -= 1;
+    }
+  
 }

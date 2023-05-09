@@ -1,7 +1,6 @@
 <div class="col-12 md:col-12 lg:col-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Fund Utilization">
-        <p-messages [(value)]="responseMsg" [enableService]="false"
-        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #fundForm="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12 no-pad-top">
@@ -16,7 +15,8 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
-                                <input type="text" name="_budget" pInputText [(ngModel)]="budgetAmount" required />
+                                <input type="text" name="_budget" pInputText  [(ngModel)]="budgetAmount"  
+                                [pKeyFilter]="block"  [pKeyFilter]="'int'" required />
                                 <label for="_budget">Budget</label>
                             </span>
                         </div>
@@ -44,13 +44,14 @@
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
                                     <input type="text" name="_amount" pInputText [(ngModel)]="amount"
-                                        [pKeyFilter]="'int'" required />
+                                        [pKeyFilter]="'int'"  required />
                                     <label for="_amount">Amount</label>
                                 </span>
                             </div>
                             <div class="field col-12 md:col-3 lg:col-2">
                                 <span class="p-float-label">
-                                    <input type="text" name="_daycall" pInputText [(ngModel)]="dayCall" required />
+                                    <input type="text" name="_daycall" pInputText [(ngModel)]="dayCall" 
+                                    [pKeyFilter]="block"  required />
                                     <label for="_daycall">Day Or Call</label>
                                 </span>
                             </div>

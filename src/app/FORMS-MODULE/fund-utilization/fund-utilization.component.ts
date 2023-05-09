@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DashStyleValue } from 'highcharts';
-import { Message, SelectItem } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-fund-utilization',
@@ -31,7 +32,7 @@ export class FundUtilizationComponent implements OnInit {
   responseMsg: Message[] = [];
   FundUtilizationData: any[] = [];
   loading: boolean = false;
-  block: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.-;'"?/]/;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   item: any;
   newprojectcreationData: any[] = [];
   contactlistData: any[] = [];
@@ -44,7 +45,7 @@ export class FundUtilizationComponent implements OnInit {
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   prod_id: any;
   
-  constructor(private restapiservice: RestapiService,private authservice: AuthService) {
+  constructor(private restapiservice: RestapiService,private authservice: AuthService,private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -82,15 +83,28 @@ export class FundUtilizationComponent implements OnInit {
         'production_id':this.prod_id,
       };
       this.restapiservice.post(Pathconstants.fundutilization_Post, params).subscribe(res => {
-        if (res != null && res != undefined) {
-          this.onView();
+        if (res) {
           this.onClear();
-          this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+          this.onView();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+            summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
         }
-        else {
-          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+      }, (err: HttpErrorResponse) => {
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
         }
       })
     }

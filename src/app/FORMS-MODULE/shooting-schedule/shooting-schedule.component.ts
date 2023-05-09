@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Header, Message, SelectItem } from 'primeng/api';
+import { Header, Message, MessageService, SelectItem } from 'primeng/api';
 import { ConnectableObservable } from 'rxjs';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
@@ -8,6 +8,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 import { MasterService } from 'src/app/services/master.service';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -33,7 +34,7 @@ export class ShootingScheduleComponent implements OnInit {
   responseMsg: Message[] = [];
   RowId: any = 0;
   selected: any;
-  block: RegExp = /[^=<>*%(){}$@#_!+0-9&?,.;'"?/]/;
+  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   totalRecords: number = 0;
   selectAll: boolean = false;
   selectedCustomers: any[] = [];
@@ -59,7 +60,7 @@ export class ShootingScheduleComponent implements OnInit {
   logged_user!: User;
   prod_id:any;
 
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService) {
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -164,19 +165,33 @@ export class ShootingScheduleComponent implements OnInit {
         
       };
       this.restapiservice.post(Pathconstants.shooting_schedule_Post, params).subscribe(res => {
-        if (res != null && res != undefined) {
-          this.onView();
+        if (res) {
           this.onClear();
-          this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+          this.onView();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+            summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
         }
-        else {
-          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+      }, (err: HttpErrorResponse) => {
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
         }
       })
+      }
     }
-  }
+    
   getContactId() { 
       var arr:any = [];
        this.contactid = []
