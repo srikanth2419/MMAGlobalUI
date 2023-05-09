@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   }
   onLogin() {
     const login_params = new HttpParams().append('username', this.username).set('password', this.password);
-    console.log(this.username)
     this.restApiService.getByParameters(Pathconstants.UserLogin_Get, login_params).subscribe(response => {
       if (response.item1) {
         this._masterService.invokeMasterData();

@@ -1,42 +1,34 @@
 <div *ngIf="!hide" class="col-12 md:col-12 lg:col-12 header-div">
-    <div class="grid" style="height: 50px;">
-        <div class="col-7 md:col-4 lg:col-2 header-logo-txt">
-            <div class="grid">
-                <div class="col-3 md:col-2 lg:col-2 header-logo"> M </div>
-                <div class="col-9 md:col-10 lg:col-10" [routerLink]="['/home']">
-                    <span>Media Management</span>
-                </div>
-            </div>
+    <div class="grid header-logo-txt" style="height: 60px;">
+        <div class="col-3 md:col-3 lg:col-3  ">
+            <img style="height:50px;width: 50px;" src="assets/images/MMP_LOGO.png">
         </div>
-        <!-- <div class="col-1 md:col-1 lg:col-1 menu-bars" (click)="toggleMenu(display)">
-            <span><i class="pi pi-fw pi-bars"></i></span>
-        </div> -->
-        <div class="md:col-4 lg:col-6"></div>
-        <!-- <div class="col-3 md:col-3 lg:col-3 header-login">
-            <button pButton style="border-radius:20px;" [routerLink]="['/login']" type="button">Log Out</button>
-        </div> -->
-
-        <!--Profile-->
-        <div class="col-3 md:col-3 lg:col-3 header-login">
+        <div class="col-6 md:col-6 lg:col-6" style="text-align: center;margin-top: 15px;" [routerLink]="['/home']">
+            <span>Media Management Portal</span>
+        </div>
+        <div class="col-3 md:col-3 lg:col-3 ">
             <p-overlayPanel #op>
-                <ng-template pTemplate>
+                <ng-template pTemplate style="text-align: center;">
                     <div
-                        style="text-align: center !important; text-shadow: 0.5px 0.5px #45e155 !important; color: #53b548;">
+                        style="text-align: center !important; text-shadow: 0.5px 0.5px#787f92!important; color: #787f92;">
                     </div>
                     <span style="font-size: 13px;">Username: <span
                             style="color: #08747b; font-size: 14px !important;">{{username}} </span></span><br />
-                    <p><a style="font-size: 15px; color: green;"  routerLink="/change-password"
+                    <p><a style="font-size: 15px; color:#787f92;margin-left: 27px;" routerLink="/change-password"
                             routerLinkActive="active">Change Password</a></p>
+                    <button pButton
+                        style="color:#787f92;border-radius:20px;padding-left: 25px;padding-right: 25px;margin-left: 27px;"
+                        class="p-button-outlined" [routerLink]="['/login']" type="button">Log
+                        Out</button>
                 </ng-template>
             </p-overlayPanel>
-            <span>
-                <!-- <button pButton pRipple type="button" icon="pi pi-power-off" class="p-button-rounded" (click)="onLogout()" pTooltip="Logout" tooltipPosition="bottom" [fitContent]="true"></button> -->
-                <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-outlined" pTooltip="Userinfo"
-                    tooltipPosition="bottom" (click)="op.toggle($event)">
-                </button> </span>&nbsp;
-            <!-- <span>Log Out</span><i class="pi pi-angle-down"                style="color: grey;" [routerLink]="['/login']" ></i> --> 
-            <button pButton style="border-radius:20px;" class="p-button-outlined" [routerLink]="['/login']" type="button">Log
-                Out</button>
+            <div style="text-align: right;margin-top: 7px;">
+                <span>
+                    <button pButton pRipple type="button" icon="pi pi-user" style="color: #787f92;"
+                        class="p-button-rounded p-button-outlined" pTooltip="Userinfo" tooltipPosition="bottom"
+                        (click)="op.toggle($event)">
+                    </button> </span>&nbsp;
+            </div>
         </div>
     </div>
 </div>
