@@ -225,6 +225,8 @@ emailValidationCheck() {
     }
   }
 }
+
+
 validateFields() {
   if (this.pincode !== null && this.pincode !== undefined) {
      if (this.pincode > this.pincode_max) {

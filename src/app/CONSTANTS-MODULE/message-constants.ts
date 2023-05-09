@@ -18,4 +18,8 @@ export class ResponseMessage {
 
     //update
     public static readonly UpdateMsg = 'Updated Successfully!';
+  static SEVERITY_ERROR: any;
+  static SUMMARY_ERROR: any;
+  // Form Clear
+  public static readonly ClearMessage ='clear successsfully !'
 }
