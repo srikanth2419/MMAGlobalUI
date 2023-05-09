@@ -35,7 +35,7 @@ export class MenuMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   disableInput: boolean = false;
   blockIcon: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.:;^'"~`?/]/;
-  blockUrl: RegExp = /^[^=<>*%()|{}$@#_!+0-9&?,|.:;'`~"?^\s]/;
+  blockUrl: RegExp = /^[^=<>*%()/|{}$@#_!+0-9&?,|.:;'`~"?^\s]/;  
   blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   roleMaster: any = [];
 
@@ -47,6 +47,7 @@ export class MenuMasterComponent implements OnInit {
     this.onView();
     this.prioritiesOptions = [
       {label : '-select-', value: 0},
+      {label:  '0', value: 0 },
       { label: '1', value: 1 },
       { label: '2', value: 2 },
       { label: '3', value: 3 },

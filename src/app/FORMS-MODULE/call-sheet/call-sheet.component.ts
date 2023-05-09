@@ -79,8 +79,11 @@ export class CallSheetComponent implements OnInit {
   logged_user!: User
   prod_id: any;
   block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/; 
+  tabIndex:number=0;
+  @ViewChild('c', {static: false}) _callinfoForm!: NgForm;
+  @ViewChild('l', {static: false}) _lodginginfoForm!: NgForm;
+  @ViewChild('t', {static: false}) _transportinfoForm!: NgForm;
 
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
   
   constructor(private restapiservice: RestapiService,private _masterService: MasterService, private _datePipe: DatePipe,private authservice: AuthService,private messageService: MessageService) { }
@@ -206,6 +209,10 @@ const params=   //call character
       if (res) {
         this.clearform();
         this.onView();
+        this.onClearcallinfo();
+        this._callinfoForm.reset();
+        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
+        setTimeout(() => this.responseMsg = [], 3000);
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SuccessSeverity,
@@ -229,7 +236,7 @@ const params=   //call character
     })
     }
     clearform() {
-    this._respondentForm.reset();
+    this._callinfoForm.reset();
     }
   getContactId() {            //get selected fields contact id as a string array
     var arr:any = [];
@@ -374,7 +381,7 @@ onAdd() {
         this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name, 'contactid':i.slno});
       }})
     })}
-    onClear(){
+    onClearcallinfo(){
       this.Id=0;
       this.projectNameOptions=null;
       this.roleOptions=null;
@@ -387,15 +394,21 @@ onAdd() {
       this.mainCategoryOptions=null;
       this.subCategoryOptions=null;
       this.selectedType = null;
+      this.onAdd();
+    }
+
+      onClearlodginginfo(){
       this.locationName=null;
       this.address=null;
       this.note=null;
+    }
+      onCleartransportinfo(){
       this.driverName=null;
       this.pickupTime=null;
       this.pickupLocation=null;
       this.dropLocation=null;
       this.passengerName=null;
-      this.onAdd();
+     
     }
     oncheck(){
       this.data.forEach( i => {
@@ -410,4 +423,11 @@ onAdd() {
         } 
       })
     }
+    onNext(){
+      this.tabIndex+=1;
+    }
+    onPrev() {
+      this.tabIndex -= 1;
+    }
+  
 }

@@ -3,7 +3,7 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
-import { Message, MessageService } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { MasterService } from 'src/app/services/master.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -21,10 +21,10 @@ export class SubcategoryMasterComponent implements OnInit {
   cols: any[] = [];
   subCategoryData: any[] = [];
   sino: any;
-  RowId: any;
+  RowId:number=0;
   responseMsg: Message[] = [];
   mainCategoryData: any;
-  maincategoryOptions: any;
+  maincategoryOptions: SelectItem[] = [];
   mainCategorycode: any;
 
   block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
@@ -54,6 +54,7 @@ export class SubcategoryMasterComponent implements OnInit {
     }
   }
   onSave() {
+    console.log('1',this.mainCategorycode.value)
     const params = {
       'sino': this.RowId,
       'categoryname': this.categoryName,
@@ -91,9 +92,11 @@ export class SubcategoryMasterComponent implements OnInit {
     this._respondentForm.reset();
   }
   onEdit(rowData: any) {
+    console.log('n',this.mainCategorycode)
     this.RowId = rowData.sino;
     this.categoryName = rowData.categoryname;
-    this.maincategoryOptions = [{ label: rowData.categoryname, Value: rowData.sino }];
+    this.mainCategorycode = rowData.maincategorycode;
+    this.maincategoryOptions = [{ label: rowData.maincategoryname, value: rowData.maincategorycode }];
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
   }
 
@@ -107,6 +110,113 @@ export class SubcategoryMasterComponent implements OnInit {
       }
     })
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

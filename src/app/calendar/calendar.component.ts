@@ -16,13 +16,16 @@ import { DatePipe } from '@angular/common';
 })
 export class CalendarComponent implements OnInit {
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin],
-    //initialView: 'dayGridMonth',
+    plugins: [dayGridPlugin ,timeGridPlugin, interactionPlugin],
+    initialView: 'dayGridMonth',
     weekends: true,
   };
+
+  
   ShootingScheduleData: any;
   events: any;
   logged_user!:User;
+  
   
   constructor(private restApiService: RestapiService, private authservice: AuthService, private datePipe: DatePipe) { 
     
@@ -54,7 +57,7 @@ export class CalendarComponent implements OnInit {
       this.calendarOptions = {
         initialDate : setInitialDate,
               headerToolbar: {
-                  left: 'prev,next today',
+                  left: 'prev,next,today',
                   center: 'title',
                   right: 'dayGridMonth,timeGridWeek,timeGridDay'
               },
@@ -63,7 +66,7 @@ export class CalendarComponent implements OnInit {
               selectMirror: true,
               dayMaxEvents: true,
               showNonCurrentDates: false,
-        // dateClick: this.handleDateClick.bind(this),
+       // dateClick: this.handleDateClick.bind(this),
       };
      this.calendarOptions = { ...this.calendarOptions, ...{ events: this.events } };
     })

@@ -5,7 +5,7 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
+
 import { HttpErrorResponse } from '@angular/common/http';
 
 
