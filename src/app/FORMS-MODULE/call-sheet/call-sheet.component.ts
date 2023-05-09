@@ -370,10 +370,7 @@ onAdd() {
   // console.log('kj',this.shootingScheduleDetails)
     this.shootingScheduleDetails.forEach((i: any) => {
        if(i.maincategory_id === this.mainCategory.value && i.subcategory_id === this.subCategory.value) 
-       {console.log('i',i.maincategory_id)
-        console.log('i2',i.subcategory_id)
-        console.log('this',this.mainCategoryMaster)
-        console.log('this1',this.subCategoryMaster)
+       {
         this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name, 'contactid':i.slno});
       }})
     })}
@@ -403,9 +400,13 @@ onAdd() {
     oncheck(){
       this.data.forEach( i => {
         if(i.maincategory_id == this.mainCategory.value && i.subcategory_id == this.subCategory.value)  {
-          this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Name is already exist, Please input different name' }];
-           this.mainCategory = null;
-           this.subCategory =null;
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Role Name Already Exist, Please input different name'
+          });
+            setTimeout(() => this.responseMsg = [], 3000);
+            this.subCategory = null;
+            this.mainCategory=null;
+    
         } 
       })
     }
