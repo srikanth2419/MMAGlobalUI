@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Message, SelectItem } from 'primeng/api';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-state-master',
   templateUrl: './state-master.component.html',
@@ -22,9 +24,9 @@ export class StateMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   countrymasterData: any;
   loading: boolean = false;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
-  
-  constructor(private restapiservice: RestapiService) { }
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+  @ViewChild('f', {static: false}) _stateForm!: NgForm;
+  constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
 
   ngOnInit(): void {
 
@@ -52,25 +54,37 @@ export class StateMasterComponent implements OnInit {
       const params = {
         'statecode': this.statecode,
         'statename': this.stateName,
-        'countrycode': this.country,
+        'countrycode': this.country.value,
         'flag': (this.selectedType == 1) ? true : false
       };
       this.restapiservice.post(Pathconstants.StateMaster_Post, params).subscribe(res => { 
-        if(res!= null && res!= undefined){
-          this.onView();
+        if (res) {
           this.onClear();
-          this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+          this.onView();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+            summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
         }
-        else{
-          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-          setTimeout(() => this.responseMsg = [], 3000);
+      }, (err: HttpErrorResponse) => {
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
         }
-       })
-      }
-      }
-     
-    
+      })
+    }
+   
+    }
   onView() {
     this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => {
       this.statemasterData = res;
@@ -93,8 +107,8 @@ export class StateMasterComponent implements OnInit {
   onEdit(rowData: any) {
     this.statecode = rowData.statecode;
     this.stateName = rowData.statename;
-    this.country = rowData.statecode;
     this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
+    this.country={ label: rowData.countryname, value: rowData.countrycode };
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
@@ -102,10 +116,15 @@ export class StateMasterComponent implements OnInit {
   onCheck(){
     this.statemasterData.forEach( i => {
       if(i.statename  === this.stateName ) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'statename name is already exist, Please input different name' }];
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'State Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
           this.stateName = null;
+  
       }
     })
   }
   }
+  
   

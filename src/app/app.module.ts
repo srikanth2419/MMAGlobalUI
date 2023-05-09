@@ -26,7 +26,8 @@ import { DatePipe } from '@angular/common';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
 import { CalendarComponent } from './calendar/calendar.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { FullCalendarModule } from '@fullcalendar/angular'; 
+
 
 import { Calendar } from '@fullcalendar/core';
  
@@ -60,10 +61,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserMasterComponent } from './MASTERS-MODULE/user-master/user-master.component';
 import { ProjectApprovalComponent } from './project-approval/project-approval.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.component';
-
+import { ToastModule} from 'primeng/toast'
 
 
 @NgModule({
@@ -128,10 +129,10 @@ import { MailtypeMasterComponent } from './mailtype-master/mailtype-master.compo
     PanelMenuModule,
     PasswordModule,
     FullCalendarModule,
-    
-    
+    KeyFilterModule,
+    ToastModule    
   ],
-  providers: [RestapiService,ConfirmationService,DatePipe],
+  providers: [RestapiService,ConfirmationService,DatePipe,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
+
 <div class="col-12 md:col-12 lg:col-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Expenses Category Master">
-        <p-messages [(value)]="responseMsg" [enableService]="false"
-        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #f="ngForm" name="expensesCategory">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
@@ -9,7 +9,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="name" name="_name"  (change)="onCheck()" pInputText [(ngModel)]="name"
-                                [pKeyFilter]="block" required />
+                                [pKeyFilter]="'alpha'" required />
                                 <label for="_expense">Expense Name</label>
                             </span>
                         </div>
@@ -76,3 +76,4 @@
             </ng-template>
         </p-table>
     </div>
+

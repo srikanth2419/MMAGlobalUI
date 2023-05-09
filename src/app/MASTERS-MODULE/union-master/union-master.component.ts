@@ -3,8 +3,9 @@ import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
-import { Message } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-union-master',
@@ -22,14 +23,15 @@ export class UnionMasterComponent implements OnInit {
   data: any[] = [];
   loading: boolean = false;
   responseMsg: Message[] = [];
-  blockRegno: RegExp = /^[^=<>*%(){}$@#_!+&?,.:;^'"~`?]/; 
-  blockUnionname: RegExp = /^[^=<>*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+ // blockRegno: RegExp = /^[^=<>\*%()|{}$@#_!+&?,|.:;'`~"?^\s]/;  
+  blockUnionname: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
   @ViewChild('f', { static: false }) _unionmasterForm!: NgForm;
 
-  constructor(private restApiService: RestapiService) { }
+  constructor(private restApiService: RestapiService, private messageService: MessageService,) { }
 
   ngOnInit(): void {
+     
     this.onView();
     this.cols = TableConstants.unionMasterColumns;
 
@@ -43,18 +45,33 @@ export class UnionMasterComponent implements OnInit {
       'flag': (this.selectedType == 1) ? true : false
     }
     this.restApiService.post(Pathconstants.UnionMaster_Post, params).subscribe(res => {
-      if (res != null && res != undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._unionmasterForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
+  }
+  clearform() {
+    this._unionmasterForm.reset();
   }
   onView() {
     this.restApiService.get(Pathconstants.UnionMasterController_GET).subscribe(res => {
@@ -80,18 +97,23 @@ export class UnionMasterComponent implements OnInit {
   checkUnionName() {
     this.data.forEach(i => {
       if (i.unionname === this.unionName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Union name is already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.unionName = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Union Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.unionName = null;
+  
       }
     })
   }
   checkRegno() {
     this.data.forEach(i => {
       if (i.registernumber === this.regNumber) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Register Number already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.regNumber = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Register Number Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.regNumber = null;
       }
     })
   }

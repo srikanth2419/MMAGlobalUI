@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Message } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-master',
@@ -36,13 +37,12 @@ export class UserMasterComponent implements OnInit {
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
 
-  constructor(private restApiService: RestapiService) { }
+  constructor(private restApiService: RestapiService,private messageService: MessageService) { }
 
   ngOnInit(): void {
-
+    this.onView();
     this.restApiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.roleIdData = res })
     this.cols = TableConstants.UserMaster;
-    this.onView();
   }
 
   onSubmit() {
@@ -54,20 +54,33 @@ export class UserMasterComponent implements OnInit {
       'flag': (this.selectedType == 1) ? true : false
     }
     this.restApiService.post(Pathconstants.UserMaster_Post, params).subscribe(res => {
-      if (res !== null && res !== undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._respondentForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
-        this.onView();
-        this.onClear();
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
+  }
+  clearform() {
+    this._respondentForm.reset();
   }
 
   onView() {
@@ -115,13 +128,17 @@ export class UserMasterComponent implements OnInit {
   checkMenu() {
     this.data.forEach(i => {
       if (i.username_emailid === this.usernameEmailid) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'username is already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.usernameEmailid = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Role Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.usernameEmailid = null;
+  
       }
     })
   }
-
+  
+  
   check(Password: any) {
 
     if (Password.match(/[@$!%*?&]/g)) {

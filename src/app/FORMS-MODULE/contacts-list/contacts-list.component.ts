@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Message, SelectItem } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
@@ -8,6 +8,7 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { MasterService } from 'src/app/services/master.service';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-contacts-list',
@@ -69,7 +70,7 @@ export class ContactsListComponent implements OnInit {
   prod_id: any;
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
-  constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice: AuthService) { }
+  constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
  
@@ -191,21 +192,34 @@ export class ContactsListComponent implements OnInit {
       'production_id':this.prod_id
     }
     this.restapiService.post(Pathconstants.ContactListController_Post, conctantsparams).subscribe(res => {
-      if (res !== null && res !== undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._respondentForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
-    
-  }
-
+    }
+    clearform() {
+    this._respondentForm.reset();
+    }
   
   onView() {
     // this.restapiService.get(Pathconstants.ContactListController_Get).subscribe(res => {
@@ -280,8 +294,10 @@ export class ContactsListComponent implements OnInit {
     this.data.forEach(i => {
       const email: string = i.mailid;
       if (email === this.mailId) {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Email-ID is already exist' }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Email-ID is already exist'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
         this.mailId = '';
       } else {
       }
@@ -290,8 +306,11 @@ export class ContactsListComponent implements OnInit {
   oncheck() {
     this.data.forEach(i => {
       if (i.username === this.userName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: ' Username already exists, Please enter valid Username' }];
-        this.userName = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'User Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);       
+           this.userName = null;
       }
     })
   }
@@ -306,25 +325,34 @@ export class ContactsListComponent implements OnInit {
         if (last_str !== undefined && last_str.length > 1) {
           if (last_str[1].toLowerCase() === 'com' || last_str[1].toLowerCase() === 'in') {
           } else {
-            this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
-            setTimeout(() => this.responseMsg = [], 3000);      
+            this.messageService.add({
+              key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address'
+            });
+              setTimeout(() => this.responseMsg = [], 3000); 
           }
         } else {
-          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
-          setTimeout(() => this.responseMsg = [], 3000);      
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address'
+          });
+            setTimeout(() => this.responseMsg = [], 3000); 
         }
       }else {
         this.mailId = null;
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
-        setTimeout(() => this.responseMsg = [], 3000);      
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);    
       }
         }}
 
         onphoneno() {
           this.contactlistData.forEach((i:any) => {
             if (i.phonenumber === this.phoneNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different number' }];
-              this.phoneNumber = null;
+              this.messageService.add({
+                key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Phone Number Already Exist, Please input different name'
+              });
+                setTimeout(() => this.responseMsg = [], 3000);
+                this.phoneNumber = null;
             }
           })
         }
@@ -332,8 +360,11 @@ export class ContactsListComponent implements OnInit {
         onwhatsappno() {
           this.contactlistData.forEach((i:any) => {
             if (i.whatsappnumber === this.whatappNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different number' }];
-              this.whatappNumber = null;
+              this.messageService.add({
+                key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Whats Number Already Exist, Please input different name'
+              });
+                setTimeout(() => this.responseMsg = [], 3000);
+                this.whatappNumber = null;
             }
           })
         }
@@ -341,8 +372,11 @@ export class ContactsListComponent implements OnInit {
         
           this.contactlistData.forEach((i:any) => {
             if (i.email_id === this.mailId) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'email is already exist, Please input different name' }];
-              this.mailId = null;
+              this.messageService.add({
+                key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Email Id Already Exist, Please input different name'
+              });
+                setTimeout(() => this.responseMsg = [], 3000);
+                this.mailId = null;
             }
           })
         }

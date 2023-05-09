@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { TableConstants } from 'src/app/CONSTANTS-MODULE/table-constants';
 import { RestapiService } from 'src/app/services/restapi.service';
@@ -7,6 +7,7 @@ import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Message } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { MasterService } from 'src/app/services/master.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -34,18 +35,19 @@ export class MenuMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   disableInput: boolean = false;
   blockIcon: RegExp = /^[^=<>*%(){}$@#_!+0-9&?,.:;^'"~`?/]/;
-  blockUrl: RegExp = /^[^=<>*%()|{}$@#_!+0-9&?,|.:;'`~"?^\s]/;
-  blockMenuName: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  blockUrl: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
+  blockMenuName: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   roleMaster: any = [];
 
   @ViewChild('f', { static: false }) _menumasterForm!: NgForm;
 
-  constructor(private restApiService: RestapiService, private _masterService: MasterService) { }
+  constructor(private restApiService: RestapiService, private _masterService: MasterService,private messageService: MessageService,) { }
 
   ngOnInit(): void {
     this.onView();
     this.prioritiesOptions = [
       {label : '-select-', value: 0},
+      {label:  '0', value: 0 },
       { label: '1', value: 1 },
       { label: '2', value: 2 },
       { label: '3', value: 3 },
@@ -81,19 +83,34 @@ export class MenuMasterComponent implements OnInit {
       'isactive': (this.selectedType == 1) ? true : false
     }   
     this.restApiService.post(Pathconstants.MenuMaster_Post, params).subscribe(res => {
-      if (res != null && res != undefined) {
+      if (res) {
+        this.clearform();
         this.onView();
-        this.onClear();
-        this._menumasterForm.reset();
-        this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SuccessSeverity,
+          summary: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
-      else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: ResponseMessage.ErrorMessage }];
-        setTimeout(() => this.responseMsg = [], 3000);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
       }
     })
-  } 
+  }
+  clearform() {
+    this._menumasterForm.reset();
+  }
 //
   onView() {
     this.restApiService.get(Pathconstants.MenuMasterController_GET).subscribe(res => {
@@ -171,12 +188,18 @@ export class MenuMasterComponent implements OnInit {
   checkMenuName() {
     this.data.forEach(i => {
       if (i.name === this.name && i.url === this.url && i.roleid === this.roleId ) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Menu Name already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.name = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Menu Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.name = null;
+
       }
     })
   }
+  }
+  
+  
 
   // checkUrl() {
   //   this.data.forEach(i => {
@@ -188,4 +211,3 @@ export class MenuMasterComponent implements OnInit {
   //   })
   // }
 
-}
