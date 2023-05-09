@@ -52,7 +52,7 @@ export class StateMasterComponent implements OnInit {
       const params = {
         'statecode': this.statecode,
         'statename': this.stateName,
-        'countrycode': this.country,
+        'countrycode': this.country.value,
         'flag': (this.selectedType == 1) ? true : false
       };
       this.restapiservice.post(Pathconstants.StateMaster_Post, params).subscribe(res => { 
@@ -93,8 +93,8 @@ export class StateMasterComponent implements OnInit {
   onEdit(rowData: any) {
     this.statecode = rowData.statecode;
     this.stateName = rowData.statename;
-    this.country = rowData.statecode;
     this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
+    this.country={ label: rowData.countryname, value: rowData.countrycode };
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }

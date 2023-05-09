@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-12 md:col-12 lg:col-12 to-center">
-                    <button pButton label="Submit" icon="pi pi-save" [disabled]="(!f.valid || !f.dirty)"
+                    <button pButton label="Submit" icon="pi pi-save" [disabled]="(!roleId || !name || !priorities || !selectedType)"
                         (click)="onSubmit()"></button>&nbsp;
                     <button pButton label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                 </div>

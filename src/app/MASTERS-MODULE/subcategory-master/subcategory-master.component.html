@@ -15,7 +15,7 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <p-dropdown [options]="maincategoryOptions" (click)="onSelect('C')" [(ngModel)]="mainCategorycode" name="mainCategoryMaster"  [required]="true">
+                                <p-dropdown name="_maincategory" [options]="maincategoryOptions" (click)="onSelect('C')" [(ngModel)]="mainCategorycode" [required]="true">
                                 </p-dropdown>
                                 <label for="_country">Main category</label>
                             </span>
@@ -39,7 +39,7 @@
     </p-panel>
     <div class="col-12 md:col-12 lg:col-12">
         <p-table #dt [columns]="cols" [value]="subCategoryData" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
-            [rowsPerPageOptions]="[5,10,15,20,60,80]" responsiveLayout="scroll">
+            [rowsPerPageOptions]="[5,10,15,20,90]" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="grid" style="width: -webkit-fill-available;">
                     <div class="lg:col-10 no-pad-top no-pad-btm">
