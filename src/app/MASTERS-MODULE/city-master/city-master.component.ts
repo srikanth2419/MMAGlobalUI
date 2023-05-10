@@ -87,6 +87,7 @@ export class CityMasterComponent implements OnInit {
   }
   clearform() {
     this._citymasterForm.reset();
+    this.stateOptions=[];
   }
   onView() {
     this.restapiservice.get(Pathconstants.CityMasterDB_GET).subscribe(res => {
@@ -106,13 +107,7 @@ export class CityMasterComponent implements OnInit {
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
-  onClear() {
-    this.cityName = null;
-    this.selectedType = null;
-    this.stateOptions=[];
-    this.citycode = 0;
 
-  }
   onCheck() {
     this.citymasterData.forEach(i=>{
       if(i.cityname  === this.cityName ) {
