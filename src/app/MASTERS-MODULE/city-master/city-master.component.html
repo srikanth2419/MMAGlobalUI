@@ -1,6 +1,6 @@
 <div class="col-12 md:col-12 lg:col-12">
     <p-toast position="top-center" key="t-msg"></p-toast>
-    <p-panel header="City Master">
+    <p-panel header="CityMaster">
         <div class="col-12 md:col-12 lg:col-12">
             <form #f="ngForm">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
@@ -33,7 +33,7 @@
                     <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
                     [disabled]="!f.valid || !f.dirty"  (click)="onSubmit()"></button>&nbsp;
                     <button pButton type="button" label="Clear" icon="pi pi-trash"
-                        (click)="onClear()"></button>
+                        (click)="clearform()"></button>
                 </div>
             </form>
         </div>

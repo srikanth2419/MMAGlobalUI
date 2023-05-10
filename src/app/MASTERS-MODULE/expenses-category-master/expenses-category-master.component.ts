@@ -25,7 +25,7 @@ export class ExpensesCategoryMasterComponent implements OnInit {
   loading:boolean = false;
   responseMsg: Message[] = [];
   block:RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  @ViewChild('f', {static: false}) _expensescategoryForm!: NgForm;
   
   constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
 
@@ -68,7 +68,7 @@ this.restapiservice.post(Pathconstants.expensescategorymaster_Post, params).subs
 })
 }
 clearform() {
-this._respondentForm.reset();
+this._expensescategoryForm.reset();
 }
 onView(){
   this.restapiservice.get(Pathconstants.expensescategorymaster_Get).subscribe(res => {this.expensescategorymasterData = res
@@ -84,12 +84,6 @@ this.RowId=rowData.sino;
 this.name=rowData.name;
 this.notes=rowData.notes;
 this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
-}
-onClear(){
-  this.name=null;
-  this.notes=null;
-  this.selectedType = null;
-  this.RowId = 0;
 }
 onCheck() {
   this.expensescategorymasterData.forEach( i => {

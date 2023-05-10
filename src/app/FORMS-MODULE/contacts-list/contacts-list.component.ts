@@ -63,13 +63,16 @@ export class ContactsListComponent implements OnInit {
   statemaster: any = [];
   cityMaster: any = [];
   roleMaster: any = [];
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/ ;
+  block1: RegExp = /^[^=<>\*%(){}$@#-_!+&?,|.-:;^'"~`?]/ ;
   blockmail: RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
   userName:any;
   logged_user!: User;
   prod_id: any;
 
-  @ViewChild('f', { static: false }) _respondentForm!: NgForm;
+  @ViewChild('f', { static: false }) _contactlistForm!: NgForm;
+  pincode_max: any;
   constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -87,6 +90,7 @@ export class ContactsListComponent implements OnInit {
   this.prod_id = this.logged_user.production_id;
   this.onView();
   console.log('contact prod id',this.prod_id)
+  this.pincode_max = 643253;
   }
 
   //dropdown
@@ -218,7 +222,14 @@ export class ContactsListComponent implements OnInit {
     })
     }
     clearform() {
-    this._respondentForm.reset();
+    this._contactlistForm.reset();
+    this.maincategoryOptions=[];
+    this.subcategoryOptions = [];
+    this.countryOptions=[];``
+    this.stateOptions = [];
+    this.cityOptions=[];
+    this.unionOptions=[];
+
     }
   
   onView() {
@@ -242,27 +253,27 @@ export class ContactsListComponent implements OnInit {
       }
     })
   }
-  onClear() {
-    this.Id = 0;
-    this.firstName = null;
-    this.lastName = null;
-    this.roleOptions = null;
-    this.maincategoryOptions = null;
-    this.subcategoryOptions = null;
-    this.dob = null;
-    this.phoneNumber = null;
-    this.whatappNumber = null;
-    this.mailId = null;
-    this.stateOptions = null;
-    this.cityOptions = null;
-    this.addressLine1 = null;
-    this.addressLine2 = null;
-    this.pincode = null;
-    this.unionOptions = null;
-    this.selectedType = null;
-    this.selected = null;
-    this.isDisabled = true;
-  }
+  // onClear() {
+  //   this.Id = 0;
+  //   this.firstName = null;
+  //   this.lastName = null;
+  //   this.roleOptions = null;
+  //   this.maincategoryOptions = null;
+  //   this.subcategoryOptions = null;
+  //   this.dob = null;
+  //   this.phoneNumber = null;
+  //   this.whatappNumber = null;
+  //   this.mailId = null;
+  //   this.stateOptions = null;
+  //   this.cityOptions = null;
+  //   this.addressLine1 = null;
+  //   this.addressLine2 = null;
+  //   this.pincode = null;
+  //   this.unionOptions = null;
+  //   this.selectedType = null;
+  //   this.selected = null;
+  //   this.isDisabled = true;
+  // }
   onEdit(rowData: any) {
     this.Id = rowData.slno;
     this.firstName = rowData.first_name;
@@ -379,5 +390,14 @@ export class ContactsListComponent implements OnInit {
                 this.mailId = null;
             }
           })
+        }
+        validateFields() {
+          if (this.pincode !== null && this.pincode !== undefined) {
+             if (this.pincode > this.pincode_max) {
+            this._contactlistForm.controls['_pincode'].setErrors({ 'incorrect': true });
+             } } 
+             else {
+            this._contactlistForm.controls['_pincode'].setErrors({ 'incorrect': true });
+        }
         }
       }

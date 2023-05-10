@@ -59,7 +59,7 @@ export class StateMasterComponent implements OnInit {
       };
       this.restapiservice.post(Pathconstants.StateMaster_Post, params).subscribe(res => { 
         if (res) {
-          this.onClear();
+          this.clearform();
           this.onView();
           this.messageService.clear();
           this.messageService.add({
@@ -85,6 +85,10 @@ export class StateMasterComponent implements OnInit {
     }
    
     }
+    clearform() {
+      this._stateForm.reset();
+      this.countryOptions=[];
+    }
   onView() {
     this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => {
       this.statemasterData = res;
@@ -96,13 +100,6 @@ export class StateMasterComponent implements OnInit {
     })
   }
 
-  onClear() {
-    this.stateName = null;
-    this.selectedType = null;
-    this.countryOptions = null;
-    this.statecode = 0;
-    this.selectedType=null;
-  }
 
   onEdit(rowData: any) {
     this.statecode = rowData.statecode;

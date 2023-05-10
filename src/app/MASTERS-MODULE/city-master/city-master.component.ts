@@ -16,7 +16,7 @@ export class CityMasterComponent implements OnInit {
 
   cityName: any;
   state: any;
-  stateOptions: any;
+  stateOptions: SelectItem[] = [];
   selectedType: any;
   citymasterCols: any;
   citymasterData: any[] = [];
@@ -57,7 +57,7 @@ export class CityMasterComponent implements OnInit {
       'citycode': this.citycode,
       'cityname': this.cityName,
       'statecode': this.state.value,
-      'isactive': (this.selectedType == 1) ? true : false
+      'flag': (this.selectedType == 1) ? true : false
     };
     this.restapiservice.post(Pathconstants.CityMaster_Post, params).subscribe(res => {
       if (res) {
@@ -87,6 +87,7 @@ export class CityMasterComponent implements OnInit {
   }
   clearform() {
     this._citymasterForm.reset();
+    this.stateOptions=[];
   }
   onView() {
     this.restapiservice.get(Pathconstants.CityMasterDB_GET).subscribe(res => {
@@ -103,21 +104,21 @@ export class CityMasterComponent implements OnInit {
     this.cityName = rowData.cityname;
     this.state = [{ label: rowData.statename, value: rowData.statecode }];
     this.stateOptions = [{ label: rowData.statename, value: rowData.statecode }];
-    this.selectedType = (rowData.flag === true) ? 1 : 0;
+    this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
-  onClear() {
-    this.cityName = null;
-    this.selectedType = null;
-    this.stateOptions = null;
-    this.citycode = 0;
 
-  }
   onCheck() {
+    this.citymasterData.forEach(i=>{
+      if(i.cityname  === this.cityName ) {
+   
     this.messageService.add({
       key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'City Name Already Exist, Please input different name'
     });
       setTimeout(() => this.responseMsg = [], 3000);
         this.cityName = null;
       }
-    }
+    })
+  }
+  }
+  

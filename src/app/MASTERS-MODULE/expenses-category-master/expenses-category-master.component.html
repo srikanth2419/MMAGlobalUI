@@ -9,7 +9,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="name" name="_name"  (change)="onCheck()" pInputText [(ngModel)]="name"
-                                [pKeyFilter]="'alpha'" required />
+                                [pKeyFilter]="block" required />
                                 <label for="_expense">Expense Name</label>
                             </span>
                         </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-12 md:col-12 lg:col-12 to-center">
                     <button pButton type="button" label="Submit" icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
-                    <button pButton type="button" label="Clear"icon="pi pi-trash"(click)="onClear()" ></button>
+                    <button pButton type="button" label="Clear"icon="pi pi-trash"(click)="clearform()" ></button>
                 
                 </div>
             </form>

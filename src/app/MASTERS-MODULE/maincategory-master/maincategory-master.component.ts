@@ -24,7 +24,7 @@ export class MaincategoryMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/; 
 
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  @ViewChild('f', {static: false}) _maincategory!: NgForm;
 
 
 
@@ -87,13 +87,9 @@ export class MaincategoryMasterComponent implements OnInit {
     })
   }
   clearform() {
-    this._respondentForm.reset();
+    this._maincategory.reset();
   }
-  onClear() {
-    this.categoryName = null;
-    this.selectedType = null;
-    this.sino = 0;
-  }
+  
   onCheck() {
     this.messageService.add({
       key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Maincategory Name Already Exist, Please input different name'

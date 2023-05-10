@@ -21,6 +21,7 @@ export class DailyExpensesComponent implements OnInit {
   projectName: any;
   projectOptions:any;
   budgetAmount: any;
+  balanceAmount: any;
   invoiceNumber: any;
   expensesCategory: any;
   expensesOptions: any;
@@ -42,8 +43,9 @@ export class DailyExpensesComponent implements OnInit {
   productionhouse:any;
   prod_id: any;
   minDate: any;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
+
+  @ViewChild('f', {static: false}) _dailyExpensesForm!: NgForm;
 
   constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) { }
 
@@ -93,12 +95,17 @@ export class DailyExpensesComponent implements OnInit {
     });
     this.budgetAmount = this.newfundbudgetAmount
   }
+  balancecheck(){
+    
+
+  }
 
 onSave(){
   const params = {
   'slno': this.RowId,
   'project_name': this.projectName,
   'budget_amount':this.budgetAmount,
+  'balance_amount':this.balanceAmount,
   'date':this.date,
   'invoice_number':this.invoiceNumber,
   'expenses_category':this.expensesCategory,
@@ -133,7 +140,9 @@ this.restapiservice.post(Pathconstants.dailyexpenses_Post, params).subscribe(res
 })
 }
 clearform() {
-this._respondentForm.reset();
+this._dailyExpensesForm.reset();
+this.projectOptions=[];
+this.expensesOptions=[];
 }
 onView(){
   // })
@@ -154,6 +163,7 @@ onEdit(rowData:any){
   this.projectName=rowData.project_name;
   this.projectOptions=[{ label: rowData.projectname, value: rowData.project_name }];
   this.budgetAmount=rowData.budget_amount;
+  this.balanceAmount=rowData.balance_amount;
   this.date=new Date(rowData.date);
   this.invoiceNumber=rowData.invoice_number;
   this.expensesCategory=rowData.expenses_category;
@@ -161,15 +171,7 @@ onEdit(rowData:any){
   this.amount=rowData.amount;
 
 }
-onClear(){
-    this.RowId=0;
-    this.projectOptions = null;
-    this.budgetAmount = null;
-    this.date = null;
-    this.invoiceNumber = null;
-    this.expensesOptions = null;
-    this.amount = null;
-}
+
   checkBudgetAmount() {
     if (this.budgetAmount !== null && this.budgetAmount !== undefined && this.amount !== undefined && this.amount !== null) {
       if (this.amount > this.budgetAmount) {
