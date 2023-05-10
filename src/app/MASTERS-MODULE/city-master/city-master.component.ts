@@ -87,6 +87,7 @@ export class CityMasterComponent implements OnInit {
   }
   clearform() {
     this._citymasterForm.reset();
+    this.stateOptions=[];
   }
   onView() {
     this.restapiservice.get(Pathconstants.CityMasterDB_GET).subscribe(res => {
@@ -104,13 +105,6 @@ export class CityMasterComponent implements OnInit {
     this.state = [{ label: rowData.statename, value: rowData.statecode }];
     this.stateOptions = [{ label: rowData.statename, value: rowData.statecode }];
     this.selectedType = (rowData.flag === true) ? 1 : 0;
-
-  }
-  onClear() {
-    this.cityName = null;
-    this.selectedType = null;
-    this.stateOptions = null;
-    this.citycode = 0;
 
   }
   onCheck() {
