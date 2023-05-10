@@ -21,6 +21,7 @@ export class DailyExpensesComponent implements OnInit {
   projectName: any;
   projectOptions:any;
   budgetAmount: any;
+  balanceAmount: any;
   invoiceNumber: any;
   expensesCategory: any;
   expensesOptions: any;
@@ -93,12 +94,17 @@ export class DailyExpensesComponent implements OnInit {
     });
     this.budgetAmount = this.newfundbudgetAmount
   }
+  balancecheck(){
+    
+
+  }
 
 onSave(){
   const params = {
   'slno': this.RowId,
   'project_name': this.projectName,
   'budget_amount':this.budgetAmount,
+  'balance_amount':this.balanceAmount,
   'date':this.date,
   'invoice_number':this.invoiceNumber,
   'expenses_category':this.expensesCategory,
@@ -154,6 +160,7 @@ onEdit(rowData:any){
   this.projectName=rowData.project_name;
   this.projectOptions=[{ label: rowData.projectname, value: rowData.project_name }];
   this.budgetAmount=rowData.budget_amount;
+  this.balanceAmount=rowData.balance_amount;
   this.date=new Date(rowData.date);
   this.invoiceNumber=rowData.invoice_number;
   this.expensesCategory=rowData.expenses_category;
@@ -165,6 +172,7 @@ onClear(){
     this.RowId=0;
     this.projectOptions = null;
     this.budgetAmount = null;
+    this.balanceAmount=null;
     this.date = null;
     this.invoiceNumber = null;
     this.expensesOptions = null;
