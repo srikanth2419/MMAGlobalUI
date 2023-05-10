@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { RestapiService } from 'src/app/services/restapi.service';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
-import { Message } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { AuthService } from '../services/auth.service';
 import { MasterService } from '../services/master.service';
 import { User } from '../interface/user.interface';
@@ -26,14 +26,13 @@ export class LoginComponent implements OnInit {
   showPswd: boolean = true;
 
   @ViewChild('uname', { static: false }) _username!: HTMLInputElement;
-  constructor(private restApiService: RestapiService, private _authService: AuthService, private _masterService: MasterService,) { }
+  constructor(private restApiService: RestapiService, private _authService: AuthService, private _masterService: MasterService,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this._authService.logout();
   }
   onLogin() {
     const login_params = new HttpParams().append('username', this.username).set('password', this.password);
-    console.log(this.username)
     this.restApiService.getByParameters(Pathconstants.UserLogin_Get, login_params).subscribe(response => {
       if (response.item1) {
         this._masterService.invokeMasterData();
@@ -61,8 +60,10 @@ export class LoginComponent implements OnInit {
 
         });
       } else {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: response.item2 }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'response.item2'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
         
       }
     })

@@ -23,8 +23,8 @@ export class UnionMasterComponent implements OnInit {
   data: any[] = [];
   loading: boolean = false;
   responseMsg: Message[] = [];
-  blockRegno: RegExp = /^[^=<>*%(){}$@#_!+&?,.:;^'"~`?]/; 
-  blockUnionname: RegExp = /^[^=<>*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+ // blockRegno: RegExp = /^[^=<>\*%()|{}$@#_!+&?,|.:;'`~"?^\s]/;  
+  blockUnionname: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
   @ViewChild('f', { static: false }) _unionmasterForm!: NgForm;
 
@@ -97,18 +97,23 @@ export class UnionMasterComponent implements OnInit {
   checkUnionName() {
     this.data.forEach(i => {
       if (i.unionname === this.unionName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Union name is already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.unionName = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Union Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.unionName = null;
+  
       }
     })
   }
   checkRegno() {
     this.data.forEach(i => {
       if (i.registernumber === this.regNumber) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Register Number already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.regNumber = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Register Number Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.regNumber = null;
       }
     })
   }

@@ -21,9 +21,9 @@ export class CountryMasterComponent implements OnInit {
   RowId:any;
   data:any;
   responseMsg: Message[] = [];
-  block:RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block:RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
-  constructor(private restapiservice: RestapiService,private messageService: MessageService,) { }
+  constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
   ngOnInit(): void {
     this.onView();
     this.countrymasterCols = TableConstants.CountryMasterColumns;
@@ -85,10 +85,14 @@ onEdit(rowData:any){
 onCheck() {
   this.countrymasterData.forEach( i => {
     if(i.countryname  === this.countryName ) {
-      this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Country name is already exist, Please input different name' }];
-        this.countryName = null;
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Country Name Already Exist, Please input different name'
+      });
         setTimeout(() => this.responseMsg = [], 3000);
+        this.countryName = null;
+
     }
   })
 }
 }
+

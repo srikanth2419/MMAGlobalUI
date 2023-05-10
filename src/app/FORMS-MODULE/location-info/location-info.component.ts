@@ -52,8 +52,8 @@ export class LocationInfoComponent implements OnInit {
   productionhouse:any;
   prod_id: any;
   userInfo: any;
-  blockadd :RegExp = /^[^-=<>*%()^{}$#!+&?\s~`|;'"?/]/;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  blockadd :RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   @ViewChild('f', { static: false }) _locationinfoForm!: NgForm;
   pincode_max: any;
 

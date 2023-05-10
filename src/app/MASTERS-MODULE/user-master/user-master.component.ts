@@ -40,10 +40,9 @@ export class UserMasterComponent implements OnInit {
   constructor(private restApiService: RestapiService,private messageService: MessageService) { }
 
   ngOnInit(): void {
-
+    this.onView();
     this.restApiService.get(Pathconstants.rolemaster_Get).subscribe(res => { this.roleIdData = res })
     this.cols = TableConstants.UserMaster;
-    this.onView();
   }
 
   onSubmit() {
@@ -129,13 +128,17 @@ export class UserMasterComponent implements OnInit {
   checkMenu() {
     this.data.forEach(i => {
       if (i.username_emailid === this.usernameEmailid) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'username is already exist, Please input different name' }];
-        setTimeout(() => this.responseMsg = [], 2000)
-        this.usernameEmailid = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Role Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.usernameEmailid = null;
+  
       }
     })
   }
-
+  
+  
   check(Password: any) {
 
     if (Password.match(/[@$!%*?&]/g)) {

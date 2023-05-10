@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class FundUtilizationComponent implements OnInit {
   projectNameOptions: SelectItem[] = [];
-  projectName: any;
+  projectID: any;
   budgetAmount: any;
   personNameOptions: SelectItem[] = [];
   personName: any;
@@ -32,7 +32,7 @@ export class FundUtilizationComponent implements OnInit {
   responseMsg: Message[] = [];
   FundUtilizationData: any[] = [];
   loading: boolean = false;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   item: any;
   newprojectcreationData: any[] = [];
   contactlistData: any[] = [];
@@ -44,8 +44,9 @@ export class FundUtilizationComponent implements OnInit {
 
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   prod_id: any;
+  messageService: any;
   
-  constructor(private restapiservice: RestapiService,private authservice: AuthService,private messageService: MessageService) {
+  constructor(private restapiservice: RestapiService,private authservice: AuthService) {
   }
 
   ngOnInit(): void {
@@ -72,7 +73,7 @@ export class FundUtilizationComponent implements OnInit {
     {
       const params = {
         'slno': this.RowId,
-        'project_name': this.projectName,
+        'project_id': this.projectID,
         'budget_amount': this.budgetAmount,
         'person_name': this.personName,
         'payment_by': this.paymentBy.label,
@@ -112,7 +113,7 @@ export class FundUtilizationComponent implements OnInit {
 
   check() {
     this.newprojectcreationData.forEach(i => {
-      if (i.project_id === this.projectName) {
+      if (i.project_id === this.projectID) {
         this.newfundbudgetAmount = i.budget
       }
     });
@@ -148,7 +149,7 @@ export class FundUtilizationComponent implements OnInit {
 
   onClear() {
     this.personName = null;
-    this.projectName = null;
+    this.projectID = null;
     this.budgetAmount = 0;
     this.paymentBy = null;
     this.amount = null;
@@ -180,10 +181,13 @@ export class FundUtilizationComponent implements OnInit {
 
   onEdit(rowData: any) {
     this.RowId = rowData.slno;
-    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_name}];
+    this.projectID = rowData.project_id;
+    this.projectNameOptions=[{label:rowData.project_name,value:rowData.project_id}];
     this.budgetAmount=rowData.budget_amount;
     this.personNameOptions=[{label:rowData.first_name,value:rowData.person_name}];
+  //  this.paymentByOptions=[{}];
     this.paymentBy = rowData.value;
+    this.paymentByOptions=[{label:rowData.payment_by,value:rowData.payment_by}]
     this.amount = rowData.amount;
     this.dayCall = rowData.day_or_call;
     this.totalAmount = rowData.total_amount;

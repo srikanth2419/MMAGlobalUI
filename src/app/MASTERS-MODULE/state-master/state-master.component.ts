@@ -24,7 +24,7 @@ export class StateMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   countrymasterData: any;
   loading: boolean = false;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
   @ViewChild('f', {static: false}) _stateForm!: NgForm;
   constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
 
@@ -54,7 +54,7 @@ export class StateMasterComponent implements OnInit {
       const params = {
         'statecode': this.statecode,
         'statename': this.stateName,
-        'countrycode': this.country,
+        'countrycode': this.country.value,
         'flag': (this.selectedType == 1) ? true : false
       };
       this.restapiservice.post(Pathconstants.StateMaster_Post, params).subscribe(res => { 
@@ -107,8 +107,8 @@ export class StateMasterComponent implements OnInit {
   onEdit(rowData: any) {
     this.statecode = rowData.statecode;
     this.stateName = rowData.statename;
-    this.country = rowData.statecode;
     this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
+    this.country={ label: rowData.countryname, value: rowData.countrycode };
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
@@ -116,10 +116,15 @@ export class StateMasterComponent implements OnInit {
   onCheck(){
     this.statemasterData.forEach( i => {
       if(i.statename  === this.stateName ) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'statename name is already exist, Please input different name' }];
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'State Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
           this.stateName = null;
+  
       }
     })
   }
   }
+  
   

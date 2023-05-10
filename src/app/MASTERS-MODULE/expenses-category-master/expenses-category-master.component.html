@@ -9,7 +9,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="name" name="_name"  (change)="onCheck()" pInputText [(ngModel)]="name"
-                                [pKeyFilter]="block" required />
+                                [pKeyFilter]="'alpha'" required />
                                 <label for="_expense">Expense Name</label>
                             </span>
                         </div>

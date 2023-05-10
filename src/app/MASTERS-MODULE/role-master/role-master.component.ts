@@ -22,7 +22,7 @@ export class RoleMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   RowId:any;
   loading:boolean = false;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp =/^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
 
@@ -88,9 +88,12 @@ this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 onCheck() {
   this.rolemasterData.forEach( i => {
     if(i.rolename  === this.roleName ) {
-      this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Role name is already exist, Please input different name' }];
-        this.roleName = null;
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Role Name Already Exist, Please input different name'
+      });
         setTimeout(() => this.responseMsg = [], 3000);
+        this.roleName = null;
+
     }
   })
 }

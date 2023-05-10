@@ -26,7 +26,7 @@ export class CityMasterComponent implements OnInit {
   loading: boolean = false;
   statecode: any;
   responseMsg: Message[] = [];
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
   @ViewChild('f', { static: false }) _citymasterForm!: NgForm;
   constructor(private restapiservice: RestapiService,private messageService: MessageService,) { }
@@ -114,11 +114,10 @@ export class CityMasterComponent implements OnInit {
 
   }
   onCheck() {
-    this.citymasterData.forEach(i => {
-      if (i.cityname === this.cityName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'cityname name is already exist, Please input different name' }];
+    this.messageService.add({
+      key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'City Name Already Exist, Please input different name'
+    });
+      setTimeout(() => this.responseMsg = [], 3000);
         this.cityName = null;
       }
-    })
-  }
-}
+    }

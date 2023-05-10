@@ -25,7 +25,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   loading: boolean = false;
   newprojectcreationData: any[] = [];
   newprojectcreationCols: any;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   responseMsg: Message[] = [];
   RowId: any;
   userInfo: any;
@@ -129,8 +129,11 @@ export class NewprojectcreationMasterComponent implements OnInit {
   onCheck() {
     this.newprojectcreationData.forEach(i => {
       if (i.project_name === this.projectName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'project name is already exist, Please input different name' }];
-        this.projectName = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Project Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.projectName = null;
       }
     })
   }

@@ -172,7 +172,7 @@ public static readonly MainCategoryMaster = [
 ]
 public static readonly SubCategoryMaster = [
     { field: 'categoryname', header: 'CategoryName', align: 'left !important'},
-    {field:  'maincategorycode',header:'mainCategorycode',align:'left !important'},
+    {field:  'maincategoryname',header:'mainCategorycode',align:'left !important'},
     { field: 'flag', header: 'Status'},
 ]
 public static readonly ContactslistColumns=[

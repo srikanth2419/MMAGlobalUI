@@ -294,8 +294,10 @@ export class ContactsListComponent implements OnInit {
     this.data.forEach(i => {
       const email: string = i.mailid;
       if (email === this.mailId) {
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Email-ID is already exist' }];
-        setTimeout(() => this.responseMsg = [], 3000);
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Email-ID is already exist'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
         this.mailId = '';
       } else {
       }
@@ -304,8 +306,11 @@ export class ContactsListComponent implements OnInit {
   oncheck() {
     this.data.forEach(i => {
       if (i.username === this.userName) {
-        this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: ' Username already exists, Please enter valid Username' }];
-        this.userName = null;
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'User Name Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);       
+           this.userName = null;
       }
     })
   }
@@ -320,25 +325,34 @@ export class ContactsListComponent implements OnInit {
         if (last_str !== undefined && last_str.length > 1) {
           if (last_str[1].toLowerCase() === 'com' || last_str[1].toLowerCase() === 'in') {
           } else {
-            this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
-            setTimeout(() => this.responseMsg = [], 3000);      
+            this.messageService.add({
+              key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address'
+            });
+              setTimeout(() => this.responseMsg = [], 3000); 
           }
         } else {
-          this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
-          setTimeout(() => this.responseMsg = [], 3000);      
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address'
+          });
+            setTimeout(() => this.responseMsg = [], 3000); 
         }
       }else {
         this.mailId = null;
-        this.responseMsg = [{ severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address' }];
-        setTimeout(() => this.responseMsg = [], 3000);      
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'Enter valid email address'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);    
       }
         }}
 
         onphoneno() {
           this.contactlistData.forEach((i:any) => {
             if (i.phonenumber === this.phoneNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'phoneNumber is already exist, Please input different number' }];
-              this.phoneNumber = null;
+              this.messageService.add({
+                key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Phone Number Already Exist, Please input different name'
+              });
+                setTimeout(() => this.responseMsg = [], 3000);
+                this.phoneNumber = null;
             }
           })
         }
@@ -346,8 +360,11 @@ export class ContactsListComponent implements OnInit {
         onwhatsappno() {
           this.contactlistData.forEach((i:any) => {
             if (i.whatsappnumber === this.whatappNumber) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'whatsappNumber is already exist, Please input different number' }];
-              this.whatappNumber = null;
+              this.messageService.add({
+                key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Whats Number Already Exist, Please input different name'
+              });
+                setTimeout(() => this.responseMsg = [], 3000);
+                this.whatappNumber = null;
             }
           })
         }
@@ -355,8 +372,11 @@ export class ContactsListComponent implements OnInit {
         
           this.contactlistData.forEach((i:any) => {
             if (i.email_id === this.mailId) {
-              this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'email is already exist, Please input different name' }];
-              this.mailId = null;
+              this.messageService.add({
+                key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Email Id Already Exist, Please input different name'
+              });
+                setTimeout(() => this.responseMsg = [], 3000);
+                this.mailId = null;
             }
           })
         }

@@ -24,7 +24,7 @@ export class ExpensesCategoryMasterComponent implements OnInit {
   RowId:any;
   loading:boolean = false;
   responseMsg: Message[] = [];
-  block:RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block:RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
   
   constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
@@ -94,10 +94,14 @@ onClear(){
 onCheck() {
   this.expensescategorymasterData.forEach( i => {
     if(i.name  === this.name ) {
-      this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'Expensescategory name is already exist, Please input different name' }];
-        this.name = null;
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Expenses Name Already Exist, Please input different name'
+      });
         setTimeout(() => this.responseMsg = [], 3000);
+        this.name = null;
+
     }
   })
 }
 }
+
