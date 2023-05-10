@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Message, MessageService } from 'primeng/api';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
@@ -7,6 +7,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interface/user.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-newprojectcreation-master',
@@ -31,7 +32,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
   userInfo: any;
   logged_user!: User
    productionhouse:any;
-
+   @ViewChild('f', {static: false}) _projectctreationForm!: NgForm;
   constructor(private restapiservice: RestapiService, private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -59,7 +60,7 @@ export class NewprojectcreationMasterComponent implements OnInit {
       };
       this.restapiservice.post(Pathconstants.projectcreation_Post, params).subscribe(res => {
         if (res) {
-          this.onClear();
+          this.clearform();
           this.onView();
           this.messageService.clear();
           this.messageService.add({
@@ -85,13 +86,8 @@ export class NewprojectcreationMasterComponent implements OnInit {
     }
     
   }
-  onClear() {
-    this.projectName = null;
-    this.durationDay = null;
-    this.budget = null;
-    this.projectstartDate = null;
-    this.selectedType = null;
-    this.prodhouseName = null;
+  clearform() {
+    this._projectctreationForm.reset();
 
   }
 

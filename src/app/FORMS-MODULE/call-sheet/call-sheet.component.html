@@ -142,7 +142,7 @@
                         </div>
                         <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
                             <button pButton type="button" label="Next"  icon="pi pi-arrow-right" [disabled]="!c.valid || !c.dirty" (click)="onNext()"></button>&nbsp;
-                            <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClearcallinfo()"></button>
+                            <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="clearform()"></button>
                         </div>
                         
                         <div class="col-12 md:col-12 lg:col-12">
@@ -214,7 +214,7 @@
                                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
                                     <button pButton type="button" label="Next"  icon="pi pi-arrow-right" [disabled]="!l.valid || !l.dirty"  (click)="onNext()"></button>&nbsp;
                                     <button pButton type="button" label="Prev"  icon="pi pi-arrow-left"  (click)="onPrev()"></button>&nbsp;
-                                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClearlodginginfo()"></button>
+                                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="clearform()"></button>
                                     </div>
                             </div>
                            </form>
@@ -305,7 +305,7 @@
                                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
                                     <button pButton type="button" label="Save"  icon="pi pi-save" [disabled]="!t.valid || !t.dirty" (click)="onSavecallsheet()"></button>&nbsp;
                                     <button pButton type="button" label="Prev"  icon="pi pi-arrow-left"  (click)="onPrev()"></button>&nbsp;
-                                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onCleartransportinfo()"></button>
+                                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="clearform()"></button>
                                     </div>
                             </div>
                       </form>
