@@ -63,14 +63,17 @@ export class ContactsListComponent implements OnInit {
   statemaster: any = [];
   cityMaster: any = [];
   roleMaster: any = [];
+
   block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/ ;
   block1: RegExp = /^[^=<>\*%(){}$@#-_!+&?,|.-:;^'"~`?]/ ;
   blockmail: RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
+
   userName:any;
   logged_user!: User;
   prod_id: any;
 
   @ViewChild('f', { static: false }) _respondentForm!: NgForm;
+  pincode_max: any;
   constructor(private restapiService: RestapiService, private _masterService: MasterService, private authservice: AuthService,private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -88,6 +91,7 @@ export class ContactsListComponent implements OnInit {
   this.prod_id = this.logged_user.production_id;
   this.onView();
   console.log('contact prod id',this.prod_id)
+  this.pincode_max = 643253;
   }
 
   //dropdown
@@ -380,5 +384,14 @@ export class ContactsListComponent implements OnInit {
                 this.mailId = null;
             }
           })
+        }
+        validateFields() {
+          if (this.pincode !== null && this.pincode !== undefined) {
+             if (this.pincode > this.pincode_max) {
+            this._respondentForm.controls['_pincode'].setErrors({ 'incorrect': true });
+             } } 
+             else {
+            this._respondentForm.controls['_pincode'].setErrors({ 'incorrect': true });
+        }
         }
       }

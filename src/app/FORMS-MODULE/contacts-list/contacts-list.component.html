@@ -75,7 +75,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input name="_mailid" type="email"  (change)="emailValidationCheck()"  (input)="checkIfEmailExists()" [(ngModel)]="mailId" 
-                                (input)="oncheck()"  (change)="onCheck()"   pInputText>
+                                [pKeyFilter]="'blockmail'" (input)="oncheck()"  (change)="onCheck()"   pInputText>
                                 <label for="float-input">e-mail ID</label>
                             </span>
                         </div>
@@ -124,11 +124,23 @@
                                 <label for="_addr2">Address Line 2</label>
                             </span>
                         </div>
-                        <div class="field col-12 md:col-3 lg:col-2">
+                        <!-- <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="pcode" name="_pincode" pInputText [(ngModel)]="pincode"
                                     maxlength="6" [pKeyFilter]="'num'" required />
                                 <label for="_pincode">Pincode</label>
+                            </span>
+                        </div> -->
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" name="_pincode" pInputText [(ngModel)]="pincode"
+                                    appInputFormat="digitOnly" minlength="6" maxlength="6" (input)="validateFields()"
+                                    placeholder="Pincode" pattern="^6[0-4]\d{4}$" autocomplete="off" required>
+                                <label for="_pincode">Pincode</label>
+                            </span>
+                            <span *ngIf="(pincode != null && pincode !== undefined)">
+                                <span *ngIf="(f.controls['_pincode'].invalid)||(pincode>pincode_max)"
+                                    style="color: crimson;font-size: 12px;">Invalidpincode!</span>
                             </span>
                         </div>
 
@@ -159,7 +171,7 @@
                 </div>
                 <div #row5 class="col-12 md:col-12 lg:col-12 to-center">
                     <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
-                        (click)="onSave()"></button>&nbsp;
+                        (click)="onSave()" [disabled]="!f.valid || !f.dirty"></button>&nbsp;
                     <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
                 </div>
             </form>

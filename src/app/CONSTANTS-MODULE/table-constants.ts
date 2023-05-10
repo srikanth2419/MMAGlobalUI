@@ -43,6 +43,8 @@ export class TableConstants {
    
     public static readonly ShootingColums =[
         { field: 'project_name', header: 'ProjectName', align: 'left !important'},
+        { field: 'contactlist_name',header: 'ContactName',align: 'left !important'},
+        { field: 'contactlist_email',header: 'ContactEmail',align: 'left !important'},
         { field: 'scene', header: 'Scene', align: 'left !important'},
         { field: 'interior_exterior', header: 'Interior/Exterior', align: 'left !important'},
         { field: 'day_night', header: 'Day Night', align: 'left !important'},
@@ -145,6 +147,8 @@ public static readonly transportinfoColumns =[
     ];
     public static readonly callinfoColumns =[
         { field: 'projectname', header: 'ProjectName', align: 'right !important' },
+        { field: 'contactlist_name', header: 'ContactName', align: 'right !important'},
+        { field: 'contactlist_email', header: 'ContactlistEmail',align: 'right !important'},
         { field: 'rolename', header: 'Role', align: 'left !important' },
         { field: 'categoryname', header: 'Maincategory', align: 'left !important' },
         { field: 'subcategoryname', header: 'subcategory', align: 'left !important' },
