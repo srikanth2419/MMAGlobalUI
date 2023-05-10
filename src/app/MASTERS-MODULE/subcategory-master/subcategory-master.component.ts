@@ -117,7 +117,7 @@ export class SubcategoryMasterComponent implements OnInit {
     this.selectedType = null;
     this.mainCategorycode = 0;
     this.sino = 0;
-    this.selectedType=null;
+    this.maincategoryOptions=[];
   }
   onCheck() {
     this.subCategoryData.forEach(i => {

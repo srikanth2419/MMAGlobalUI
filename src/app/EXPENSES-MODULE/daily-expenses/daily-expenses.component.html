@@ -29,6 +29,13 @@
                                 <label for="_amount">Budget Amount</label>
                             </span>
                         </div>
+                        <div class="field col-12 md:col-3 lg:col-2">
+                            <span class="p-float-label">
+                                <input type="text" id="balanceamnt" name="_balamount" pInputText [(ngModel)]="balanceAmount"
+                                [pKeyFilter]="block"  [pKeyFilter]="'int'" required />
+                                <label for="_amount">Balance Amount</label>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </p-card>
@@ -40,7 +47,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="incoiceno" name="_invoiceno" pInputText
-                                    [(ngModel)]="invoiceNumber" required  [pKeyFilter]="block"  [pKeyFilter]="'int'" />
+                                    [(ngModel)]="invoiceNumber" required  [pKeyFilter]="block" />
                                 <label for="_invoiceno">Invoice Number</label>
                             </span>
                         </div>

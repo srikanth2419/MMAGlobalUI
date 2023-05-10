@@ -1,6 +1,7 @@
 <div class="col-12 md:col-12 lg:col-12">
-    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Call Sheet">
+        <p-messages [(value)]="responseMsg" [enableService]="false"
+        [hideTransitionOptions]="'500ms cubic-bezier(0.86, 0, 0.076, 1)'"></p-messages>
         <div class="col-12 md:col-12 lg:col-12">
             <form #c="ngForm" name="callinfoForm">
                 <p-tabView [(activeIndex)]="tabIndex">
@@ -287,7 +288,6 @@
                                             <label for="_pickupLocation">Pickup Location</label>
                                         </span>
                                     </div>
-                                   
                                     <div class="field col-12 md:col-3 lg:col-2">
                                         <span class="p-float-label">
                                             <input type="text" name="_dropLocation" pInputText

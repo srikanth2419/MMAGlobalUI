@@ -107,22 +107,22 @@ export class UserMasterComponent implements OnInit {
     }
   }
 
-  onClear() {
-    this.usernameEmailid = null;
-    this.selectedType = null;
-    this.rolenameOptions = null;
-    this.Password=null;
-    this.Id = 0;
+  // onClear() {
+  //   this.usernameEmailid = null;
+  //   this.selectedType = null;
+  //   this.rolenameOptions = null;
+  //   this.Password=null;
+  //   this.Id = 0;
 
-  }
+  // }
 
   onEdit(rowData: any) {
     this.Id = rowData.id;
     this.usernameEmailid = rowData.username_emailid;
     this.rolenameOptions = [{ label: rowData.rolename, value: rowData.roleid }];
+    this.roleName=rowData.roleid;
     this.Password=rowData.password;
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
-
   }
 
   checkMenu() {
