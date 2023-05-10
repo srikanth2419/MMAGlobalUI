@@ -43,6 +43,8 @@ export class TableConstants {
    
     public static readonly ShootingColums =[
         { field: 'project_name', header: 'ProjectName', align: 'left !important'},
+        { field: 'contactlist_name',header: 'ContactName',align: 'left !important'},
+        { field: 'contactlist_email',header: 'ContactEmail',align: 'left !important'},
         { field: 'scene', header: 'Scene', align: 'left !important'},
         { field: 'interior_exterior', header: 'Interior/Exterior', align: 'left !important'},
         { field: 'day_night', header: 'Day Night', align: 'left !important'},
