@@ -99,7 +99,7 @@ export class StateMasterComponent implements OnInit {
   onClear() {
     this.stateName = null;
     this.selectedType = null;
-    this.countryOptions = null;
+    this.countryOptions =[];
     this.statecode = 0;
     this.selectedType=null;
   }

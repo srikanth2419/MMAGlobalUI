@@ -42,7 +42,8 @@ export class DailyExpensesComponent implements OnInit {
   productionhouse:any;
   prod_id: any;
   minDate: any;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
+
   @ViewChild('f', {static: false}) _respondentForm!: NgForm;
 
   constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) { }
