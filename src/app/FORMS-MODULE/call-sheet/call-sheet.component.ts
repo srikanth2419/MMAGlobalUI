@@ -78,8 +78,8 @@ export class CallSheetComponent implements OnInit {
   userInfo: any;
   logged_user!: User
   prod_id: any;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/; 
-  tabIndex:number=0;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+    tabIndex:number=0;
   @ViewChild('c', {static: false}) _callinfoForm!: NgForm;
   @ViewChild('l', {static: false}) _lodginginfoForm!: NgForm;
   @ViewChild('t', {static: false}) _transportinfoForm!: NgForm;
