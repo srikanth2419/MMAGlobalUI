@@ -8,14 +8,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="firstname" name="_fname" pInputText [(ngModel)]="firstName"
-                                     [pKeyFilter]="'alpha'" required />
+                                     [pKeyFilter]="block" required />
                                 <label for="_fname">First Name</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="lastname" name="_lname" pInputText [(ngModel)]="lastName"
-                                    [pKeyFilter]="'alpha'" required />
+                                    [pKeyFilter]="block" required />
                                 <label for="_lname">Last Name</label>
                             </span>
                         </div>
@@ -113,14 +113,14 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr1" name="_addr1" pInputText [(ngModel)]="addressLine1"
-                                    [pKeyFilter]="'alpha'" required />
+                                    [pKeyFilter]="block1" required />
                                 <label for="_addr1">Address Line 1</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="addr2" name="_addr2" pInputText [(ngModel)]="addressLine2"
-                                    [pKeyFilter]="'alpha'" required />
+                                    [pKeyFilter]="block1" required />
                                 <label for="_addr2">Address Line 2</label>
                             </span>
                         </div>

@@ -63,8 +63,11 @@ export class ContactsListComponent implements OnInit {
   statemaster: any = [];
   cityMaster: any = [];
   roleMaster: any = [];
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
-  blockemail : RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
+
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/ ;
+  block1: RegExp = /^[^=<>\*%(){}$@#-_!+&?,|.-:;^'"~`?]/ ;
+  blockmail: RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
+
   userName:any;
   logged_user!: User;
   prod_id: any;
