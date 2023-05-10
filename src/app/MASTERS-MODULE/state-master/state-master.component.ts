@@ -100,6 +100,7 @@ export class StateMasterComponent implements OnInit {
     })
   }
 
+
   onEdit(rowData: any) {
     this.statecode = rowData.statecode;
     this.stateName = rowData.statename;

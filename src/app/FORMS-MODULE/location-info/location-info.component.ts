@@ -126,17 +126,14 @@ export class LocationInfoComponent implements OnInit {
   }
   clearform() {
   this._locationinfoForm.reset();
+  this.countryOptions=[];
+  this.stateOptions=[];
+  this.cityOptions=[];
+  this.locationmanagerOptions=[];
+  this.locationEPOptions=[];
   }
  onView() {
-  // this.restApiService.get(Pathconstants.LocationInfo_Get).subscribe(res => {
-  //   this.data = res;
-  //   if (res) {
-  //     res.forEach((i: any) => {
-  //       i.flag = (i.flag == true) ? 'Active' : 'InActive',
-  //       i.parking_facility =(i.parking_facility == true) ? 'Yes' : 'No'
-  //     })
-  //   }
-  // })
+  
   const params = {
     "production_id" : this.prod_id
   };
@@ -201,29 +198,7 @@ export class LocationInfoComponent implements OnInit {
               break;
   }
 }
-  onClear() {
-    this._locationinfoForm.form.reset();
-    
-    // this.locationName = null;
-    // this.locationManager = null;
-    // this.locationEP = null;
-    // this.country = null;
-    // this.locationmanagerOptions = [];
-    // this.locationEPOptions = [];
-    // this.countryOptions = [];
-    // this.stateOptions = [];
-    // this.mobileNo = null;
-    // this.state = null;
-    // this.cityOptions = [];
-    // this.city = null;
-    // this.addressLine1 = null;
-    // this.addressLine2 = null;
-    // this.pincode = null;
-    // this.parkingNote = null;
-    // this.parkingFacility = null;
-    // this.flag = null;
-  }
-
+ 
   onEdit(row: any)
   {
     this.slno = row.slno,

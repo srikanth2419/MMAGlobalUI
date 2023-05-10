@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Header, Message, MessageService, SelectItem } from 'primeng/api';
 import { ConnectableObservable } from 'rxjs';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
@@ -9,6 +9,7 @@ import { MasterService } from 'src/app/services/master.service';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -59,7 +60,7 @@ export class ShootingScheduleComponent implements OnInit {
   userInfo: any;
   logged_user!: User;
   prod_id:any;
-
+  @ViewChild('f', { static: false }) _shootingsheduleForm!: NgForm;
   constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) {
   }
 
@@ -165,7 +166,7 @@ export class ShootingScheduleComponent implements OnInit {
       };
       this.restapiservice.post(Pathconstants.shooting_schedule_Post, params).subscribe(res => {
         if (res) {
-          this.onClear();
+          this.clearform();
           this.onView();
           this.messageService.clear();
           this.messageService.add({
@@ -210,21 +211,14 @@ export class ShootingScheduleComponent implements OnInit {
     console.log('dd',value);
   }
 
-  onClear() {
-     this.RowId = 0;
-     this.projectNameOptions=null;
-     this.scene=null;
-     this.design = null;
-     this.designOptions=[];
-     this.dayNight = null;
+  clearform() {
+     this._shootingsheduleForm.reset();
+     this.projectNameOptions=[];
      this.dayNightOptions=[];
-     this.scheduleDay=null;
-     this.statusOptions=null;
-     this.maincategoryOptions = null;
-     this.subcategoryOptions = null;
+     this.statusOptions=[];
+     this.maincategoryOptions = [];
+     this.subcategoryOptions = [];
      this.selectedType = null;
-     this.scheduleDate = null;
-     this.contactid =null;
      this.onAdd();
   }
 

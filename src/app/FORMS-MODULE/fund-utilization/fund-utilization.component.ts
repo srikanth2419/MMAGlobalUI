@@ -42,7 +42,7 @@ export class FundUtilizationComponent implements OnInit {
   logged_user!: User
   productionhouse:any;
 
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  @ViewChild('f', {static: false}) _fundutiliztionForm!: NgForm;
   prod_id: any;
   messageService: any;
   
@@ -85,7 +85,7 @@ export class FundUtilizationComponent implements OnInit {
       };
       this.restapiservice.post(Pathconstants.fundutilization_Post, params).subscribe(res => {
         if (res) {
-          this.onClear();
+          this.clearform();
           this.onView();
           this.messageService.clear();
           this.messageService.add({
@@ -147,25 +147,13 @@ export class FundUtilizationComponent implements OnInit {
     }
   }
 
-  onClear() {
-    this.personName = null;
-    this.projectID = null;
-    this.budgetAmount = 0;
-    this.paymentBy = null;
-    this.amount = null;
-    this.dayCall = null;
-    this.totalAmount = null;
+  clearform() {
+    this._fundutiliztionForm.reset();
+    this.projectNameOptions=[];
+    this.personNameOptions=[];
+    this.paymentByOptions=[];
   }
-
   onView() {
-    // this.restapiservice.get(Pathconstants.fundutilization_Get).subscribe(res => {
-    //   this.FundUtilizationData = res;
-    //   if (res) {
-    //     res.forEach((i: any) => {
-
-    //     })
-    //   }
-    // })
 
     const params = {
       "production_id" : this.prod_id

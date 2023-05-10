@@ -125,7 +125,7 @@ export class RegistrationComponent implements OnInit {
     if(res!== null && res!== undefined)
     {
       this.onView();
-      this.onClear();
+      this.clearform();
       this._RegistrationForm.reset();
       this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
       setTimeout(() => this.responseMsg = [], 3000);
@@ -165,21 +165,11 @@ onEdit(rowData:any){
   this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
 }
-onClear(){
-  this.RowId =0;
-  this.productionHouseName = '';
-  this.firstName ='';
-  this.lastName ='';
-  this.dob =null;
-  this.mobileNo =null;
-  this.mailId ='';
-  this.password ='';
-  this.country =null;
-  this.state =null;
-  this.city =null;
-  this.addressLine1='';
-  this.addressLine2='';
-  this.pincode =null;
+clearform(){
+  this._RegistrationForm.reset();
+  this.countryOptions=[];
+  this.cityOptions=[];
+  this.stateOptions=[];
 }
 checkIfEmailExists() {
   this.data.forEach(i => {

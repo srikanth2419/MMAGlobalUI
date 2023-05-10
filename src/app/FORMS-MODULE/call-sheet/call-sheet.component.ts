@@ -78,8 +78,8 @@ export class CallSheetComponent implements OnInit {
   userInfo: any;
   logged_user!: User
   prod_id: any;
-  block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/; 
-  tabIndex:number=0;
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+    tabIndex:number=0;
   @ViewChild('c', {static: false}) _callinfoForm!: NgForm;
   @ViewChild('l', {static: false}) _lodginginfoForm!: NgForm;
   @ViewChild('t', {static: false}) _transportinfoForm!: NgForm;
@@ -209,7 +209,7 @@ const params=   //call character
       if (res) {
         this.clearform();
         this.onView();
-        this.onClearcallinfo();
+        this. clearform();
         this._callinfoForm.reset();
         this.responseMsg = [{ severity: ResponseMessage.SuccessSeverity, detail: ResponseMessage.SuccessMessage }];
         setTimeout(() => this.responseMsg = [], 3000);
@@ -237,6 +237,14 @@ const params=   //call character
     }
     clearform() {
     this._callinfoForm.reset();
+    this.projectNameOptions=[];
+    this.roleOptions=[];
+    this.locationOptions=[];
+    this.mainCategoryOptions=[];
+    this.subCategoryOptions=[];
+    this._lodginginfoForm.reset();
+    this._transportinfoForm.reset();
+    this.passengerNameOptions=[];
     }
   getContactId() {            //get selected fields contact id as a string array
     var arr:any = [];
@@ -381,35 +389,35 @@ onAdd() {
         this.maincategorynew.push ({'maincategoryname':i.maincategoryname, 'subcategoryname': i.subcategoryname,'rolename' :i.rolename,'phonenumber':i.phonenumber,'first_name':i.first_name, 'contactid':i.slno});
       }})
     })}
-    onClearcallinfo(){
-      this.Id=0;
-      this.projectNameOptions=null;
-      this.roleOptions=null;
-      this.generalCallTime=null;
-      this.date=null;
-      this.generalCallTime=null;
-      this.shootingCallTime=null;
-      this.locationOptions=null;
-      this.phoneNumber=null;
-      this.mainCategoryOptions=null;
-      this.subCategoryOptions=null;
-      this.selectedType = null;
-      this.onAdd();
-    }
+    // onClearcallinfo(){
+    //   this.Id=0;
+    //   this.projectNameOptions=null;
+    //   this.roleOptions=null;
+    //   this.generalCallTime=null;
+    //   this.date=null;
+    //   this.generalCallTime=null;
+    //   this.shootingCallTime=null;
+    //   this.locationOptions=null;
+    //   this.phoneNumber=null;
+    //   this.mainCategoryOptions=null;
+    //   this.subCategoryOptions=null;
+    //   this.selectedType = null;
+    //   this.onAdd();
+    // }
 
-      onClearlodginginfo(){
-      this.locationName=null;
-      this.address=null;
-      this.note=null;
-    }
-      onCleartransportinfo(){
-      this.driverName=null;
-      this.pickupTime=null;
-      this.pickupLocation=null;
-      this.dropLocation=null;
-      this.passengerName=null;
+    //   onClearlodginginfo(){
+    //   this.locationName=null;
+    //   this.address=null;
+    //   this.note=null;
+    // }
+    //   onCleartransportinfo(){
+    //   this.driverName=null;
+    //   this.pickupTime=null;
+    //   this.pickupLocation=null;
+    //   this.dropLocation=null;
+    //   this.passengerName=null;
      
-    }
+    // }
     oncheck(){
       this.data.forEach( i => {
         if(i.maincategory_id == this.mainCategory.value && i.subcategory_id == this.subCategory.value)  {

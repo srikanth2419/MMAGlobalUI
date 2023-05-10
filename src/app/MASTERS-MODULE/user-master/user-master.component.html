@@ -2,7 +2,7 @@
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="User Master">
         <div class="col-12 md:col-12 lg:col-12">
-            <form #f="ngForm" name="User Master">
+            <form #f="ngForm" name="UserMaster">
                 <div #row1 class="col-12 md:col-12 lg:col-12">
                     <div class="p-fluid grid">
                         <div class="field col-12 md:col-3 lg:col-3">
@@ -68,7 +68,11 @@
                 <div #row4 class="col-12 md:col-12 lg:col-12 to-center">
                     <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
                         [disabled]="!f.valid || !f.dirty" (click)="onSubmit()"></button>&nbsp;
+<<<<<<< HEAD
                     <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="clearform()"></button>
+=======
+                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)=" clearform()"></button>
+>>>>>>> 8de04609c3f2cdbca014ca8715dc7bad656d4c5f
                 </div>
             </form>
         </div>
