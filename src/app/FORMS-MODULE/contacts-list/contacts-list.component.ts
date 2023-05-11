@@ -400,5 +400,4 @@ export class ContactsListComponent implements OnInit {
              else {
             this._contactlistForm.controls['_pincode'].setErrors({ 'incorrect': true });
         }
-        }
-      }
+      }}
