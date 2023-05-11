@@ -45,7 +45,7 @@ export class DailyExpensesComponent implements OnInit {
   minDate: any;
   block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  @ViewChild('f', {static: false}) _dailyExpensesForm!: NgForm;
 
   constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) { }
 
@@ -140,7 +140,9 @@ this.restapiservice.post(Pathconstants.dailyexpenses_Post, params).subscribe(res
 })
 }
 clearform() {
-this._respondentForm.reset();
+this._dailyExpensesForm.reset();
+this.projectOptions=[];
+this.expensesOptions=[];
 }
 onView(){
   // })
@@ -169,16 +171,7 @@ onEdit(rowData:any){
   this.amount=rowData.amount;
 
 }
-onClear(){
-    this.RowId=0;
-    this.projectOptions = null;
-    this.budgetAmount = null;
-    this.balanceAmount=null;
-    this.date = null;
-    this.invoiceNumber = null;
-    this.expensesOptions = null;
-    this.amount = null;
-}
+
   checkBudgetAmount() {
     if (this.budgetAmount !== null && this.budgetAmount !== undefined && this.amount !== undefined && this.amount !== null) {
       if (this.amount > this.budgetAmount) {

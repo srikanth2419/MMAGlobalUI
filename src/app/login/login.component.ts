@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         });
       } else {
         this.messageService.add({
-          key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: 'response.item2'
+          key: 't-msg', severity: ResponseMessage.ErrorSeverity, detail: response.item2
         });
           setTimeout(() => this.responseMsg = [], 3000);
         

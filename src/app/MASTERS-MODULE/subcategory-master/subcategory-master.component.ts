@@ -29,7 +29,7 @@ export class SubcategoryMasterComponent implements OnInit {
 
   block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
-  @ViewChild('f', { static: false }) _respondentForm!: NgForm;
+  @ViewChild('f', { static: false }) _subcategoryForm!: NgForm;
 
   constructor(private restApiService: RestapiService, private _masterService: MasterService,private messageService: MessageService) {
   }
@@ -89,7 +89,8 @@ export class SubcategoryMasterComponent implements OnInit {
     })
   }
   clearform() {
-    this._respondentForm.reset();
+    this._subcategoryForm.reset();
+    this.maincategoryOptions=[];
   }
   onEdit(rowData: any) {
     console.log('n',this.mainCategorycode)
@@ -111,14 +112,6 @@ export class SubcategoryMasterComponent implements OnInit {
     })
   }
 
-
-  onClear() {
-    this.categoryName = null;
-    this.selectedType = null;
-    this.mainCategorycode = 0;
-    this.sino = 0;
-    this.maincategoryOptions=[];
-  }
   onCheck() {
     this.subCategoryData.forEach(i => {
       if (i.categoryname === this.categoryName) {

@@ -89,11 +89,7 @@ export class UnionMasterComponent implements OnInit {
     this.regNumber = rowData.registernumber;
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
   }
-  onClear() {
-    this.unionName = null;
-    this.regNumber = null;
-    this.selectedType = null;
-  }
+  
   checkUnionName() {
     this.data.forEach(i => {
       if (i.unionname === this.unionName) {

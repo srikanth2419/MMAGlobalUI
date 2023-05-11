@@ -2,7 +2,7 @@
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Daily Expenses">
         <div class="col-12 md:col-12 lg:col-12">
-            <form #f="ngForm" name="dailyexpenses">
+            <form #f="ngForm" name="dailyExpenses">
             <div>Project Selection</div>
             <p-card>
                 <div #tab1 class="col-12 md:col-12 lg:col-12">
@@ -69,7 +69,7 @@
                 </div>
                 <div class="field col-12 md:col-12 lg:col-12 to-center">
                     <button pButton type="button" label="Save" icon="pi pi-save" [disabled]="!f.valid || !f.dirty" (click)="onSave()"></button>&nbsp;
-                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="onClear()"></button>
+                    <button pButton type="button" label="Clear" icon="pi pi-trash" (click)="clearform()"></button>
 
                 </div>
             </p-card>
@@ -93,22 +93,24 @@
                         </ng-template>
                         <ng-template pTemplate="header" let-columns>
                             <tr>
+                                <th>Edit</th>
                                 <th>S.No:</th>
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
-                                <th>Edit</th>
+                                
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                             <tr>
+                                <td>
+                                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
+                                </td>
                                 <td>{{rowIndex+1}}</td>
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
-                                <td>
-                                    <p-button icon="pi pi-pencil" (onClick)="onEdit(rowData)"></p-button>
-                                </td>
+                               
                             </tr>
                         </ng-template>
             </p-table>

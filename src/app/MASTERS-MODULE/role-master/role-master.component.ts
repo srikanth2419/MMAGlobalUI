@@ -23,7 +23,7 @@ export class RoleMasterComponent implements OnInit {
   RowId:any;
   loading:boolean = false;
   block: RegExp =/^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  @ViewChild('f', {static: false}) _roleMasterForm!: NgForm;
   constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class RoleMasterComponent implements OnInit {
   })
 }
 clearform() {
-  this._respondentForm.reset();
+  this._roleMasterForm.reset();
 }
 onView(){
   this.restapiservice.get(Pathconstants.rolemaster_Get).subscribe(res => {this.rolemasterData = res
@@ -74,12 +74,7 @@ onView(){
     }
   })
 }
-onClear(){
-  
-  this.roleName = null;
-  this.selectedType = null;
-  this.RowId = 0;
-}
+
 onEdit(rowData:any){
 this.RowId=rowData.roleid;
 this.roleName=rowData.rolename;

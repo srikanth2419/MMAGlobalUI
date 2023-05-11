@@ -110,6 +110,9 @@ export class MenuMasterComponent implements OnInit {
   }
   clearform() {
     this._menumasterForm.reset();
+    this.roleOptions=[];
+    this.parentIdOptions=[];
+    this.prioritiesOptions=[];
   }
 //
   onView() {
@@ -145,33 +148,12 @@ export class MenuMasterComponent implements OnInit {
         this.parentIdOptions = parentSelection;
         this.parentIdOptions.unshift({ label: '-Select', value: 0 });
         break;
-      // case 'P':
-      //   this.prioritiesOptions.forEach((p: any) => {
-      //     prioritySelection.push({ label: p.label, value: p.value });
-      //   })
-      //   this.prioritiesOptions = prioritySelection;
-      //   this.prioritiesOptions.unshift({ label: '-Select', value: null });
-      //   break;
+     
     }
-  }
-  onClear() {
-    this.roleId = null;
-    this.parentId = null;
-    this.name = null;
-    this.icon = null;
-    this.url = null;
-    this.priorities = null;
-    this.selectedType = null;
-    this.roleOptions = [];
-    this.parentIdOptions = [];
-    this.menuId = 0;
   }
 
   onEdit(row: any) {
-    // if(row.parentid === 0){
-    // }else{
-    //   this.disableInput = false;
-    // }
+   
     this.menuId = row.menuid;
     this.roleOptions = [{ label: row.rolename, value: row.roleid }];
     this.parentIdOptions = [{ label: row.parentname, value: row.parentid }];
@@ -201,13 +183,4 @@ export class MenuMasterComponent implements OnInit {
   
   
 
-  // checkUrl() {
-  //   this.data.forEach(i => {
-  //     if (i.url === this.url) {
-  //       this.responseMsg = [{ severity: ResponseMessage.WarnSeverity, detail: 'URL already exist, Please input different name' }];
-  //       setTimeout(() => this.responseMsg = [], 2000)
-  //       this.url = null;
-  //     }
-  //   })
-  // }
-
+  

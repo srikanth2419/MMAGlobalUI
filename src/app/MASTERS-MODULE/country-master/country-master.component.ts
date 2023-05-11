@@ -22,7 +22,7 @@ export class CountryMasterComponent implements OnInit {
   data:any;
   responseMsg: Message[] = [];
   block:RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
-  @ViewChild('f', {static: false}) _respondentForm!: NgForm;
+  @ViewChild('f', {static: false}) _countryForm!: NgForm;
   constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
   ngOnInit(): void {
     this.onView();
@@ -61,7 +61,7 @@ onSave(){
 })
 }
 clearform() {
-this._respondentForm.reset();
+this._countryForm.reset();
 }
 onView(){
   this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => {this.countrymasterData = res
@@ -72,11 +72,7 @@ onView(){
     }
   })
 }
-onClear(){
-  this.countryName = null;
-  this.selectedType = null;
-  this.RowId = 0;
-}
+
 onEdit(rowData:any){
   this.RowId=rowData.countrycode;
   this.countryName=rowData.countryname;
