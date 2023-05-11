@@ -47,7 +47,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="incoiceno" name="_invoiceno" pInputText
-                                    [(ngModel)]="invoiceNumber" required  [pKeyFilter]="block" />
+                                    [(ngModel)]="invoiceNumber" required  [pKeyFilter]="'alphanum'" />
                                 <label for="_invoiceno">Invoice Number</label>
                             </span>
                         </div>

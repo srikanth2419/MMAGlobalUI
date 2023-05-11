@@ -126,11 +126,12 @@ public static readonly RegistrationColumns =[
 ];
 public static readonly DailyexpensesColumns =[
       { field: 'projectname', header: 'Projectname', align: 'right !important' },
-      { field: 'budget_amount', header: 'Budget Amount', align: 'left !important' },
-      { field: 'date', header: 'Date', align: 'left !important' },
+     // { field: 'budget_amount', header: 'Budget Amount', align: 'left !important' },
+      { field: 'balance_amount', header: 'Balance Amount', align: 'left !important'},
       { field: 'invoice_number', header: 'Invoice No', align: 'left !important' },
       { field: 'name', header: 'Expenses category', align: 'left !important' },
-      { field: 'amount', header: 'Amount', align: 'left !important' },
+      { field: 'amount', header: 'Spend Amount', align: 'left !important' },
+      { field: 'date', header: 'Date', align: 'left !important' },
 ];
 
 public static readonly lodginginfoColumns =[

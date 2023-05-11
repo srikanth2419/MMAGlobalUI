@@ -66,7 +66,7 @@
                                     maxlength="10" pattern="^[6789]\d{9,9}$"
                                     title="Phone number starts with 6-9 and remaing 9 digit with 0-9"
                                  autocomplete="off" required>
-                                <label for="_mobno">phone Number</label>
+                                <label for="_mobno">Phone Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
@@ -194,7 +194,7 @@
                     <div class="lg:col-10 no-pad-top no-pad-btm">
                         <span class="p-input-icon-left p-ml-auto">
                             <i class="pi pi-search"></i>
-                            <input #searchInput pInputText type="text"
+                            <input #searchInput pInputText type="text" [pKeyFilter]="block"
                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                         </span>
                     </div>
