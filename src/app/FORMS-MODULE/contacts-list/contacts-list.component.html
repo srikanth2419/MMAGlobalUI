@@ -61,7 +61,7 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="phoneno" name="_phoneno" pInputText [(ngModel)]="phoneNumber"
-                                    maxlength="10" [pKeyFilter]="'num'"  (input)="onphoneno()"
+                                    [pKeyFilter]="'num'"  (input)="onphoneno()"
                                     appInputFormat="digitOnly" minlength="10"
                                     maxlength="10" pattern="^[6789]\d{9,9}$"
                                     title="Phone number starts with 6-9 and remaing 9 digit with 0-9"
@@ -73,7 +73,7 @@
                             <span class="p-float-label">
                                 <input type="text" id="whatappno" name="_whatappno" pInputText
                                     [(ngModel)]="whatappNumber" 
-                                    maxlength="10" [pKeyFilter]="'num'"  (input)="onphoneno()"
+                                    [pKeyFilter]="'num'"  (input)="onwhatsappno()"
                                     appInputFormat="digitOnly" minlength="10"
                                     maxlength="10" pattern="^[6789]\d{9,9}$"
                                     title="Phone number starts with 6-9 and remaing 9 digit with 0-9"

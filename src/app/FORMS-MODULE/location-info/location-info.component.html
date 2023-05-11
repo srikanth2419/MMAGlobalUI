@@ -91,7 +91,12 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="mobno" name="_mobno" pInputText [(ngModel)]="mobileNo"
-                                    [pKeyFilter]="'int'" maxlength="10" required />
+                                    [pKeyFilter]="'int'" 
+                                    [pKeyFilter]="'num'"  (input)="onphoneno()"
+                                    appInputFormat="digitOnly" minlength="10"
+                                    maxlength="10" pattern="^[6789]\d{9,9}$"
+                                    title="Phone number starts with 6-9 and remaing 9 digit with 0-9"
+                                 autocomplete="off" required>
                                 <label for="_mobno">Mobile No</label>
                             </span>
                         </div>

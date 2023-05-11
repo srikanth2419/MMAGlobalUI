@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Message, SelectItem } from 'primeng/api';
+import { Message, MessageService, SelectItem } from 'primeng/api';
 import { Observable, observable } from 'rxjs';
 import { ResponseMessage } from '../CONSTANTS-MODULE/message-constants';
 import { Pathconstants } from '../CONSTANTS-MODULE/pathconstants';
@@ -53,7 +53,8 @@ export class RegistrationComponent implements OnInit {
   @ViewChild('f', {static: false}) _RegistrationForm!: NgForm;
   pincode_max: any;
   obj: any;
-  constructor(private restapiservice: RestapiService,private _masterService: MasterService) { 
+  constructor(private restapiservice: RestapiService,private _masterService: MasterService,private messageService: MessageService)  
+   { 
     // let masterData:any =new Observable<any[]>();
    this.masterData=this._masterService.invokeMasterData();
     // masterData.subscribe();
@@ -225,5 +226,17 @@ validateFields() {
      else {
     this._RegistrationForm.controls['_pincode'].setErrors({ 'incorrect': true });
 }
+}
+
+onphoneno() {
+  this.registrationData.forEach((i:any) => {
+    if (i.mobile_number === this.mobileNo) {
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Phone Number Already Exist, Please input different name'
+      });
+        setTimeout(() => this.responseMsg = [], 3000);
+        this.mobileNo = null;
+    }
+  })
 }
 }
