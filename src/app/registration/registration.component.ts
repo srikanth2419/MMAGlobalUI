@@ -49,7 +49,7 @@ export class RegistrationComponent implements OnInit {
   userName:any;
   block: RegExp = /^[^-=<>*%()^{}$@#_!+0-9&?,\s~`|.:;'"?/]/;
   blockemail : RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
-  blockadd :RegExp = /^[^-=<>*%()^{}$#!+&?\s~`|;'"?/]/;
+  blockadd :RegExp = /^[^-=<>\*%()^{}$#!+&?\s~`|;'"?]/;
   @ViewChild('f', {static: false}) _RegistrationForm!: NgForm;
   pincode_max: any;
   obj: any;

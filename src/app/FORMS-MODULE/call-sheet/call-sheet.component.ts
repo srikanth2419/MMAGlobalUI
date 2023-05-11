@@ -79,6 +79,8 @@ export class CallSheetComponent implements OnInit {
   logged_user!: User
   prod_id: any;
   block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+  blockadd :RegExp = /^[^-=<>\*%()^{}$#!+&?\s~`|;'"?]/;
+
     tabIndex:number=0;
   @ViewChild('c', {static: false}) _callinfoForm!: NgForm;
   @ViewChild('l', {static: false}) _lodginginfoForm!: NgForm;
@@ -245,6 +247,7 @@ const params=   //call character
     this._lodginginfoForm.reset();
     this._transportinfoForm.reset();
     this.passengerNameOptions=[];
+    this.onAdd();
     }
   getContactId() {            //get selected fields contact id as a string array
     var arr:any = [];

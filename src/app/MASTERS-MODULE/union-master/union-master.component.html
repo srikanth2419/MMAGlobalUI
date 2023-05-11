@@ -14,7 +14,7 @@
                         </div>
                         <div class="field col-12 md:col-3 lg:col-3">
                             <span class="p-float-label">
-                                <input type="text" name="_regnum"  [(ngModel)]="regNumber" [pKeyFilter]="'num'" (change)="checkRegno()"  
+                                <input type="text" name="_regnum"  [(ngModel)]="regNumber" [pKeyFilter]="blockRegno" (change)="checkRegno()"  
                                 pInputText  required />
                                 <label for="_regnum">Register Number</label>
                             </span>
@@ -43,7 +43,7 @@
                     <div class="lg:col-10 no-pad-top no-pad-btm">
                         <span class="p-input-icon-left p-ml-auto">
                             <i class="pi pi-search"></i>
-                            <input #searchInput pInputText type="text"
+                            <input #searchInput pInputText type="text" [pKeyFilter]="blockUnionname"
                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                         </span>
                     </div>
