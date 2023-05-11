@@ -25,7 +25,7 @@ export class StateMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   countrymasterData: any;
   loading: boolean = false;
-  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?|,.-:;^'"~`?]/; 
   @ViewChild('f', {static: false}) _stateForm!: NgForm;
  
   constructor(private restapiservice: RestapiService,private messageService: MessageService,private _masterService: MasterService) { }

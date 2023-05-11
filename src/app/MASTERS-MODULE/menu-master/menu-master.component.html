@@ -72,7 +72,7 @@
                 <div class="lg:col-10 no-pad-top no-pad-btm">
                     <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
-                        <input #searchInput pInputText type="text"
+                        <input #searchInput pInputText type="text" [pKeyFilter]="blockUrl"
                             (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                     </span>
                 </div>
