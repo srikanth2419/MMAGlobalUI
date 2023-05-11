@@ -78,7 +78,7 @@ export class CallSheetComponent implements OnInit {
   userInfo: any;
   logged_user!: User
   prod_id: any;
-  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   blockadd :RegExp = /^[^-=<>\*%()^{}$#!+&?\s~`|;'"?]/;
 
     tabIndex:number=0;
