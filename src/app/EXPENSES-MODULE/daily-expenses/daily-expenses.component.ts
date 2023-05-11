@@ -9,6 +9,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interface/user.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { bl } from '@fullcalendar/core/internal-common';
 
 @Component({
   selector: 'app-daily-expenses',
@@ -44,7 +45,7 @@ export class DailyExpensesComponent implements OnInit {
   prod_id: any;
   minDate: any;
   block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
-  //blockin:RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
+  blockin:RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
   @ViewChild('f', {static: false}) _dailyExpensesForm!: NgForm;
 
   constructor(private restapiservice: RestapiService,private _masterService: MasterService,private authservice: AuthService,private messageService: MessageService) { }
@@ -88,16 +89,31 @@ export class DailyExpensesComponent implements OnInit {
     }
   }
   check() { 
-    this.newprojectcreationData.forEach(i => {
-      if (i.project_id === this.projectName) {
-        this.newfundbudgetAmount = i.budget
-      }
-    });
-    this.budgetAmount = this.newfundbudgetAmount
+      this.newprojectcreationData.forEach(i => {
+        if (i.project_id === this.projectName) {
+          this.newfundbudgetAmount = i.budget
+        }
+      });
+      this.budgetAmount = this.newfundbudgetAmount;
+      this.balancecheck();
   }
-  balancecheck(){
-    
 
+  balancecheck(){
+    if(this.projectName !== null && this.projectName !== undefined && this.budgetAmount !== null && this.budgetAmount !== undefined){
+    var arr:any = [];
+    this.dailyexpensesData.forEach((i:any) => {
+      if(this.projectName == i.project_name){
+        arr.push(i.amount);   
+      }
+    })
+    var sum = arr.reduce((acc: any, cur: any) => acc + cur)
+    console.log('k', sum);
+    var blnc = this.budgetAmount - sum; 
+    this.balanceAmount = blnc;
+    console.log('l',blnc)
+  } else {
+
+  }
   }
 
 onSave(){
@@ -160,7 +176,7 @@ onView(){
 }
 onEdit(rowData:any){
   this.RowId=rowData.slno;
-  this.projectName=rowData.project_name;
+   this.projectName=rowData.project_name;
   this.projectOptions=[{ label: rowData.projectname, value: rowData.project_name }];
   this.budgetAmount=rowData.budget_amount;
   this.balanceAmount=rowData.balance_amount;
@@ -169,7 +185,7 @@ onEdit(rowData:any){
   this.expensesCategory=rowData.expenses_category;
   this.expensesOptions=[{ label: rowData.name, value: rowData.expenses_category }];
   this.amount=rowData.amount;
-
+this.balancecheck();
 }
 
   checkBudgetAmount() {
