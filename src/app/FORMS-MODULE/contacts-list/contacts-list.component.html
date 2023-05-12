@@ -61,21 +61,30 @@
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="phoneno" name="_phoneno" pInputText [(ngModel)]="phoneNumber"
-                                    maxlength="10" [pKeyFilter]="'num'"  (input)="onphoneno()" required />
-                                <label for="_mobno">phone Number</label>
+                                    [pKeyFilter]="'num'"  (input)="onphoneno()"
+                                    appInputFormat="digitOnly" minlength="10"
+                                    maxlength="10" pattern="^[6789]\d{9,9}$"
+                                    title="Phone number starts with 6-9 and remaing 9 digit with 0-9"
+                                 autocomplete="off" required>
+                                <label for="_mobno">Phone Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input type="text" id="whatappno" name="_whatappno" pInputText
-                                    [(ngModel)]="whatappNumber" maxlength="10" [pKeyFilter]="'num'" (input)="onwhatsappno()" />
+                                    [(ngModel)]="whatappNumber" 
+                                    [pKeyFilter]="'num'"  (input)="onwhatsappno()"
+                                    appInputFormat="digitOnly" minlength="10"
+                                    maxlength="10" pattern="^[6789]\d{9,9}$"
+                                    title="Phone number starts with 6-9 and remaing 9 digit with 0-9"
+                                 autocomplete="off" required>
                                 <label for="_mobno">Whatsapp Number</label>
                             </span>
                         </div>
                         <div class="field col-12 md:col-3 lg:col-2">
                             <span class="p-float-label">
                                 <input name="_mailid" type="email"  (change)="emailValidationCheck()"  (input)="checkIfEmailExists()" [(ngModel)]="mailId" 
-                                [pKeyFilter]="'blockmail'" (input)="oncheck()"  (change)="onCheck()"   pInputText>
+                                [pKeyFilter]="blockmail" (input)="oncheck()"  (change)="onCheck()"   pInputText>
                                 <label for="float-input">e-mail ID</label>
                             </span>
                         </div>
@@ -185,7 +194,7 @@
                     <div class="lg:col-10 no-pad-top no-pad-btm">
                         <span class="p-input-icon-left p-ml-auto">
                             <i class="pi pi-search"></i>
-                            <input #searchInput pInputText type="text"
+                            <input #searchInput pInputText type="text" [pKeyFilter]="block"
                                 (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search By Name" />
                         </span>
                     </div>

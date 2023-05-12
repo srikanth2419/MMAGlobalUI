@@ -23,7 +23,7 @@ export class UnionMasterComponent implements OnInit {
   data: any[] = [];
   loading: boolean = false;
   responseMsg: Message[] = [];
- // blockRegno: RegExp = /^[^=<>\*%()|{}$@#_!+&?,|.:;'`~"?^\s]/;  
+ blockRegno: RegExp = /^[^=<>\*%()|{}$@#_!+&?,|.:;'`~"?^\s]/;  
   blockUnionname: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
 
   @ViewChild('f', { static: false }) _unionmasterForm!: NgForm;

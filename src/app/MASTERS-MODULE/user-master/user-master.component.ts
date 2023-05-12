@@ -33,6 +33,8 @@ export class UserMasterComponent implements OnInit {
   LengthErrMsg: boolean = false;
   showMatchMsg: boolean = false;
   block: RegExp = /^[^-=<>*%()^{}$#!+0-9&?,\s~`|:;'"?/]/;
+  blockSearch: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,|.-:;^'"~`?]/;
+
   
 
   @ViewChild('f', { static: false }) _userForm!: NgForm;

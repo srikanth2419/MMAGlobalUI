@@ -227,4 +227,15 @@ export class LocationInfoComponent implements OnInit {
       this._locationinfoForm.controls['_pincode'].setErrors({ 'incorrect': true });
   }
   }
+  onphoneno() {
+    this.contactlistData.forEach((i:any) => {
+      if (i.phonenumber === this.mobileNo) {
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.WarnSeverity, detail: 'Phone Number Already Exist, Please input different name'
+        });
+          setTimeout(() => this.responseMsg = [], 3000);
+          this.mobileNo = null;
+      }
+    })
+  }
 }

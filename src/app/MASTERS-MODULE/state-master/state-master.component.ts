@@ -5,6 +5,7 @@ import { RestapiService } from 'src/app/services/restapi.service';
 import { Pathconstants } from 'src/app/CONSTANTS-MODULE/pathconstants';
 import { ResponseMessage } from 'src/app/CONSTANTS-MODULE/message-constants';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MasterService } from 'src/app/services/master.service';
 import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-state-master',
@@ -15,7 +16,7 @@ export class StateMasterComponent implements OnInit {
 
   stateName: any;
   country: any;
-  countryOptions: any;
+  countryOptions: SelectItem[] = [];
   selectedType: any;
   statemasterCols: any;
   statemasterData: any[] = [];
@@ -24,13 +25,15 @@ export class StateMasterComponent implements OnInit {
   responseMsg: Message[] = [];
   countrymasterData: any;
   loading: boolean = false;
-  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?,.-:;^'"~`?]/; 
+  block: RegExp = /^[^=<>\*%(){}$@#-_!+0-9&?|,.-:;^'"~`?]/; 
   @ViewChild('f', {static: false}) _stateForm!: NgForm;
-  constructor(private restapiservice: RestapiService,private messageService: MessageService) { }
+ 
+  constructor(private restapiservice: RestapiService,private messageService: MessageService,private _masterService: MasterService) { }
 
   ngOnInit(): void {
 
-    this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
+    //this.restapiservice.get(Pathconstants.countrymaster_Get).subscribe(res => { this.countrymasterData = res })
+    this.countrymasterData = this._masterService.getMaster('CM');
     this.onView();
     this.statemasterCols = TableConstants.statemasterCols;
   }
@@ -41,7 +44,7 @@ export class StateMasterComponent implements OnInit {
     switch (type) {
       case 'C':
         this.countrymasterData.forEach((c: any) => {
-          countrySelection.push({ label: c.countryname, value: c.countrycode });
+          countrySelection.push({ label: c.name, value: c.code });
         })
         this.countryOptions = countrySelection;
         this.countryOptions.unshift({ label: '-select', value: null });
@@ -86,8 +89,8 @@ export class StateMasterComponent implements OnInit {
    
     }
     clearform() {
-      this._stateForm.reset();
-      this.countryOptions=[];
+      this._stateForm.form.reset();
+      
     }
   onView() {
     this.restapiservice.get(Pathconstants.StateMasterDB_GET).subscribe(res => {
@@ -105,7 +108,7 @@ export class StateMasterComponent implements OnInit {
     this.statecode = rowData.statecode;
     this.stateName = rowData.statename;
     this.countryOptions = [{ label: rowData.countryname, value: rowData.countrycode }];
-    this.country={ label: rowData.countryname, value: rowData.countrycode };
+    this.country = { label: rowData.countryname, value: rowData.countrycode };
     this.selectedType = (rowData.flag === 'Active') ? 1 : 0;
 
   }
