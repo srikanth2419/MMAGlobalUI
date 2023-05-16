@@ -90,6 +90,7 @@ export class StateMasterComponent implements OnInit {
     }
     clearform() {
       this._stateForm.form.reset();
+      this.countryOptions=[];
       
     }
   onView() {

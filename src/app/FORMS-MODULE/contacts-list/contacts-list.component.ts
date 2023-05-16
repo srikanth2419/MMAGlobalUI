@@ -225,6 +225,7 @@ export class ContactsListComponent implements OnInit {
     this._contactlistForm.reset();
     this.maincategoryOptions=[];
     this.subcategoryOptions = [];
+    this.roleOptions =[];
     this.countryOptions=[];``
     this.stateOptions = [];
     this.cityOptions=[];
